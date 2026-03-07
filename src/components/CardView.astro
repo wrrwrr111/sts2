@@ -93,10 +93,7 @@ const openTagWithTitle = (tag: string, innerText: string) => {
   const key = innerText.trim().toLowerCase();
   const tipHtml = keywordTipHtmlMap.get(key) ?? "";
   if (!tipHtml) {
-    if (t === "b") return '<strong class="inline-block">';
-    if (t === "i") return '<em class="inline-block">';
-    if (t === "u") return '<span class="inline-block underline">';
-    return '<span class="inline-block">';
+    return openTag(tag);
   }
   const tipAttr = ` data-tip-html="${escapeAttr(tipHtml)}" class="inline-block relative cursor-help"`;
   if (t === "b") return `<strong${tipAttr}>`;
