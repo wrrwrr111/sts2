@@ -1,9 +1,22 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import eventsData from "../../../data/events.json";
+import charactersData from "../../../data/characters.json";
+import cardsData from "../../../data/cards.json";
+import relicsData from "../../../data/relics.json";
+import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
+import CardView from "../../components/CardView.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
+import {
+  createMentionResolver,
+  createMentionEntityResolver,
+  extractMentionCandidates,
+  type MentionEntity,
+} from "../../lib/entityMention";
+import type { Card } from "../../lib/cardModels";
+import type { PotionEntity, RelicEntity } from "../../lib/entityModels";
 
 type EventOption = {
   id: string;
@@ -20,22 +33,62 @@ type EventPage = {
   options?: EventOption[] | null;
 };
 
+type DialogueLine = {
+  order?: string | null;
+  speaker?: string | null;
+  text?: string | null;
+};
+
+type EventDialogueMap = Record<string, DialogueLine[] | null | undefined>;
+
 type EventItem = {
   id: string;
   name: string;
   name_zh?: string | null;
+  image_url?: string | null;
   type?: string | null;
   act?: string | null;
   description?: string | null;
   description_zh?: string | null;
   options?: EventOption[] | null;
   pages?: EventPage[] | null;
+  relics?: string[] | null;
+  dialogue?: EventDialogueMap | null;
+  dialogue_zh?: EventDialogueMap | null;
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const lang = getLangFromUrl(Astro.url);
 const isEn = lang === "en";
 const events = eventsData as EventItem[];
+const cards = cardsData as Card[];
+const relics = relicsData as RelicEntity[];
+const potions = potionsData as PotionEntity[];
+const characters = charactersData as Array<{
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  color?: string | null;
+}>;
+const relicById = new Map(relics.map((relic) => [relic.id, relic]));
+const cardById = new Map(cards.map((card) => [card.id, card]));
+const potionById = new Map(potions.map((potion) => [potion.id, potion]));
+const resolveMention = createMentionResolver({
+  base,
+  lang,
+  cards,
+  relics,
+  potions,
+});
+const resolveMentionEntity = createMentionEntityResolver({
+  base,
+  lang,
+  cards,
+  relics,
+  potions,
+});
+const formatEventText = (text?: string | null) =>
+  formatRelicText(text ?? "", base, { resolveMention });
 
 export const getStaticPaths = () =>
   (eventsData as EventItem[]).map((event) => ({
@@ -71,12 +124,178 @@ const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
 const canonical = new URL(withLang(`${base}/event/${event.id}`, lang), origin).toString();
+const normalizeImageUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  return url.replace("/static/images/", "/images/");
+};
+const getRelicImage = (relic: RelicEntity) =>
+  normalizeImageUrl(relic.image_url ?? null) ??
+  `/images/relics/${relic.id.toLowerCase()}.png`;
+const getPotionImage = (potion: PotionEntity) =>
+  normalizeImageUrl(potion.image_url ?? null) ??
+  `/images/potions/${potion.id.toLowerCase()}.png`;
+const getEventImage = (item: EventItem) => normalizeImageUrl(item.image_url ?? null);
+const getRelicDesc = (relic: RelicEntity) =>
+  pickText(lang, relic.description_zh, relic.description);
+const getPotionDesc = (potion: PotionEntity) =>
+  pickText(lang, potion.description_zh, potion.description);
+
+const relicRarityLabel: Record<string, string> = {
+  Ancient: isEn ? "Ancient" : "古代",
+  Common: isEn ? "Common" : "普通",
+  Uncommon: isEn ? "Uncommon" : "罕见",
+  Rare: isEn ? "Rare" : "稀有",
+  Event: isEn ? "Event" : "事件",
+  Starter: isEn ? "Starter" : "初始",
+  Shop: isEn ? "Shop" : "商店",
+  None: isEn ? "None" : "无",
+  Unknown: isEn ? "Unknown" : "未知",
+};
+const potionRarityLabel: Record<string, string> = {
+  Common: isEn ? "Common" : "普通",
+  Uncommon: isEn ? "Uncommon" : "罕见",
+  Rare: isEn ? "Rare" : "稀有",
+  Ancient: isEn ? "Ancient" : "古代",
+};
+const relicPoolLabel: Record<string, string> = {
+  shared: isEn ? "Shared" : "共享",
+};
+const characterNameById = new Map(
+  characters.map((character) => [
+    character.id.toUpperCase(),
+    pickText(lang, character.name_zh, character.name, character.id),
+  ]),
+);
+for (const character of characters) {
+  if (!character.color) continue;
+  relicPoolLabel[character.color] = pickText(
+    lang,
+    character.name_zh,
+    character.name,
+    character.id,
+  );
+}
+
+const normalizeDialogueProfileKey = (value: string) =>
+  value.toUpperCase().replace(/\s+/g, "_");
+const profileLabelOverrides: Record<string, string> = {
+  FIRST_VISIT: isEn ? "First Visit" : "初次到访",
+  RETURNING: isEn ? "Returning" : "再次到访",
+};
+const profileSortOrder = [
+  "IRONCLAD",
+  "SILENT",
+  "DEFECT",
+  "NECROBINDER",
+  "REGENT",
+  "FIRST_VISIT",
+  "RETURNING",
+];
+const rawDialogueMap = (isEn ? event.dialogue : (event.dialogue_zh ?? event.dialogue)) ?? null;
+const ancientProfiles = (() => {
+  if (!rawDialogueMap || Array.isArray(rawDialogueMap)) return [];
+  const entries = Object.entries(rawDialogueMap)
+    .map(([key, rawLines]) => {
+      const normalizedKey = normalizeDialogueProfileKey(key);
+      const lines = (rawLines ?? []).filter((line) => line && line.text);
+      const label =
+        profileLabelOverrides[normalizedKey] ??
+        characterNameById.get(normalizedKey) ??
+        key;
+      return {
+        key,
+        normalizedKey,
+        label,
+        lines,
+      };
+    })
+    .filter((entry) => entry.lines.length > 0);
+  return entries.sort((a, b) => {
+    const ai = profileSortOrder.indexOf(a.normalizedKey);
+    const bi = profileSortOrder.indexOf(b.normalizedKey);
+    const av = ai === -1 ? Number.MAX_SAFE_INTEGER : ai;
+    const bv = bi === -1 ? Number.MAX_SAFE_INTEGER : bi;
+    if (av !== bv) return av - bv;
+    return a.label.localeCompare(b.label);
+  });
+})();
+
+const mentionSources = [
+  pickText(lang, event.description_zh, event.description),
+  ...(event.options ?? []).flatMap((opt) => [
+    pickText(lang, opt.title_zh, opt.title),
+    pickText(lang, opt.description_zh, opt.description),
+  ]),
+  ...(event.pages ?? []).flatMap((page) => [
+    pickText(lang, page.description_zh, page.description),
+    ...((page.options ?? []).flatMap((opt) => [
+      pickText(lang, opt.title_zh, opt.title),
+      pickText(lang, opt.description_zh, opt.description),
+    ])),
+  ]),
+  ...ancientProfiles.flatMap((profile) =>
+    profile.lines.map((line) => line.text ?? ""),
+  ),
+].filter(Boolean);
+
+const relatedEntityMap = new Map<string, MentionEntity>();
+const addRelatedEntity = (entity: MentionEntity | null) => {
+  if (!entity) return;
+  relatedEntityMap.set(`${entity.type}:${entity.id}`, entity);
+};
+
+for (const text of mentionSources) {
+  for (const candidate of extractMentionCandidates(text)) {
+    addRelatedEntity(resolveMentionEntity(candidate));
+  }
+}
+
+for (const relicId of event.relics ?? []) {
+  const relic = relicById.get(relicId);
+  if (!relic) continue;
+  addRelatedEntity({
+    ...relic,
+    type: "relic",
+    href: withLang(`${base}/relic/${relic.id}`, lang),
+  });
+}
+
+const relatedCardIds = Array.from(relatedEntityMap.values())
+  .filter((item) => item.type === "card")
+  .map((item) => item.id);
+const relatedRelicIds = Array.from(relatedEntityMap.values())
+  .filter((item) => item.type === "relic")
+  .map((item) => item.id);
+const relatedPotionIds = Array.from(relatedEntityMap.values())
+  .filter((item) => item.type === "potion")
+  .map((item) => item.id);
+
+const relatedCards = relatedCardIds
+  .map((cardId) => cardById.get(cardId))
+  .filter((card): card is Card => Boolean(card));
+const relatedRelics = relatedRelicIds
+  .map((relicId) => relicById.get(relicId))
+  .filter((relic): relic is RelicEntity => Boolean(relic));
+const relatedPotions = relatedPotionIds
+  .map((potionId) => potionById.get(potionId))
+  .filter((potion): potion is PotionEntity => Boolean(potion));
+
+const hasRelatedEntities =
+  relatedCards.length > 0 || relatedRelics.length > 0 || relatedPotions.length > 0;
 
 const t = {
   back: isEn ? "Back to Events" : "返回事件",
   unknown: isEn ? "Unknown" : "未知",
   options: isEn ? "Options" : "选项",
   pages: isEn ? "Pages" : "事件页面",
+  related: isEn ? "Related Content" : "相关内容",
+  cards: isEn ? "Cards" : "卡牌",
+  relics: isEn ? "Relics" : "遗物",
+  potions: isEn ? "Potions" : "药剂",
+  ancientVariants: isEn ? "Character Variants" : "角色对话版本",
+  profile: isEn ? "Character" : "角色",
+  ancientSpeaker: isEn ? "Ancient" : "远古者",
+  characterSpeaker: isEn ? "Character" : "角色",
 };
 ---
 
@@ -92,7 +311,7 @@ const t = {
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
     <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
@@ -111,7 +330,8 @@ const t = {
         </div>
         <TopNav current="events" basePath={base} lang={lang} />
       </div>
-      <div class="w-full max-w-[820px] rounded-[18px] border border-white/10 bg-white/5 p-6">
+      <div class="w-full max-w-[820px] flex flex-col gap-4">
+        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
         <div class="flex items-start justify-between gap-4">
           <div>
             <div class="text-[20px] font-semibold text-[#fdf0d8]">{displayName}</div>
@@ -119,14 +339,77 @@ const t = {
               {(event.act ?? t.unknown).toUpperCase()} · {(event.type ?? "").toUpperCase()}
             </div>
           </div>
+          {getEventImage(event) && (
+            <div class="h-[92px] w-[92px] shrink-0 overflow-hidden rounded-[14px] border border-white/15 bg-black/30 p-2">
+              <img
+                class="h-full w-full object-contain"
+                src={`${base}${getEventImage(event)}`}
+                alt={displayName}
+                loading="lazy"
+              />
+            </div>
+          )}
         </div>
         <div
           class="mt-4 text-[13px] leading-[1.5] text-[#f2e5cd]"
-          set:html={formatRelicText(pickText(lang, event.description_zh, event.description), base)}
+          set:html={formatEventText(pickText(lang, event.description_zh, event.description))}
         />
+        </section>
+
+        {ancientProfiles.length > 0 && (
+          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+              {t.ancientVariants}
+            </div>
+            <div class="mt-3 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+              {t.profile}
+            </div>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {ancientProfiles.map((profile, idx) => (
+                <button
+                  type="button"
+                  data-ancient-profile-btn={profile.key}
+                  class:list={[
+                    "rounded-full border px-3 py-1 text-[12px] transition",
+                    idx === 0
+                      ? "border-white/40 bg-white/20 text-[#fdf0d8]"
+                      : "border-white/10 bg-white/5 text-[#cdd2e3] hover:border-white/25 hover:bg-white/10",
+                  ]}
+                  aria-pressed={idx === 0 ? "true" : "false"}
+                >
+                  {profile.label}
+                </button>
+              ))}
+            </div>
+            <div class="mt-3 grid gap-2">
+              {ancientProfiles.map((profile, idx) => (
+                <div
+                  data-ancient-profile-panel={profile.key}
+                  class:list={["grid gap-2", idx === 0 ? "" : "hidden"]}
+                >
+                  {profile.lines.map((line) => (
+                    <div class="rounded-[10px] border border-white/10 bg-black/25 px-3 py-2">
+                      <div class="text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                        {line.speaker === "ancient"
+                          ? t.ancientSpeaker
+                          : line.speaker === "character"
+                            ? profile.label
+                            : line.speaker ?? t.characterSpeaker}
+                      </div>
+                      <div
+                        class="mt-1 text-[12px] text-[#f2e5cd]"
+                        set:html={formatEventText(line.text)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {event.options && event.options.length > 0 && (
-          <div class="mt-5">
+          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.options}</div>
             <div class="mt-2 grid gap-2">
               {event.options.map((opt) => (
@@ -137,17 +420,17 @@ const t = {
                   {(pickText(lang, opt.description_zh, opt.description)) && (
                     <div
                       class="mt-1 text-[12px] text-[#f2e5cd]"
-                      set:html={formatRelicText(pickText(lang, opt.description_zh, opt.description), base)}
+                      set:html={formatEventText(pickText(lang, opt.description_zh, opt.description))}
                     />
                   )}
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {event.pages && event.pages.length > 0 && (
-          <div class="mt-6 border-t border-white/10 pt-5">
+          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.pages}</div>
             <div class="mt-3 grid gap-3">
               {event.pages.map((page) => (
@@ -158,7 +441,7 @@ const t = {
                   {(pickText(lang, page.description_zh, page.description)) && (
                     <div
                       class="mt-2 text-[12px] leading-[1.45] text-[#f2e5cd]"
-                      set:html={formatRelicText(pickText(lang, page.description_zh, page.description), base)}
+                      set:html={formatEventText(pickText(lang, page.description_zh, page.description))}
                     />
                   )}
                   {page.options && page.options.length > 0 && (
@@ -171,7 +454,7 @@ const t = {
                           {(pickText(lang, opt.description_zh, opt.description)) && (
                             <div
                               class="mt-1 text-[12px] text-[#f2e5cd]"
-                              set:html={formatRelicText(pickText(lang, opt.description_zh, opt.description), base)}
+                              set:html={formatEventText(pickText(lang, opt.description_zh, opt.description))}
                             />
                           )}
                         </div>
@@ -181,9 +464,142 @@ const t = {
                 </div>
               ))}
             </div>
-          </div>
+          </section>
+        )}
+
+        {hasRelatedEntities && (
+          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.related}</div>
+            <div class="mt-3 grid gap-3">
+              {relatedCards.length > 0 && (
+                <div>
+                  <div class="text-[11px] uppercase tracking-[0.2em] text-[#aeb3c5]">{t.cards}</div>
+                  <section class="mt-2 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-[15px]">
+                    {relatedCards.map((card) => (
+                      <div class="card-tile h-[253px] w-[180px]">
+                        <a class="block" href={withLang(`${base}/card/${card.id}`, lang)}>
+                          <CardView card={card} lang={lang} />
+                        </a>
+                      </div>
+                    ))}
+                  </section>
+                </div>
+              )}
+
+              {relatedRelics.length > 0 && (
+                <div>
+                  <div class="text-[11px] uppercase tracking-[0.2em] text-[#aeb3c5]">{t.relics}</div>
+                  <div class="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {relatedRelics.map((relic) => (
+                      <a
+                        href={withLang(`${base}/relic/${relic.id}`, lang)}
+                        class="relic-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+                      >
+                        <div class="flex items-center gap-3">
+                          <div class="h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2">
+                            <img
+                              class="h-full w-full object-contain"
+                              src={`${base}${getRelicImage(relic)}`}
+                              alt={pickText(lang, relic.name_zh, relic.name, relic.id)}
+                              loading="lazy"
+                            />
+                          </div>
+                          <div class="min-w-0 flex-1">
+                            <div class="text-[14px] font-semibold text-[#fdf0d8]">
+                              {pickText(lang, relic.name_zh, relic.name, relic.id)}
+                            </div>
+                            <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                              {(relicRarityLabel[relic.rarity ?? ""] ?? relic.rarity ?? t.unknown).toUpperCase()} · {(relicPoolLabel[relic.pool ?? ""] ?? relic.pool ?? "").toUpperCase()}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]"
+                          set:html={formatRelicText(getRelicDesc(relic), base)}
+                        />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {relatedPotions.length > 0 && (
+                <div>
+                  <div class="text-[11px] uppercase tracking-[0.2em] text-[#aeb3c5]">{t.potions}</div>
+                  <div class="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {relatedPotions.map((potion) => (
+                      <a
+                        href={withLang(`${base}/potion/${potion.id}`, lang)}
+                        class="potion-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+                      >
+                        <div class="flex items-center gap-3">
+                          <div class="h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2">
+                            <img
+                              class="h-full w-full object-contain"
+                              src={`${base}${getPotionImage(potion)}`}
+                              alt={pickText(lang, potion.name_zh, potion.name, potion.id)}
+                              loading="lazy"
+                            />
+                          </div>
+                          <div class="min-w-0 flex-1">
+                            <div class="text-[14px] font-semibold text-[#fdf0d8]">
+                              {pickText(lang, potion.name_zh, potion.name, potion.id)}
+                            </div>
+                            <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                              {(potionRarityLabel[potion.rarity ?? ""] ?? potion.rarity ?? t.unknown).toUpperCase()}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]"
+                          set:html={formatRelicText(getPotionDesc(potion), base)}
+                        />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
         )}
       </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  const profileButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-ancient-profile-btn]"),
+  );
+
+  const syncAncientProfile = (active: string) => {
+    document
+      .querySelectorAll<HTMLElement>("[data-ancient-profile-panel]")
+      .forEach((panel) => {
+        panel.classList.toggle(
+          "hidden",
+          (panel.dataset.ancientProfilePanel ?? "") !== active,
+        );
+      });
+
+    profileButtons.forEach((btn) => {
+      const isActive = (btn.dataset.ancientProfileBtn ?? "") === active;
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+      btn.classList.toggle("border-white/40", isActive);
+      btn.classList.toggle("bg-white/20", isActive);
+      btn.classList.toggle("text-[#fdf0d8]", isActive);
+      btn.classList.toggle("border-white/10", !isActive);
+      btn.classList.toggle("bg-white/5", !isActive);
+      btn.classList.toggle("text-[#cdd2e3]", !isActive);
+    });
+  };
+
+  if (profileButtons.length > 0) {
+    profileButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        syncAncientProfile(btn.dataset.ancientProfileBtn ?? "");
+      });
+    });
+    syncAncientProfile(profileButtons[0]?.dataset.ancientProfileBtn ?? "");
+  }
+</script>

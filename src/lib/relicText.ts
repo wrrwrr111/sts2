@@ -1,5 +1,12 @@
 const escapeHtml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const escapeAttr = (value: string) =>
+  value.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+
+type TextLink = { href: string };
+type FormatRelicTextOptions = {
+  resolveMention?: (text: string) => TextLink | null;
+};
 
 const openTag = (tag: string, arg?: string) => {
   const t = tag.toLowerCase();
@@ -30,6 +37,10 @@ const openTag = (tag: string, arg?: string) => {
     return '<span class="inline-block text-[#bfe5ff] uppercase tracking-[0.08em] text-[0.85em]">';
   if (t === "sine") return '<span class="inline-block animate-bounce">';
   if (t === "jitter") return '<span class="inline-block animate-pulse">';
+  if (t === "link") {
+    const href = arg ? escapeAttr(arg) : "#";
+    return `<a class="inline-block underline decoration-dotted underline-offset-2 hover:text-[#fff5df] transition-colors" href="${href}">`;
+  }
   return '<span class="inline-block">';
 };
 
@@ -38,12 +49,32 @@ const closeTag = (tag: string) => {
   if (t === "b") return "</strong>";
   if (t === "i") return "</em>";
   if (t === "u") return "</span>";
+  if (t === "link") return "</a>";
   return "</span>";
 };
 
-export const formatRelicText = (desc: string, basePath: string) => {
+export const formatRelicText = (
+  desc: string,
+  basePath: string,
+  options?: FormatRelicTextOptions,
+) => {
   if (!desc) return "";
-  const escaped = escapeHtml(desc);
+  const withMentions =
+    options?.resolveMention
+      ? desc.replace(
+          /\[(gold|aqua|blue|green|purple|orange|red|pink)\]([\s\S]*?)\[\/\1\]/gi,
+          (full, color, inner) => {
+            const content = String(inner ?? "");
+            if (!content.trim() || content.includes("[") || content.includes("\n")) {
+              return full;
+            }
+            const linked = options.resolveMention?.(content.trim());
+            if (!linked?.href) return full;
+            return `[${color}][link=${linked.href}]${content}[/link][/${color}]`;
+          },
+        )
+      : desc;
+  const escaped = escapeHtml(withMentions);
   return escaped
     .replace(/\[(passive|evoke)\]/gi, (_, key) => {
       const label = String(key).toUpperCase();
