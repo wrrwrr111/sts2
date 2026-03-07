@@ -1,0 +1,166 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import eventsData from "../../../data/events.json";
+import { formatRelicText } from "../../lib/relicText";
+import TopNav from "../../components/TopNav.astro";
+
+type EventOption = {
+  id: string;
+  title?: string | null;
+  title_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+};
+
+type EventPage = {
+  id: string;
+  description?: string | null;
+  description_zh?: string | null;
+  options?: EventOption[] | null;
+};
+
+type EventItem = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  type?: string | null;
+  act?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+  options?: EventOption[] | null;
+  pages?: EventPage[] | null;
+};
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const events = eventsData as EventItem[];
+
+export const getStaticPaths = () =>
+  (eventsData as EventItem[]).map((event) => ({
+    params: { id: event.id },
+  }));
+
+const { id } = Astro.params;
+const event = events.find(
+  (item) => item.id?.toLowerCase() === id?.toLowerCase(),
+);
+
+if (!event) {
+  return new Response("Not found", { status: 404 });
+}
+
+const displayName = event.name_zh ?? event.name ?? event.id;
+const rawDesc = (event.description_zh ?? event.description ?? "")
+  .replace(/\[\/?[a-zA-Z0-9_]+\]/g, "")
+  .replace(/\s+/g, " ")
+  .trim();
+const pageDescription = [
+  rawDesc,
+  event.act && `章节：${event.act}`,
+  event.type && `类型：${event.type}`,
+]
+  .filter(Boolean)
+  .join(" · ")
+  .slice(0, 160);
+const pageTitle = `${displayName} | 杀戮尖塔2 事件图鉴`;
+const origin =
+  Astro.site?.toString().replace(/\/$/, "") ??
+  new URL(Astro.request.url).origin;
+const canonical = new URL(`${base}/event/${event.id}`, origin).toString();
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+  </Fragment>
+  <main class='min-h-screen px-4 pb-[72px] pt-12 sm:px-[6vw]' data-base-path={base}>
+    <div class='mx-auto flex max-w-[980px] flex-col items-center gap-6'>
+      <div class='flex w-full flex-col items-center gap-4'>
+        <a class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]' href={`${base}/events`}>
+          返回事件
+        </a>
+        <TopNav current='events' basePath={base} />
+      </div>
+      <div class='w-full max-w-[720px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
+        <div class='flex items-start justify-between gap-4'>
+          <div>
+            <div class='text-[20px] font-semibold text-[#fdf0d8]'>{displayName}</div>
+            <div class='mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+              {(event.act ?? "未知").toUpperCase()} · {(event.type ?? "").toUpperCase()}
+            </div>
+          </div>
+        </div>
+        <div
+          class='mt-4 text-[13px] leading-[1.5] text-[#f2e5cd]'
+          set:html={formatRelicText(event.description_zh ?? event.description ?? "", base)}
+        />
+
+        {event.options && event.options.length > 0 && (
+          <div class='mt-5'>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>选项</div>
+            <div class='mt-2 grid gap-2'>
+              {event.options.map((opt) => (
+                <div class='rounded-[10px] border border-white/10 bg-white/5 px-3 py-2'>
+                  <div class='text-[12px] font-semibold text-[#fdf0d8]'>
+                    {opt.title_zh ?? opt.title ?? opt.id}
+                  </div>
+                  {(opt.description_zh ?? opt.description) && (
+                    <div
+                      class='mt-1 text-[12px] text-[#f2e5cd]'
+                      set:html={formatRelicText(opt.description_zh ?? opt.description ?? "", base)}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {event.pages && event.pages.length > 0 && (
+          <div class='mt-6 border-t border-white/10 pt-5'>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>事件页面</div>
+            <div class='mt-3 grid gap-3'>
+              {event.pages.map((page) => (
+                <div class='rounded-[12px] border border-white/10 bg-black/20 p-4'>
+                  <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                    {page.id}
+                  </div>
+                  {(page.description_zh ?? page.description) && (
+                    <div
+                      class='mt-2 text-[12px] leading-[1.45] text-[#f2e5cd]'
+                      set:html={formatRelicText(page.description_zh ?? page.description ?? "", base)}
+                    />
+                  )}
+                  {page.options && page.options.length > 0 && (
+                    <div class='mt-3 grid gap-2'>
+                      {page.options.map((opt) => (
+                        <div class='rounded-[10px] border border-white/10 bg-white/5 px-3 py-2'>
+                          <div class='text-[12px] font-semibold text-[#fdf0d8]'>
+                            {opt.title_zh ?? opt.title ?? opt.id}
+                          </div>
+                          {(opt.description_zh ?? opt.description) && (
+                            <div
+                              class='mt-1 text-[12px] text-[#f2e5cd]'
+                              set:html={formatRelicText(opt.description_zh ?? opt.description ?? "", base)}
+                            />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </main>
+</Layout>

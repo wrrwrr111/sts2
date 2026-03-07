@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CardView from "../components/CardView.astro";
+import TopNav from "../components/TopNav.astro";
 import cardsData from "../../data/cards.json";
 import type { Card } from "../lib/cardModels";
 
@@ -42,21 +43,7 @@ const pageDescription = `收录杀戮尖塔2全部卡牌，共 ${cards.length} �
             </h1>
             <p class='mt-1 text-[#c4c7d6]'>共 {cards.length} 张卡牌</p>
           </div>
-          <nav class='flex items-center gap-2 text-[12px] uppercase tracking-[0.25em]'>
-            <a
-              class='rounded-full border border-white/20 bg-white/15 px-3 py-2 text-[#f7f1df]'
-              href={`${base}/`}
-              aria-current='page'
-            >
-              卡牌
-            </a>
-            <a
-              class='rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[#9ea2b3] hover:text-[#f7f1df] hover:border-white/25 hover:bg-white/10 transition'
-              href={`${base}/relics`}
-            >
-              遗物
-            </a>
-          </nav>
+          <TopNav current='cards' basePath={base} />
         </div>
       </header>
 
