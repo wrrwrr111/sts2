@@ -186,7 +186,8 @@ const parseUpgradeDelta = (value: string) => {
   const op = trimmed[0];
   const num = Number(trimmed.slice(1));
   if (!Number.isFinite(num)) return null;
-  if (op === "+" || op === "-") return { type: "delta", value: op === "-" ? -num : num };
+  if (op === "+" || op === "-")
+    return { type: "delta", value: op === "-" ? -num : num };
   if (op === "*") return { type: "mul", value: num };
   return null;
 };
@@ -239,7 +240,8 @@ const formatDescription = (
     .replace(/\[([a-zA-Z0-9_]+)\]/g, (_, tag) => openTag(tag))
     .replace(/\[\/([a-zA-Z0-9_]+)\]/g, (_, tag) => closeTag(tag))
     .replace(/\n/g, "<br />");
-  if (!options.highlightValues || options.highlightValues.size === 0) return html;
+  if (!options.highlightValues || options.highlightValues.size === 0)
+    return html;
   return highlightNumbersInHtml(html, options.highlightValues);
 };
 
@@ -338,6 +340,7 @@ const COLOR_ZH: Record<string, string> = {
 const frameImageFor = (card: Card) => {
   if (card.rarity?.toLowerCase() === "ancient") return "card_frame_ancient_s";
   const t = card.type?.toLowerCase();
+  if (t === "curse" || t === "status") return "card_frame_power_s";
   if (t === "attack") return "card_frame_attack_s";
   if (t === "skill") return "card_frame_skill_s";
   if (t === "power") return "card_frame_power_s";
@@ -361,7 +364,7 @@ const energyImageFor = (card: Card) =>
 ---
 
 <Layout>
-  <main class='min-h-screen px-[6vw] pb-[72px] pt-12'>
+  <main class='min-h-screen px-[6vw] pb-[72px] pt-12' data-base-path={base}>
     <header class='mx-auto mb-8 max-w-[980px] text-center'>
       <p class='mb-2 text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
         Slay the Spire 2
@@ -520,14 +523,21 @@ const energyImageFor = (card: Card) =>
         cards.map((card) => {
           const baseDesc = getDisplayDesc(card);
           const upgradedDesc = getDisplayDescUpgraded(card);
-          const rawDescZh = card.description_raw_zh ?? card.description_zh ?? card.description ?? "";
+          const rawDescZh =
+            card.description_raw_zh ??
+            card.description_zh ??
+            card.description ??
+            "";
           const upgradeCost = getUpgradeCostLabel(card);
           const isAncient = card.rarity?.toLowerCase() === "ancient";
+          const isInfection = card.id?.toLowerCase() === "infection";
+          const portraitImage = `${base}${getCardImage(card)}`;
+          const frameImage = frameImageFor(card);
+          const frameImageSrc = `${base}/images/ui/${frameImage}.png`;
           const typeLower = card.type?.toLowerCase() ?? "";
           const isStatus = typeLower === "status";
           const isCurse = typeLower === "curse";
           const colorLower = card.color?.toLowerCase() ?? "";
-          const frameImage = frameImageFor(card);
           const rarityLower = card.rarity?.toLowerCase() ?? "";
           const frameFilterByColor = {
             ironclad: "hue-rotate(15deg) grayscale(.05) brightness(1.05)",
@@ -542,7 +552,11 @@ const energyImageFor = (card: Card) =>
             token: "grayscale() brightness(1.35)",
           };
           const frameFilter =
-            colorLower === "quest" ? "" : frameFilterByColor[colorLower] || "grayscale() brightness(1.35)";
+            colorLower === "quest"
+              ? ""
+              : frameFilterByColor[colorLower] ||
+                "grayscale() brightness(1.35)";
+          const frameStyle = frameFilter ? `filter: ${frameFilter};` : "";
           const borderFilterByRarity = {
             rare: "hue-rotate(-145deg) brightness(1.075) saturate(1.9)",
             basic: "hue-rotate(-145deg) grayscale(.9) brightness(.775)",
@@ -613,18 +627,27 @@ const energyImageFor = (card: Card) =>
                   >
                     <img
                       class='h-full w-full object-cover [filter:drop-shadow(0_5px_9px_rgba(0,0,0,0.4))]'
-                      src={`${base}${getCardImage(card)}`}
+                      src={portraitImage}
                       alt=''
                       loading='lazy'
                     />
                   </div>
                   <img
                     class='absolute left-0 top-0 z-[1] h-[211px] w-[150px]'
-                    style={frameFilter ? `filter: ${frameFilter};` : ""}
-                    src={`${base}/images/ui/${frameImage}.png`}
+                    style={frameStyle}
+                    src={frameImageSrc}
                     alt=''
                     loading='lazy'
                   />
+                  {isInfection && (
+                    <img
+                      class='absolute left-[-4px] top-[-4px] max-w-none z-[5] h-[219px] w-[158px] pointer-events-none object-cover'
+                      data-infection-overlay
+                      src={`${base}/images/card_overlays/infection/infection_00.png`}
+                      alt=''
+                      loading='lazy'
+                    />
+                  )}
                   <img
                     class='absolute left-0 top-0 z-[5] h-[211px] w-[150px] opacity-60 mix-blend-soft-light'
                     src={`${base}/images/ui/${frameImageFor(card)}.png`}
@@ -710,9 +733,13 @@ const energyImageFor = (card: Card) =>
                         <div
                           data-desc='upgrade'
                           class={baseDesc ? "hidden" : ""}
-                          set:html={formatDescription(upgradedDesc, card.color, {
-                            highlightValues: upgradeHighlights,
-                          })}
+                          set:html={formatDescription(
+                            upgradedDesc,
+                            card.color,
+                            {
+                              highlightValues: upgradeHighlights,
+                            },
+                          )}
                         />
                       )}
                       {card.keywords && card.keywords.length > 0 && (
@@ -779,6 +806,13 @@ const energyImageFor = (card: Card) =>
   });
   searchEl?.addEventListener("input", applyFilters);
 
+  const params = new URLSearchParams(window.location.search);
+  const searchFromQuery = params.get("search");
+  if (searchEl && searchFromQuery) {
+    searchEl.value = searchFromQuery;
+    applyFilters();
+  }
+
   resetEl?.addEventListener("click", () => {
     if (typeEl) typeEl.value = "all";
     if (rarityEl) rarityEl.value = "all";
@@ -807,7 +841,8 @@ const energyImageFor = (card: Card) =>
       }
       if (nameBase) nameBase.classList.toggle("hidden", enabled);
       if (nameUpgrade) nameUpgrade.classList.toggle("hidden", !enabled);
-      if (costBase) costBase.classList.toggle("hidden", enabled && !!costUpgrade);
+      if (costBase)
+        costBase.classList.toggle("hidden", enabled && !!costUpgrade);
       if (costUpgrade) costUpgrade.classList.toggle("hidden", !enabled);
     });
   });
@@ -854,4 +889,30 @@ const energyImageFor = (card: Card) =>
       e.target instanceof Element ? e.target.closest("[data-tip-html]") : null;
     if (target && target === activeTip) hideTip();
   });
+
+  const basePath =
+    document.querySelector("[data-base-path]")?.getAttribute("data-base-path") ||
+    "";
+  const infectionFrames = Array.from({ length: 30 }, (_, idx) => {
+    const suffix = String(idx).padStart(2, "0");
+    return `${basePath}/images/card_overlays/infection/infection_${suffix}.png`;
+  });
+  infectionFrames.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+  const infectionOverlays = document.querySelectorAll(
+    "[data-infection-overlay]",
+  );
+  if (infectionOverlays.length) {
+    let frame = 0;
+    const frameInterval = 1000 / 30;
+    setInterval(() => {
+      frame = (frame + 1) % infectionFrames.length;
+      const src = infectionFrames[frame];
+      infectionOverlays.forEach((el) => {
+        el.src = src;
+      });
+    }, frameInterval);
+  }
 </script>

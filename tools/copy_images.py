@@ -23,6 +23,8 @@ ICONS_DST = STATIC_IMAGES / "icons"
 ANCIENTS_SRC = RAW_IMAGES / "ui" / "run_history"
 ANCIENTS_DST = STATIC_IMAGES / "misc" / "ancients"
 BOSSES_DST = STATIC_IMAGES / "misc" / "bosses"
+CARD_OVERLAYS_SRC = RAW_IMAGES / "card_overlays"
+CARD_OVERLAYS_DST = STATIC_IMAGES / "card_overlays"
 
 
 def copy_cards():
@@ -139,6 +141,19 @@ def copy_bosses():
         count += 1
     print(f"Copied {count} boss icons -> static/images/misc/bosses/")
 
+def copy_card_overlays():
+    CARD_OVERLAYS_DST.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for png in CARD_OVERLAYS_SRC.rglob("*.png"):
+        if png.name.endswith(".import"):
+            continue
+        rel = png.relative_to(CARD_OVERLAYS_SRC)
+        dest = CARD_OVERLAYS_DST / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(png, dest)
+        count += 1
+    print(f"Copied {count} card overlay images -> static/images/card_overlays/")
+
 
 def main():
     print("=== Copying game images to static directory ===\n")
@@ -150,6 +165,7 @@ def main():
     copy_icons()
     copy_ancients()
     copy_bosses()
+    copy_card_overlays()
     print("\n=== Done! ===")
 
 
