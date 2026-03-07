@@ -158,6 +158,10 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
     energy_gain = all_vars.get("Energy")
     hp_loss = all_vars.get("HpLoss")
 
+    # X-cost detection
+    is_x_cost = bool(re.search(r'HasEnergyCostX\s*=>\s*true', content) or re.search(r'CostsX', content))
+    is_x_star_cost = bool(re.search(r'HasStarCostX\s*=>\s*true', content))
+
     # Upgrade info
     upgrade_damage = None
     upgrade_block = None
@@ -170,9 +174,13 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
 
     # Cost upgrade
     cost_upgrade = None
-    cost_up = re.search(r'UpgradeEnergyCost\((\d+)\)', content)
+    cost_up = re.search(r'UpgradeEnergyCost\((-?\d+)\)', content)
     if cost_up:
         cost_upgrade = int(cost_up.group(1))
+    else:
+        cost_delta = re.search(r'EnergyCost\.UpgradeBy\((-?\d+)\)', content)
+        if cost_delta and cost is not None and not is_x_cost:
+            cost_upgrade = cost + int(cost_delta.group(1))
 
     # Keywords from CanonicalKeywords array (most common pattern)
     canonical_kw_match = re.search(r'CanonicalKeywords\s*=>', content)
@@ -221,10 +229,6 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
     for tag in ("Strike", "Defend", "Minion", "OstyAttack", "Shiv"):
         if re.search(rf'CardTag\.{tag}', content):
             tags.append(tag)
-
-    # X-cost detection
-    is_x_cost = bool(re.search(r'HasEnergyCostX\s*=>\s*true', content) or re.search(r'CostsX', content))
-    is_x_star_cost = bool(re.search(r'HasStarCostX\s*=>\s*true', content))
 
     # Multi-hit
     hit_count = None
