@@ -1,366 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import CardView from "../components/CardView.astro";
 import cardsData from "../../data/cards.json";
-import keywordsData from "../../data/keywords.json";
+import type { Card } from "../lib/cardModels";
 
 // 获取base路径
-const base = Astro.url.pathname.replace(/\/$/, "");
-
-type Card = {
-  id: string;
-  name: string;
-  name_zh: string | null;
-  description: string | null;
-  description_zh: string | null;
-  description_raw: string | null;
-  description_raw_zh: string | null;
-  cost: number | null;
-  is_x_cost: boolean | null;
-  is_x_star_cost: boolean | null;
-  star_cost: number | null;
-  type: string | null;
-  rarity: string | null;
-  target: string | null;
-  color: string | null;
-  image_url: string | null;
-  beta_image_url: string | null;
-  upgrade: Record<string, string | number> | null;
-  description_upgraded: string | null;
-  description_upgraded_zh: string | null;
-  keywords?: string[] | null;
-};
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const cards = cardsData as Card[];
-const keywords = keywordsData as Array<{
-  id: string;
-  name: string;
-  name_zh: string | null;
-  description: string;
-  description_zh: string | null;
-}>;
-
-const keywordMap = new Map<
-  string,
-  {
-    name: string;
-    name_zh: string | null;
-    description: string;
-    description_zh: string | null;
-  }
->();
-for (const k of keywords) {
-  keywordMap.set(k.name.toLowerCase(), k);
-  if (k.name_zh) keywordMap.set(k.name_zh.toLowerCase(), k);
-}
-
-const keywordLabel = (kw: string) => {
-  const hit = keywordMap.get(kw.toLowerCase());
-  if (!hit) return kw;
-  return hit.name_zh ?? hit.name;
-};
-
-const escapeHtml = (value: string) =>
-  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-const escapeAttr = (value: string) =>
-  value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-
-const openTag = (tag: string) => {
-  const t = tag.toLowerCase();
-  if (t === "b") return '<strong class="inline-block">';
-  if (t === "i") return '<em class="inline-block">';
-  if (t === "u") return '<span class="inline-block underline">';
-  if (t === "gold") return '<span class="inline-block text-[#ffd38c]">';
-  if (t === "red") return '<span class="inline-block text-[#ff7b7b]">';
-  if (t === "blue") return '<span class="inline-block text-[#7fb8ff]">';
-  if (t === "green") return '<span class="inline-block text-[#86e3a0]">';
-  if (t === "purple") return '<span class="inline-block text-[#b89bff]">';
-  if (t === "orange") return '<span class="inline-block text-[#ffb46a]">';
-  if (t === "aqua") return '<span class="inline-block text-[#7fe3ff]">';
-  if (t === "pink") return '<span class="inline-block text-[#ff9bd0]">';
-  if (t === "rainbow") {
-    return '<span class="inline-block text-transparent [background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bffb6,#6bc7ff,#b56bff)] [-webkit-background-clip:text]">';
-  }
-  if (t === "amount")
-    return '<span class="inline-block text-[#ffe6b0] font-semibold">';
-  if (t === "passive" || t === "evoke")
-    return '<span class="inline-block text-[#bfe5ff] uppercase tracking-[0.08em] text-[0.85em]">';
-  if (t === "sine") return '<span class="inline-block animate-bounce">';
-  if (t === "jitter") return '<span class="inline-block animate-pulse">';
-  return '<span class="inline-block">';
-};
-
-const closeTag = (tag: string) => {
-  const t = tag.toLowerCase();
-  if (t === "b") return "</strong>";
-  if (t === "i") return "</em>";
-  if (t === "u") return "</span>";
-  return "</span>";
-};
-
-const energyIconForColor = (color: string | null) => {
-  const c = color ?? "colorless";
-  if (c === "silent") return "energy_silent";
-  if (c === "ironclad") return "energy_ironclad";
-  if (c === "defect") return "energy_defect";
-  if (c === "necrobinder") return "energy_necrobinder";
-  if (c === "regent") return "energy_regent";
-  if (c === "quest") return "energy_quest";
-  return "energy_colorless";
-};
-
-const openTagWithTitle = (tag: string, innerText: string) => {
-  const t = tag.toLowerCase();
-  const key = innerText.trim().toLowerCase();
-  const tipHtml = keywordTipHtmlMap.get(key) ?? "";
-  if (!tipHtml) {
-    if (t === "b") return '<strong class="inline-block">';
-    if (t === "i") return '<em class="inline-block">';
-    if (t === "u") return '<span class="inline-block underline">';
-    return '<span class="inline-block">';
-  }
-  const tipAttr = ` data-tip-html="${escapeAttr(tipHtml)}" class="inline-block relative cursor-help"`;
-  if (t === "b") return `<strong${tipAttr}>`;
-  if (t === "i") return `<em${tipAttr}>`;
-  if (t === "u")
-    return `<span class="inline-block underline relative cursor-help" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "gold")
-    return `<span class="inline-block relative cursor-help text-[#ffd38c]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "red")
-    return `<span class="inline-block relative cursor-help text-[#ff7b7b]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "blue")
-    return `<span class="inline-block relative cursor-help text-[#7fb8ff]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "green")
-    return `<span class="inline-block relative cursor-help text-[#86e3a0]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "purple")
-    return `<span class="inline-block relative cursor-help text-[#b89bff]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "orange")
-    return `<span class="inline-block relative cursor-help text-[#ffb46a]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "aqua")
-    return `<span class="inline-block relative cursor-help text-[#7fe3ff]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "pink")
-    return `<span class="inline-block relative cursor-help text-[#ff9bd0]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "rainbow") {
-    return `<span class="inline-block relative cursor-help text-transparent [background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bffb6,#6bc7ff,#b56bff)] [-webkit-background-clip:text]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  }
-  if (t === "amount")
-    return `<span class="inline-block relative cursor-help text-[#ffe6b0] font-semibold" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "passive" || t === "evoke")
-    return `<span class="inline-block relative cursor-help text-[#bfe5ff] uppercase tracking-[0.08em] text-[0.85em]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "sine")
-    return `<span class="inline-block relative cursor-help animate-bounce" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "jitter")
-    return `<span class="inline-block relative cursor-help animate-pulse" data-tip-html="${escapeAttr(tipHtml)}">`;
-  return `<span class="inline-block relative cursor-help" data-tip-html="${escapeAttr(tipHtml)}">`;
-};
-
-const highlightNumbersInHtml = (html: string, highlightValues: Set<string>) =>
-  html
-    .split(/(<[^>]+>)/g)
-    .map((part) => {
-      if (part.startsWith("<")) return part;
-      return part.replace(/\d+(?:\.\d+)?/g, (match) =>
-        highlightValues.has(match)
-          ? `<span style="color:#7efe00">${match}</span>`
-          : match,
-      );
-    })
-    .join("");
-
-const extractVarNames = (raw: string | null) => {
-  const names = new Set<string>();
-  if (!raw) return names;
-  for (const match of raw.matchAll(/\{([^}:]+)(?::[^}]*)?\}/g)) {
-    if (match[1]) names.add(match[1].toLowerCase());
-  }
-  return names;
-};
-
-const parseUpgradeDelta = (value: string) => {
-  const trimmed = value.trim();
-  if (!trimmed) return null;
-  const op = trimmed[0];
-  const num = Number(trimmed.slice(1));
-  if (!Number.isFinite(num)) return null;
-  if (op === "+" || op === "-")
-    return { type: "delta", value: op === "-" ? -num : num };
-  if (op === "*") return { type: "mul", value: num };
-  return null;
-};
-
-const formatNumber = (value: number) => {
-  if (Number.isInteger(value)) return String(value);
-  return String(Number(value.toFixed(3))).replace(/\.0+$/, "");
-};
-
-const formatDescription = (
-  desc: string | null,
-  color: string | null,
-  options: { tooltips?: boolean; highlightValues?: Set<string> } = {},
-) => {
-  if (!desc) return "";
-  const escaped = escapeHtml(desc);
-  const withTooltips = options.tooltips !== false;
-  const html = escaped
-    .replace(/\[energy:(\d+)\]/gi, (_, raw) => {
-      const count = Math.max(0, Math.min(9, Number(raw)));
-      const icon = energyIconForColor(color);
-      if (!count) return "";
-      return `<span class="inline-flex gap-0.5 align-middle">${Array.from({
-        length: count,
-      })
-        .map(
-          () =>
-            `<img class="inline-block align-text-bottom" style="height:1em;width:1em;margin-bottom:0.1em;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.45));" src="${base}/images/ui/${icon}.png" alt="" />`,
-        )
-        .join("")}</span>`;
-    })
-    .replace(/\[star:(\d+)\]/gi, (_, raw) => {
-      const count = Math.max(0, Math.min(9, Number(raw)));
-      if (!count) return "";
-      return `<span class="inline-flex gap-0.5 align-middle">${Array.from({
-        length: count,
-      })
-        .map(
-          () =>
-            `<img class="inline-block align-text-bottom" style="height:1em;width:1em;margin-bottom:0.1em;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.45));" src="${base}/images/icons/star_icon.png" alt="" />`,
-        )
-        .join("")}</span>`;
-    })
-    .replace(/\[([a-zA-Z0-9_]+)\]([\s\S]*?)\[\/\1\]/g, (_, tag, inner) => {
-      const plain = inner.replace(/\[\/?[a-zA-Z0-9_]+\]/g, "");
-      return withTooltips
-        ? `${openTagWithTitle(tag, plain)}${inner}${closeTag(tag)}`
-        : `${openTag(tag)}${inner}${closeTag(tag)}`;
-    })
-    .replace(/\[([a-zA-Z0-9_]+)\]/g, (_, tag) => openTag(tag))
-    .replace(/\[\/([a-zA-Z0-9_]+)\]/g, (_, tag) => closeTag(tag))
-    .replace(/\n/g, "<br />");
-  if (!options.highlightValues || options.highlightValues.size === 0)
-    return html;
-  return highlightNumbersInHtml(html, options.highlightValues);
-};
-
-const keywordTipHtmlMap = new Map<string, string>();
-for (const k of keywords) {
-  const desc = k.description_zh ?? k.description;
-  const html = formatDescription(desc, null, { tooltips: false });
-  keywordTipHtmlMap.set(k.name.toLowerCase(), html);
-  if (k.name_zh) keywordTipHtmlMap.set(k.name_zh.toLowerCase(), html);
-}
-
-const normalizeImageUrl = (url: string | null) => {
-  if (!url) return null;
-  return url.replace("/static/images/", "/images/");
-};
-
-const getCardImage = (card: Card) => {
-  const normalized =
-    normalizeImageUrl(card.image_url) ?? normalizeImageUrl(card.beta_image_url);
-  if (normalized) return normalized;
-  return `${base}/images/cards/${card.id.toLowerCase()}.png`;
-};
-
-const getDisplayName = (card: Card) => card.name_zh ?? card.name;
-const getDisplayDesc = (card: Card) =>
-  card.description_zh ?? card.description ?? "";
-const getDisplayDescUpgraded = (card: Card) =>
-  card.description_upgraded_zh ??
-  card.description_upgraded ??
-  getDisplayDesc(card);
-const getCostLabel = (card: Card, upgraded = false) => {
-  if (card.is_x_cost) return "X";
-  if (upgraded && card.upgrade && typeof card.upgrade.cost === "number") {
-    return String(card.upgrade.cost);
-  }
-  if (card.cost !== null) return String(card.cost);
-  return "";
-};
-const getUpgradeCostLabel = (card: Card) => {
-  if (!card.upgrade) return "";
-  const base = getCostLabel(card);
-  const upgraded = getCostLabel(card, true);
-  if (!upgraded || upgraded === base) return "";
-  return upgraded;
-};
-const getStarLabel = (card: Card) =>
-  card.star_cost !== null ? String(card.star_cost) : "";
-const getCostBucket = (card: Card) => {
-  if (card.is_x_cost) return "X";
-  if (card.cost === null) return "N";
-  if (card.cost >= 4) return "4+";
-  return String(card.cost);
-};
-
-const TYPE_ZH: Record<string, string> = {
-  Attack: "攻击",
-  Skill: "技能",
-  Power: "能力",
-  Status: "状态",
-  Curse: "诅咒",
-  Quest: "任务",
-};
-
-const getTypeLabel = (card: Card) => {
-  if (!card.type) return "未知";
-  return TYPE_ZH[card.type] ?? card.type;
-};
-
-const RARITY_ZH: Record<string, string> = {
-  Basic: "基础",
-  Common: "普通",
-  Uncommon: "罕见",
-  Rare: "稀有",
-  Ancient: "古代",
-  Event: "事件",
-  Token: "衍生",
-  Status: "状态",
-  Curse: "诅咒",
-  Quest: "任务",
-};
-
-const COLOR_ZH: Record<string, string> = {
-  ironclad: "铁卫",
-  silent: "静默",
-  defect: "故障",
-  necrobinder: "唤尸",
-  regent: "摄政",
-  colorless: "无色",
-  curse: "诅咒",
-  status: "状态",
-  event: "事件",
-  token: "衍生",
-  quest: "任务",
-};
-
-const frameImageFor = (card: Card) => {
-  if (card.rarity?.toLowerCase() === "ancient") return "card_frame_ancient_s";
-  const t = card.type?.toLowerCase();
-  if (t === "curse" || t === "status") return "card_frame_power_s";
-  if (t === "attack") return "card_frame_attack_s";
-  if (t === "skill") return "card_frame_skill_s";
-  if (t === "power") return "card_frame_power_s";
-  if (t === "quest") return "card_frame_quest_s";
-  return "card_frame_skill_s";
-};
-
-const borderImageFor = (card: Card) => {
-  const t = card.type?.toLowerCase();
-  if (t === "attack") return "card_portrait_border_attack_s";
-  if (t === "skill") return "card_portrait_border_skill_s";
-  if (t === "power") return "card_portrait_border_power_s";
-  return "card_portrait_border_power_s";
-};
-
-const bannerImageFor = (card: Card) =>
-  card.rarity?.toLowerCase() === "ancient" ? "ancient_banner" : "card_banner";
-
-const energyImageFor = (card: Card) =>
-  energyIconForColor(card.color ?? "colorless");
 ---
 
 <Layout>
@@ -521,240 +168,9 @@ const energyImageFor = (card: Card) =>
     >
       {
         cards.map((card) => {
-          const baseDesc = getDisplayDesc(card);
-          const upgradedDesc = getDisplayDescUpgraded(card);
-          const rawDescZh =
-            card.description_raw_zh ??
-            card.description_zh ??
-            card.description ??
-            "";
-          const upgradeCost = getUpgradeCostLabel(card);
-          const isAncient = card.rarity?.toLowerCase() === "ancient";
-          const isInfection = card.id?.toLowerCase() === "infection";
-          const portraitImage = `${base}${getCardImage(card)}`;
-          const frameImage = frameImageFor(card);
-          const frameImageSrc = `${base}/images/ui/${frameImage}.png`;
-          const typeLower = card.type?.toLowerCase() ?? "";
-          const isStatus = typeLower === "status";
-          const isCurse = typeLower === "curse";
-          const colorLower = card.color?.toLowerCase() ?? "";
-          const rarityLower = card.rarity?.toLowerCase() ?? "";
-          const frameFilterByColor = {
-            ironclad: "hue-rotate(15deg) grayscale(.05) brightness(1.05)",
-            silent: "hue-rotate(97deg) brightness(1.5) saturate(.6)",
-            defect: "hue-rotate(217deg) brightness(1.3) saturate(.625)",
-            necrobinder: "hue-rotate(-23deg) brightness(1.3) saturate(.55)",
-            regent: "hue-rotate(45deg) brightness(1.55) saturate(1)",
-            colorless: "grayscale() brightness(1.35)",
-            curse: "hue-rotate(-60deg) grayscale(.9) brightness(.6)",
-            status: "grayscale() brightness(1.35)",
-            event: "grayscale() brightness(1.35)",
-            token: "grayscale() brightness(1.35)",
-          };
-          const frameFilter =
-            colorLower === "quest"
-              ? ""
-              : frameFilterByColor[colorLower] ||
-                "grayscale() brightness(1.35)";
-          const frameStyle = frameFilter ? `filter: ${frameFilter};` : "";
-          const borderFilterByRarity = {
-            rare: "hue-rotate(-145deg) brightness(1.075) saturate(1.9)",
-            basic: "hue-rotate(-145deg) grayscale(.9) brightness(.775)",
-            common: "hue-rotate(-145deg) grayscale(.9) brightness(.775)",
-            curse: "hue-rotate(78deg) brightness(.8) saturate(2.55)",
-            event: "hue-rotate(-78deg) brightness(.9) saturate(1.25)",
-            quest: "hue-rotate(-172deg) brightness(.8) saturate(2.5)",
-            status: "hue-rotate(-122deg) brightness(.8) saturate(.75)",
-            token: "hue-rotate(-145deg) grayscale(.9) brightness(.775)",
-          };
-          const borderFilter = borderFilterByRarity[rarityLower] || "";
-          const upgradeHighlights = (() => {
-            if (!card.upgrade || !card.vars) return new Set();
-            const usedVars = extractVarNames(rawDescZh);
-            const varsMap = new Map(
-              Object.keys(card.vars).map((key) => [key.toLowerCase(), key]),
-            );
-            const highlights = new Set();
-            for (const [key, rawVal] of Object.entries(card.upgrade)) {
-              if (typeof rawVal !== "string") continue;
-              const mappedKey = varsMap.get(key.toLowerCase());
-              if (!mappedKey) continue;
-              if (!usedVars.has(mappedKey.toLowerCase())) continue;
-              const baseVal = card.vars[mappedKey];
-              if (typeof baseVal !== "number") continue;
-              const delta = parseUpgradeDelta(rawVal);
-              if (!delta) continue;
-              const next =
-                delta.type === "delta"
-                  ? baseVal + delta.value
-                  : baseVal * delta.value;
-              highlights.add(formatNumber(next));
-            }
-            return highlights;
-          })();
-          const searchText = [
-            getDisplayName(card),
-            baseDesc,
-            upgradedDesc,
-            card.keywords?.join(" ") ?? "",
-            getTypeLabel(card),
-            card.rarity ?? "",
-          ]
-            .join(" ")
-            .toLowerCase();
           return (
             <div class='card-tile mx-auto h-[253px] w-[180px]'>
-              <div class='relative h-full w-full'>
-                <article
-                  class='relative left-0 top-0 h-[211px] w-[150px] origin-top-left'
-                  data-card='1'
-                  data-color={card.color ?? "neutral"}
-                  data-type={card.type?.toLowerCase() ?? "unknown"}
-                  data-rarity={card.rarity?.toLowerCase() ?? "unknown"}
-                  data-type-raw={card.type ?? ""}
-                  data-rarity-raw={card.rarity ?? ""}
-                  data-color-raw={card.color ?? ""}
-                  data-cost-raw={getCostBucket(card)}
-                  data-has-upgrade={card.upgrade ? "1" : "0"}
-                  data-search={searchText}
-                >
-                  <div
-                    class={
-                      isAncient
-                        ? "absolute left-0 top-0 z-[0] h-[211px] w-[150px] overflow-hidden rounded-[16px]"
-                        : "absolute left-[12.5px] top-[21.5px] z-[0] h-[95px] w-[125px] overflow-hidden rounded-[5px]"
-                    }
-                  >
-                    <img
-                      class='h-full w-full object-cover [filter:drop-shadow(0_5px_9px_rgba(0,0,0,0.4))]'
-                      src={portraitImage}
-                      alt=''
-                      loading='lazy'
-                    />
-                  </div>
-                  <img
-                    class='absolute left-0 top-0 z-[1] h-[211px] w-[150px]'
-                    style={frameStyle}
-                    src={frameImageSrc}
-                    alt=''
-                    loading='lazy'
-                  />
-                  {isInfection && (
-                    <img
-                      class='absolute left-[-4px] top-[-4px] max-w-none z-[5] h-[219px] w-[158px] pointer-events-none object-cover'
-                      data-infection-overlay
-                      src={`${base}/images/card_overlays/infection/infection_00.png`}
-                      alt=''
-                      loading='lazy'
-                    />
-                  )}
-                  <img
-                    class='absolute left-0 top-0 z-[5] h-[211px] w-[150px] opacity-60 mix-blend-soft-light'
-                    src={`${base}/images/ui/${frameImageFor(card)}.png`}
-                    alt=''
-                    loading='lazy'
-                  />
-                  {!isAncient && (
-                    <img
-                      class='absolute left-[6.25px] top-[23.5px] z-[4] h-[105px] w-[137.5px]'
-                      style={borderFilter ? `filter: ${borderFilter};` : ""}
-                      src={`${base}/images/ui/${borderImageFor(card)}.png`}
-                      alt=''
-                      loading='lazy'
-                    />
-                  )}
-                  <img
-                    class='absolute left-[59.75px] top-[106px] z-[6] h-[18.5px] w-[30.5px]'
-                    style={borderFilter ? `filter: ${borderFilter};` : ""}
-                    src={`${base}/images/ui/card_portrait_border_plaque2.png`}
-                    alt=''
-                    loading='lazy'
-                  />
-                  <img
-                    class={`absolute left-[-10px] ${isAncient ? "top-[1px]" : "top-[6px]"} z-[6] h-[41.5px] w-[170px] max-w-none`}
-                    style={borderFilter ? `filter: ${borderFilter};` : ""}
-                    src={`${base}/images/ui/${bannerImageFor(card)}.png`}
-                    alt=''
-                    loading='lazy'
-                  />
-                  <div class='absolute left-[-8px] top-[-8px] z-[7] h-[32px] w-[32px]'>
-                    <img
-                      class='h-full w-full'
-                      src={`${base}/images/ui/${energyImageFor(card)}.png`}
-                      alt=''
-                      loading='lazy'
-                    />
-                    <span
-                      data-cost='base'
-                      class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-white [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]'
-                    >
-                      {getCostLabel(card)}
-                    </span>
-                    {upgradeCost && (
-                      <span
-                        data-cost='upgrade'
-                        class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-[#7efe00] [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)] hidden'
-                      >
-                        {upgradeCost}
-                      </span>
-                    )}
-                  </div>
-                  <span class='absolute left-[59.75px] top-[106px] z-[7] grid h-[18.5px] w-[30.5px] place-items-center text-center text-[8px] font-bold uppercase tracking-[0.08em] text-[#241f17] [text-shadow:0_1px_0_rgba(255,255,255,0.5)]'>
-                    {getTypeLabel(card)}
-                  </span>
-                  <span
-                    data-name='base'
-                    class='absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#fdf0d8] [text-shadow:0_1px_1px_rgba(0,0,0,0.35),0_0_3px_rgba(0,0,0,0.45)]'
-                  >
-                    {getDisplayName(card)}
-                  </span>
-                  {card.upgrade && (
-                    <span
-                      data-name='upgrade'
-                      class='absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#7efe00] [text-shadow:0_1px_1px_rgba(0,0,0,0.35),0_0_3px_rgba(0,0,0,0.45)] hidden'
-                    >
-                      {getDisplayName(card)}+
-                    </span>
-                  )}
-                  {getStarLabel(card) && (
-                    <span class='absolute left-[-18px] top-[11px] z-[7] text-[8px] text-[#ffe3a6] [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]'>
-                      ⭐ {getStarLabel(card)}
-                    </span>
-                  )}
-                  {(baseDesc || upgradedDesc) && (
-                    <div class='absolute left-[14px] top-[124px] z-[6] h-[72px] w-[121.5px] text-center text-[10.5px] leading-[1.05] tracking-[0.02em] text-[#f2e5cd] [text-shadow:0_1px_1px_rgba(0,0,0,0.4),0_0_3px_rgba(0,0,0,0.45)] flex flex-col items-center justify-center'>
-                      {baseDesc && (
-                        <div
-                          data-desc='base'
-                          set:html={formatDescription(baseDesc, card.color)}
-                        />
-                      )}
-                      {card.upgrade && upgradedDesc && (
-                        <div
-                          data-desc='upgrade'
-                          class={baseDesc ? "hidden" : ""}
-                          set:html={formatDescription(
-                            upgradedDesc,
-                            card.color,
-                            {
-                              highlightValues: upgradeHighlights,
-                            },
-                          )}
-                        />
-                      )}
-                      {card.keywords && card.keywords.length > 0 && (
-                        <div class='mt-1 text-[7px] tracking-[0.06em] text-[#f2e5cd]'>
-                          {card.keywords.map((kw) => (
-                            <span class='mr-1 inline-block rounded-full border border-white/15 bg-white/5 px-1 py-[1px]'>
-                              {keywordLabel(kw)}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </article>
-              </div>
+              <CardView card={card} />
             </div>
           );
         })
@@ -764,13 +180,14 @@ const energyImageFor = (card: Card) =>
 </Layout>
 
 <script>
-  const byId = (id) => document.getElementById(id);
-  const typeEl = byId("filter-type");
-  const rarityEl = byId("filter-rarity");
-  const colorEl = byId("filter-color");
-  const costEl = byId("filter-cost");
-  const searchEl = byId("filter-search");
-  const resetEl = byId("filter-reset");
+  const byId = (id: string): HTMLElement | null =>
+    document.getElementById(id);
+  const typeEl = byId("filter-type") as HTMLSelectElement | null;
+  const rarityEl = byId("filter-rarity") as HTMLSelectElement | null;
+  const colorEl = byId("filter-color") as HTMLSelectElement | null;
+  const costEl = byId("filter-cost") as HTMLSelectElement | null;
+  const searchEl = byId("filter-search") as HTMLInputElement | null;
+  const resetEl = byId("filter-reset") as HTMLButtonElement | null;
 
   const applyFilters = () => {
     const type = typeEl?.value ?? "all";
@@ -779,26 +196,28 @@ const energyImageFor = (card: Card) =>
     const cost = costEl?.value ?? "all";
     const query = (searchEl?.value ?? "").trim().toLowerCase();
 
-    document.querySelectorAll("[data-card]").forEach((node) => {
-      const el = node;
-      const t = el.dataset.typeRaw || "";
-      const r = el.dataset.rarityRaw || "";
-      const c = el.dataset.colorRaw || "";
-      const k = el.dataset.costRaw || "";
-      const s = el.dataset.search || "";
+    document
+      .querySelectorAll("[data-card]")
+      .forEach((node) => {
+        const el = node as HTMLElement;
+        const t = el.dataset.typeRaw || "";
+        const r = el.dataset.rarityRaw || "";
+        const c = el.dataset.colorRaw || "";
+        const k = el.dataset.costRaw || "";
+        const s = el.dataset.search || "";
 
-      const match =
-        (type === "all" || t === type) &&
-        (rarity === "all" || r === rarity) &&
-        (color === "all" || c === color) &&
-        (cost === "all" || k === cost) &&
-        (!query || s.includes(query));
+        const match =
+          (type === "all" || t === type) &&
+          (rarity === "all" || r === rarity) &&
+          (color === "all" || c === color) &&
+          (cost === "all" || k === cost) &&
+          (!query || s.includes(query));
 
-      const wrapper = el.closest(".card-tile");
-      if (wrapper) {
-        wrapper.style.display = match ? "" : "none";
-      }
-    });
+        const wrapper = el.closest(".card-tile") as HTMLElement | null;
+        if (wrapper) {
+          wrapper.style.display = match ? "" : "none";
+        }
+      });
   };
 
   [typeEl, rarityEl, colorEl, costEl].forEach((el) => {
@@ -851,9 +270,9 @@ const energyImageFor = (card: Card) =>
   tooltip.className =
     "fixed z-[9999] max-w-[420px] px-[10px] py-2 rounded-[10px] bg-[rgba(6,8,14,0.95)] text-[#f2f2f0] text-[13px] leading-[1.5] whitespace-pre-wrap shadow-[0_10px_24px_rgba(0,0,0,0.45)] pointer-events-none opacity-0 translate-y-1 transition-[opacity,transform] duration-150";
   document.body.appendChild(tooltip);
-  let activeTip = null;
+  let activeTip: HTMLElement | null = null;
 
-  const showTip = (el, x, y) => {
+  const showTip = (el: HTMLElement, x: number, y: number) => {
     const html = el.getAttribute("data-tip-html");
     if (!html) return;
     tooltip.innerHTML = html;
@@ -880,7 +299,7 @@ const energyImageFor = (card: Card) =>
     const target =
       e.target instanceof Element ? e.target.closest("[data-tip-html]") : null;
     if (target) {
-      showTip(target, e.clientX, e.clientY);
+      showTip(target as HTMLElement, e.clientX, e.clientY);
     }
   });
 
@@ -889,30 +308,4 @@ const energyImageFor = (card: Card) =>
       e.target instanceof Element ? e.target.closest("[data-tip-html]") : null;
     if (target && target === activeTip) hideTip();
   });
-
-  const basePath =
-    document.querySelector("[data-base-path]")?.getAttribute("data-base-path") ||
-    "";
-  const infectionFrames = Array.from({ length: 30 }, (_, idx) => {
-    const suffix = String(idx).padStart(2, "0");
-    return `${basePath}/images/card_overlays/infection/infection_${suffix}.png`;
-  });
-  infectionFrames.forEach((src) => {
-    const img = new Image();
-    img.src = src;
-  });
-  const infectionOverlays = document.querySelectorAll(
-    "[data-infection-overlay]",
-  );
-  if (infectionOverlays.length) {
-    let frame = 0;
-    const frameInterval = 1000 / 30;
-    setInterval(() => {
-      frame = (frame + 1) % infectionFrames.length;
-      const src = infectionFrames[frame];
-      infectionOverlays.forEach((el) => {
-        el.src = src;
-      });
-    }, frameInterval);
-  }
 </script>
