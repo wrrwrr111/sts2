@@ -15,6 +15,8 @@ IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 def iter_images(root: Path) -> Iterable[Path]:
 	for path in root.rglob("*"):
 		if path.is_file() and path.suffix.lower() in IMAGE_EXTS:
+			if "atlases" in path.parts:
+				continue
 			yield path
 
 
