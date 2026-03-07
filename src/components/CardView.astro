@@ -211,7 +211,7 @@ const formatDescription = (
     .replace(/\[star:(\d+)\]/gi, (_, raw) => {
       const count = Math.max(0, Math.min(9, Number(raw)));
       if (!count) return "";
-      return `<span class="inline-flex gap-0.5 align-middle">${Array.from({
+  return `<span class="inline-flex gap-0.5 align-middle">${Array.from({
         length: count,
       })
         .map(
@@ -357,6 +357,7 @@ const borderFilter = borderFilterByRarity[borderFilterKey] || "";
 const frameImage = frameImageFor(card);
 const cardImage = `${basePath}${getCardImage(card)}`;
 const upgradeCost = getUpgradeCostLabel(card);
+const showBaseCost = showBaseLayer || (isUpgradeView && !upgradeCost);
 const upgradeHighlights = (() => {
   if (!card.upgrade || !card.vars) return new Set<string>();
   const usedVars = extractVarNames(rawDescZh);
@@ -497,7 +498,7 @@ const searchText = [
         />
         <span
           data-cost='base'
-          class={`absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-white [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]${showBaseLayer ? "" : " hidden"}`}
+          class={`absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-white [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]${showBaseCost ? "" : " hidden"}`}
         >
           {getCostLabel(card)}
         </span>
@@ -536,9 +537,17 @@ const searchText = [
     }
     {
       getStarLabel(card) && (
-        <span class='absolute left-[-18px] top-[11px] z-[7] text-[8px] text-[#ffe3a6] [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]'>
-          ⭐ {getStarLabel(card)}
-        </span>
+        <div class='absolute left-[-14px] top-[16px] z-[7] h-[32px] w-[32px]'>
+          <img
+            class='h-full w-full'
+            src={`${basePath}/images/ui/energy_star.png`}
+            alt=''
+            loading='lazy'
+          />
+          <span class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-[#ffe3a6] [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]'>
+            {getStarLabel(card)}
+          </span>
+        </div>
       )
     }
     {
