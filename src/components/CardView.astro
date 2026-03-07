@@ -385,6 +385,16 @@ const upgradeDescHtml =
     : "";
 const hasBaseDesc = Boolean(baseDescHtml);
 const hasUpgradeDesc = Boolean(upgradeDescHtml) && !!card.upgrade;
+const hasKeywords = Boolean(card.keywords && card.keywords.length > 0);
+const keywordLines = hasKeywords
+  ? (card.keywords ?? []).map((kw) => ({
+      label: keywordLabel(kw),
+      tip:
+        keywordTipHtmlMap.get(kw.toLowerCase()) ??
+        keywordTipHtmlMap.get(keywordLabel(kw).toLowerCase()) ??
+        "",
+    }))
+  : [];
 const searchText = [
   getDisplayName(card),
   baseDesc,
@@ -525,7 +535,7 @@ const searchText = [
       )
     }
     {
-      (hasBaseDesc || hasUpgradeDesc) && (
+      (hasBaseDesc || hasUpgradeDesc || hasKeywords) && (
         <div class='absolute left-[14px] top-[124px] z-[6] h-[72px] w-[121.5px] text-center text-[10.5px] leading-[1.05] tracking-[0.02em] text-[#f2e5cd] [text-shadow:0_1px_1px_rgba(0,0,0,0.4),0_0_3px_rgba(0,0,0,0.45)] flex flex-col items-center justify-center'>
           {hasBaseDesc && <div data-desc='base' set:html={baseDescHtml} />}
           {hasUpgradeDesc && (
@@ -535,12 +545,17 @@ const searchText = [
               set:html={upgradeDescHtml}
             />
           )}
-          {card.keywords && card.keywords.length > 0 && (
-            <div class='mt-1 text-[7px] tracking-[0.06em] text-[#f2e5cd]'>
-              {card.keywords.map((kw) => (
-                <span class='mr-1 inline-block rounded-full border border-white/15 bg-white/5 px-1 py-[1px]'>
-                  {keywordLabel ? keywordLabel(kw) : kw}
-                </span>
+          {hasKeywords && (
+            <div
+              class={`${hasBaseDesc || hasUpgradeDesc ? "mt-1" : ""} text-[9px] tracking-[0.08em] text-[#efc751]`}
+            >
+              {keywordLines.map((kw) => (
+                <div
+                  class={kw.tip ? "cursor-help" : ""}
+                  data-tip-html={kw.tip ? escapeAttr(kw.tip) : undefined}
+                >
+                  {kw.label}
+                </div>
               ))}
             </div>
           )}

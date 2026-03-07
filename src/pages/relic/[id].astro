@@ -1,0 +1,116 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import relicsData from "../../../data/relics.json";
+import { formatRelicText } from "../../lib/relicText";
+
+type Relic = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+  flavor?: string | null;
+  flavor_zh?: string | null;
+  rarity?: string | null;
+  pool?: string | null;
+  image_url?: string | null;
+};
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const relics = relicsData as Relic[];
+export const getStaticPaths = () =>
+  (relicsData as Relic[]).map((relic) => ({
+    params: { id: relic.id },
+  }));
+
+const { id } = Astro.params;
+const relic = relics.find(
+  (item) => item.id?.toLowerCase() === id?.toLowerCase(),
+);
+
+if (!relic) {
+  return new Response("Not found", { status: 404 });
+}
+
+const displayName = relic.name_zh ?? relic.name ?? relic.id;
+const rawDesc = (relic.description_zh ?? relic.description ?? "")
+  .replace(/\[\/?[a-zA-Z0-9_]+\]/g, "")
+  .replace(/\s+/g, " ")
+  .trim();
+const cardDescription = [
+  rawDesc,
+  relic.rarity && `稀有度：${relic.rarity}`,
+  relic.pool && `池：${relic.pool}`,
+]
+  .filter(Boolean)
+  .join(" · ")
+  .slice(0, 160);
+const pageTitle = `${displayName} | 杀戮尖塔2 遗物图鉴`;
+const origin =
+  Astro.site?.toString().replace(/\/$/, "") ??
+  new URL(Astro.request.url).origin;
+const canonical = new URL(`${base}/relic/${relic.id}`, origin).toString();
+
+const normalizeImageUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  return url.replace("/static/images/", "/images/");
+};
+const relicImagePath =
+  normalizeImageUrl(relic.image_url ?? null) ??
+  `/images/relics/${relic.id.toLowerCase()}.png`;
+const ogImage = new URL(`${base}${relicImagePath}`, origin).toString();
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{pageTitle}</title>
+    <meta name="description" content={cardDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={cardDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={displayName} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={cardDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={displayName} />
+  </Fragment>
+  <main class='min-h-screen px-4 pb-[72px] pt-12 sm:px-[6vw]' data-base-path={base}>
+    <div class='mx-auto flex max-w-[980px] flex-col items-center gap-6'>
+      <a class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]' href={`${base}/relics`}>
+        返回遗物
+      </a>
+      <div class='w-full max-w-[640px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
+        <div class='flex items-center gap-4'>
+          <div class='h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3'>
+            <img
+              class='h-full w-full object-contain'
+              src={`${base}${relicImagePath}`}
+              alt={displayName}
+              loading='lazy'
+            />
+          </div>
+          <div class='flex-1'>
+            <div class='text-[20px] font-semibold text-[#fdf0d8]'>{displayName}</div>
+            <div class='mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+              {(relic.rarity ?? "未知").toUpperCase()} · {(relic.pool ?? "").toUpperCase()}
+            </div>
+          </div>
+        </div>
+        <div
+          class='mt-4 text-[13px] leading-[1.4] text-[#f2e5cd]'
+          set:html={formatRelicText(relic.description_zh ?? relic.description ?? "", base)}
+        />
+        {(relic.flavor_zh ?? relic.flavor) && (
+          <div
+            class='mt-4 border-t border-white/10 pt-4 text-[12px] italic text-[#c4bfae]'
+            set:html={formatRelicText(relic.flavor_zh ?? relic.flavor ?? "", base)}
+          />
+        )}
+      </div>
+    </div>
+  </main>
+</Layout>
