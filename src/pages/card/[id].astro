@@ -50,6 +50,7 @@ const cardImagePath =
   normalizeImageUrl(card.beta_image_url) ??
   `/images/cards/${card.id.toLowerCase()}.png`;
 const ogImage = new URL(`${base}${cardImagePath}`, origin).toString();
+const hasUpgrade = Boolean(card.upgrade);
 ---
 
 <Layout>
@@ -77,7 +78,24 @@ const ogImage = new URL(`${base}${cardImagePath}`, origin).toString();
         >
         <TopNav current='cards' basePath={base} />
       </div>
-      <CardView card={card} />
+      {hasUpgrade ? (
+        <div class='flex flex-wrap items-start justify-center gap-6'>
+          <div class='flex flex-col items-center gap-2'>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
+              普通
+            </div>
+            <CardView card={card} variant='base' />
+          </div>
+          <div class='flex flex-col items-center gap-2'>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
+              升级
+            </div>
+            <CardView card={card} variant='upgrade' />
+          </div>
+        </div>
+      ) : (
+        <CardView card={card} />
+      )}
     </div>
   </main>
 </Layout>
