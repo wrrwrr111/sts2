@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import relicsData from "../../../data/relics.json";
 import { formatRelicText } from "../../lib/relicText";
+import TopNav from "../../components/TopNav.astro";
 
 type Relic = {
   id: string;
@@ -80,9 +81,12 @@ const ogImage = new URL(`${base}${relicImagePath}`, origin).toString();
   </Fragment>
   <main class='min-h-screen px-4 pb-[72px] pt-12 sm:px-[6vw]' data-base-path={base}>
     <div class='mx-auto flex max-w-[980px] flex-col items-center gap-6'>
-      <a class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]' href={`${base}/relics`}>
-        返回遗物
-      </a>
+      <div class='flex w-full flex-col items-center gap-4'>
+        <a class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]' href={`${base}/relics`}>
+          返回遗物
+        </a>
+        <TopNav current='relics' basePath={base} />
+      </div>
       <div class='w-full max-w-[640px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
         <div class='flex items-center gap-4'>
           <div class='h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3'>
