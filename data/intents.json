@@ -1,0 +1,100 @@
+[
+  {
+    "id": "ATTACK",
+    "name": "Aggressive",
+    "description": "This enemy intends to [gold]Attack[/gold] {IsMultiplayer:everyone |}for [blue]{Damage}[/blue] damage{Repeat:plural:| [blue]{}[/blue] times}.",
+    "name_zh": "攻势",
+    "description_zh": "这个敌人将要[gold]攻击[/gold]{IsMultiplayer:所有人|}造成[blue]{Damage}[/blue]点伤害{Repeat:choose(1):|[blue]{}[/blue]次}。"
+  },
+  {
+    "id": "BUFF",
+    "name": "Empower",
+    "description": "This enemy intends to use a [gold]Buff[/gold].",
+    "name_zh": "强化",
+    "description_zh": "这个敌人将要使用一个[gold]强化效果[/gold]。"
+  },
+  {
+    "id": "CARD_DEBUFF",
+    "name": "Malicious",
+    "description": "This enemy intends to apply [gold]Afflictions[/gold] on your cards.",
+    "name_zh": "恶意",
+    "description_zh": "这个敌人将要对你的卡牌施加[gold]侵蚀[/gold]。"
+  },
+  {
+    "id": "DEATH_BLOW",
+    "name": "Death Blow",
+    "description": "This creature is trying to take you down with it. It will attack you for [blue]{Damage}[/blue] damage before being destroyed.",
+    "name_zh": "濒死一击",
+    "description_zh": "这个生物试图拉你一起陪葬。它会在被摧毁前攻击你造成[blue]{Damage}[/blue]点伤害。"
+  },
+  {
+    "id": "DEBUFF",
+    "name": "Strategic",
+    "description": "This enemy intends to apply a [gold]Debuff[/gold] to you.",
+    "name_zh": "策略",
+    "description_zh": "这个敌人将要对你施加一个[gold]负面效果[/gold]。"
+  },
+  {
+    "id": "DEBUFF_STRONG",
+    "name": "Strategic",
+    "description": "This enemy intends to apply a powerful [gold]Debuff[/gold] to you.",
+    "name_zh": "策略",
+    "description_zh": "这个敌人将要对你施加一个强大的[gold]负面效果[/gold]。"
+  },
+  {
+    "id": "DEFEND",
+    "name": "Defensive",
+    "description": "This enemy intends to [gold]Block[/gold] on its turn.",
+    "name_zh": "守势",
+    "description_zh": "这个敌人将会在其回合获得[gold]格挡[/gold]。"
+  },
+  {
+    "id": "ESCAPE",
+    "name": "Cowardly",
+    "description": "This enemy intends to [gold]Escape[/gold].",
+    "name_zh": "懦弱",
+    "description_zh": "这个敌人将会[gold]逃跑[/gold]。"
+  },
+  {
+    "id": "HEAL",
+    "name": "Heal",
+    "description": "This enemy intends to [gold]Heal[/gold].",
+    "name_zh": "回复",
+    "description_zh": "这个敌人将会[gold]回复[/gold]。"
+  },
+  {
+    "id": "SLEEP",
+    "name": "Sleeping",
+    "description": "This enemy is doing nothing this turn.",
+    "name_zh": "沉睡",
+    "description_zh": "这个敌人本回合不会采取任何行动。"
+  },
+  {
+    "id": "STATUS",
+    "name": "Strategic",
+    "description": "This enemy intends to give you [blue]{CardCount}[/blue] [gold]Status[/gold] {CardCount:plural:card|cards}.",
+    "name_zh": "策略",
+    "description_zh": "这个敌人将会给你[blue]{CardCount}[/blue]张[gold]状态[/gold]牌。"
+  },
+  {
+    "id": "STUN",
+    "name": "Stunned",
+    "description": "This enemy can't act on its next turn.",
+    "name_zh": "击晕",
+    "description_zh": "这个敌人在其下一回合无法行动。"
+  },
+  {
+    "id": "SUMMON",
+    "name": "Summon",
+    "description": "This enemy intends to summon [gold]Monsters[/gold].",
+    "name_zh": "召唤",
+    "description_zh": "这个敌人将要召唤[gold]怪物[/gold]。"
+  },
+  {
+    "id": "UNKNOWN",
+    "name": "Unknown",
+    "description": "This enemy's intentions are [gold]Unknown[/gold].",
+    "name_zh": "未知",
+    "description_zh": "这个敌人将要进行某种[gold]未知[/gold]行动。"
+  }
+]

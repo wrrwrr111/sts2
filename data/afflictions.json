@@ -1,0 +1,92 @@
+[
+  {
+    "id": "BOUND",
+    "name": "Bound",
+    "description": "Only [blue]1[/blue] [gold]Bound[/gold] card can be played each turn. Cards are un-[gold]Bound[/gold] at end of turn.",
+    "extra_card_text": "Bound",
+    "is_stackable": false,
+    "name_zh": "魂缚",
+    "description_zh": "每回合只能打出[blue]1[/blue]张[gold]魂缚[/gold]卡牌。卡牌会在回合结束时失去[gold]魂缚[/gold]。",
+    "extra_card_text_zh": "魂缚"
+  },
+  {
+    "id": "ENTANGLED",
+    "name": "Entangled",
+    "description": "Costs an additional [energy:1].",
+    "extra_card_text": "Entangled",
+    "is_stackable": false,
+    "name_zh": "缠身",
+    "description_zh": "[energy:1]费用增加1。",
+    "extra_card_text_zh": "缠身"
+  },
+  {
+    "id": "GALVANIZED",
+    "name": "Galvanized",
+    "description": "Take [blue][Amount][/blue] damage when this card is played.",
+    "extra_card_text": "Take [Amount] damage.",
+    "is_stackable": true,
+    "name_zh": "流电",
+    "description_zh": "打出这张牌时受到[blue][Amount][/blue]点伤害。",
+    "extra_card_text_zh": "受到[Amount]点伤害。"
+  },
+  {
+    "id": "HEXED",
+    "name": "Hexed",
+    "description": "Add [gold]Ethereal[/gold] to this card.",
+    "extra_card_text": null,
+    "is_stackable": false,
+    "name_zh": "邪咒",
+    "description_zh": "这张牌获得[gold]虚无[/gold]。",
+    "extra_card_text_zh": null
+  },
+  {
+    "id": "MOCK_NO_UNPLAYABLE_AFFLICTION",
+    "name": "Mock No Unplayable Affliction",
+    "description": "",
+    "extra_card_text": null,
+    "is_stackable": false,
+    "name_zh": "临时不可打出苦痛",
+    "description_zh": null,
+    "extra_card_text_zh": null
+  },
+  {
+    "id": "MOCK_SELF_DAMAGE_AFFLICTION",
+    "name": "Mock Self Damage Affliction",
+    "description": "",
+    "extra_card_text": null,
+    "is_stackable": false,
+    "name_zh": "临时自伤苦痛",
+    "description_zh": null,
+    "extra_card_text_zh": null
+  },
+  {
+    "id": "MOCK_USELESS_AFFLICTION",
+    "name": "Mock Useless Affliction",
+    "description": "",
+    "extra_card_text": null,
+    "is_stackable": false,
+    "name_zh": "临时无用苦痛",
+    "description_zh": null,
+    "extra_card_text_zh": null
+  },
+  {
+    "id": "RINGING",
+    "name": "Ringing",
+    "description": "You can only play [blue]1[/blue] card this turn.",
+    "extra_card_text": "Ringing.",
+    "is_stackable": false,
+    "name_zh": "昏眩",
+    "description_zh": "你在本回合只能打出[blue]1[/blue]张牌。",
+    "extra_card_text_zh": "昏眩。"
+  },
+  {
+    "id": "SMOG",
+    "name": "Smog",
+    "description": "You cannot play additional [gold]Skills[/gold] this turn. Clears at the end of the turn.",
+    "extra_card_text": null,
+    "is_stackable": false,
+    "name_zh": "烟雾",
+    "description_zh": "你在本回合无法再打出更多[gold]技能[/gold]牌。回合结束时消除。",
+    "extra_card_text_zh": null
+  }
+]

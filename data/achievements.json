@@ -1,0 +1,233 @@
+[
+  {
+    "id": "ALL_CARDS_UPGRADED",
+    "name": "The Perfect Deck",
+    "description": "Win a Run with a fully-upgraded deck.",
+    "name_zh": "完美牌组",
+    "description_zh": "以全部升级的牌组赢得一局游戏。"
+  },
+  {
+    "id": "ALL_OTHER_ACHIEVEMENTS",
+    "name": "Eternal One",
+    "description": "Complete all other Achievements.",
+    "name_zh": "永存者",
+    "description_zh": "完成其他所有成就。"
+  },
+  {
+    "id": "CHARACTER_SKILL_IRONCLAD1",
+    "name": "Pact Fulfilled",
+    "description": "Exhaust 20 cards in a single combat.",
+    "name_zh": "契约完成",
+    "description_zh": "在一场战斗中消耗20张牌。"
+  },
+  {
+    "id": "CHARACTER_SKILL_IRONCLAD2",
+    "name": "Heaviest Blade",
+    "description": "Deal 999 Damage in a single blow.",
+    "name_zh": "最重之刃",
+    "description_zh": "一击造成999点伤害。"
+  },
+  {
+    "id": "CHARACTER_SKILL_NECROBINDER1",
+    "name": "Already Dead",
+    "description": "Apply 999 Doom to a single enemy.",
+    "name_zh": "已经死了",
+    "description_zh": "对单个敌人造成999点灾厄。"
+  },
+  {
+    "id": "CHARACTER_SKILL_NECROBINDER2",
+    "name": "Milk",
+    "description": "Apply 50 Strength to Osty.",
+    "name_zh": "喝奶补钙",
+    "description_zh": "对奥斯提施加50点力量。"
+  },
+  {
+    "id": "CHARACTER_SKILL_REGENT1",
+    "name": "Blade Fit for a Monarch",
+    "description": "Forge a Sovereign Blade that does at least 999 damage.",
+    "name_zh": "王者之刃",
+    "description_zh": "打造出一张至少999点伤害的君王之剑。"
+  },
+  {
+    "id": "CHARACTER_SKILL_REGENT2",
+    "name": "Suns in the Sky",
+    "description": "Have 20 Stars at once.",
+    "name_zh": "群日凌空",
+    "description_zh": "拥有20辉星。"
+  },
+  {
+    "id": "CHARACTER_SKILL_SILENT1",
+    "name": "Sneaky Sly",
+    "description": "Play 5 cards using Sly off a single card.",
+    "name_zh": "安得奇巧",
+    "description_zh": "通过奇巧机制用一张牌打出5张牌。"
+  },
+  {
+    "id": "CHARACTER_SKILL_SILENT2",
+    "name": "A Few Drops",
+    "description": "Apply 99 Poison to a single enemy.",
+    "name_zh": "几滴就好",
+    "description_zh": "对一个敌人施加99层中毒。"
+  },
+  {
+    "id": "COMPLETE_ACT4",
+    "name": "True Ending",
+    "description": "Complete Act 4.",
+    "name_zh": "真结局",
+    "description_zh": "完成第四阶段。"
+  },
+  {
+    "id": "COMPLETE_TIMELINE",
+    "name": "Historian",
+    "description": "Complete the Timeline.",
+    "name_zh": "历史学家",
+    "description_zh": "完成时间线。"
+  },
+  {
+    "id": "DEFEAT_GLORY_ENEMIES",
+    "name": "The Glory",
+    "description": "Defeat every enemy in the Glory.",
+    "name_zh": "荣耀",
+    "description_zh": "打败荣耀的所有敌人。"
+  },
+  {
+    "id": "DEFEAT_HIVE_ENEMIES",
+    "name": "The Hive",
+    "description": "Defeat every enemy in the Hive.",
+    "name_zh": "巢穴",
+    "description_zh": "打败巢穴的所有敌人。"
+  },
+  {
+    "id": "DEFEAT_ONE_BOSS",
+    "name": "First of Many",
+    "description": "Defeat a Boss.",
+    "name_zh": "小小开始",
+    "description_zh": "打败一名Boss。"
+  },
+  {
+    "id": "DEFEAT_OVERGROWTH_ENEMIES",
+    "name": "The Overgrowth",
+    "description": "Defeat every enemy in the Overgrowth.",
+    "name_zh": "密林",
+    "description_zh": "打败密林的所有敌人。"
+  },
+  {
+    "id": "DEFEAT_UNDERDOCKS_ENEMIES",
+    "name": "The Underdocks",
+    "description": "Defeat every enemy in the Underdocks.",
+    "name_zh": "暗港",
+    "description_zh": "打败暗港的所有敌人。"
+  },
+  {
+    "id": "DEFECT_ASCENSION10",
+    "name": "Echo",
+    "description": "Beat Ascension 10 as the Defect.",
+    "name_zh": "回响",
+    "description_zh": "用故障机器人赢得一局进阶10的游戏。"
+  },
+  {
+    "id": "DEFECT_WIN",
+    "name": "The Defect",
+    "description": "Win as the Defect.",
+    "name_zh": "故障机器人",
+    "description_zh": "用故障机器人打通游戏。"
+  },
+  {
+    "id": "DISCOVER_ALL_CARDS",
+    "name": "Collector",
+    "description": "Discover all Cards.",
+    "name_zh": "收藏家",
+    "description_zh": "发现所有卡牌。"
+  },
+  {
+    "id": "DISCOVER_ALL_EVENTS",
+    "name": "Explorer",
+    "description": "Encounter all Events.",
+    "name_zh": "探险家",
+    "description_zh": "遇到所有事件。"
+  },
+  {
+    "id": "DISCOVER_ALL_RELICS",
+    "name": "Archaeologist",
+    "description": "Discover all Relics.",
+    "name_zh": "考古学家",
+    "description_zh": "发现所有遗物。"
+  },
+  {
+    "id": "FLOOR_TEN_THOUSAND",
+    "name": "A Lot of Stairs",
+    "description": "Climb 10,000 floors.",
+    "name_zh": "好多楼梯",
+    "description_zh": "在尖塔中攀登1万层。"
+  },
+  {
+    "id": "IRONCLAD_ASCENSION10",
+    "name": "Demon",
+    "description": "Beat Ascension 10 as the Ironclad.",
+    "name_zh": "恶魔",
+    "description_zh": "用铁甲战士赢得一局进阶10的游戏。"
+  },
+  {
+    "id": "IRONCLAD_WIN",
+    "name": "The Ironclad",
+    "description": "Win as the Ironclad.",
+    "name_zh": "铁甲战士",
+    "description_zh": "用铁甲战士打通游戏。"
+  },
+  {
+    "id": "NECROBINDER_ASCENSION10",
+    "name": "Lich",
+    "description": "Beat Ascension 10 as the Necrobinder.",
+    "name_zh": "巫妖",
+    "description_zh": "用亡灵契约师赢得一局进阶10的游戏。"
+  },
+  {
+    "id": "NECROBINDER_WIN",
+    "name": "The Necrobinder",
+    "description": "Win as the Necrobinder.",
+    "name_zh": "亡灵契约师",
+    "description_zh": "用亡灵契约师打通游戏。"
+  },
+  {
+    "id": "NO_RELIC_WIN",
+    "name": "Unnecessary Clutter",
+    "description": "Win a Run without obtaining any relics.",
+    "name_zh": "身无杂物",
+    "description_zh": "不获得任何遗物打通游戏。"
+  },
+  {
+    "id": "PLAY20_CARDS_SINGLE_TURN",
+    "name": "Playing Cards Is Fun",
+    "description": "Play 20 cards in a single turn.",
+    "name_zh": "打牌真开心啊",
+    "description_zh": "在一回合内打出20张牌。"
+  },
+  {
+    "id": "REGENT_ASCENSION10",
+    "name": "Monarch",
+    "description": "Beat Ascension 10 as the Regent.",
+    "name_zh": "帝王",
+    "description_zh": "用储君赢得一局进阶10的游戏。"
+  },
+  {
+    "id": "REGENT_WIN",
+    "name": "The Regent",
+    "description": "Win as the Regent.",
+    "name_zh": "储君",
+    "description_zh": "用储君打通游戏。"
+  },
+  {
+    "id": "SILENT_ASCENSION10",
+    "name": "Wraith",
+    "description": "Beat Ascension 10 as the Silent.",
+    "name_zh": "幽魂",
+    "description_zh": "用静默猎手赢得一局进阶10的游戏。"
+  },
+  {
+    "id": "SILENT_WIN",
+    "name": "The Silent",
+    "description": "Win as the Silent.",
+    "name_zh": "静默猎手",
+    "description_zh": "用静默猎手打通游戏。"
+  }
+]

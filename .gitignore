@@ -1,0 +1,9 @@
+# Extraction data (large, from game files)
+extraction/
+*.pck
+spire-codex-main/
+backend/
+node_modules/
+dist/
+.DS_Store
+.astro
