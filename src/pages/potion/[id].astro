@@ -92,7 +92,7 @@ const t = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={displayName} />
   </Fragment>
-  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
     <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
@@ -111,7 +111,8 @@ const t = {
         </div>
         <TopNav current="potions" basePath={base} lang={lang} />
       </div>
-      <div class="w-full max-w-[720px] rounded-[18px] border border-white/10 bg-white/5 p-6">
+      <div class="w-full max-w-[720px] flex flex-col gap-4">
+        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
         <div class="flex items-center gap-4">
           <div class="h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3">
             <img
@@ -130,10 +131,13 @@ const t = {
             </div>
           </div>
         </div>
+        </section>
+        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
         <div
-          class="mt-4 text-[13px] leading-[1.4] text-[#f2e5cd]"
+          class="text-[13px] leading-[1.4] text-[#f2e5cd]"
           set:html={formatRelicText(pickText(lang, potion.description_zh, potion.description), base)}
         />
+        </section>
       </div>
     </div>
   </main>

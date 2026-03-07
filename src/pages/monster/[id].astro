@@ -101,7 +101,7 @@ const t = {
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
     <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
@@ -120,7 +120,8 @@ const t = {
         </div>
         <TopNav current="monsters" basePath={base} lang={lang} />
       </div>
-      <div class="w-full max-w-[820px] rounded-[18px] border border-white/10 bg-white/5 p-6">
+      <div class="w-full max-w-[820px] flex flex-col gap-4">
+        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
         <div class="flex items-start gap-4">
           <div
             class="relative h-[120px] w-[120px] rounded-[14px] border border-white/10 bg-black/30 p-2"
@@ -149,9 +150,10 @@ const t = {
             </div>
           </div>
         </div>
+        </section>
 
         {monster.moves && monster.moves.length > 0 && (
-          <div class="mt-4">
+          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.moves}</div>
             <div class="mt-2 grid gap-2">
               {monster.moves.map((move) => (
@@ -165,11 +167,11 @@ const t = {
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {damageRows.length > 0 && (
-          <div class="mt-6">
+          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.damage}</div>
             <div class="mt-2 overflow-hidden rounded-[12px] border border-white/10">
               <table class="w-full text-[12px]">
@@ -191,11 +193,11 @@ const t = {
                 </tbody>
               </table>
             </div>
-          </div>
+          </section>
         )}
 
         {blockRows.length > 0 && (
-          <div class="mt-6">
+          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.block}</div>
             <div class="mt-2 overflow-hidden rounded-[12px] border border-white/10">
               <table class="w-full text-[12px]">
@@ -217,7 +219,7 @@ const t = {
                 </tbody>
               </table>
             </div>
-          </div>
+          </section>
         )}
       </div>
     </div>
