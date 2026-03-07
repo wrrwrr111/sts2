@@ -1,0 +1,250 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TopNav from "../../components/TopNav.astro";
+import monstersData from "../../../data/monsters.json";
+
+type MonsterMove = {
+  id: string;
+  name?: string | null;
+  name_zh?: string | null;
+};
+
+type Monster = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  type?: string | null;
+  min_hp?: number | null;
+  max_hp?: number | null;
+  min_hp_ascension?: number | null;
+  max_hp_ascension?: number | null;
+  moves?: MonsterMove[] | null;
+  damage_values?: Record<string, { normal?: number | null; ascension?: number | null }> | null;
+  block_values?: Record<string, { normal?: number | null; ascension?: number | null }> | null;
+  image_url?: string | null;
+};
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const monsters = monstersData as Monster[];
+
+const getName = (m: Monster) => m.name_zh ?? m.name;
+const getType = (m: Monster) => m.type ?? "Unknown";
+const normalizeImageUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  return url.replace("/static/images/", "/images/");
+};
+const getImage = (m: Monster) => normalizeImageUrl(m.image_url ?? null);
+
+const types = Array.from(
+  new Set(monsters.map((item) => item.type).filter(Boolean)),
+) as string[];
+
+const origin =
+  Astro.site?.toString().replace(/\/$/, "") ??
+  new URL(Astro.request.url).origin;
+const canonical = new URL(`${base}/monsters`, origin).toString();
+const pageTitle = "怪物图鉴 | 杀戮尖塔2 中文数据库";
+const pageDescription = `收录杀戮尖塔2全部怪物，共 ${monsters.length} 个。支持类型筛选与搜索。`;
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+  </Fragment>
+  <main class='min-h-screen px-4 pb-[72px] pt-12 sm:px-[6vw]' data-base-path={base}>
+    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
+      <header>
+        <div class='flex items-end justify-between gap-6'>
+          <div>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
+              怪物
+            </div>
+            <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>怪物图鉴</h1>
+            <p class='mt-1 text-[#c4c7d6]'>共 {monsters.length} 个怪物</p>
+          </div>
+          <TopNav current='monsters' basePath={base} />
+        </div>
+      </header>
+
+      <section
+        class='grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]'
+        aria-label='Monster filters'
+      >
+        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
+          <span>类型</span>
+          <select
+            id='monster-filter-type'
+            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
+          >
+            <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
+            {types.map((type) => (
+              <option value={type} class='bg-[#1a1c24] text-[#f4f4f1]'>
+                {type}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
+          <span>搜索</span>
+          <input
+            id='monster-filter-search'
+            type='search'
+            placeholder='名称 / 动作'
+            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20'
+          />
+        </label>
+
+        <button
+          type='button'
+          id='monster-filter-reset'
+          class='rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors'
+        >
+          重置
+        </button>
+      </section>
+
+      <section class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        {monsters.map((monster) => (
+          <a
+            href={`${base}/monster/${monster.id}`}
+            class='monster-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10'
+            data-monster='1'
+            data-type-raw={monster.type ?? ""}
+            data-search={[
+              getName(monster),
+              monster.name ?? "",
+              monster.moves?.map((m) => m.name_zh ?? m.name ?? "").join(" ") ?? "",
+            ]
+              .join(" ")
+              .toLowerCase()}
+          >
+            <div class='flex items-start gap-3'>
+              <div class='relative h-[54px] w-[54px] rounded-[10px] border border-white/10 bg-black/30 p-2'>
+                {getImage(monster) ? (
+                  <img
+                    class='h-full w-full object-contain'
+                    src={`${base}${getImage(monster)}`}
+                    alt={getName(monster)}
+                    loading='lazy'
+                    data-monster-fallback
+                    onerror='this.style.display="none"; this.nextElementSibling?.classList.remove("hidden");'
+                  />
+                ) : (
+                  <span class='sr-only'>no image</span>
+                )}
+                <div
+                  class={`${getImage(monster) ? "hidden " : ""}absolute inset-0 bg-no-repeat bg-center`}
+                  data-monster-sprite
+                  data-sprite-src={`${base}/images/monsters/sprites/${monster.id.toLowerCase()}.png`}
+                  data-sprite-meta={`${base}/images/monsters/sprites/${monster.id.toLowerCase()}.json`}
+                ></div>
+              </div>
+              <div class='flex-1'>
+                <div class='text-[14px] font-semibold text-[#fdf0d8]'>
+                  {getName(monster)}
+                </div>
+                <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                  {getType(monster).toUpperCase()}
+                </div>
+              </div>
+              <div class='text-[10px] text-[#c4c7d6] text-right'>
+                <div>HP {monster.min_hp ?? "?"}-{monster.max_hp ?? "?"}</div>
+                {(monster.min_hp_ascension || monster.max_hp_ascension) && (
+                  <div class='opacity-70'>
+                    A: {monster.min_hp_ascension ?? "?"}-{monster.max_hp_ascension ?? "?"}
+                  </div>
+                )}
+              </div>
+            </div>
+            {monster.moves && monster.moves.length > 0 && (
+              <div class='mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]'>
+                动作：
+                {monster.moves
+                  .map((m) => m.name_zh ?? m.name ?? m.id)
+                  .filter(Boolean)
+                  .join(" / ")}
+              </div>
+            )}
+          </a>
+        ))}
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const byId = (id: string): HTMLElement | null => document.getElementById(id);
+  const typeEl = byId("monster-filter-type") as HTMLSelectElement | null;
+  const searchEl = byId("monster-filter-search") as HTMLInputElement | null;
+  const resetEl = byId("monster-filter-reset") as HTMLButtonElement | null;
+
+  const applyFilters = () => {
+    const type = typeEl?.value ?? "all";
+    const query = (searchEl?.value ?? "").trim().toLowerCase();
+
+    document.querySelectorAll("[data-monster]").forEach((node) => {
+      const el = node as HTMLElement;
+      const t = el.dataset.typeRaw || "";
+      const s = el.dataset.search || "";
+
+      const match =
+        (type === "all" || t === type) && (!query || s.includes(query));
+
+      el.style.display = match ? "" : "none";
+    });
+  };
+
+  typeEl?.addEventListener("change", applyFilters);
+  searchEl?.addEventListener("input", applyFilters);
+
+  resetEl?.addEventListener("click", () => {
+    if (typeEl) typeEl.value = "all";
+    if (searchEl) searchEl.value = "";
+    applyFilters();
+  });
+
+  const spriteTargets = Array.from(
+    document.querySelectorAll("[data-monster-sprite]"),
+  );
+  const initSprite = async (el) => {
+    const metaUrl = el.getAttribute("data-sprite-meta") || "";
+    const imgUrl = el.getAttribute("data-sprite-src") || "";
+    if (!metaUrl || !imgUrl) return;
+    try {
+      const res = await fetch(metaUrl);
+      if (!res.ok) return;
+      const meta = await res.json();
+      const rect = el.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const scaleX = rect.width / meta.frameWidth;
+      const scaleY = rect.height / meta.frameHeight;
+      const sheetWidth = meta.columns * meta.frameWidth * scaleX;
+      const sheetHeight = meta.rows * meta.frameHeight * scaleY;
+
+      el.style.backgroundImage = `url(${imgUrl})`;
+      el.style.backgroundSize = `${sheetWidth}px ${sheetHeight}px`;
+
+      const fallback = el.parentElement?.querySelector(
+        "[data-monster-fallback]",
+      );
+      const shouldShow =
+        !fallback || getComputedStyle(fallback).display === "none";
+      if (shouldShow) el.classList.remove("hidden");
+
+      el.style.backgroundPosition = `0px 0px`;
+    } catch {}
+  };
+
+  spriteTargets.forEach((el) => {
+    initSprite(el);
+  });
+</script>

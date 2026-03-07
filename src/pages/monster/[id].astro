@@ -1,0 +1,245 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TopNav from "../../components/TopNav.astro";
+import monstersData from "../../../data/monsters.json";
+
+type MonsterMove = {
+  id: string;
+  name?: string | null;
+  name_zh?: string | null;
+};
+
+type Monster = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  type?: string | null;
+  min_hp?: number | null;
+  max_hp?: number | null;
+  min_hp_ascension?: number | null;
+  max_hp_ascension?: number | null;
+  moves?: MonsterMove[] | null;
+  damage_values?: Record<string, { normal?: number | null; ascension?: number | null }> | null;
+  block_values?: Record<string, { normal?: number | null; ascension?: number | null }> | null;
+  image_url?: string | null;
+};
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const monsters = (monstersData as Monster[]);
+
+export const getStaticPaths = () =>
+  (monstersData as Monster[]).map((monster) => ({
+    params: { id: monster.id },
+  }));
+
+const { id } = Astro.params;
+const monster = monsters.find(
+  (item) => item.id?.toLowerCase() === id?.toLowerCase(),
+);
+
+if (!monster) {
+  return new Response("Not found", { status: 404 });
+}
+
+const displayName = monster.name_zh ?? monster.name ?? monster.id;
+const pageTitle = `${displayName} | 杀戮尖塔2 怪物图鉴`;
+const origin =
+  Astro.site?.toString().replace(/\/$/, "") ??
+  new URL(Astro.request.url).origin;
+const canonical = new URL(`${base}/monster/${monster.id}`, origin).toString();
+const rawDesc = `类型：${monster.type ?? "未知"}，HP ${monster.min_hp ?? "?"}-${monster.max_hp ?? "?"}`;
+const pageDescription = rawDesc.slice(0, 160);
+
+const formatValue = (val: number | null | undefined) =>
+  typeof val === "number" ? String(val) : "-";
+
+const spritePath = `/images/monsters/sprites/${monster.id.toLowerCase()}.png`;
+const spriteMetaPath = `/images/monsters/sprites/${monster.id.toLowerCase()}.json`;
+
+const renderValueTable = (
+  values: Monster["damage_values"] | Monster["block_values"],
+) => {
+  if (!values) return [] as { key: string; normal: string; ascension: string }[];
+  return Object.entries(values).map(([key, val]) => ({
+    key,
+    normal: formatValue(val?.normal ?? null),
+    ascension: formatValue(val?.ascension ?? null),
+  }));
+};
+
+const damageRows = renderValueTable(monster.damage_values);
+const blockRows = renderValueTable(monster.block_values);
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+  </Fragment>
+  <main class='min-h-screen px-4 pb-[72px] pt-12 sm:px-[6vw]' data-base-path={base}>
+    <div class='mx-auto flex max-w-[980px] flex-col items-center gap-6'>
+      <div class='flex w-full flex-col items-center gap-4'>
+        <a class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]' href={`${base}/monsters`}>
+          返回怪物
+        </a>
+        <TopNav current='monsters' basePath={base} />
+      </div>
+      <div class='w-full max-w-[720px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
+        <div class='flex items-start gap-4'>
+          <div
+            class='relative h-[120px] w-[120px] rounded-[14px] border border-white/10 bg-black/30 p-2'
+            data-sprite-wrap
+            data-sprite-src={`${base}${spritePath}`}
+            data-sprite-meta={`${base}${spriteMetaPath}`}
+          >
+            <div class='absolute inset-0 bg-no-repeat bg-center' data-sprite-frame></div>
+          </div>
+          <div class='flex-1'>
+            <div class='text-[20px] font-semibold text-[#fdf0d8]'>{displayName}</div>
+            <div class='mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+              {(monster.type ?? "未知").toUpperCase()}
+            </div>
+            <div class='mt-3 grid grid-cols-2 gap-2 text-[11px] text-[#c4c7d6]'>
+              <div>HP {monster.min_hp ?? "?"}-{monster.max_hp ?? "?"}</div>
+              {(monster.min_hp_ascension || monster.max_hp_ascension) ? (
+                <div>
+                  A: {monster.min_hp_ascension ?? "?"}-{monster.max_hp_ascension ?? "?"}
+                </div>
+              ) : (
+                <div>A: -</div>
+              )}
+              <div>ID: {monster.id}</div>
+              <div>类型: {monster.type ?? "未知"}</div>
+            </div>
+          </div>
+        </div>
+
+        {monster.moves && monster.moves.length > 0 && (
+          <div class='mt-4'>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>动作</div>
+            <div class='mt-2 grid gap-2'>
+              {monster.moves.map((move) => (
+                <div class='rounded-[10px] border border-white/10 bg-white/5 px-3 py-2'>
+                  <div class='text-[12px] font-semibold text-[#fdf0d8]'>
+                    {move.name_zh ?? move.name ?? move.id}
+                  </div>
+                  <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                    {move.id}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {damageRows.length > 0 && (
+          <div class='mt-6'>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>伤害</div>
+            <div class='mt-2 overflow-hidden rounded-[12px] border border-white/10'>
+              <table class='w-full text-[12px]'>
+                <thead class='bg-white/5 text-[#c4c7d6]'>
+                  <tr>
+                    <th class='px-3 py-2 text-left font-medium'>动作</th>
+                    <th class='px-3 py-2 text-left font-medium'>普通</th>
+                    <th class='px-3 py-2 text-left font-medium'>进阶</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {damageRows.map((row) => (
+                    <tr class='border-t border-white/10'>
+                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.key}</td>
+                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.normal}</td>
+                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.ascension}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {blockRows.length > 0 && (
+          <div class='mt-6'>
+            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>格挡</div>
+            <div class='mt-2 overflow-hidden rounded-[12px] border border-white/10'>
+              <table class='w-full text-[12px]'>
+                <thead class='bg-white/5 text-[#c4c7d6]'>
+                  <tr>
+                    <th class='px-3 py-2 text-left font-medium'>动作</th>
+                    <th class='px-3 py-2 text-left font-medium'>普通</th>
+                    <th class='px-3 py-2 text-left font-medium'>进阶</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {blockRows.map((row) => (
+                    <tr class='border-t border-white/10'>
+                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.key}</td>
+                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.normal}</td>
+                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.ascension}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const wrap = document.querySelector("[data-sprite-wrap]");
+  const frameEl = document.querySelector("[data-sprite-frame]");
+  if (wrap && frameEl) {
+    const metaUrl = wrap.getAttribute("data-sprite-meta") || "";
+    const imgUrl = wrap.getAttribute("data-sprite-src") || "";
+    if (!metaUrl || !imgUrl) {
+      wrap.classList.add("hidden");
+    } else {
+      fetch(metaUrl)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((meta) => {
+          if (!meta || !meta.frameWidth || !meta.frameHeight) {
+            wrap.classList.add("hidden");
+            return;
+          }
+          const rect = wrap.getBoundingClientRect();
+          if (!rect.width || !rect.height) {
+            wrap.classList.add("hidden");
+            return;
+          }
+          const scaleX = rect.width / meta.frameWidth;
+          const scaleY = rect.height / meta.frameHeight;
+          const sheetWidth = meta.columns * meta.frameWidth * scaleX;
+          const sheetHeight = meta.rows * meta.frameHeight * scaleY;
+
+          frameEl.style.backgroundImage = `url(${imgUrl})`;
+          frameEl.style.backgroundSize = `${sheetWidth}px ${sheetHeight}px`;
+
+          const start = performance.now();
+          const tick = (now) => {
+            const elapsed = (now - start) / 1000;
+            const frameIndex = Math.floor(
+              elapsed * (meta.fps || 30),
+            ) % meta.frameCount;
+            const col = frameIndex % meta.columns;
+            const row = Math.floor(frameIndex / meta.columns);
+            const x = -(col * meta.frameWidth * scaleX);
+            const y = -(row * meta.frameHeight * scaleY);
+            frameEl.style.backgroundPosition = `${x}px ${y}px`;
+            requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        })
+        .catch(() => wrap.classList.add("hidden"));
+    }
+  }
+</script>
