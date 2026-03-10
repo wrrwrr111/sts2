@@ -468,6 +468,7 @@ const energyImageFor = (card: Card) =>
           const baseDesc = getDisplayDesc(card);
           const upgradedDesc = getDisplayDescUpgraded(card);
           const upgradeCost = getUpgradeCostLabel(card);
+          const isAncient = card.rarity?.toLowerCase() === "ancient";
           return (
             <div class='card-tile mx-auto h-[253px] w-[180px]'>
               <div class='relative h-full w-full'>
@@ -483,7 +484,13 @@ const energyImageFor = (card: Card) =>
                   data-cost-raw={getCostBucket(card)}
                   data-has-upgrade={card.upgrade ? "1" : "0"}
                 >
-                  <div class='absolute left-[12.5px] top-[21.5px] z-[0] h-[95px] w-[125px] overflow-hidden rounded-[5px]'>
+                  <div
+                    class={
+                      isAncient
+                        ? "absolute left-0 top-0 z-[0] h-[211px] w-[150px] overflow-hidden rounded-[16px]"
+                        : "absolute left-[12.5px] top-[21.5px] z-[0] h-[95px] w-[125px] overflow-hidden rounded-[5px]"
+                    }
+                  >
                     <img
                       class='h-full w-full object-cover [filter:drop-shadow(0_5px_9px_rgba(0,0,0,0.4))]'
                       src={`${base}${getCardImage(card)}`}
@@ -503,12 +510,14 @@ const energyImageFor = (card: Card) =>
                     alt=''
                     loading='lazy'
                   />
-                  <img
-                    class='absolute left-[6.25px] top-[23.5px] z-[4] h-[105px] w-[137.5px]'
-                    src={`${base}/images/ui/${borderImageFor(card)}.png`}
-                    alt=''
-                    loading='lazy'
-                  />
+                  {!isAncient && (
+                    <img
+                      class='absolute left-[6.25px] top-[23.5px] z-[4] h-[105px] w-[137.5px]'
+                      src={`${base}/images/ui/${borderImageFor(card)}.png`}
+                      alt=''
+                      loading='lazy'
+                    />
+                  )}
                   <img
                     class='absolute left-[59.75px] top-[106px] z-[6] h-[18.5px] w-[30.5px]'
                     src={`${base}/images/ui/card_portrait_border_plaque2.png`}
