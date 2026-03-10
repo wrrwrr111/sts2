@@ -351,8 +351,8 @@
     "description_zh": "获得一瓶随机药水。",
     "description_raw": "Procure a random potion.",
     "description_raw_zh": "获得一瓶随机药水。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Procure a random potion.",
+    "description_upgraded_zh": "获得一瓶随机药水。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -373,7 +373,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/alchemize.png",
     "beta_image_url": null
   },
@@ -570,8 +572,8 @@
     "description_zh": "[gold]升级[/gold]你的全部卡牌。",
     "description_raw": "[gold]Upgrade[/gold] ALL your cards.",
     "description_raw_zh": "[gold]升级[/gold]你的全部卡牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Upgrade[/gold] ALL your cards.",
+    "description_upgraded_zh": "[gold]升级[/gold]你的全部卡牌。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -593,7 +595,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/apotheosis.png",
     "beta_image_url": null
   },
@@ -878,8 +882,8 @@
     "description_zh": "你每抽10张牌，获得[energy:1]。",
     "description_raw": "Every 10 cards you draw, gain {Energy:energyIcons()}.",
     "description_raw_zh": "你每抽10张牌，获得{Energy:energyIcons()}。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Every 10 cards you draw, gain [energy:1].",
+    "description_upgraded_zh": "你每抽10张牌，获得[energy:1]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -900,7 +904,9 @@
     "vars": {
       "Energy": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/automation.png",
     "beta_image_url": "/images/cards/beta/automation.png"
   },
@@ -1136,8 +1142,8 @@
     "description_zh": "[gold]格挡[/gold]不再在你的回合开始时消失。",
     "description_raw": "[gold]Block[/gold] is not removed at the start of your turn.",
     "description_raw_zh": "[gold]格挡[/gold]不再在你的回合开始时消失。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Block[/gold] is not removed at the start of your turn.",
+    "description_upgraded_zh": "[gold]格挡[/gold]不再在你的回合开始时消失。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -1156,7 +1162,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/barricade.png",
     "beta_image_url": null
   },
@@ -1895,8 +1903,8 @@
     "description_zh": "造成你当前[gold]格挡[/gold]值的伤害。",
     "description_raw": "Deal damage equal to your [gold]Block[/gold].{InCombat:\n(Deals {CalculatedDamage:diff()} damage)|}",
     "description_raw_zh": "造成你当前[gold]格挡[/gold]值的伤害。{InCombat:\n（造成{CalculatedDamage:diff()}点伤害）|}",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Deal damage equal to your [gold]Block[/gold].",
+    "description_upgraded_zh": "造成你当前[gold]格挡[/gold]值的伤害。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -1918,7 +1926,9 @@
       "CalculationBase": 0,
       "ExtraDamage": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/body_slam.png",
     "beta_image_url": null
   },
@@ -2893,8 +2903,8 @@
     "description_zh": "每当你打出一张攻击牌时，将一张随机攻击牌添加到你的[gold]手牌[/gold]。",
     "description_raw": "Whenever you play an Attack, add a random Attack into your [gold]Hand[/gold].",
     "description_raw_zh": "每当你打出一张攻击牌时，将一张随机攻击牌添加到你的[gold]手牌[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever you play an Attack, add a random Attack into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "每当你打出一张攻击牌时，将一张随机攻击牌添加到你的[gold]手牌[/gold]。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -2913,7 +2923,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/calamity.png",
     "beta_image_url": "/images/cards/beta/calamity.png"
   },
@@ -4221,8 +4233,8 @@
     "description_zh": "技能牌消耗变为0[energy:1]。\n每当你打出一张技能牌时，将其[gold]消耗[/gold]。",
     "description_raw": "Skills cost 0 {energyPrefix:energyIcons(1)}.\nWhenever you play a Skill, [gold]Exhaust[/gold] it.",
     "description_raw_zh": "技能牌消耗变为0{energyPrefix:energyIcons(1)}。\n每当你打出一张技能牌时，将其[gold]消耗[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Skills cost 0 [energy:1].\nWhenever you play a Skill, [gold]Exhaust[/gold] it.",
+    "description_upgraded_zh": "技能牌消耗变为0[energy:1]。\n每当你打出一张技能牌时，将其[gold]消耗[/gold]。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -4243,7 +4255,9 @@
     "vars": {
       "Power": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/corruption.png",
     "beta_image_url": null
   },
@@ -4367,8 +4381,8 @@
     "description_zh": "在你的回合开始时，将一张随机能力牌加入你的[gold]手牌[/gold]。",
     "description_raw": "At the start of your turn, add a random Power into your [gold]Hand[/gold].",
     "description_raw_zh": "在你的回合开始时，将一张随机能力牌加入你的[gold]手牌[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the start of your turn, add a random Power into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "在你的回合开始时，将一张随机能力牌加入你的[gold]手牌[/gold]。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -4389,7 +4403,9 @@
     "vars": {
       "CreativeAi": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/creative_ai.png",
     "beta_image_url": null
   },
@@ -4705,8 +4721,8 @@
     "description_zh": "每当有一张牌被[gold]消耗[/gold]时，\n抽1张牌。",
     "description_raw": "Whenever a card is [gold]Exhausted[/gold],\ndraw 1 card.",
     "description_raw_zh": "每当有一张牌被[gold]消耗[/gold]时，\n抽1张牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever a card is [gold]Exhausted[/gold],\ndraw 1 card.",
+    "description_upgraded_zh": "每当有一张牌被[gold]消耗[/gold]时，\n抽1张牌。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -4725,7 +4741,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/dark_embrace.png",
     "beta_image_url": null
   },
@@ -5620,8 +5638,8 @@
     "description_zh": "在你的回合开始时，获得[energy:1]并额外多抽1张牌。",
     "description_raw": "At the start of your turn, gain {Energy:energyIcons()} and draw {Cards:diff()} additional {Cards:plural:card|cards}.",
     "description_raw_zh": "在你的回合开始时，获得{Energy:energyIcons()}并额外多抽{Cards:diff()}张牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the start of your turn, gain [energy:1] and draw 1 additional card.",
+    "description_upgraded_zh": "在你的回合开始时，获得[energy:1]并额外多抽1张牌。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -5645,7 +5663,9 @@
       "Energy": 1,
       "Cards": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/demesne.png",
     "beta_image_url": "/images/cards/beta/demesne.png"
   },
@@ -5958,8 +5978,8 @@
     "description_zh": "将一张随机技能牌添加到你的[gold]手牌[/gold]中。这张牌在本回合内可以免费打出。",
     "description_raw": "Add a random Skill into your [gold]Hand[/gold]. It's free to play this turn.",
     "description_raw_zh": "将一张随机技能牌添加到你的[gold]手牌[/gold]中。这张牌在本回合内可以免费打出。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Add a random Skill into your [gold]Hand[/gold]. It's free to play this turn.",
+    "description_upgraded_zh": "将一张随机技能牌添加到你的[gold]手牌[/gold]中。这张牌在本回合内可以免费打出。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -5980,7 +6000,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": null,
     "beta_image_url": "/images/cards/beta/distraction.png"
   },
@@ -6064,8 +6086,8 @@
     "description_zh": "将你的能量翻倍。",
     "description_raw": "Double your Energy.",
     "description_raw_zh": "将你的能量翻倍。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Double your Energy.",
+    "description_upgraded_zh": "将你的能量翻倍。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -6086,7 +6108,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/double_energy.png",
     "beta_image_url": null
   },
@@ -6332,8 +6356,8 @@
     "description_zh": "[gold]激发[/gold]你最右侧的充能球两次。",
     "description_raw": "[gold]Evoke[/gold] your rightmost Orb twice.",
     "description_raw_zh": "[gold]激发[/gold]你最右侧的充能球两次。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Evoke[/gold] your rightmost Orb twice.",
+    "description_upgraded_zh": "[gold]激发[/gold]你最右侧的充能球两次。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -6352,7 +6376,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/dualcast.png",
     "beta_image_url": null
   },
@@ -6476,8 +6502,8 @@
     "description_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌通过这个方法被[gold]消耗[/gold]了，则获得1层[gold]无实体[/gold]。",
     "description_raw": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nIf 9 cards were [gold]Exhausted[/gold] this way, gain 1 [gold]Intangible[/gold].",
     "description_raw_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌通过这个方法被[gold]消耗[/gold]了，则获得1层[gold]无实体[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nIf 9 cards were [gold]Exhausted[/gold] this way, gain 1 [gold]Intangible[/gold].",
+    "description_upgraded_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌通过这个方法被[gold]消耗[/gold]了，则获得1层[gold]无实体[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -6496,7 +6522,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/eidolon.png",
     "beta_image_url": "/images/cards/beta/eidolon.png"
   },
@@ -6692,8 +6720,8 @@
     "description_zh": "将你当前的[gold]格挡[/gold]翻倍。",
     "description_raw": "Double your [gold]Block[/gold].",
     "description_raw_zh": "将你当前的[gold]格挡[/gold]翻倍。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Double your [gold]Block[/gold].",
+    "description_upgraded_zh": "将你当前的[gold]格挡[/gold]翻倍。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -6712,7 +6740,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": null,
     "beta_image_url": "/images/cards/beta/entrench.png"
   },
@@ -6985,8 +7015,8 @@
     "description_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就会获得[energy:1]。",
     "description_raw": "Gain {energyPrefix:energyIcons(1)} for each Attack in your [gold]Hand[/gold].{InCombat:\n(Gain {CalculatedEnergy:energyIcons()}.)|}",
     "description_raw_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就会获得{energyPrefix:energyIcons(1)}。{InCombat:\n（获得{CalculatedEnergy:energyIcons()}。）|}",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Gain [energy:1] for each Attack in your [gold]Hand[/gold].",
+    "description_upgraded_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就会获得[energy:1]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7009,7 +7039,9 @@
       "CalculationBase": 0,
       "CalculationExtra": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/expect_a_fight.png",
     "beta_image_url": null
   },
@@ -7409,8 +7441,8 @@
     "description_zh": null,
     "description_raw": "The first {FeralPower:plural:time|{FeralPower:diff()} times} you play a\n0{energyPrefix:energyIcons(1)} Attack each turn,\nreturn it to your [gold]Hand[/gold].",
     "description_raw_zh": null,
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "The first time times} you play a\n0[energy:1] Attack each turn,\nreturn it to your [gold]Hand[/gold].",
+    "description_upgraded_zh": "The first time times} you play a\n0[energy:1] Attack each turn,\nreturn it to your [gold]Hand[/gold].",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7437,7 +7469,9 @@
       "FeralPower": 1,
       "Power": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": null,
     "beta_image_url": "/images/cards/beta/feral.png"
   },
@@ -7794,8 +7828,8 @@
     "description_zh": "一名敌人在本回合受到的来自其他玩家的伤害翻倍。",
     "description_raw": "The enemy takes double damage from other players this turn.",
     "description_raw_zh": "一名敌人在本回合受到的来自其他玩家的伤害翻倍。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "The enemy takes double damage from other players this turn.",
+    "description_upgraded_zh": "一名敌人在本回合受到的来自其他玩家的伤害翻倍。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7814,7 +7848,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/flanking.png",
     "beta_image_url": null
   },
@@ -8139,8 +8175,8 @@
     "description_zh": "在战斗结束时，你可以从你的[gold]牌组[/gold]中选一张牌移除。",
     "description_raw": "At the end of combat, you may remove a card from your [gold]Deck[/gold].",
     "description_raw_zh": "在战斗结束时，你可以从你的[gold]牌组[/gold]中选一张牌移除。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the end of combat, you may remove a card from your [gold]Deck[/gold].",
+    "description_upgraded_zh": "在战斗结束时，你可以从你的[gold]牌组[/gold]中选一张牌移除。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -8161,7 +8197,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/forbidden_grimoire.png",
     "beta_image_url": "/images/cards/beta/forbidden_grimoire.png"
   },
@@ -8430,8 +8468,8 @@
     "description_zh": "[gold]生成[/gold]1个[gold]等离子[/gold]充能球。",
     "description_raw": "[gold]Channel[/gold] 1 [gold]Plasma[/gold].",
     "description_raw_zh": "[gold]生成[/gold]1个[gold]等离子[/gold]充能球。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Channel[/gold] 1 [gold]Plasma[/gold].",
+    "description_upgraded_zh": "[gold]生成[/gold]1个[gold]等离子[/gold]充能球。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -8450,7 +8488,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/fusion.png",
     "beta_image_url": null
   },
@@ -9364,8 +9404,8 @@
     "description_zh": "每当你[gold]铸造[/gold]时，所有盟友也都[gold]铸造[/gold]相同的数值。",
     "description_raw": "Whenever you [gold]Forge[/gold], all allies [gold]Forge[/gold] as well.",
     "description_raw_zh": "每当你[gold]铸造[/gold]时，所有盟友也都[gold]铸造[/gold]相同的数值。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever you [gold]Forge[/gold], all allies [gold]Forge[/gold] as well.",
+    "description_upgraded_zh": "每当你[gold]铸造[/gold]时，所有盟友也都[gold]铸造[/gold]相同的数值。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -9384,7 +9424,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/hammer_time.png",
     "beta_image_url": "/images/cards/beta/hammer_time.png"
   },
@@ -9541,8 +9583,8 @@
     "description_zh": "打出[gold]抽牌堆[/gold]顶部的牌并将其[gold]消耗[/gold]。",
     "description_raw": "Play the top card of your [gold]Draw Pile[/gold] and [gold]Exhaust[/gold] it.",
     "description_raw_zh": "打出[gold]抽牌堆[/gold]顶部的牌并将其[gold]消耗[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Play the top card of your [gold]Draw Pile[/gold] and [gold]Exhaust[/gold] it.",
+    "description_upgraded_zh": "打出[gold]抽牌堆[/gold]顶部的牌并将其[gold]消耗[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -9561,7 +9603,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/havoc.png",
     "beta_image_url": null
   },
@@ -9835,8 +9879,8 @@
     "description_zh": "每当你抽到名字中有“打击”的牌时，对一名随机敌人打出这张牌。",
     "description_raw": "Whenever you draw a card containing “Strike”, it is played against a random enemy.",
     "description_raw_zh": "每当你抽到名字中有“打击”的牌时，对一名随机敌人打出这张牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever you draw a card containing “Strike”, it is played against a random enemy.",
+    "description_upgraded_zh": "每当你抽到名字中有“打击”的牌时，对一名随机敌人打出这张牌。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -9855,7 +9899,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/hellraiser.png",
     "beta_image_url": null
   },
@@ -10468,8 +10514,8 @@
     "description_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。这张牌在本回合内可以免费打出。",
     "description_raw": "Add a random Attack into your [gold]Hand[/gold]. It's free to play this turn.",
     "description_raw_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。这张牌在本回合内可以免费打出。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Add a random Attack into your [gold]Hand[/gold]. It's free to play this turn.",
+    "description_upgraded_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。这张牌在本回合内可以免费打出。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10490,7 +10536,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/infernal_blade.png",
     "beta_image_url": null
   },
@@ -11889,8 +11937,8 @@
     "description_zh": "当你打出技能牌时，该牌获得[gold]奇巧[/gold]。",
     "description_raw": "When you play a Skill, it gains [gold]Sly[/gold].",
     "description_raw_zh": "当你打出技能牌时，该牌获得[gold]奇巧[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "When you play a Skill, it gains [gold]Sly[/gold].",
+    "description_upgraded_zh": "当你打出技能牌时，该牌获得[gold]奇巧[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -11909,7 +11957,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/master_planner.png",
     "beta_image_url": null
   },
@@ -11958,8 +12008,8 @@
     "description_zh": "在你的回合开始时，打出你[gold]抽牌堆[/gold]顶部的牌。",
     "description_raw": "At the start of your turn, play the top card of your [gold]Draw Pile[/gold].",
     "description_raw_zh": "在你的回合开始时，打出你[gold]抽牌堆[/gold]顶部的牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the start of your turn, play the top card of your [gold]Draw Pile[/gold].",
+    "description_upgraded_zh": "在你的回合开始时，打出你[gold]抽牌堆[/gold]顶部的牌。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -11978,7 +12028,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/mayhem.png",
     "beta_image_url": null
   },
@@ -12228,8 +12280,8 @@
     "description_zh": "造成你[gold]抽牌堆[/gold]中剩余牌数的伤害。",
     "description_raw": "Deal damage equal to the number of cards in your [gold]Draw Pile[/gold].{InCombat:\n(Deals {CalculatedDamage:diff()} damage)|}",
     "description_raw_zh": "造成你[gold]抽牌堆[/gold]中剩余牌数的伤害。{InCombat:\n（造成{CalculatedDamage:diff()}点伤害）|}",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Deal damage equal to the number of cards in your [gold]Draw Pile[/gold].",
+    "description_upgraded_zh": "造成你[gold]抽牌堆[/gold]中剩余牌数的伤害。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -12253,7 +12305,9 @@
       "CalculationBase": 0,
       "ExtraDamage": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/mind_blast.png",
     "beta_image_url": null
   },
@@ -12427,8 +12481,8 @@
     "description_zh": "获得等同于所有敌人[gold]中毒[/gold]层数的[gold]格挡[/gold]。",
     "description_raw": "Gain [gold]Block[/gold] equal to [gold]Poison[/gold] on ALL enemies.{InCombat:\n(Gain {CalculatedBlock:diff()} [gold]Block[/gold])|}",
     "description_raw_zh": "获得等同于所有敌人[gold]中毒[/gold]层数的[gold]格挡[/gold]。{InCombat:\n（获得{CalculatedBlock:diff()}点[gold]格挡[/gold]）|}",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Gain [gold]Block[/gold] equal to [gold]Poison[/gold] on ALL enemies.",
+    "description_upgraded_zh": "获得等同于所有敌人[gold]中毒[/gold]层数的[gold]格挡[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -12452,7 +12506,9 @@
       "CalculationBase": 0,
       "CalculationExtra": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/mirage.png",
     "beta_image_url": null
   },
@@ -12613,8 +12669,8 @@
     "description_zh": "每当你攻击敌人的时候，这名敌人在本回合失去1点[gold]力量[/gold]。",
     "description_raw": "Whenever you attack an enemy, it loses {StrengthLoss:diff()} [gold]Strength[/gold] this turn.",
     "description_raw_zh": "每当你攻击敌人的时候，这名敌人在本回合失去{StrengthLoss:diff()}点[gold]力量[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever you attack an enemy, it loses 1 [gold]Strength[/gold] this turn.",
+    "description_upgraded_zh": "每当你攻击敌人的时候，这名敌人在本回合失去1点[gold]力量[/gold]。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -12635,7 +12691,9 @@
     "vars": {
       "StrengthLoss": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/monarchs_gaze.png",
     "beta_image_url": null
   },
@@ -12713,8 +12771,8 @@
     "description_zh": "造成X点伤害。\n你在本场战斗中每抽过一张牌，此牌就额外造成1点伤害。",
     "description_raw": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each card drawn this combat.",
     "description_raw_zh": "造成{CalculatedDamage:diff()}点伤害。\n你在本场战斗中每抽过一张牌，此牌就额外造成{ExtraDamage:diff()}点伤害。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Deal X damage.\nDeals 1 additional damage for each card drawn this combat.",
+    "description_upgraded_zh": "造成X点伤害。\n你在本场战斗中每抽过一张牌，此牌就额外造成1点伤害。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -12736,7 +12794,9 @@
       "CalculationBase": 1,
       "ExtraDamage": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/murder.png",
     "beta_image_url": "/images/cards/beta/murder.png"
   },
@@ -12996,8 +13056,8 @@
     "description_zh": "选择一张牌。\n在下个回合将这张牌的3张复制品加入你的[gold]手牌[/gold]。",
     "description_raw": "Choose a card.\nNext turn, add 3 copies of that card into your [gold]Hand[/gold].",
     "description_raw_zh": "选择一张牌。\n在下个回合将这张牌的3张复制品加入你的[gold]手牌[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Choose a card.\nNext turn, add 3 copies of that card into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "选择一张牌。\n在下个回合将这张牌的3张复制品加入你的[gold]手牌[/gold]。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -13018,7 +13078,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 2
+    },
     "image_url": "/images/cards/nightmare.png",
     "beta_image_url": null
   },
@@ -13104,8 +13166,8 @@
     "description_zh": "将你每回合打出第一张攻击或技能牌，置于你的[gold]抽牌堆[/gold]顶端。",
     "description_raw": "The first Attack or Skill you play each turn is placed on top of your [gold]Draw Pile[/gold].",
     "description_raw_zh": "将你每回合打出第一张攻击或技能牌，置于你的[gold]抽牌堆[/gold]顶端。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "The first Attack or Skill you play each turn is placed on top of your [gold]Draw Pile[/gold].",
+    "description_upgraded_zh": "将你每回合打出第一张攻击或技能牌，置于你的[gold]抽牌堆[/gold]顶端。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -13124,7 +13186,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/nostalgia.png",
     "beta_image_url": "/images/cards/beta/nostalgia.png"
   },
@@ -13366,8 +13430,8 @@
     "description_zh": "你每花费[energy:4]，\n就获得[energy:1]。",
     "description_raw": "Every {energyPrefix:energyIcons(4)} you spend,\ngain {Energy:energyIcons()}.",
     "description_raw_zh": "你每花费{energyPrefix:energyIcons(4)}，\n就获得{Energy:energyIcons()}。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Every [energy:4] you spend,\ngain [energy:1].",
+    "description_upgraded_zh": "你每花费[energy:4]，\n就获得[energy:1]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -13388,7 +13452,9 @@
     "vars": {
       "Energy": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/orbit.png",
     "beta_image_url": null
   },
@@ -13550,8 +13616,8 @@
     "description_zh": "每当你抽到一张[gold]虚无[/gold]牌时, 抽1张牌。",
     "description_raw": "Whenever you draw an [gold]Ethereal[/gold] card, draw {Cards:diff()} {Cards:plural:card|cards}.",
     "description_raw_zh": "每当你抽到一张[gold]虚无[/gold]牌时, 抽{Cards:diff()}张牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever you draw an [gold]Ethereal[/gold] card, draw 1 card.",
+    "description_upgraded_zh": "每当你抽到一张[gold]虚无[/gold]牌时, 抽1张牌。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -13572,7 +13638,9 @@
     "vars": {
       "Cards": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/pagestorm.png",
     "beta_image_url": "/images/cards/beta/pagestorm.png"
   },
@@ -14657,6 +14725,7 @@
       "ExtraDamage": 1
     },
     "upgrade": {
+      "cost": 0,
       "calculationbase": "+5"
     },
     "image_url": "/images/cards/protector.png",
@@ -14905,8 +14974,8 @@
     "description_zh": "[gold]激发[/gold]你最右侧的充能球4次。",
     "description_raw": "[gold]Evoke[/gold] your rightmost Orb {Repeat:diff()} {Repeat:plural:time|times}.",
     "description_raw_zh": "[gold]激发[/gold]你最右侧的充能球{Repeat:diff()}次。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Evoke[/gold] your rightmost Orb 4 times.",
+    "description_upgraded_zh": "[gold]激发[/gold]你最右侧的充能球4次。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -14927,7 +14996,9 @@
     "vars": {
       "Repeat": 4
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/quadcast.png",
     "beta_image_url": "/images/cards/beta/quadcast.png"
   },
@@ -16063,8 +16134,8 @@
     "description_zh": "如果[gold]奥斯提[/gold]存活，则他死去，然后你获得等量于其双倍最大生命值的[gold]格挡[/gold]。",
     "description_raw": "If [gold]Osty[/gold] is alive, he dies and you gain [gold]Block[/gold] equal to double his Max HP.",
     "description_raw_zh": "如果[gold]奥斯提[/gold]存活，则他死去，然后你获得等量于其双倍最大生命值的[gold]格挡[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "If [gold]Osty[/gold] is alive, he dies and you gain [gold]Block[/gold] equal to double his Max HP.",
+    "description_upgraded_zh": "如果[gold]奥斯提[/gold]存活，则他死去，然后你获得等量于其双倍最大生命值的[gold]格挡[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16085,7 +16156,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/sacrifice.png",
     "beta_image_url": null
   },
@@ -16538,8 +16611,8 @@
     "description_zh": "在你的回合开始时，将1张[gold]扫荡凝视[/gold]加入你的[gold]手牌[/gold]。",
     "description_raw": "At the start of your turn, add {SentryModePower:diff()} [gold]Sweeping Gaze[/gold] into your [gold]Hand[/gold].",
     "description_raw_zh": "在你的回合开始时，将{SentryModePower:diff()}张[gold]扫荡凝视[/gold]加入你的[gold]手牌[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the start of your turn, add 1 [gold]Sweeping Gaze[/gold] into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "在你的回合开始时，将1张[gold]扫荡凝视[/gold]加入你的[gold]手牌[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16566,7 +16639,9 @@
       "SentryModePower": 1,
       "Power": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/sentry_mode.png",
     "beta_image_url": null
   },
@@ -16664,8 +16739,8 @@
     "description_zh": "对所有敌人造成7点伤害7次。",
     "description_raw": "Deal {Damage:diff()} damage to ALL enemies {Repeat:plural:{} time|{} times}.",
     "description_raw_zh": "对所有敌人造成{Damage:diff()}点伤害{Repeat}次。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Deal 7 damage to ALL enemies .",
+    "description_upgraded_zh": "对所有敌人造成7点伤害7次。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16688,7 +16763,9 @@
       "Repeat": 7,
       "StarCost": 7
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/seven_stars.png",
     "beta_image_url": "/images/cards/beta/seven_stars.png"
   },
@@ -16772,8 +16849,8 @@
     "description_zh": "丢弃所有[gold]手牌[/gold]。\n在下个回合，你所有的攻击伤害翻倍。",
     "description_raw": "Discard your [gold]Hand[/gold].\nNext turn, Attacks deal double damage.",
     "description_raw_zh": "丢弃所有[gold]手牌[/gold]。\n在下个回合，你所有的攻击伤害翻倍。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Discard your [gold]Hand[/gold].\nNext turn, Attacks deal double damage.",
+    "description_upgraded_zh": "丢弃所有[gold]手牌[/gold]。\n在下个回合，你所有的攻击伤害翻倍。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16794,7 +16871,9 @@
     "vars": {
       "Cards": 3
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/shadow_step.png",
     "beta_image_url": null
   },
@@ -16806,8 +16885,8 @@
     "description_zh": "本回合你获得的[gold]格挡[/gold]值翻倍。",
     "description_raw": "Double your [gold]Block[/gold] gain this turn.",
     "description_raw_zh": "本回合你获得的[gold]格挡[/gold]值翻倍。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Double your [gold]Block[/gold] gain this turn.",
+    "description_upgraded_zh": "本回合你获得的[gold]格挡[/gold]值翻倍。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16828,7 +16907,9 @@
     "vars": {
       "Power": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/shadowmeld.png",
     "beta_image_url": null
   },
@@ -17184,8 +17265,8 @@
     "description_zh": "你的下一张能力牌会额外打出一次。",
     "description_raw": "The next Power you play is played an additional time.",
     "description_raw_zh": "你的下一张能力牌会额外打出一次。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "The next Power you play is played an additional time.",
+    "description_upgraded_zh": "你的下一张能力牌会额外打出一次。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -17214,7 +17295,9 @@
       "SignalBoostPower": 1,
       "Power": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/signal_boost.png",
     "beta_image_url": null
   },
@@ -17763,8 +17846,8 @@
     "description_zh": "造成10点伤害1次}。",
     "description_raw": "Deal {Damage:diff()} damage{SeekingEdgeAmount:cond:>0? to ALL enemies|}{Repeat:plural:| {} times}.",
     "description_raw_zh": "{SeekingEdgeAmount:cond:>0?对所有敌人|}造成{Damage:diff()}点伤害{Repeat:choose(1):|{}次}。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Deal 10 damage1 times}.",
+    "description_upgraded_zh": "造成10点伤害1次}。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -17790,7 +17873,9 @@
       "CalculationExtra": 1,
       "Repeat": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/sovereign_blade.png",
     "beta_image_url": "/images/cards/beta/sovereign_blade.png"
   },
@@ -17840,8 +17925,8 @@
     "description_zh": "在你的回合开始时，将1张随机无色牌添加到你的[gold]手牌[/gold]中。",
     "description_raw": "At the start of your turn, add {Cards:diff()} random Colorless {Cards:plural:card|cards} into your [gold]Hand[/gold].",
     "description_raw_zh": "在你的回合开始时，将{Cards:diff()}张随机无色牌添加到你的[gold]手牌[/gold]中。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the start of your turn, add 1 random Colorless card into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "在你的回合开始时，将1张随机无色牌添加到你的[gold]手牌[/gold]中。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -17862,7 +17947,9 @@
     "vars": {
       "Cards": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/spectrum_shift.png",
     "beta_image_url": "/images/cards/beta/spectrum_shift.png"
   },
@@ -18325,8 +18412,8 @@
     "description_zh": "在你的回合结束时，随机打出你[gold]手牌[/gold]中的1张攻击牌攻击随机敌人。",
     "description_raw": "At the end of your turn, {Power:diff()} random {Power:plural:Attack in your [gold]Hand[/gold] is played against a random enemy.|Attacks in your [gold]Hand[/gold] are played against random enemies.}",
     "description_raw_zh": "在你的回合结束时，随机打出你[gold]手牌[/gold]中的{Power:diff()}张攻击牌攻击随机敌人。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the end of your turn, 1 random Attack in your [gold]Hand[/gold] is played against a random enemy.",
+    "description_upgraded_zh": "在你的回合结束时，随机打出你[gold]手牌[/gold]中的1张攻击牌攻击随机敌人。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -18347,7 +18434,9 @@
     "vars": {
       "Power": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/stampede.png",
     "beta_image_url": null
   },
@@ -18395,8 +18484,8 @@
     "description_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n然后抽相同数量张牌。",
     "description_raw": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nDraw a card for each card [gold]Exhausted[/gold].",
     "description_raw_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n然后抽相同数量张牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nDraw a card for each card [gold]Exhausted[/gold].",
+    "description_upgraded_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n然后抽相同数量张牌。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -18417,7 +18506,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/stoke.png",
     "beta_image_url": null
   },
@@ -18620,8 +18711,8 @@
     "description_zh": "每当你的[gold]抽牌堆[/gold]打乱洗牌时，选择一张牌放入你的[gold]手牌[/gold]。",
     "description_raw": "Whenever you shuffle your [gold]Draw Pile[/gold], choose a card from it to put into your [gold]Hand[/gold].",
     "description_raw_zh": "每当你的[gold]抽牌堆[/gold]打乱洗牌时，选择一张牌放入你的[gold]手牌[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever you shuffle your [gold]Draw Pile[/gold], choose a card from it to put into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "每当你的[gold]抽牌堆[/gold]打乱洗牌时，选择一张牌放入你的[gold]手牌[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -18640,7 +18731,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/stratagem.png",
     "beta_image_url": "/images/cards/beta/stratagem.png"
   },
@@ -18842,8 +18935,8 @@
     "description_zh": "当你打出一张能力牌时，获得[energy:1]。",
     "description_raw": "Whenever you play a Power, gain {energyPrefix:energyIcons(1)}.",
     "description_raw_zh": "当你打出一张能力牌时，获得{energyPrefix:energyIcons(1)}。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Whenever you play a Power, gain [energy:1].",
+    "description_upgraded_zh": "当你打出一张能力牌时，获得[energy:1]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -18862,7 +18955,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": null,
     "beta_image_url": "/images/cards/beta/subroutine.png"
   },
@@ -19263,8 +19358,8 @@
     "description_zh": "[gold]君王之剑[/gold]的耗能加1。[gold]君王之剑[/gold]现在会额外命中一次。",
     "description_raw": "Increase the cost of [gold]Sovereign Blade[/gold] by 1. [gold]Sovereign Blade[/gold] now hits an additional time.",
     "description_raw_zh": "[gold]君王之剑[/gold]的耗能加1。[gold]君王之剑[/gold]现在会额外命中一次。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Increase the cost of [gold]Sovereign Blade[/gold] by 1. [gold]Sovereign Blade[/gold] now hits an additional time.",
+    "description_upgraded_zh": "[gold]君王之剑[/gold]的耗能加1。[gold]君王之剑[/gold]现在会额外命中一次。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -19291,7 +19386,9 @@
       "SwordSagePower": 1,
       "Power": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/sword_sage.png",
     "beta_image_url": "/images/cards/beta/sword_sage.png"
   },
@@ -19450,8 +19547,8 @@
     "description_zh": "承受双倍来自敌人的伤害。\n敌人的伤害对盟友减半。",
     "description_raw": "Take double damage from enemies.\nAllies take half damage from enemies.",
     "description_raw_zh": "承受双倍来自敌人的伤害。\n敌人的伤害对盟友减半。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Take double damage from enemies.\nAllies take half damage from enemies.",
+    "description_upgraded_zh": "承受双倍来自敌人的伤害。\n敌人的伤害对盟友减半。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -19470,7 +19567,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/tank.png",
     "beta_image_url": "/images/cards/beta/tank.png"
   },
@@ -20115,8 +20214,8 @@
     "description_zh": "在你的回合开始时，抽1张牌，丢弃1张牌。",
     "description_raw": "At the start of your turn, draw 1 card and discard 1 card.",
     "description_raw_zh": "在你的回合开始时，抽1张牌，丢弃1张牌。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "At the start of your turn, draw 1 card and discard 1 card.",
+    "description_upgraded_zh": "在你的回合开始时，抽1张牌，丢弃1张牌。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -20135,7 +20234,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/tools_of_the_trade.png",
     "beta_image_url": null
   },
@@ -20220,8 +20321,8 @@
     "description_zh": "有[gold]虚弱[/gold]状态的敌人，所受的攻击伤害翻倍。",
     "description_raw": "[gold]Weak[/gold] enemies take double damage from Attacks.",
     "description_raw_zh": "有[gold]虚弱[/gold]状态的敌人，所受的攻击伤害翻倍。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Weak[/gold] enemies take double damage from Attacks.",
+    "description_upgraded_zh": "有[gold]虚弱[/gold]状态的敌人，所受的攻击伤害翻倍。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -20240,7 +20341,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/tracking.png",
     "beta_image_url": "/images/cards/beta/tracking.png"
   },
@@ -20657,8 +20760,8 @@
     "description_zh": "翻倍你每回合第一次从卡牌中获得的[gold]格挡[/gold]。",
     "description_raw": "The first time you gain [gold]Block[/gold] from a card each turn, double the amount gained.",
     "description_raw_zh": "翻倍你每回合第一次从卡牌中获得的[gold]格挡[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "The first time you gain [gold]Block[/gold] from a card each turn, double the amount gained.",
+    "description_upgraded_zh": "翻倍你每回合第一次从卡牌中获得的[gold]格挡[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -20677,7 +20780,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 1
+    },
     "image_url": "/images/cards/unmovable.png",
     "beta_image_url": "/images/cards/beta/unmovable.png"
   },
@@ -21276,8 +21381,8 @@
     "description_zh": "将一张随机能力牌加入你的[gold]手牌[/gold]。这张牌在本回合内免费打出。",
     "description_raw": "Add a random Power into your [gold]Hand[/gold]. It's free to play this turn.",
     "description_raw_zh": "将一张随机能力牌加入你的[gold]手牌[/gold]。这张牌在本回合内免费打出。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "Add a random Power into your [gold]Hand[/gold]. It's free to play this turn.",
+    "description_upgraded_zh": "将一张随机能力牌加入你的[gold]手牌[/gold]。这张牌在本回合内免费打出。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -21298,7 +21403,9 @@
     ],
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/white_noise.png",
     "beta_image_url": null
   },
@@ -21532,8 +21639,8 @@
     "description_zh": "[gold]生成[/gold]1个[gold]闪电[/gold]充能球。",
     "description_raw": "[gold]Channel[/gold] 1 [gold]Lightning[/gold].",
     "description_raw_zh": "[gold]生成[/gold]1个[gold]闪电[/gold]充能球。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
+    "description_upgraded": "[gold]Channel[/gold] 1 [gold]Lightning[/gold].",
+    "description_upgraded_zh": "[gold]生成[/gold]1个[gold]闪电[/gold]充能球。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -21552,7 +21659,9 @@
     "keywords": null,
     "tags": null,
     "vars": null,
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/zap.png",
     "beta_image_url": null
   }
