@@ -1,0 +1,31 @@
+---
+type Props = {
+  current?: "cards" | "relics" | "events" | "monsters";
+  basePath?: string;
+};
+
+const { current = "cards", basePath = "" } = Astro.props;
+const base = basePath.replace(/\/$/, "");
+const items = [
+  { key: "cards", label: "卡牌", href: `${base}/` },
+  { key: "relics", label: "遗物", href: `${base}/relics` },
+  { key: "events", label: "事件", href: `${base}/events` },
+  { key: "monsters", label: "怪物", href: `${base}/monsters` },
+] as const;
+---
+
+<nav class='flex items-center gap-2 text-[12px] uppercase tracking-[0.25em]'>
+  {items.map((item) => (
+    <a
+      class={
+        item.key === current
+          ? "rounded-full border border-white/20 bg-white/15 px-3 py-2 text-[#f7f1df]"
+          : "rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[#9ea2b3] hover:text-[#f7f1df] hover:border-white/25 hover:bg-white/10 transition"
+      }
+      href={item.href}
+      aria-current={item.key === current ? "page" : undefined}
+    >
+      {item.label}
+    </a>
+  ))}
+</nav>
