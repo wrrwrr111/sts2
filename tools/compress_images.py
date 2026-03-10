@@ -44,12 +44,16 @@ def resize_image(path: Path, max_size: int, quality: int, png_colors: int) -> tu
 			elif ext == ".webp":
 				resized.save(path, quality=quality, method=6)
 			else:
-				# Quantize PNG for smaller file size (Tinypng-like reduction)
-				if resized.mode in ("RGBA", "LA"):
-					quantized = resized.convert("RGBA").quantize(colors=png_colors, method=Image.FASTOCTREE)
+				if png_colors and png_colors > 0:
+					# Quantize PNG for smaller file size (Tinypng-like reduction)
+					if resized.mode in ("RGBA", "LA"):
+						quantized = resized.convert("RGBA").quantize(colors=png_colors, method=Image.FASTOCTREE)
+					else:
+						quantized = resized.convert("RGB").quantize(colors=png_colors, method=Image.MEDIANCUT)
+					quantized.save(path, optimize=True)
 				else:
-					quantized = resized.convert("RGB").quantize(colors=png_colors, method=Image.MEDIANCUT)
-				quantized.save(path, optimize=True)
+					# Preserve original colors (lossless)
+					resized.save(path, optimize=True)
 
 			info = (
 				f"{orig_w}x{orig_h} -> {new_w}x{new_h}"
@@ -66,7 +70,7 @@ def main() -> int:
 	parser.add_argument("--root", default="public/images", help="Root directory to scan.")
 	parser.add_argument("--max", type=int, default=1024, help="Max width/height.")
 	parser.add_argument("--quality", type=int, default=85, help="JPEG/WebP quality.")
-	parser.add_argument("--png-colors", type=int, default=256, help="PNG palette size.")
+	parser.add_argument("--png-colors", type=int, default=256, help="PNG palette size (0 to keep original colors).")
 	args = parser.parse_args()
 
 	root = Path(args.root)
