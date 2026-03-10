@@ -1,0 +1,58 @@
+[
+  {
+    "id": "ETERNAL",
+    "name": "Eternal",
+    "description": "Cannot be removed or transformed from your [gold]Deck[/gold].",
+    "name_zh": "永恒",
+    "description_zh": "无法从你的[gold]牌组[/gold]中移除或变化。"
+  },
+  {
+    "id": "ETHEREAL",
+    "name": "Ethereal",
+    "description": "If this card is in your [gold]Hand[/gold] at the end of this turn, it is [gold]Exhausted[/gold].",
+    "name_zh": "虚无",
+    "description_zh": "如果这张牌在这个回合结束时留在你的[gold]手牌[/gold]中，则将其[gold]消耗[/gold]。"
+  },
+  {
+    "id": "EXHAUST",
+    "name": "Exhaust",
+    "description": "Removed until the end of combat.",
+    "name_zh": "消耗",
+    "description_zh": "在战斗结束前移除。"
+  },
+  {
+    "id": "INNATE",
+    "name": "Innate",
+    "description": "Start each combat with this card in your [gold]Hand[/gold].",
+    "name_zh": "固有",
+    "description_zh": "每场战斗开始时这张牌会出现在你的[gold]手牌[/gold]。"
+  },
+  {
+    "id": "PERIOD",
+    "name": "Period",
+    "description": "",
+    "name_zh": null,
+    "description_zh": null
+  },
+  {
+    "id": "RETAIN",
+    "name": "Retain",
+    "description": "Retained cards are not discarded at the end of turn.",
+    "name_zh": "保留",
+    "description_zh": "保留的牌不会在回合结束时被弃掉。"
+  },
+  {
+    "id": "SLY",
+    "name": "Sly",
+    "description": "If this card is discarded from your [gold]Hand[/gold] before the end of your turn, play it for free.",
+    "name_zh": "奇巧",
+    "description_zh": "如果这张牌在你的回合结束前从你的[gold]手牌[/gold]中被丢弃，则免费将其打出。"
+  },
+  {
+    "id": "UNPLAYABLE",
+    "name": "Unplayable",
+    "description": "Unplayable cards cannot be played.",
+    "name_zh": "不能被打出",
+    "description_zh": "不能被打出的牌无法被打出。"
+  }
+]

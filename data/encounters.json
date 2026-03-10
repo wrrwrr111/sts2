@@ -1,0 +1,1726 @@
+[
+  {
+    "id": "AXEBOTS_NORMAL",
+    "name": "Bot Buddies",
+    "name_zh": "机械伙伴",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "AXEBOT",
+        "name": "Axebot"
+      }
+    ],
+    "loss_text": "{character} was dismembered by some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一些[gold]{encounter}[/gold]肢解了。"
+  },
+  {
+    "id": "BATTLEWORN_DUMMY_EVENT_ENCOUNTER",
+    "name": "Battleworn Dummy",
+    "name_zh": "历战假人",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": null,
+    "tags": null,
+    "monsters": [
+      {
+        "id": "BATTLE_FRIEND_V1",
+        "name": "Battle Friend V1"
+      },
+      {
+        "id": "BATTLE_FRIEND_V2",
+        "name": "Battle Friend V2"
+      },
+      {
+        "id": "BATTLE_FRIEND_V3",
+        "name": "Battle Friend V3"
+      }
+    ],
+    "loss_text": "{character} was somehow killed by [gold]{encounter}[/gold]???",
+    "loss_text_zh": "{character}被个[gold]{encounter}[/gold]杀死了？？？"
+  },
+  {
+    "id": "BOWLBUGS_NORMAL",
+    "name": "Bowlbug Swarm",
+    "name_zh": "盛碗虫群",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Workers"
+    ],
+    "monsters": [
+      {
+        "id": "BOWLBUG_EGG",
+        "name": "Bowlbug Egg"
+      },
+      {
+        "id": "BOWLBUG_NECTAR",
+        "name": "Bowlbug Nectar"
+      },
+      {
+        "id": "BOWLBUG_ROCK",
+        "name": "Bowlbug Rock"
+      },
+      {
+        "id": "BOWLBUG_SILK",
+        "name": "Bowlbug Silk"
+      }
+    ],
+    "loss_text": "{character} got in the way of a busy [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}遇上了一拨忙碌的[gold]{encounter}[/gold]。"
+  },
+  {
+    "id": "BOWLBUGS_WEAK",
+    "name": "Bowlbugs",
+    "name_zh": "盛碗虫",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Workers"
+    ],
+    "monsters": [
+      {
+        "id": "BOWLBUG_EGG",
+        "name": "Bowlbug Egg"
+      },
+      {
+        "id": "BOWLBUG_NECTAR",
+        "name": "Bowlbug Nectar"
+      },
+      {
+        "id": "BOWLBUG_ROCK",
+        "name": "Bowlbug Rock"
+      }
+    ],
+    "loss_text": "{character} got in the way of some busy [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}遇上了一些忙碌的[gold]{encounter}[/gold]。"
+  },
+  {
+    "id": "BYGONE_EFFIGY_ELITE",
+    "name": "Bygone Effigy",
+    "name_zh": "旧日雕像",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "BYGONE_EFFIGY",
+        "name": "Bygone Effigy"
+      }
+    ],
+    "loss_text": "{character} was sliced in half by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一尊[gold]{encounter}[/gold]斩成了两半。"
+  },
+  {
+    "id": "BYRDONIS_ELITE",
+    "name": "Byrdonis",
+    "name_zh": "多尼斯异鸟",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "BYRDONIS",
+        "name": "Byrdonis"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] protected its children from {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]从{character}手中保护了自己的幼崽们。"
+  },
+  {
+    "id": "CEREMONIAL_BEAST_BOSS",
+    "name": "Ceremonial Beast",
+    "name_zh": "仪式兽",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "CEREMONIAL_BEAST",
+        "name": "Ceremonial Beast"
+      }
+    ],
+    "loss_text": "{character} was put to rest by the [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]所终结。"
+  },
+  {
+    "id": "CHOMPERS_NORMAL",
+    "name": "An Automaton Pair",
+    "name_zh": "一对自动机械",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Chomper"
+    ],
+    "monsters": [
+      {
+        "id": "CHOMPER",
+        "name": "Chomper"
+      }
+    ],
+    "loss_text": "{character} was chomped to death by [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]啃咬而死。"
+  },
+  {
+    "id": "CONSTRUCT_MENAGERIE_NORMAL",
+    "name": "Construct Menagerie",
+    "name_zh": "一些构装体",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "CUBEX_CONSTRUCT",
+        "name": "Cubex Construct"
+      },
+      {
+        "id": "PUNCH_CONSTRUCT",
+        "name": "Punch Construct"
+      }
+    ],
+    "loss_text": "The [gold]{encounter}[/gold] crushed {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]碾碎了{character}。"
+  },
+  {
+    "id": "CORPSE_SLUGS_NORMAL",
+    "name": "Many Corpse Slugs",
+    "name_zh": "许多噬尸蛞蝓",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": [
+      "Slugs"
+    ],
+    "monsters": [
+      {
+        "id": "CORPSE_SLUG",
+        "name": "Corpse Slug"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] feasted on {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]享用了{character}。"
+  },
+  {
+    "id": "CORPSE_SLUGS_WEAK",
+    "name": "Corpse Slugs",
+    "name_zh": "一些噬尸蛞蝓",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Underdocks",
+    "tags": [
+      "Slugs"
+    ],
+    "monsters": [
+      {
+        "id": "CORPSE_SLUG",
+        "name": "Corpse Slug"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] feasted on {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]享用了{character}。"
+  },
+  {
+    "id": "CUBEX_CONSTRUCT_NORMAL",
+    "name": "Cubex Construct",
+    "name_zh": "方柱构装体",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "CUBEX_CONSTRUCT",
+        "name": "Cubex Construct"
+      }
+    ],
+    "loss_text": "{character} was lasered to death by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一具[gold]{encounter}[/gold]的激光扫死。"
+  },
+  {
+    "id": "CULTISTS_NORMAL",
+    "name": "Cultists",
+    "name_zh": "邪教徒们",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "CALCIFIED_CULTIST",
+        "name": "Calcified Cultist"
+      },
+      {
+        "id": "DAMP_CULTIST",
+        "name": "Damp Cultist"
+      }
+    ],
+    "loss_text": "{character} was slain by some [gold]{encounter}[/gold]. [sine]Caaaaw[/sine]...",
+    "loss_text_zh": "{character}被一些[gold]{encounter}[/gold]杀害。[sine]咔咔[/sine]……"
+  },
+  {
+    "id": "DECIMILLIPEDE_ELITE",
+    "name": "The Decimillipede",
+    "name_zh": "残杀千足虫",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "DECIMILLIPEDE_SEGMENT_BACK",
+        "name": "Decimillipede Segment Back"
+      },
+      {
+        "id": "DECIMILLIPEDE_SEGMENT_FRONT",
+        "name": "Decimillipede Segment Front"
+      },
+      {
+        "id": "DECIMILLIPEDE_SEGMENT_MIDDLE",
+        "name": "Decimillipede Segment Middle"
+      }
+    ],
+    "loss_text": "{character} couldn't survive [gold]{encounter}[/gold]'s domain.",
+    "loss_text_zh": "{character}未能逃出[gold]{encounter}[/gold]的地盘。"
+  },
+  {
+    "id": "DENSE_VEGETATION_EVENT_ENCOUNTER",
+    "name": "Wrigglers",
+    "name_zh": "扭动虫",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": null,
+    "tags": null,
+    "monsters": [
+      {
+        "id": "WRIGGLER",
+        "name": "Wriggler"
+      }
+    ],
+    "loss_text": "{character} was infested by [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}遭[gold]{encounter}[/gold]寄生而死。"
+  },
+  {
+    "id": "DEVOTED_SCULPTOR_WEAK",
+    "name": "Devoted Sculptor",
+    "name_zh": "虔诚雕刻师",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "DEVOTED_SCULPTOR",
+        "name": "Devoted Sculptor"
+      }
+    ],
+    "loss_text": "{character} was smashed to pieces by [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]凿得粉碎。"
+  },
+  {
+    "id": "DOORMAKER_BOSS",
+    "name": "The Doormaker",
+    "name_zh": "门扉缔造者",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "DOOR",
+        "name": "Door"
+      },
+      {
+        "id": "DOORMAKER",
+        "name": "Doormaker"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] didn't take kindly to {character}'s disturbance.",
+    "loss_text_zh": "[gold]{encounter}[/gold]没有容忍{character}的烦扰。"
+  },
+  {
+    "id": "ENTOMANCER_ELITE",
+    "name": "Entomancer",
+    "name_zh": "蜂群术士",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "ENTOMANCER",
+        "name": "Entomancer"
+      }
+    ],
+    "loss_text": "{character} was stung to death by an [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]蜇刺身亡。"
+  },
+  {
+    "id": "EXOSKELETONS_NORMAL",
+    "name": "Many Exoskeletons",
+    "name_zh": "许多外骨骼虫",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Exoskeletons"
+    ],
+    "monsters": [
+      {
+        "id": "EXOSKELETON",
+        "name": "Exoskeleton"
+      }
+    ],
+    "loss_text": "{character} was eviscerated by [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]开膛破肚。"
+  },
+  {
+    "id": "EXOSKELETONS_WEAK",
+    "name": "Exoskeletons",
+    "name_zh": "外骨骼虫",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Exoskeletons"
+    ],
+    "monsters": [
+      {
+        "id": "EXOSKELETON",
+        "name": "Exoskeleton"
+      }
+    ],
+    "loss_text": "{character} was eviscerated by some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一些[gold]{encounter}[/gold]撕成了碎片。"
+  },
+  {
+    "id": "FABRICATOR_NORMAL",
+    "name": "Fabricator",
+    "name_zh": "组装师",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "FABRICATOR",
+        "name": "Fabricator"
+      }
+    ],
+    "loss_text": "{character} was zapped by a [gold]{encounter}[/gold]'s bots.",
+    "loss_text_zh": "{character}被一名[gold]{encounter}[/gold]的机器人击杀了。"
+  },
+  {
+    "id": "FAKE_MERCHANT_EVENT_ENCOUNTER",
+    "name": "The Merchant???",
+    "name_zh": "商人？？？",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": null,
+    "tags": null,
+    "monsters": [
+      {
+        "id": "FAKE_MERCHANT_MONSTER",
+        "name": "Fake Merchant Monster"
+      }
+    ],
+    "loss_text": "{character} faced the wrath of [gold]{encounter}[/gold]",
+    "loss_text_zh": "{character}直面了[gold]{encounter}[/gold]的怒火。"
+  },
+  {
+    "id": "FLYCONID_NORMAL",
+    "name": "Shroom and Slime",
+    "name_zh": "真菌与史莱姆",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Mushroom",
+      "Slimes"
+    ],
+    "monsters": [
+      {
+        "id": "FLYCONID",
+        "name": "Flyconid"
+      },
+      {
+        "id": "LEAF_SLIME_M",
+        "name": "Leaf Slime M"
+      },
+      {
+        "id": "TWIG_SLIME_M",
+        "name": "Twig Slime M"
+      }
+    ],
+    "loss_text": "{character} was absorbed by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]分解消化了。"
+  },
+  {
+    "id": "FOGMOG_NORMAL",
+    "name": "Fogmog",
+    "name_zh": "雾菇",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "EYE_WITH_TEETH",
+        "name": "Eye With Teeth"
+      },
+      {
+        "id": "FOGMOG",
+        "name": "Fogmog"
+      }
+    ],
+    "loss_text": "{character} was distracted by a [gold]{encounter}[/gold]'s illusions.",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]的幻象迷惑了心智。"
+  },
+  {
+    "id": "FOSSIL_STALKER_NORMAL",
+    "name": "Fossil Stalker",
+    "name_zh": "化石追踪者",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "FOSSIL_STALKER",
+        "name": "Fossil Stalker"
+      }
+    ],
+    "loss_text": "{character} was ambushed by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一只[gold]{encounter}[/gold]伏击杀害。"
+  },
+  {
+    "id": "FROG_KNIGHT_NORMAL",
+    "name": "Frog Knight",
+    "name_zh": "青蛙骑士",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "FROG_KNIGHT",
+        "name": "Frog Knight"
+      }
+    ],
+    "loss_text": "A valiant [gold]{encounter}[/gold] triumphed over {character}.",
+    "loss_text_zh": "一位英勇的[gold]{encounter}[/gold]战胜了{character}。"
+  },
+  {
+    "id": "FUZZY_WURM_CRAWLER_WEAK",
+    "name": "Fuzzy Wurm Crawler",
+    "name_zh": "毛绒伏地虫",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Crawler"
+    ],
+    "monsters": [
+      {
+        "id": "FUZZY_WURM_CRAWLER",
+        "name": "Fuzzy Wurm Crawler"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] spat on {character}.",
+    "loss_text_zh": "一只[gold]{encounter}[/gold]将{character}喷吐至死。"
+  },
+  {
+    "id": "GLOBE_HEAD_NORMAL",
+    "name": "A Lone Globe Head",
+    "name_zh": "一个孤单的电球头",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "GLOBE_HEAD",
+        "name": "Globe Head"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] zapped {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]电死了{character}。"
+  },
+  {
+    "id": "GREMLIN_MERC_NORMAL",
+    "name": "Two Gremlins in a Trenchcoat",
+    "name_zh": "穿着一件大衣的两只地精",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "FAT_GREMLIN",
+        "name": "Fat Gremlin"
+      },
+      {
+        "id": "GREMLIN_MERC",
+        "name": "Gremlin Merc"
+      },
+      {
+        "id": "SNEAKY_GREMLIN",
+        "name": "Sneaky Gremlin"
+      }
+    ],
+    "loss_text": "{character} got mugged by [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]打劫了。"
+  },
+  {
+    "id": "HAUNTED_SHIP_NORMAL",
+    "name": "Haunted Ship",
+    "name_zh": "幽灵船",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "HAUNTED_SHIP",
+        "name": "Haunted Ship"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] stomped all over {character}.",
+    "loss_text_zh": "一艘[gold]{encounter}[/gold]碾过了{character}。"
+  },
+  {
+    "id": "HUNTER_KILLER_NORMAL",
+    "name": "Hunter Killer",
+    "name_zh": "猎人杀手",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "HUNTER_KILLER",
+        "name": "Hunter Killer"
+      }
+    ],
+    "loss_text": "{character} was disemboweled by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一只[gold]{encounter}[/gold]开膛破肚。"
+  },
+  {
+    "id": "INFESTED_PRISMS_ELITE",
+    "name": "Infested Prism",
+    "name_zh": "感染棱柱",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "INFESTED_PRISM",
+        "name": "Infested Prism"
+      }
+    ],
+    "loss_text": "{character} was stopped by an [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一个[gold]{encounter}[/gold]拦下了道路。"
+  },
+  {
+    "id": "INKLETS_NORMAL",
+    "name": "Inklets",
+    "name_zh": "墨宝",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "INKLET",
+        "name": "Inklet"
+      }
+    ],
+    "loss_text": "Some [gold]{encounter}[/gold] wouldn't let {character} pass.",
+    "loss_text_zh": "{character}被几只[gold]{encounter}[/gold]拦住了去路。"
+  },
+  {
+    "id": "KAISER_CRAB_BOSS",
+    "name": "Kaiser Crab",
+    "name_zh": "帝皇蟹",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "CRUSHER",
+        "name": "Crusher"
+      },
+      {
+        "id": "ROCKET",
+        "name": "Rocket"
+      }
+    ],
+    "loss_text": "The [gold]{encounter}[/gold] struck {character} from all sides.",
+    "loss_text_zh": "[gold]{encounter}[/gold]从各个方向攻击，让{character}无从招架。"
+  },
+  {
+    "id": "KNIGHTS_ELITE",
+    "name": "Knight Gang",
+    "name_zh": "骑士团伙",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": [
+      "Knights"
+    ],
+    "monsters": [
+      {
+        "id": "FLAIL_KNIGHT",
+        "name": "Flail Knight"
+      },
+      {
+        "id": "MAGI_KNIGHT",
+        "name": "Magi Knight"
+      },
+      {
+        "id": "SPECTRAL_KNIGHT",
+        "name": "Spectral Knight"
+      }
+    ],
+    "loss_text": "{character} was slain by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一帮[gold]{encounter}[/gold]所杀。"
+  },
+  {
+    "id": "KNOWLEDGE_DEMON_BOSS",
+    "name": "Knowledge Demon",
+    "name_zh": "知识恶魔",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "KNOWLEDGE_DEMON",
+        "name": "Knowledge Demon"
+      }
+    ],
+    "loss_text": "The [gold]{encounter}[/gold] cursed {character} with overwhelming knowledge.",
+    "loss_text_zh": "[gold]{encounter}[/gold]让{character}堕入了无尽知识的诅咒。"
+  },
+  {
+    "id": "LAGAVULIN_MATRIARCH_BOSS",
+    "name": "Lagavulin Matriarch",
+    "name_zh": "乐加维林族母",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "LAGAVULIN_MATRIARCH",
+        "name": "Lagavulin Matriarch"
+      }
+    ],
+    "loss_text": "{character} was cut in half by the [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]切成了两半。"
+  },
+  {
+    "id": "LIVING_FOG_NORMAL",
+    "name": "Evil Gas",
+    "name_zh": "邪恶气体",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "GAS_BOMB",
+        "name": "Gas Bomb"
+      },
+      {
+        "id": "LIVING_FOG",
+        "name": "Living Fog"
+      }
+    ],
+    "loss_text": "{character} couldn't bear the stench of some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}无法承受[gold]{encounter}[/gold]的臭气。"
+  },
+  {
+    "id": "LOUSE_PROGENITOR_NORMAL",
+    "name": "Louse Progenitor",
+    "name_zh": "虱虫之祖",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "LOUSE_PROGENITOR",
+        "name": "Louse Progenitor"
+      }
+    ],
+    "loss_text": "{character} was paralyzed by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}遭到[gold]{encounter}[/gold]的麻痹而死。"
+  },
+  {
+    "id": "MAWLER_NORMAL",
+    "name": "Mawler",
+    "name_zh": "蛮兽",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "MAWLER",
+        "name": "Mawler"
+      }
+    ],
+    "loss_text": "{character} became a delicious meal for a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}成为了[gold]{encounter}[/gold]的一顿美餐。"
+  },
+  {
+    "id": "MECHA_KNIGHT_ELITE",
+    "name": "Mecha Knight",
+    "name_zh": "机甲骑士",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "MECHA_KNIGHT",
+        "name": "Mecha Knight"
+      }
+    ],
+    "loss_text": "{character} was stabbed and burned by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一位[gold]{encounter}[/gold]火烧剑斩。"
+  },
+  {
+    "id": "MYSTERIOUS_KNIGHT_EVENT_ENCOUNTER",
+    "name": "Mysterious Knight",
+    "name_zh": "神秘骑士",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": null,
+    "tags": null,
+    "monsters": [
+      {
+        "id": "MYSTERIOUS_KNIGHT",
+        "name": "Mysterious Knight"
+      }
+    ],
+    "loss_text": "{character} tried to take a [gold]{encounter}[/gold]'s key.",
+    "loss_text_zh": "{character}试图抢夺[gold]{encounter}[/gold]的钥匙，却铩羽而归。"
+  },
+  {
+    "id": "MYTES_NORMAL",
+    "name": "Mass of Mytes",
+    "name_zh": "一群异螨",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "MYTE",
+        "name": "Myte"
+      }
+    ],
+    "loss_text": "{character} was swarmed by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]围杀。"
+  },
+  {
+    "id": "NIBBITS_NORMAL",
+    "name": "A Pair of Nibbits",
+    "name_zh": "两只小啃兽",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "NIBBIT",
+        "name": "Nibbit"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] beat up {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]打死了{character}。"
+  },
+  {
+    "id": "NIBBITS_WEAK",
+    "name": "A Lone Nibbit",
+    "name_zh": "一只落单的小啃兽",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Nibbit"
+    ],
+    "monsters": [
+      {
+        "id": "NIBBIT",
+        "name": "Nibbit"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] beat up {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]打死了{character}。"
+  },
+  {
+    "id": "OVERGROWTH_CRAWLERS",
+    "name": "Overgrowth Crawlers",
+    "name_zh": "密林爬虫",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Shrinker",
+      "Crawler"
+    ],
+    "monsters": [
+      {
+        "id": "FUZZY_WURM_CRAWLER",
+        "name": "Fuzzy Wurm Crawler"
+      },
+      {
+        "id": "SHRINKER_BEETLE",
+        "name": "Shrinker Beetle"
+      }
+    ],
+    "loss_text": "Some [gold]{encounter}[/gold] feasted on {character}.",
+    "loss_text_zh": "一些[gold]{encounter}[/gold]美餐了一顿{character}的尸体。"
+  },
+  {
+    "id": "OVICOPTER_NORMAL",
+    "name": "Ovicopter",
+    "name_zh": "直飞产卵虫",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "OVICOPTER",
+        "name": "Ovicopter"
+      },
+      {
+        "id": "TOUGH_EGG",
+        "name": "Tough Egg"
+      }
+    ],
+    "loss_text": "{character} became food for an [gold]{encounter}[/gold]'s children.",
+    "loss_text_zh": "{character}成为了一只[gold]{encounter}[/gold]为孩子们准备的食粮。"
+  },
+  {
+    "id": "OWL_MAGISTRATE_NORMAL",
+    "name": "Owl Magistrate",
+    "name_zh": "猫头鹰法官",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "OWL_MAGISTRATE",
+        "name": "Owl Magistrate"
+      }
+    ],
+    "loss_text": "{character} was sentenced to death by an [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一名[gold]{encounter}[/gold]宣判了死刑。"
+  },
+  {
+    "id": "PHANTASMAL_GARDENERS_ELITE",
+    "name": "Phantasmal Gardeners",
+    "name_zh": "花园幽灵鳗",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "PHANTASMAL_GARDENER",
+        "name": "Phantasmal Gardener"
+      }
+    ],
+    "loss_text": "{character} was put to rest by the [gold]{encounter}[/gold].",
+    "loss_text_zh": "一些[gold]{encounter}[/gold]赐予了{character}永恒的安眠。"
+  },
+  {
+    "id": "PHROG_PARASITE_ELITE",
+    "name": "Phrog Parasite",
+    "name_zh": "异蛙寄生虫",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "PHROG_PARASITE",
+        "name": "Phrog Parasite"
+      },
+      {
+        "id": "WRIGGLER",
+        "name": "Wriggler"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] spread its colony to {character}.",
+    "loss_text_zh": "一只[gold]{encounter}[/gold]将感染传播到了{character}身上。"
+  },
+  {
+    "id": "PUNCH_CONSTRUCT_NORMAL",
+    "name": "Punch Construct",
+    "name_zh": "拳击构装体",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "PUNCH_CONSTRUCT",
+        "name": "Punch Construct"
+      }
+    ],
+    "loss_text": "{character} engaged in fisticuffs with a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}和[gold]{encounter}[/gold]打了一架。"
+  },
+  {
+    "id": "PUNCH_OFF_EVENT_ENCOUNTER",
+    "name": "Punch Constructs",
+    "name_zh": "拳击构装体",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": null,
+    "tags": null,
+    "monsters": [
+      {
+        "id": "PUNCH_CONSTRUCT",
+        "name": "Punch Construct"
+      }
+    ],
+    "loss_text": "{character} interrupted a bout between two [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}干涉了两只[gold]{encounter}[/gold]的互殴。"
+  },
+  {
+    "id": "QUEEN_BOSS",
+    "name": "Queen",
+    "name_zh": "女王",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "QUEEN",
+        "name": "Queen"
+      },
+      {
+        "id": "TORCH_HEAD_AMALGAM",
+        "name": "Torch Head Amalgam"
+      }
+    ],
+    "loss_text": "The [gold]{encounter}[/gold] added a piece of {character} to her collection.",
+    "loss_text_zh": "[gold]{encounter}[/gold]的藏品中，又多了一位{character}。"
+  },
+  {
+    "id": "RUBY_RAIDERS_NORMAL",
+    "name": "Ruby Raiders",
+    "name_zh": "红宝石劫掠者",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "ASSASSIN_RUBY_RAIDER",
+        "name": "Assassin Ruby Raider"
+      },
+      {
+        "id": "AXE_RUBY_RAIDER",
+        "name": "Axe Ruby Raider"
+      },
+      {
+        "id": "BRUTE_RUBY_RAIDER",
+        "name": "Brute Ruby Raider"
+      },
+      {
+        "id": "CROSSBOW_RUBY_RAIDER",
+        "name": "Crossbow Ruby Raider"
+      },
+      {
+        "id": "TRACKER_RUBY_RAIDER",
+        "name": "Tracker Ruby Raider"
+      }
+    ],
+    "loss_text": "{character} got jumped by a group of [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一群[gold]{encounter}[/gold]伏击了。"
+  },
+  {
+    "id": "SCROLLS_OF_BITING_NORMAL",
+    "name": "Many Scrolls of Biting",
+    "name_zh": "许多咬人卷轴",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": [
+      "Scrolls"
+    ],
+    "monsters": [
+      {
+        "id": "SCROLL_OF_BITING",
+        "name": "Scroll Of Biting"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] tore {character} to shreds.",
+    "loss_text_zh": "[gold]{encounter}[/gold]将{character}撕成了碎片。"
+  },
+  {
+    "id": "SCROLLS_OF_BITING_WEAK",
+    "name": "Scrolls of Biting",
+    "name_zh": "咬人卷轴",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 3 - Glory",
+    "tags": [
+      "Scrolls"
+    ],
+    "monsters": [
+      {
+        "id": "SCROLL_OF_BITING",
+        "name": "Scroll Of Biting"
+      }
+    ],
+    "loss_text": "Some [gold]{encounter}[/gold] tore {character} to shreds.",
+    "loss_text_zh": "一些[gold]{encounter}[/gold]将{character}撕成了碎片。"
+  },
+  {
+    "id": "SEAPUNK_WEAK",
+    "name": "Seapunk",
+    "name_zh": "海洋混混",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Underdocks",
+    "tags": [
+      "Seapunk"
+    ],
+    "monsters": [
+      {
+        "id": "SEAPUNK",
+        "name": "Seapunk"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] clobbered {character}.",
+    "loss_text_zh": "一只[gold]{encounter}[/gold]将{character}痛殴了一顿。"
+  },
+  {
+    "id": "SEWER_CLAM_NORMAL",
+    "name": "Sewer Clam",
+    "name_zh": "下水道蚌",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "SEWER_CLAM",
+        "name": "Sewer Clam"
+      }
+    ],
+    "loss_text": "{character} was gobbled up by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一只[gold]{encounter}[/gold]吞了下去。"
+  },
+  {
+    "id": "SHRINKER_BEETLE_WEAK",
+    "name": "Shrinker Beetle",
+    "name_zh": "缩小甲虫",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Shrinker"
+    ],
+    "monsters": [
+      {
+        "id": "SHRINKER_BEETLE",
+        "name": "Shrinker Beetle"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] snacked on {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]吃到了{character}的尸体。"
+  },
+  {
+    "id": "SKULKING_COLONY_ELITE",
+    "name": "Skulking Colony",
+    "name_zh": "鬼祟珊瑚群",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "SKULKING_COLONY",
+        "name": "Skulking Colony"
+      }
+    ],
+    "loss_text": "{character} was absorbed by a [gold]{encounter}[/gold]",
+    "loss_text_zh": "{character}被一个[gold]{encounter}[/gold]吸收消化了。"
+  },
+  {
+    "id": "SLIMED_BERSERKER_NORMAL",
+    "name": "Slimed Berserker",
+    "name_zh": "史莱姆狂战士",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "SLIMED_BERSERKER",
+        "name": "Slimed Berserker"
+      }
+    ],
+    "loss_text": "{character} was absorbed into a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一只[gold]{encounter}[/gold]吞下了。"
+  },
+  {
+    "id": "SLIMES_NORMAL",
+    "name": "Swarm of Slimes",
+    "name_zh": "一大群史莱姆",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Slimes"
+    ],
+    "monsters": [
+      {
+        "id": "LEAF_SLIME_M",
+        "name": "Leaf Slime M"
+      },
+      {
+        "id": "LEAF_SLIME_S",
+        "name": "Leaf Slime S"
+      },
+      {
+        "id": "TWIG_SLIME_M",
+        "name": "Twig Slime M"
+      },
+      {
+        "id": "TWIG_SLIME_S",
+        "name": "Twig Slime S"
+      }
+    ],
+    "loss_text": "{character} was felled by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]打倒了。"
+  },
+  {
+    "id": "SLIMES_WEAK",
+    "name": "Group of Slimes",
+    "name_zh": "一群史莱姆",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Slimes"
+    ],
+    "monsters": [
+      {
+        "id": "LEAF_SLIME_M",
+        "name": "Leaf Slime M"
+      },
+      {
+        "id": "LEAF_SLIME_S",
+        "name": "Leaf Slime S"
+      },
+      {
+        "id": "TWIG_SLIME_M",
+        "name": "Twig Slime M"
+      },
+      {
+        "id": "TWIG_SLIME_S",
+        "name": "Twig Slime S"
+      }
+    ],
+    "loss_text": "{character} was felled by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]打倒了。"
+  },
+  {
+    "id": "SLITHERING_STRANGLER_NORMAL",
+    "name": "Strangler and Friend",
+    "name_zh": "扼杀者与伙伴",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "LEAF_SLIME_M",
+        "name": "Leaf Slime M"
+      },
+      {
+        "id": "LEAF_SLIME_S",
+        "name": "Leaf Slime S"
+      },
+      {
+        "id": "SLITHERING_STRANGLER",
+        "name": "Slithering Strangler"
+      },
+      {
+        "id": "SNAPPING_JAXFRUIT",
+        "name": "Snapping Jaxfruit"
+      },
+      {
+        "id": "TWIG_SLIME_M",
+        "name": "Twig Slime M"
+      },
+      {
+        "id": "TWIG_SLIME_S",
+        "name": "Twig Slime S"
+      }
+    ],
+    "loss_text": "{character} was suffocated by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]所闷杀。"
+  },
+  {
+    "id": "SLUDGE_SPINNER_WEAK",
+    "name": "Sludge Spinner",
+    "name_zh": "淤泥旋螺",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "SLUDGE_SPINNER",
+        "name": "Sludge Spinner"
+      }
+    ],
+    "loss_text": "{character} couldn't defeat a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}未能打败一只[gold]{encounter}[/gold]。"
+  },
+  {
+    "id": "SLUMBERING_BEETLE_NORMAL",
+    "name": "Slumber Party",
+    "name_zh": "熟睡派对",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Workers"
+    ],
+    "monsters": [
+      {
+        "id": "BOWLBUG_ROCK",
+        "name": "Bowlbug Rock"
+      },
+      {
+        "id": "BOWLBUG_SILK",
+        "name": "Bowlbug Silk"
+      },
+      {
+        "id": "SLUMBERING_BEETLE",
+        "name": "Slumbering Beetle"
+      }
+    ],
+    "loss_text": "{character} interrupted a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}打断了一场[gold]{encounter}[/gold]。"
+  },
+  {
+    "id": "SNAPPING_JAXFRUIT_NORMAL",
+    "name": "Overgrowth Flora",
+    "name_zh": "密林植物",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": [
+      "Mushroom"
+    ],
+    "monsters": [
+      {
+        "id": "FLYCONID",
+        "name": "Flyconid"
+      },
+      {
+        "id": "SNAPPING_JAXFRUIT",
+        "name": "Snapping Jaxfruit"
+      }
+    ],
+    "loss_text": "{character} ran afoul of some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}惹上了一群[gold]{encounter}[/gold]。"
+  },
+  {
+    "id": "SOUL_FYSH_BOSS",
+    "name": "Soul Fysh",
+    "name_zh": "灵魂异鱼",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "SOUL_FYSH",
+        "name": "Soul Fysh"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] beckoned {character} to their doom.",
+    "loss_text_zh": "一只[gold]{encounter}[/gold]将{character}召唤到了灾厄的末路。"
+  },
+  {
+    "id": "SOUL_NEXUS_ELITE",
+    "name": "Soul Nexus",
+    "name_zh": "灵魂枢纽",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "SOUL_NEXUS",
+        "name": "Soul Nexus"
+      }
+    ],
+    "loss_text": "{character} died to a [gold]{encounter}[/gold] on a forgotten battlefield.",
+    "loss_text_zh": "{character}在一片被遗忘的战场上被一个[gold]{encounter}[/gold]击杀。"
+  },
+  {
+    "id": "SPINY_TOAD_NORMAL",
+    "name": "Spiny Toad",
+    "name_zh": "棘刺蟾蜍",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "SPINY_TOAD",
+        "name": "Spiny Toad"
+      }
+    ],
+    "loss_text": "{character} couldn't pierce the [gold]{encounter}[/gold]'s spikes.",
+    "loss_text_zh": "{character}未能穿透[gold]{encounter}[/gold]的硬棘。"
+  },
+  {
+    "id": "TERROR_EEL_ELITE",
+    "name": "Terror Eel",
+    "name_zh": "骇鳗",
+    "room_type": "Elite",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "TERROR_EEL",
+        "name": "Terror Eel"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] was too terrifying for {character}.",
+    "loss_text_zh": "{character}未能克服[gold]{encounter}[/gold]的恐怖。"
+  },
+  {
+    "id": "TEST_SUBJECT_BOSS",
+    "name": "Test Subject",
+    "name_zh": "实验体",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "TEST_SUBJECT",
+        "name": "Test Subject"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] loyally guarded its masters from {character}.",
+    "loss_text_zh": "一个[gold]{encounter}[/gold]忠诚地将{character}挡在了它主人的门外。"
+  },
+  {
+    "id": "THE_ARCHITECT_EVENT_ENCOUNTER",
+    "name": "The Architect",
+    "name_zh": "建筑师",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": null,
+    "tags": null,
+    "monsters": [
+      {
+        "id": "ARCHITECT",
+        "name": "Architect"
+      }
+    ],
+    "loss_text": "You shouldn't be seeing this.",
+    "loss_text_zh": "你不应该看到这个。"
+  },
+  {
+    "id": "THE_INSATIABLE_BOSS",
+    "name": "The Insatiable",
+    "name_zh": "无厌沙虫",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "THE_INSATIABLE",
+        "name": "The Insatiable"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] devoured {character}. And yet, it still hungers...",
+    "loss_text_zh": "[gold]{encounter}[/gold]吞下了{character}，可是它却依然饥肠辘辘……"
+  },
+  {
+    "id": "THE_KIN_BOSS",
+    "name": "The Kin",
+    "name_zh": "同族小队",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "KIN_FOLLOWER",
+        "name": "Kin Follower"
+      },
+      {
+        "id": "KIN_PRIEST",
+        "name": "Kin Priest"
+      }
+    ],
+    "loss_text": "{character} was annihilated by [gold]{encounter}[/gold]'s superior strategy.",
+    "loss_text_zh": "[gold]{encounter}[/gold]的优越战术彻底击败了{character}。"
+  },
+  {
+    "id": "THE_LOST_AND_FORGOTTEN_NORMAL",
+    "name": "Lost and Forgotten",
+    "name_zh": "失落与遗忘之物",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "THE_FORGOTTEN",
+        "name": "The Forgotten"
+      },
+      {
+        "id": "THE_LOST",
+        "name": "The Lost"
+      }
+    ],
+    "loss_text": "The [gold]{encounter}[/gold] stole {character}'s will to live.",
+    "loss_text_zh": "[gold]{encounter}[/gold] 夺走了{character}生存的意志。"
+  },
+  {
+    "id": "THE_OBSCURA_NORMAL",
+    "name": "The Obscura",
+    "name_zh": "胧光怪",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "THE_OBSCURA",
+        "name": "The Obscura"
+      }
+    ],
+    "loss_text": "[gold]{encounter}[/gold] and its illusion smashed {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]和其幻象将{character}击杀了。"
+  },
+  {
+    "id": "THIEVING_HOPPER_WEAK",
+    "name": "Thieving Hopper",
+    "name_zh": "偷窃草蜢",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Thieves"
+    ],
+    "monsters": [
+      {
+        "id": "THIEVING_HOPPER",
+        "name": "Thieving Hopper"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] mugged {character}.",
+    "loss_text_zh": "一只[gold]{encounter}[/gold]抢走了{character}的生命。"
+  },
+  {
+    "id": "TOADPOLES_NORMAL",
+    "name": "Underdocks Wildlife",
+    "name_zh": "暗港野生动物",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "CALCIFIED_CULTIST",
+        "name": "Calcified Cultist"
+      },
+      {
+        "id": "TOADPOLE",
+        "name": "Toadpole"
+      }
+    ],
+    "loss_text": "{character} was defeated by some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一些[gold]{encounter}[/gold]打败。"
+  },
+  {
+    "id": "TOADPOLES_WEAK",
+    "name": "Toadpoles",
+    "name_zh": "蟾蜍蝌蚪",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "TOADPOLE",
+        "name": "Toadpole"
+      }
+    ],
+    "loss_text": "{character} couldn't deal with some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}没能突破几只[gold]{encounter}[/gold]。"
+  },
+  {
+    "id": "TUNNELER_NORMAL",
+    "name": "Tunneling Twosome",
+    "name_zh": "地道组合",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Burrower",
+      "Workers"
+    ],
+    "monsters": [
+      {
+        "id": "BOWLBUG_EGG",
+        "name": "Bowlbug Egg"
+      },
+      {
+        "id": "BOWLBUG_SILK",
+        "name": "Bowlbug Silk"
+      },
+      {
+        "id": "TUNNELER",
+        "name": "Tunneler"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] finished off {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]解决掉了{character}。"
+  },
+  {
+    "id": "TUNNELER_WEAK",
+    "name": "Tunneler",
+    "name_zh": "地道虫",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 2 - Hive",
+    "tags": [
+      "Burrower"
+    ],
+    "monsters": [
+      {
+        "id": "TUNNELER",
+        "name": "Tunneler"
+      }
+    ],
+    "loss_text": "{character} got whacked by a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一只[gold]{encounter}[/gold]锤死了。"
+  },
+  {
+    "id": "TURRET_OPERATOR_WEAK",
+    "name": "Turret Operator",
+    "name_zh": "高塔炮手",
+    "room_type": "Monster",
+    "is_weak": true,
+    "act": "Act 3 - Glory",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "LIVING_SHIELD",
+        "name": "Living Shield"
+      },
+      {
+        "id": "TURRET_OPERATOR",
+        "name": "Turret Operator"
+      }
+    ],
+    "loss_text": "A [gold]{encounter}[/gold] riddled {character} full of holes.",
+    "loss_text_zh": "一个[gold]{encounter}[/gold]将{character}打成了马蜂窝。"
+  },
+  {
+    "id": "TWO_TAILED_RATS_NORMAL",
+    "name": "Two-Tailed Rats",
+    "name_zh": "双尾鼠",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "TWO_TAILED_RAT",
+        "name": "Two Tailed Rat"
+      }
+    ],
+    "loss_text": "{character} was swarmed by some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一些[gold]{encounter}[/gold]围杀了。"
+  },
+  {
+    "id": "VANTOM_BOSS",
+    "name": "Vantom",
+    "name_zh": "墨影幻灵",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "VANTOM",
+        "name": "Vantom"
+      }
+    ],
+    "loss_text": "{character} was turned into an Inklet by the [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被[gold]{encounter}[/gold]变成了一只墨宝。"
+  },
+  {
+    "id": "VINE_SHAMBLER_NORMAL",
+    "name": "Vine Shambler",
+    "name_zh": "藤蔓蹒跚者",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Act 1 - Overgrowth",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "VINE_SHAMBLER",
+        "name": "Vine Shambler"
+      }
+    ],
+    "loss_text": "{character} couldn't escape a [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}未能逃脱[gold]{encounter}[/gold]。"
+  },
+  {
+    "id": "WATERFALL_GIANT_BOSS",
+    "name": "Waterfall Giant",
+    "name_zh": "瀑布巨兽",
+    "room_type": "Boss",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": null,
+    "monsters": [
+      {
+        "id": "WATERFALL_GIANT",
+        "name": "Waterfall Giant"
+      }
+    ],
+    "loss_text": "The [gold]{encounter}[/gold] cleansed the Underdocks of {character}.",
+    "loss_text_zh": "[gold]{encounter}[/gold]将{character}从暗港清除了。"
+  }
+]

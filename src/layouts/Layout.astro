@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+
+// SEO配置
+const siteTitle = '杀戮尖塔2 卡牌图鉴 | Slay the Spire 2 中文数据库';
+const siteDescription = '最全的杀戮尖塔2 (Slay the Spire 2) 卡牌数据库，包含所有角色卡牌、技能、能力、状态、诅咒卡牌的中文翻译和详细效果说明。支持按类型、稀有度、角色、费用筛选。';
+const siteKeywords = '杀戮尖塔2,Slay the Spire 2,卡牌图鉴,卡牌数据库,铁卫,静默,故障,唤尸,摄政,卡牌效果,中文翻译,游戏攻略,卡牌筛选';
+const siteAuthor = 'Baze';
+const siteUrl = 'https://sts2.urarawin.com';
+const siteImage = ''; // 如果有社交媒体分享图片的话
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- 基础SEO标签 -->
+		<title>{siteTitle}</title>
+		<meta name="description" content={siteDescription} />
+		<meta name="keywords" content={siteKeywords} />
+		<meta name="author" content={siteAuthor} />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- 搜索引擎抓取 -->
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
+		
+		<!-- 规范链接 (避免重复内容) -->
+		<link rel="canonical" href={siteUrl} />
+		
+		<!-- Open Graph / Facebook 分享卡片 -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:title" content={siteTitle} />
+		<meta property="og:description" content={siteDescription} />
+		<meta property="og:site_name" content="杀戮尖塔2 卡牌图鉴" />
+		<meta property="og:locale" content="zh_CN" />
+		{siteImage && <meta property="og:image" content={siteImage} />}
+		{siteImage && <meta property="og:image:alt" content="杀戮尖塔2 卡牌图鉴预览" />}
+		
+		<!-- Twitter 分享卡片 -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={siteUrl} />
+		<meta name="twitter:title" content={siteTitle} />
+		<meta name="twitter:description" content={siteDescription} />
+		{siteImage && <meta name="twitter:image" content={siteImage} />}
+		{siteImage && <meta name="twitter:image:alt" content="杀戮尖塔2 卡牌图鉴预览" />}
+		
+		<!-- 图标 -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		
+		<!-- 主题颜色 -->
+		<meta name="theme-color" content="#10121a" />
+		<meta name="msapplication-TileColor" content="#10121a" />
+		
+		<!-- 额外的SEO优化标签 -->
+		<meta name="application-name" content="STS2 卡牌图鉴" />
+		<meta name="category" content="游戏数据库" />
+		
+		<!-- 结构化数据 (JSON-LD) 帮助搜索引擎理解网站内容 -->
+		<script type="application/ld+json">
+			{JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				"name": "杀戮尖塔2 卡牌图鉴",
+				"url": siteUrl,
+				"description": siteDescription,
+				"author": {
+					"@type": "Organization",
+					"name": "STS2 中文社区"
+				},
+				"inLanguage": "zh-CN",
+				"potentialAction": {
+					"@type": "SearchAction",
+					"target": {
+						"@type": "EntryPoint",
+						"urlTemplate": `${siteUrl}/?search={search_term_string}`
+					},
+					"query-input": "required name=search_term_string"
+				}
+			})}
+		</script>
+	</head>
+	<body
+		class="min-h-screen text-[#f2f2f0] bg-[radial-gradient(1200px_700px_at_20%_-10%,_#202235_0%,_#10121a_55%,_#0a0b10_100%)]"
+		style="font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', Georgia, serif;"
+	>
+		<slot />
+	</body>
+</html>

@@ -1,0 +1,175 @@
+{
+  "sprites": {
+    "ancient_banner": {
+      "atlas": "ui_atlas_1.png",
+      "x": 1,
+      "y": 1,
+      "w": 671,
+      "h": 182,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_banner": {
+      "atlas": "ui_atlas_1.png",
+      "x": 674,
+      "y": 1,
+      "w": 653,
+      "h": 145,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_frame_ancient_s": {
+      "atlas": "ui_atlas_0.png",
+      "x": 1,
+      "y": 901,
+      "w": 618,
+      "h": 862,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_frame_attack_s": {
+      "atlas": "ui_atlas_0.png",
+      "x": 1320,
+      "y": 83,
+      "w": 598,
+      "h": 844,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_frame_power_s": {
+      "atlas": "ui_atlas_0.png",
+      "x": 621,
+      "y": 929,
+      "w": 598,
+      "h": 844,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_frame_quest_s": {
+      "atlas": "ui_atlas_0.png",
+      "x": 719,
+      "y": 83,
+      "w": 599,
+      "h": 844,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_frame_skill_s": {
+      "atlas": "ui_atlas_0.png",
+      "x": 1221,
+      "y": 929,
+      "w": 598,
+      "h": 844,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_portrait_border_attack_s": {
+      "atlas": "ui_atlas_1.png",
+      "x": 1329,
+      "y": 1,
+      "w": 551,
+      "h": 420,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_portrait_border_plaque_s": {
+      "atlas": "ui_atlas_0.png",
+      "x": 197,
+      "y": 1948,
+      "w": 123,
+      "h": 75,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_portrait_border_power_s": {
+      "atlas": "ui_atlas_1.png",
+      "x": 674,
+      "y": 148,
+      "w": 551,
+      "h": 420,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_portrait_border_skill_s": {
+      "atlas": "ui_atlas_1.png",
+      "x": 1313,
+      "y": 423,
+      "w": 551,
+      "h": 420,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "card_unplayable_icon": {
+      "atlas": "ui_atlas_0.png",
+      "x": 1920,
+      "y": 523,
+      "w": 102,
+      "h": 102,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "energy_colorless": {
+      "atlas": "ui_atlas_1.png",
+      "x": 237,
+      "y": 953,
+      "w": 71,
+      "h": 71,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "energy_defect": {
+      "atlas": "ui_atlas_1.png",
+      "x": 237,
+      "y": 879,
+      "w": 71,
+      "h": 72,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "energy_ironclad": {
+      "atlas": "ui_atlas_0.png",
+      "x": 1440,
+      "y": 1948,
+      "w": 74,
+      "h": 74,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "energy_necrobinder": {
+      "atlas": "ui_atlas_1.png",
+      "x": 1182,
+      "y": 706,
+      "w": 74,
+      "h": 69,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "energy_quest": {
+      "atlas": "ui_atlas_1.png",
+      "x": 1866,
+      "y": 829,
+      "w": 74,
+      "h": 74,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "energy_regent": {
+      "atlas": "ui_atlas_1.png",
+      "x": 1942,
+      "y": 829,
+      "w": 74,
+      "h": 74,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    },
+    "energy_silent": {
+      "atlas": "ui_atlas_1.png",
+      "x": 1182,
+      "y": 630,
+      "w": 74,
+      "h": 74,
+      "atlas_w": 2048,
+      "atlas_h": 2048
+    }
+  }
+}

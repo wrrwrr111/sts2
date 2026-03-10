@@ -1,0 +1,47 @@
+[
+  {
+    "id": "DARK_ORB",
+    "name": "Dark",
+    "description": "[gold]Passive:[/gold] At the end of turn, increase this Orb's damage by [blue][Passive][/blue].\n[gold]Evoke:[/gold] Deal [blue][Evoke][/blue] damage to the enemy with the lowest HP.",
+    "description_raw": "[gold]Passive:[/gold] At the end of turn, increase this Orb's damage by [blue]{Passive}[/blue].\n[gold]Evoke:[/gold] Deal [blue]{Evoke}[/blue] damage to the enemy with the lowest HP.",
+    "name_zh": "黑暗",
+    "description_zh": "[gold]被动：[/gold]回合结束时，将这个充能球的伤害增加[blue][Passive][/blue]。\n[gold]激发：[/gold]对生命值最少的敌人造成[blue][Evoke][/blue]点伤害。",
+    "description_raw_zh": "[gold]被动：[/gold]回合结束时，将这个充能球的伤害增加[blue]{Passive}[/blue]。\n[gold]激发：[/gold]对生命值最少的敌人造成[blue]{Evoke}[/blue]点伤害。"
+  },
+  {
+    "id": "FROST_ORB",
+    "name": "Frost",
+    "description": "[gold]Passive:[/gold] At the end of turn, gain [blue][Passive][/blue] [gold]Block[/gold].\n[gold]Evoke:[/gold] Gain [blue][Evoke][/blue] [gold]Block[/gold].",
+    "description_raw": "[gold]Passive:[/gold] At the end of turn, gain [blue]{Passive}[/blue] [gold]Block[/gold].\n[gold]Evoke:[/gold] Gain [blue]{Evoke}[/blue] [gold]Block[/gold].",
+    "name_zh": "冰霜",
+    "description_zh": "[gold]被动：[/gold]在回合结束时，获得[blue][Passive][/blue]点[gold]格挡[/gold]。\n[gold]激发：[/gold]获得[blue][Evoke][/blue]点[gold]格挡[/gold]。",
+    "description_raw_zh": "[gold]被动：[/gold]在回合结束时，获得[blue]{Passive}[/blue]点[gold]格挡[/gold]。\n[gold]激发：[/gold]获得[blue]{Evoke}[/blue]点[gold]格挡[/gold]。"
+  },
+  {
+    "id": "GLASS_ORB",
+    "name": "Glass",
+    "description": "[gold]Passive:[/gold] At the end of turn, deal [blue][Passive][/blue] damage to ALL enemies and reduce this orb's value by [blue]1[/blue].\n[gold]Evoke:[/gold] Deal [blue][Evoke][/blue] damage to ALL enemies.",
+    "description_raw": "[gold]Passive:[/gold] At the end of turn, deal [blue]{Passive}[/blue] damage to ALL enemies and reduce this orb's value by [blue]1[/blue].\n[gold]Evoke:[/gold] Deal [blue]{Evoke}[/blue] damage to ALL enemies.",
+    "name_zh": "玻璃",
+    "description_zh": "[gold]被动：[/gold]在回合结束时，对所有敌人造成[blue][Passive][/blue]点伤害，然后将这个充能球的数值减少[blue]1[/blue]。\n[gold]激发：[/gold]对所有敌人造成[blue][Evoke][/blue]点伤害。",
+    "description_raw_zh": "[gold]被动：[/gold]在回合结束时，对所有敌人造成[blue]{Passive}[/blue]点伤害，然后将这个充能球的数值减少[blue]1[/blue]。\n[gold]激发：[/gold]对所有敌人造成[blue]{Evoke}[/blue]点伤害。"
+  },
+  {
+    "id": "LIGHTNING_ORB",
+    "name": "Lightning",
+    "description": "[gold]Passive:[/gold] At the end of turn, deal [blue][Passive][/blue] damage to a random enemy.\n[gold]Evoke:[/gold] Deal [blue][Evoke][/blue] damage to a random enemy.",
+    "description_raw": "[gold]Passive:[/gold] At the end of turn, deal [blue]{Passive}[/blue] damage to a random enemy.\n[gold]Evoke:[/gold] Deal [blue]{Evoke}[/blue] damage to a random enemy.",
+    "name_zh": "闪电",
+    "description_zh": "[gold]被动：[/gold]回合结束时，对一名随机敌人造成[blue][Passive][/blue]点伤害。\n[gold]激发：[/gold]对一名随机敌人造成[blue][Evoke][/blue]点伤害。",
+    "description_raw_zh": "[gold]被动：[/gold]回合结束时，对一名随机敌人造成[blue]{Passive}[/blue]点伤害。\n[gold]激发：[/gold]对一名随机敌人造成[blue]{Evoke}[/blue]点伤害。"
+  },
+  {
+    "id": "PLASMA_ORB",
+    "name": "Plasma",
+    "description": "[gold]Passive:[/gold] At the start of turn,\ngain [energy:1].\n[gold]Evoke:[/gold] Gain [energy:2].\nPlasma is unaffected by [gold]Focus[/gold].",
+    "description_raw": "[gold]Passive:[/gold] At the start of turn,\ngain {energyPrefix:energyIcons(1)}.\n[gold]Evoke:[/gold] Gain {energyPrefix:energyIcons(2)}.\nPlasma is unaffected by [gold]Focus[/gold].",
+    "name_zh": "等离子",
+    "description_zh": "[gold]被动：[/gold]回合开始时，\n获得[energy:1]。\n[gold]激发：[/gold]获得[energy:2]。\n等离子充能球不受[gold]集中[/gold]影响。",
+    "description_raw_zh": "[gold]被动：[/gold]回合开始时，\n获得{energyPrefix:energyIcons(1)}。\n[gold]激发：[/gold]获得{energyPrefix:energyIcons(2)}。\n等离子充能球不受[gold]集中[/gold]影响。"
+  }
+]
