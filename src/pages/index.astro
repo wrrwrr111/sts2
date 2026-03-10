@@ -11,6 +11,9 @@ type Card = {
   name: string;
   name_zh: string | null;
   description: string | null;
+  description_zh: string | null;
+  description_raw: string | null;
+  description_raw_zh: string | null;
   cost: number | null;
   is_x_cost: boolean | null;
   is_x_star_cost: boolean | null;
@@ -155,15 +158,53 @@ const openTagWithTitle = (tag: string, innerText: string) => {
   return `<span class="inline-block relative cursor-help" data-tip-html="${escapeAttr(tipHtml)}">`;
 };
 
+const highlightNumbersInHtml = (html: string, highlightValues: Set<string>) =>
+  html
+    .split(/(<[^>]+>)/g)
+    .map((part) => {
+      if (part.startsWith("<")) return part;
+      return part.replace(/\d+(?:\.\d+)?/g, (match) =>
+        highlightValues.has(match)
+          ? `<span style="color:#7efe00">${match}</span>`
+          : match,
+      );
+    })
+    .join("");
+
+const extractVarNames = (raw: string | null) => {
+  const names = new Set<string>();
+  if (!raw) return names;
+  for (const match of raw.matchAll(/\{([^}:]+)(?::[^}]*)?\}/g)) {
+    if (match[1]) names.add(match[1].toLowerCase());
+  }
+  return names;
+};
+
+const parseUpgradeDelta = (value: string) => {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const op = trimmed[0];
+  const num = Number(trimmed.slice(1));
+  if (!Number.isFinite(num)) return null;
+  if (op === "+" || op === "-") return { type: "delta", value: op === "-" ? -num : num };
+  if (op === "*") return { type: "mul", value: num };
+  return null;
+};
+
+const formatNumber = (value: number) => {
+  if (Number.isInteger(value)) return String(value);
+  return String(Number(value.toFixed(3))).replace(/\.0+$/, "");
+};
+
 const formatDescription = (
   desc: string | null,
   color: string | null,
-  options: { tooltips?: boolean } = {},
+  options: { tooltips?: boolean; highlightValues?: Set<string> } = {},
 ) => {
   if (!desc) return "";
   const escaped = escapeHtml(desc);
   const withTooltips = options.tooltips !== false;
-  return escaped
+  const html = escaped
     .replace(/\[energy:(\d+)\]/gi, (_, raw) => {
       const count = Math.max(0, Math.min(9, Number(raw)));
       const icon = energyIconForColor(color);
@@ -198,6 +239,8 @@ const formatDescription = (
     .replace(/\[([a-zA-Z0-9_]+)\]/g, (_, tag) => openTag(tag))
     .replace(/\[\/([a-zA-Z0-9_]+)\]/g, (_, tag) => closeTag(tag))
     .replace(/\n/g, "<br />");
+  if (!options.highlightValues || options.highlightValues.size === 0) return html;
+  return highlightNumbersInHtml(html, options.highlightValues);
 };
 
 const keywordTipHtmlMap = new Map<string, string>();
@@ -443,6 +486,16 @@ const energyImageFor = (card: Card) =>
         </select>
       </label>
 
+      <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
+        <span>搜索</span>
+        <input
+          id='filter-search'
+          type='search'
+          placeholder='名称 / 描述 / 关键字'
+          class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20'
+        />
+      </label>
+
       <button
         type='button'
         id='filter-reset'
@@ -467,8 +520,74 @@ const energyImageFor = (card: Card) =>
         cards.map((card) => {
           const baseDesc = getDisplayDesc(card);
           const upgradedDesc = getDisplayDescUpgraded(card);
+          const rawDescZh = card.description_raw_zh ?? card.description_zh ?? card.description ?? "";
           const upgradeCost = getUpgradeCostLabel(card);
           const isAncient = card.rarity?.toLowerCase() === "ancient";
+          const typeLower = card.type?.toLowerCase() ?? "";
+          const isStatus = typeLower === "status";
+          const isCurse = typeLower === "curse";
+          const colorLower = card.color?.toLowerCase() ?? "";
+          const frameImage = frameImageFor(card);
+          const rarityLower = card.rarity?.toLowerCase() ?? "";
+          const frameFilterByColor = {
+            ironclad: "hue-rotate(15deg) grayscale(.05) brightness(1.05)",
+            silent: "hue-rotate(97deg) brightness(1.5) saturate(.6)",
+            defect: "hue-rotate(217deg) brightness(1.3) saturate(.625)",
+            necrobinder: "hue-rotate(-23deg) brightness(1.3) saturate(.55)",
+            regent: "hue-rotate(45deg) brightness(1.55) saturate(1)",
+            colorless: "grayscale() brightness(1.35)",
+            curse: "hue-rotate(-60deg) grayscale(.9) brightness(.6)",
+            status: "grayscale() brightness(1.35)",
+            event: "grayscale() brightness(1.35)",
+            token: "grayscale() brightness(1.35)",
+          };
+          const frameFilter =
+            colorLower === "quest" ? "" : frameFilterByColor[colorLower] || "grayscale() brightness(1.35)";
+          const borderFilterByRarity = {
+            rare: "hue-rotate(-145deg) brightness(1.075) saturate(1.9)",
+            basic: "hue-rotate(-145deg) grayscale(.9) brightness(.775)",
+            common: "hue-rotate(-145deg) grayscale(.9) brightness(.775)",
+            curse: "hue-rotate(78deg) brightness(.8) saturate(2.55)",
+            event: "hue-rotate(-78deg) brightness(.9) saturate(1.25)",
+            quest: "hue-rotate(-172deg) brightness(.8) saturate(2.5)",
+            status: "hue-rotate(-122deg) brightness(.8) saturate(.75)",
+            token: "hue-rotate(-145deg) grayscale(.9) brightness(.775)",
+          };
+          const borderFilter = borderFilterByRarity[rarityLower] || "";
+          const upgradeHighlights = (() => {
+            if (!card.upgrade || !card.vars) return new Set();
+            const usedVars = extractVarNames(rawDescZh);
+            const varsMap = new Map(
+              Object.keys(card.vars).map((key) => [key.toLowerCase(), key]),
+            );
+            const highlights = new Set();
+            for (const [key, rawVal] of Object.entries(card.upgrade)) {
+              if (typeof rawVal !== "string") continue;
+              const mappedKey = varsMap.get(key.toLowerCase());
+              if (!mappedKey) continue;
+              if (!usedVars.has(mappedKey.toLowerCase())) continue;
+              const baseVal = card.vars[mappedKey];
+              if (typeof baseVal !== "number") continue;
+              const delta = parseUpgradeDelta(rawVal);
+              if (!delta) continue;
+              const next =
+                delta.type === "delta"
+                  ? baseVal + delta.value
+                  : baseVal * delta.value;
+              highlights.add(formatNumber(next));
+            }
+            return highlights;
+          })();
+          const searchText = [
+            getDisplayName(card),
+            baseDesc,
+            upgradedDesc,
+            card.keywords?.join(" ") ?? "",
+            getTypeLabel(card),
+            card.rarity ?? "",
+          ]
+            .join(" ")
+            .toLowerCase();
           return (
             <div class='card-tile mx-auto h-[253px] w-[180px]'>
               <div class='relative h-full w-full'>
@@ -483,6 +602,7 @@ const energyImageFor = (card: Card) =>
                   data-color-raw={card.color ?? ""}
                   data-cost-raw={getCostBucket(card)}
                   data-has-upgrade={card.upgrade ? "1" : "0"}
+                  data-search={searchText}
                 >
                   <div
                     class={
@@ -500,7 +620,8 @@ const energyImageFor = (card: Card) =>
                   </div>
                   <img
                     class='absolute left-0 top-0 z-[1] h-[211px] w-[150px]'
-                    src={`${base}/images/ui/${frameImageFor(card)}.png`}
+                    style={frameFilter ? `filter: ${frameFilter};` : ""}
+                    src={`${base}/images/ui/${frameImage}.png`}
                     alt=''
                     loading='lazy'
                   />
@@ -513,6 +634,7 @@ const energyImageFor = (card: Card) =>
                   {!isAncient && (
                     <img
                       class='absolute left-[6.25px] top-[23.5px] z-[4] h-[105px] w-[137.5px]'
+                      style={borderFilter ? `filter: ${borderFilter};` : ""}
                       src={`${base}/images/ui/${borderImageFor(card)}.png`}
                       alt=''
                       loading='lazy'
@@ -520,12 +642,14 @@ const energyImageFor = (card: Card) =>
                   )}
                   <img
                     class='absolute left-[59.75px] top-[106px] z-[6] h-[18.5px] w-[30.5px]'
+                    style={borderFilter ? `filter: ${borderFilter};` : ""}
                     src={`${base}/images/ui/card_portrait_border_plaque2.png`}
                     alt=''
                     loading='lazy'
                   />
                   <img
-                    class='absolute left-[-6.5px] top-[2px] z-[6] h-[41.5px] w-[163.5px]'
+                    class={`absolute left-[-10px] ${isAncient ? "top-[1px]" : "top-[6px]"} z-[6] h-[41.5px] w-[170px] max-w-none`}
+                    style={borderFilter ? `filter: ${borderFilter};` : ""}
                     src={`${base}/images/ui/${bannerImageFor(card)}.png`}
                     alt=''
                     loading='lazy'
@@ -537,16 +661,38 @@ const energyImageFor = (card: Card) =>
                       alt=''
                       loading='lazy'
                     />
-                    <span class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-white [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]'>
+                    <span
+                      data-cost='base'
+                      class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-white [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]'
+                    >
                       {getCostLabel(card)}
                     </span>
+                    {upgradeCost && (
+                      <span
+                        data-cost='upgrade'
+                        class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-[#7efe00] [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)] hidden'
+                      >
+                        {upgradeCost}
+                      </span>
+                    )}
                   </div>
                   <span class='absolute left-[59.75px] top-[106px] z-[7] grid h-[18.5px] w-[30.5px] place-items-center text-center text-[8px] font-bold uppercase tracking-[0.08em] text-[#241f17] [text-shadow:0_1px_0_rgba(255,255,255,0.5)]'>
                     {getTypeLabel(card)}
                   </span>
-                  <span class='absolute left-[22.5px] top-[3.5px] z-[7] w-[105px] text-center text-[13px] text-[#fdf0d8] [text-shadow:0_1px_1px_rgba(0,0,0,0.35),0_0_3px_rgba(0,0,0,0.45)]'>
+                  <span
+                    data-name='base'
+                    class='absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#fdf0d8] [text-shadow:0_1px_1px_rgba(0,0,0,0.35),0_0_3px_rgba(0,0,0,0.45)]'
+                  >
                     {getDisplayName(card)}
                   </span>
+                  {card.upgrade && (
+                    <span
+                      data-name='upgrade'
+                      class='absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#7efe00] [text-shadow:0_1px_1px_rgba(0,0,0,0.35),0_0_3px_rgba(0,0,0,0.45)] hidden'
+                    >
+                      {getDisplayName(card)}+
+                    </span>
+                  )}
                   {getStarLabel(card) && (
                     <span class='absolute left-[-18px] top-[11px] z-[7] text-[8px] text-[#ffe3a6] [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]'>
                       ⭐ {getStarLabel(card)}
@@ -563,23 +709,11 @@ const energyImageFor = (card: Card) =>
                       {card.upgrade && upgradedDesc && (
                         <div
                           data-desc='upgrade'
-                          class={`${baseDesc ? "hidden " : ""}mt-1 border-t border-white/20 pt-1 text-[9px] leading-[1.05]`}
-                        >
-                          <div class='mb-1 text-[5.5px] uppercase tracking-[0.3em] text-[#f5d9a6]'>
-                            升级
-                          </div>
-                          {upgradeCost && (
-                            <div class='mb-1 text-[7px] text-[#f5d9a6]'>
-                              费用 {upgradeCost}
-                            </div>
-                          )}
-                          <div
-                            set:html={formatDescription(
-                              upgradedDesc,
-                              card.color,
-                            )}
-                          />
-                        </div>
+                          class={baseDesc ? "hidden" : ""}
+                          set:html={formatDescription(upgradedDesc, card.color, {
+                            highlightValues: upgradeHighlights,
+                          })}
+                        />
                       )}
                       {card.keywords && card.keywords.length > 0 && (
                         <div class='mt-1 text-[7px] tracking-[0.06em] text-[#f2e5cd]'>
@@ -608,6 +742,7 @@ const energyImageFor = (card: Card) =>
   const rarityEl = byId("filter-rarity");
   const colorEl = byId("filter-color");
   const costEl = byId("filter-cost");
+  const searchEl = byId("filter-search");
   const resetEl = byId("filter-reset");
 
   const applyFilters = () => {
@@ -615,6 +750,7 @@ const energyImageFor = (card: Card) =>
     const rarity = rarityEl?.value ?? "all";
     const color = colorEl?.value ?? "all";
     const cost = costEl?.value ?? "all";
+    const query = (searchEl?.value ?? "").trim().toLowerCase();
 
     document.querySelectorAll("[data-card]").forEach((node) => {
       const el = node;
@@ -622,12 +758,14 @@ const energyImageFor = (card: Card) =>
       const r = el.dataset.rarityRaw || "";
       const c = el.dataset.colorRaw || "";
       const k = el.dataset.costRaw || "";
+      const s = el.dataset.search || "";
 
       const match =
         (type === "all" || t === type) &&
         (rarity === "all" || r === rarity) &&
         (color === "all" || c === color) &&
-        (cost === "all" || k === cost);
+        (cost === "all" || k === cost) &&
+        (!query || s.includes(query));
 
       const wrapper = el.closest(".card-tile");
       if (wrapper) {
@@ -639,12 +777,14 @@ const energyImageFor = (card: Card) =>
   [typeEl, rarityEl, colorEl, costEl].forEach((el) => {
     el?.addEventListener("change", applyFilters);
   });
+  searchEl?.addEventListener("input", applyFilters);
 
   resetEl?.addEventListener("click", () => {
     if (typeEl) typeEl.value = "all";
     if (rarityEl) rarityEl.value = "all";
     if (colorEl) colorEl.value = "all";
     if (costEl) costEl.value = "all";
+    if (searchEl) searchEl.value = "";
     applyFilters();
   });
 
@@ -656,11 +796,19 @@ const energyImageFor = (card: Card) =>
     document.querySelectorAll('[data-has-upgrade="1"]').forEach((card) => {
       const base = card.querySelector('[data-desc="base"]');
       const upgrade = card.querySelector('[data-desc="upgrade"]');
+      const nameBase = card.querySelector('[data-name="base"]');
+      const nameUpgrade = card.querySelector('[data-name="upgrade"]');
+      const costBase = card.querySelector('[data-cost="base"]');
+      const costUpgrade = card.querySelector('[data-cost="upgrade"]');
       if (base) base.classList.toggle("hidden", enabled);
       if (upgrade) {
         const shouldShowUpgrade = enabled || !base;
         upgrade.classList.toggle("hidden", !shouldShowUpgrade);
       }
+      if (nameBase) nameBase.classList.toggle("hidden", enabled);
+      if (nameUpgrade) nameUpgrade.classList.toggle("hidden", !enabled);
+      if (costBase) costBase.classList.toggle("hidden", enabled && !!costUpgrade);
+      if (costUpgrade) costUpgrade.classList.toggle("hidden", !enabled);
     });
   });
 
