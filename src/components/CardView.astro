@@ -482,30 +482,32 @@ const searchText = [
       alt=''
       loading='lazy'
     />
-    <div class='absolute left-[-8px] top-[-8px] z-[7] h-[32px] w-[32px]'>
-      <img
-        class='h-full w-full'
-        src={`${basePath}/images/ui/${energyImageFor(card)}.png`}
-        alt=''
-        loading='lazy'
-      />
-      <span
-        data-cost='base'
-        class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-white [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]'
-      >
-        {getCostLabel(card)}
-      </span>
-      {
-        upgradeCost && (
-          <span
-            data-cost='upgrade'
-            class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-[#7efe00] [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)] hidden'
-          >
-            {upgradeCost}
-          </span>
-        )
-      }
-    </div>
+    {card.cost !== -1 && (
+      <div class='absolute left-[-8px] top-[-8px] z-[7] h-[32px] w-[32px]'>
+        <img
+          class='h-full w-full'
+          src={`${basePath}/images/ui/${energyImageFor(card)}.png`}
+          alt=''
+          loading='lazy'
+        />
+        <span
+          data-cost='base'
+          class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-white [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)]'
+        >
+          {getCostLabel(card)}
+        </span>
+        {
+          upgradeCost && (
+            <span
+              data-cost='upgrade'
+              class='absolute left-[4.5px] top-[3px] z-[8] grid h-[28px] w-[23px] place-items-center text-[16px] font-extrabold text-[#7efe00] [text-shadow:0_1px_0_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45)] hidden'
+            >
+              {upgradeCost}
+            </span>
+          )
+        }
+      </div>
+    )}
     <span
       class='absolute left-[59.75px] top-[106px] z-[7] grid h-[18.5px] w-[30.5px] place-items-center text-center text-[8px] font-bold uppercase tracking-[0.08em] text-[#241f17] [text-shadow:0_1px_0_rgba(255,255,255,0.5)]'
     >
