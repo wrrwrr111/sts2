@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import cardsData from "../../../data/cards.json";
 import CardView from "../../components/CardView.astro";
 import type { Card } from "../../lib/cardModels";
+import TopNav from "../../components/TopNav.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -69,10 +70,13 @@ const ogImage = new URL(`${base}${cardImagePath}`, origin).toString();
   </Fragment>
   <main class='min-h-screen px-4 pb-[72px] pt-12 sm:px-[6vw]' data-base-path={base}>
     <div class='mx-auto flex max-w-[980px] flex-col items-center gap-6'>
-      <a
-        class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'
-        href={`${base}/`}>返回</a
-      >
+      <div class='flex w-full flex-col items-center gap-4'>
+        <a
+          class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'
+          href={`${base}/`}>返回</a
+        >
+        <TopNav current='cards' basePath={base} />
+      </div>
       <CardView card={card} />
     </div>
   </main>
