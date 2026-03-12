@@ -48,7 +48,7 @@ const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
 const canonical = new URL(`${base}/events`, origin).toString();
-const pageTitle = "事件图鉴 | 杀戮尖塔2 中文数据库";
+const pageTitle = "事件库 | 杀戮尖塔2 中文资料库";
 const pageDescription = `收录杀戮尖塔2全部事件，共 ${events.length} 个。支持章节、类型筛选与搜索。`;
 ---
 

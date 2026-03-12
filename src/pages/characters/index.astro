@@ -47,7 +47,7 @@ const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
 const canonical = new URL(`${base}/characters`, origin).toString();
-const pageTitle = "角色图鉴 | 杀戮尖塔2 中文数据库";
+const pageTitle = "角色库 | 杀戮尖塔2 中文资料库";
 const pageDescription = `收录杀戮尖塔2全部角色，共 ${characters.length} 位。`;
 ---
 

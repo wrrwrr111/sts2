@@ -143,7 +143,7 @@ const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
 const canonical = new URL(`${base}/character/${character.id}`, origin).toString();
-const pageTitle = `${getName(character)} | 杀戮尖塔2 角色`;
+const pageTitle = `${getName(character)} - 角色 | 杀戮尖塔2 中文资料库`;
 const rawDesc =
   (character.description_zh ?? character.description ?? "")
     .replace(/\s+/g, " ")

@@ -69,7 +69,7 @@ const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
 const canonical = new URL(`${base}/relics`, origin).toString();
-const pageTitle = "遗物图鉴 | 杀戮尖塔2 中文数据库";
+const pageTitle = "遗物库 | 杀戮尖塔2 中文资料库";
 const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 个。支持稀有度、来源筛选与搜索。`;
 ---
 
