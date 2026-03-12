@@ -12,12 +12,14 @@ POTIONS_SRC = RAW_IMAGES / "potions"
 CHAR_SELECT_SRC = RAW_IMAGES / "packed" / "character_select"
 CHAR_ICON_SRC = RAW_IMAGES / "ui" / "top_panel"
 MONSTERS_SRC = RAW_IMAGES / "monsters"
+ORBS_SRC = RAW_IMAGES / "orbs"
 
 CARDS_DST = STATIC_IMAGES / "cards"
 RELICS_DST = STATIC_IMAGES / "relics"
 POTIONS_DST = STATIC_IMAGES / "potions"
 CHARS_DST = STATIC_IMAGES / "characters"
 MONSTERS_DST = STATIC_IMAGES / "monsters"
+ORBS_DST = STATIC_IMAGES / "orbs"
 ICONS_SRC = RAW_IMAGES / "packed" / "sprite_fonts"
 ICONS_DST = STATIC_IMAGES / "icons"
 ANCIENTS_SRC = RAW_IMAGES / "ui" / "run_history"
@@ -107,6 +109,17 @@ def copy_monsters():
     print(f"Copied {count} monster images -> static/images/monsters/")
 
 
+def copy_orbs():
+    ORBS_DST.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for png in ORBS_SRC.glob("*.png"):
+        if png.name.endswith(".import"):
+            continue
+        shutil.copy2(png, ORBS_DST / png.name)
+        count += 1
+    print(f"Copied {count} orb images -> static/images/orbs/")
+
+
 def copy_icons():
     ICONS_DST.mkdir(parents=True, exist_ok=True)
     count = 0
@@ -163,6 +176,7 @@ def main():
     copy_characters()
     copy_monsters()
     copy_icons()
+    copy_orbs()
     copy_ancients()
     copy_bosses()
     copy_card_overlays()
