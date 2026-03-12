@@ -521,7 +521,7 @@ const searchText = [
     </span>
     <span
       data-name='base'
-      class={`absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#fdf0d8] [text-shadow:0_1px_1px_rgba(0,0,0,0.35),0_0_3px_rgba(0,0,0,0.45)]${showBaseLayer ? "" : " hidden"}`}
+      class={`absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#fdf0d8] [text-shadow:0_1px_2px_rgba(0,0,0,0.35),0_0_2px_rgba(77,75,64,0.95),1px_0_0_rgba(77,75,64,0.9),-1px_0_0_rgba(77,75,64,0.9),0_1px_0_rgba(77,75,64,0.9),0_-1px_0_rgba(77,75,64,0.9)]${showBaseLayer ? "" : " hidden"}`}
     >
       {getDisplayName(card)}
     </span>
@@ -529,7 +529,7 @@ const searchText = [
       card.upgrade && showUpgradeLayer && (
         <span
           data-name='upgrade'
-          class={`absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#7efe00] [text-shadow:0_1px_1px_rgba(0,0,0,0.35),0_0_3px_rgba(0,0,0,0.45)]${variant === "auto" ? " hidden" : ""}`}
+          class={`absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#7efe00] [text-shadow:0_1px_2px_rgba(0,0,0,0.35),0_0_2px_rgba(77,75,64,0.95),1px_0_0_rgba(77,75,64,0.9),-1px_0_0_rgba(77,75,64,0.9),0_1px_0_rgba(77,75,64,0.9),0_-1px_0_rgba(77,75,64,0.9)]${variant === "auto" ? " hidden" : ""}`}
         >
           {getDisplayName(card)}+
         </span>
@@ -552,7 +552,7 @@ const searchText = [
     }
     {
       (hasBaseDesc || hasUpgradeDesc || hasKeywords) && (
-        <div class='absolute left-[14px] top-[124px] z-[6] h-[72px] w-[121.5px] text-center text-[10.5px] leading-[1.05] tracking-[0.02em] text-[#f2e5cd] [text-shadow:0_1px_1px_rgba(0,0,0,0.4),0_0_3px_rgba(0,0,0,0.45)] flex flex-col items-center justify-center'>
+        <div class='absolute left-[14px] top-[124px] z-[6] h-[72px] w-[121.5px] text-center text-[10.5px] leading-[1.02] tracking-[0.02em] text-[#f2e5cd] [text-shadow:0_1px_2px_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45),1px_0_0_rgba(0,0,0,0.35),-1px_0_0_rgba(0,0,0,0.35)] flex flex-col items-center justify-center'>
           {showBaseDesc && hasBaseDesc && (
             <div data-desc='base' set:html={baseDescHtml} />
           )}
