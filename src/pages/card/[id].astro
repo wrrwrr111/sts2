@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import cardsData from "../../../data/cards.json";
 import CardView from "../../components/CardView.astro";
 import type { Card } from "../../lib/cardModels";
+import { TYPE_ZH } from "../../lib/cardModels";
 import TopNav from "../../components/TopNav.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -22,7 +23,7 @@ if (!card) {
 }
 
 const displayName = card.name_zh ?? card.name ?? card.id;
-const typeLabel = card.type ?? "";
+const typeLabel = card.type ? (TYPE_ZH[card.type] ?? card.type) : "";
 const rarityLabel = card.rarity ?? "";
 const rawDesc = (card.description_zh ?? card.description ?? "")
   .replace(/\[\/?[a-zA-Z0-9_]+\]/g, "")
@@ -51,6 +52,9 @@ const cardImagePath =
   `/images/cards/${card.id.toLowerCase()}.png`;
 const ogImage = new URL(`${base}${cardImagePath}`, origin).toString();
 const hasUpgrade = Boolean(card.upgrade);
+const subtitle = [typeLabel && `类型：${typeLabel}`, rarityLabel && `稀有度：${rarityLabel}`]
+  .filter(Boolean)
+  .join(" · ");
 ---
 
 <Layout>
@@ -70,16 +74,24 @@ const hasUpgrade = Boolean(card.upgrade);
     <meta name="twitter:image:alt" content={displayName} />
   </Fragment>
   <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[980px] flex-col items-center gap-6'>
-      <div class='flex w-full flex-col items-center gap-4'>
-        <a
-          class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'
-          href={`${base}/`}>返回</a
-        >
+    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
+      <div class='flex flex-wrap items-end justify-between gap-6'>
+        <div>
+          <a
+            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
+            href={`${base}/`}
+          >
+            返回卡牌
+          </a>
+          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+            {displayName}
+          </h1>
+          {subtitle && <p class='mt-1 text-[#c4c7d6]'>{subtitle}</p>}
+        </div>
         <TopNav current='cards' basePath={base} />
       </div>
       {hasUpgrade ? (
-        <div class='flex flex-wrap items-start justify-center gap-6'>
+        <div class='flex flex-wrap items-start gap-6'>
           <div class='flex flex-col items-center gap-2'>
             <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
               普通
@@ -94,7 +106,9 @@ const hasUpgrade = Boolean(card.upgrade);
           </div>
         </div>
       ) : (
-        <CardView card={card} />
+        <div class='flex items-start'>
+          <CardView card={card} />
+        </div>
       )}
     </div>
   </main>

@@ -1,76 +1,52 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import relicsData from "../../../data/relics.json";
-import charactersData from "../../../data/characters.json";
+import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
 
-type Relic = {
+type Potion = {
   id: string;
   name: string;
   name_zh?: string | null;
   description?: string | null;
   description_zh?: string | null;
-  flavor?: string | null;
-  flavor_zh?: string | null;
   rarity?: string | null;
-  pool?: string | null;
   image_url?: string | null;
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const relics = relicsData as Relic[];
-const characters = charactersData as Array<{
-  id: string;
-  name: string;
-  name_zh?: string | null;
-  color?: string | null;
-}>;
+const potions = potionsData as Potion[];
 
-const getName = (relic: Relic) => relic.name_zh ?? relic.name;
-const getDesc = (relic: Relic) => relic.description_zh ?? relic.description ?? "";
+const getName = (potion: Potion) => potion.name_zh ?? potion.name ?? potion.id;
+const getDesc = (potion: Potion) =>
+  potion.description_zh ?? potion.description ?? "";
 
 const normalizeImageUrl = (url: string | null | undefined) => {
   if (!url) return null;
   return url.replace("/static/images/", "/images/");
 };
 
-const getImage = (relic: Relic) =>
-  normalizeImageUrl(relic.image_url ?? null) ??
-  `/images/relics/${relic.id.toLowerCase()}.png`;
+const getImage = (potion: Potion) =>
+  normalizeImageUrl(potion.image_url ?? null) ??
+  `/images/potions/${potion.id.toLowerCase()}.png`;
 
 const rarityLabel: Record<string, string> = {
-  Ancient: "古代",
   Common: "普通",
   Uncommon: "罕见",
   Rare: "稀有",
-  Event: "事件",
-  Starter: "初始",
-  Shop: "商店",
-  None: "无",
-  Unknown: "未知",
+  Ancient: "古代",
 };
-const poolLabel: Record<string, string> = {
-  shared: "共享",
-};
-for (const character of characters) {
-  if (!character.color) continue;
-  poolLabel[character.color] = character.name_zh ?? character.name ?? character.id;
-}
 
 const rarities = Array.from(
-  new Set(relics.map((item) => item.rarity).filter(Boolean)),
-) as string[];
-const pools = Array.from(
-  new Set(relics.map((item) => item.pool).filter(Boolean)),
+  new Set(potions.map((item) => item.rarity).filter(Boolean)),
 ) as string[];
 
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/relics`, origin).toString();
-const pageTitle = "遗物图鉴 | 杀戮尖塔2 中文数据库";
-const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 个。支持稀有度、来源筛选与搜索。`;
+const canonical = new URL(`${base}/potions`, origin).toString();
+const pageTitle = "药剂图鉴 | 杀戮尖塔2 中文数据库";
+const pageDescription = `收录杀戮尖塔2全部药剂，共 ${potions.length} 个。支持稀有度筛选与搜索。`;
 ---
 
 <Layout>
@@ -90,22 +66,22 @@ const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 
       <div class='flex flex-wrap items-end justify-between gap-6'>
         <div>
           <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
-            遗物
+            药剂
           </div>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>遗物图鉴</h1>
-          <p class='mt-1 text-[#c4c7d6]'>共 {relics.length} 个遗物</p>
+          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>药剂图鉴</h1>
+          <p class='mt-1 text-[#c4c7d6]'>共 {potions.length} 个药剂</p>
         </div>
-        <TopNav current='relics' basePath={base} />
+        <TopNav current='potions' basePath={base} />
       </div>
 
       <section
         class='grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]'
-        aria-label='Relic filters'
+        aria-label='Potion filters'
       >
         <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
           <span>稀有度</span>
           <select
-            id='relic-filter-rarity'
+            id='potion-filter-rarity'
             class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
           >
             <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
@@ -118,33 +94,18 @@ const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 
         </label>
 
         <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-          <span>来源</span>
-          <select
-            id='relic-filter-pool'
-            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
-          >
-            <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
-            {pools.map((p) => (
-              <option value={p} class='bg-[#1a1c24] text-[#f4f4f1]'>
-                {poolLabel[p] ?? p}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
           <span>搜索</span>
           <input
-            id='relic-filter-search'
+            id='potion-filter-search'
             type='search'
-            placeholder='名称 / 描述 / 风味'
+            placeholder='名称 / 描述'
             class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20'
           />
         </label>
 
         <button
           type='button'
-          id='relic-filter-reset'
+          id='potion-filter-reset'
           class='rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors'
         >
           重置
@@ -152,19 +113,16 @@ const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 
       </section>
 
       <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-        {relics.map((relic) => (
+        {potions.map((potion) => (
           <a
-            href={`${base}/relic/${relic.id}`}
-            class='relic-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10'
-            data-relic='1'
-            data-rarity-raw={relic.rarity ?? ""}
-            data-pool-raw={relic.pool ?? ""}
+            href={`${base}/potion/${potion.id}`}
+            class='potion-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10'
+            data-potion='1'
+            data-rarity-raw={potion.rarity ?? ""}
             data-search={[
-              getName(relic),
-              getDesc(relic),
-              relic.flavor_zh ?? relic.flavor ?? "",
-              relic.rarity ?? "",
-              relic.pool ?? "",
+              getName(potion),
+              getDesc(potion),
+              potion.rarity ?? "",
             ]
               .join(" ")
               .toLowerCase()}
@@ -173,23 +131,23 @@ const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 
               <div class='h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2'>
                 <img
                   class='h-full w-full object-contain'
-                  src={`${base}${getImage(relic)}`}
-                  alt={getName(relic)}
+                  src={`${base}${getImage(potion)}`}
+                  alt={getName(potion)}
                   loading='lazy'
                 />
               </div>
               <div class='min-w-0 flex-1'>
                 <div class='text-[14px] font-semibold text-[#fdf0d8]'>
-                  {getName(relic)}
+                  {getName(potion)}
                 </div>
                 <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                  {(relic.rarity ?? "未知").toUpperCase()} · {(relic.pool ?? "").toUpperCase()}
+                  {(potion.rarity ?? "未知").toUpperCase()}
                 </div>
               </div>
             </div>
             <div
               class='mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]'
-              set:html={formatRelicText(getDesc(relic), base)}
+              set:html={formatRelicText(getDesc(potion), base)}
             />
           </a>
         ))}
@@ -200,39 +158,31 @@ const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 
 
 <script>
   const byId = (id: string): HTMLElement | null => document.getElementById(id);
-  const rarityEl = byId("relic-filter-rarity") as HTMLSelectElement | null;
-  const poolEl = byId("relic-filter-pool") as HTMLSelectElement | null;
-  const searchEl = byId("relic-filter-search") as HTMLInputElement | null;
-  const resetEl = byId("relic-filter-reset") as HTMLButtonElement | null;
+  const rarityEl = byId("potion-filter-rarity") as HTMLSelectElement | null;
+  const searchEl = byId("potion-filter-search") as HTMLInputElement | null;
+  const resetEl = byId("potion-filter-reset") as HTMLButtonElement | null;
 
   const applyFilters = () => {
     const rarity = rarityEl?.value ?? "all";
-    const pool = poolEl?.value ?? "all";
     const query = (searchEl?.value ?? "").trim().toLowerCase();
 
-    document.querySelectorAll("[data-relic]").forEach((node) => {
+    document.querySelectorAll("[data-potion]").forEach((node) => {
       const el = node as HTMLElement;
       const r = el.dataset.rarityRaw || "";
-      const p = el.dataset.poolRaw || "";
       const s = el.dataset.search || "";
 
       const match =
         (rarity === "all" || r === rarity) &&
-        (pool === "all" || p === pool) &&
         (!query || s.includes(query));
 
       el.style.display = match ? "" : "none";
     });
   };
 
-  [rarityEl, poolEl].forEach((el) => {
-    el?.addEventListener("change", applyFilters);
-  });
+  rarityEl?.addEventListener("change", applyFilters);
   searchEl?.addEventListener("input", applyFilters);
-
   resetEl?.addEventListener("click", () => {
     if (rarityEl) rarityEl.value = "all";
-    if (poolEl) poolEl.value = "all";
     if (searchEl) searchEl.value = "";
     applyFilters();
   });

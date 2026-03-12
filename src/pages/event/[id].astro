@@ -81,14 +81,25 @@ const canonical = new URL(`${base}/event/${event.id}`, origin).toString();
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
   <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[980px] flex-col items-center gap-6'>
-      <div class='flex w-full flex-col items-center gap-4'>
-        <a class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]' href={`${base}/events`}>
-          返回事件
-        </a>
+    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
+      <div class='flex flex-wrap items-end justify-between gap-6'>
+        <div>
+          <a
+            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
+            href={`${base}/events`}
+          >
+            返回事件
+          </a>
+          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+            {displayName}
+          </h1>
+          <p class='mt-1 text-[#c4c7d6]'>
+            {(event.act ?? "未知")} · {(event.type ?? "未知")}
+          </p>
+        </div>
         <TopNav current='events' basePath={base} />
       </div>
-      <div class='w-full max-w-[720px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
+      <div class='w-full max-w-[820px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
         <div class='flex items-start justify-between gap-4'>
           <div>
             <div class='text-[20px] font-semibold text-[#fdf0d8]'>{displayName}</div>

@@ -1,0 +1,475 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import charactersData from "../../../data/characters.json";
+import cardsData from "../../../data/cards.json";
+import relicsData from "../../../data/relics.json";
+import orbsData from "../../../data/orbs.json";
+import TopNav from "../../components/TopNav.astro";
+import CardView from "../../components/CardView.astro";
+import type { Card } from "../../lib/cardModels";
+import { formatRelicText } from "../../lib/relicText";
+
+type Character = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+  starting_hp?: number | null;
+  starting_gold?: number | null;
+  max_energy?: number | null;
+  orb_slots?: number | null;
+  starting_deck?: string[] | null;
+  starting_relics?: string[] | null;
+  unlocks_after?: string | null;
+  gender?: string | null;
+  color?: string | null;
+  image_url?: string | null;
+};
+
+type Relic = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+  image_url?: string | null;
+};
+
+type Orb = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+  passive?: number | null;
+  evoke?: number | null;
+  image_url?: string | null;
+};
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const characters = charactersData as Character[];
+const cards = cardsData as Card[];
+const relics = relicsData as Relic[];
+const orbs = orbsData as Orb[];
+
+export const getStaticPaths = () =>
+  (charactersData as Character[]).map((character) => ({
+    params: { id: character.id },
+  }));
+
+const { id } = Astro.params;
+const character = characters.find(
+  (item) => item.id?.toLowerCase() === id?.toLowerCase(),
+);
+if (!character) {
+  return new Response("Not found", { status: 404 });
+}
+
+const getName = (item: { name?: string | null; name_zh?: string | null; id: string }) =>
+  item.name_zh ?? item.name ?? item.id;
+
+const normalizeImageUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  return url.replace("/static/images/", "/images/");
+};
+
+const characterImage =
+  normalizeImageUrl(character.image_url ?? null) ??
+  `/images/characters/${character.id.toLowerCase()}.png`;
+
+const normalizeId = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
+const cardMap = new Map(cards.map((card) => [card.id.toLowerCase(), card]));
+const relicMap = new Map(relics.map((relic) => [relic.id.toLowerCase(), relic]));
+const cardLooseMap = new Map(cards.map((card) => [normalizeId(card.id), card]));
+const relicLooseMap = new Map(relics.map((relic) => [normalizeId(relic.id), relic]));
+
+const findCard = (id: string) =>
+  cardMap.get(id.toLowerCase()) ?? cardLooseMap.get(normalizeId(id)) ?? null;
+const findRelic = (id: string) =>
+  relicMap.get(id.toLowerCase()) ?? relicLooseMap.get(normalizeId(id)) ?? null;
+
+const getCardName = (cardId: string) =>
+  getName(findCard(cardId) ?? { id: cardId });
+const getRelicName = (relicId: string) =>
+  getName(findRelic(relicId) ?? { id: relicId });
+const getRelicDesc = (relic: Relic | null) =>
+  relic?.description_zh ?? relic?.description ?? "";
+const getRelicImage = (relic: Relic | null) =>
+  normalizeImageUrl(relic?.image_url ?? null) ??
+  (relic ? `/images/relics/${relic.id.toLowerCase()}.png` : null);
+
+const getDeckCounts = (deck: string[] | null | undefined) => {
+  const counts = new Map<string, number>();
+  const order: string[] = [];
+  for (const id of deck ?? []) {
+    if (!counts.has(id)) order.push(id);
+    counts.set(id, (counts.get(id) ?? 0) + 1);
+  }
+  return order.map((id) => ({ id, count: counts.get(id) ?? 1 }));
+};
+
+const deckCounts = getDeckCounts(character.starting_deck);
+const deckCards = (character.starting_deck ?? [])
+  .map((cardId) => findCard(cardId))
+  .filter((card): card is Card => Boolean(card));
+const deckHasUpgrades = deckCards.some((card) => Boolean(card.upgrade));
+const startingRelics = character.starting_relics ?? [];
+const showOrbs =
+  character.id?.toLowerCase() === "defect" || character.color === "blue";
+const displayOrbs = showOrbs ? orbs : [];
+const getOrbValues = (orb: Orb) => {
+  return {
+    passive: orb.passive ?? null,
+    evoke: orb.evoke ?? null,
+    note: null,
+  };
+};
+
+const formatOrbDescription = (orb: Orb) => {
+  const baseDesc = orb.description_zh ?? orb.description ?? "";
+  const values = getOrbValues(orb);
+  let text = baseDesc;
+  if (values.passive !== null && values.passive !== undefined) {
+    text = text.replace(/\[Passive\]/gi, String(values.passive));
+  }
+  if (values.evoke !== null && values.evoke !== undefined) {
+    text = text.replace(/\[Evoke\]/gi, String(values.evoke));
+  }
+  return text;
+};
+
+const origin =
+  Astro.site?.toString().replace(/\/$/, "") ??
+  new URL(Astro.request.url).origin;
+const canonical = new URL(`${base}/character/${character.id}`, origin).toString();
+const pageTitle = `${getName(character)} | 杀戮尖塔2 角色`;
+const rawDesc =
+  (character.description_zh ?? character.description ?? "")
+    .replace(/\s+/g, " ")
+    .trim() || getName(character);
+const pageDescription = rawDesc.slice(0, 160);
+const ogImage = new URL(`${base}${characterImage}`, origin).toString();
+
+const colorLabel: Record<string, string> = {};
+for (const character of characters) {
+  if (!character.color) continue;
+  colorLabel[character.color] = character.name_zh ?? character.name ?? character.id;
+}
+const unlocksAfter = character.unlocks_after
+  ? getName(characters.find((c) => c.id === character.unlocks_after) ?? {
+      id: character.unlocks_after,
+    })
+  : null;
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={getName(character)} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={getName(character)} />
+  </Fragment>
+  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
+    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
+      <div class='flex flex-wrap items-end justify-between gap-6'>
+        <div>
+          <a
+            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
+            href={`${base}/characters`}
+          >
+            返回角色
+          </a>
+          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+            {getName(character)}
+          </h1>
+          <p class='mt-1 text-[#c4c7d6]'>
+            {(character.name ?? character.id).toUpperCase()}
+          </p>
+        </div>
+        <TopNav current='characters' basePath={base} />
+      </div>
+
+      <section class='grid gap-6 lg:grid-cols-[320px_1fr]'>
+        <div class='rounded-[18px] border border-white/10 bg-white/5 p-4 h-fit'>
+          <div class='rounded-[14px] border border-white/10 bg-black/30 p-3'>
+            <img
+              class='h-[220px] w-full object-contain'
+              src={`${base}${characterImage}`}
+              alt={getName(character)}
+              loading='lazy'
+            />
+          </div>
+          <div class='mt-4 grid gap-2'>
+            <div class='inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[#f2e5cd]'>
+              {colorLabel[character.color ?? ""] ?? (character.color ?? "未知")}
+            </div>
+            {unlocksAfter && (
+              <div class='text-center text-[11px] text-[#9ea2b3]'>
+                解锁条件：完成 {unlocksAfter}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div class='flex flex-col gap-4'>
+          <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
+            <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>角色介绍</h2>
+            <p class='mt-2 whitespace-pre-line text-[12px] leading-[1.5] text-[#f2e5cd]'>
+              {character.description_zh ?? character.description ?? "暂无描述。"}
+            </p>
+          </div>
+
+          <div class='grid gap-3 sm:grid-cols-2'>
+            <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
+              <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                初始生命
+              </div>
+              <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+                {character.starting_hp ?? "—"}
+              </div>
+            </div>
+            <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
+              <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                初始金币
+              </div>
+              <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+                {character.starting_gold ?? "—"}
+              </div>
+            </div>
+            <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
+              <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                最大能量
+              </div>
+              <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+                {character.max_energy ?? "—"}
+              </div>
+            </div>
+            {character.orb_slots !== null && character.orb_slots !== undefined && (
+              <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
+                <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                  充能球位
+                </div>
+                <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+                  {character.orb_slots}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {displayOrbs.length > 0 && (
+            <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
+              <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>充能球</h2>
+              <div class='mt-4 grid gap-3 sm:grid-cols-2'>
+                {displayOrbs.map((orb) => {
+                  const values = getOrbValues(orb);
+                  const showValues =
+                    values.passive !== null ||
+                    values.evoke !== null ||
+                    Boolean(values.note);
+                  return (
+                    <div class='rounded-[14px] border border-white/10 bg-white/5 p-3'>
+                      <div class='flex items-center gap-3'>
+                        <div class='h-[44px] w-[44px] rounded-[10px] border border-white/10 bg-black/30 p-1.5'>
+                          {orb.image_url ? (
+                            <img
+                              class='h-full w-full object-contain'
+                              src={`${base}${orb.image_url}`}
+                              alt={orb.name_zh ?? orb.name ?? orb.id}
+                              loading='lazy'
+                            />
+                          ) : (
+                            <div class='flex h-full w-full items-center justify-center text-[10px] text-white/40'>
+                              —
+                            </div>
+                          )}
+                        </div>
+                        <div class='min-w-0 flex-1'>
+                          <div class='text-[13px] font-semibold text-[#fdf0d8]'>
+                            {orb.name_zh ?? orb.name ?? orb.id}
+                          </div>
+                          {showValues && (
+                            <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                              被动 {values.passive ?? "?"}
+                              <span class='mx-1'>/</span>
+                              激发 {values.evoke ?? "?"}
+                              {values.note && (
+                                <span class='ml-2 text-[#b7bccb]'>
+                                  {values.note}
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {showValues && (
+                        <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:hidden'>
+                          被动 {values.passive ?? "?"}
+                          <span class='mx-1'>/</span>
+                          激发 {values.evoke ?? "?"}
+                          {values.note && (
+                            <span class='ml-2 text-[#b7bccb]'>
+                              {values.note}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      <div
+                        class='mt-2 text-[11px] leading-[1.35] text-[#f2e5cd]'
+                        set:html={formatRelicText(formatOrbDescription(orb), base)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
+            <div class='flex flex-wrap items-center justify-between gap-2'>
+              <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>起始牌组</h2>
+              <div class='flex flex-wrap items-center gap-3'>
+                {deckCounts.length > 0 && (
+                  <div class='text-[11px] text-[#9ea2b3]'>
+                    共 {deckCounts.reduce((sum, item) => sum + item.count, 0)} 张
+                  </div>
+                )}
+                {deckHasUpgrades && (
+                  <button
+                    type='button'
+                    id='deck-toggle-upgrade'
+                    class='rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-[#f2e5cd] hover:border-white/30 hover:bg-white/15'
+                  >
+                    显示升级
+                  </button>
+                )}
+              </div>
+            </div>
+            {deckCards.length > 0 ? (
+              <div
+                class='mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4'
+                data-deck-cards
+              >
+                {deckCards.map((card) => (
+                  <div
+                    class='flex justify-center'
+                    data-card-entry
+                    data-has-upgrade={card.upgrade ? "1" : "0"}
+                  >
+                    <a
+                      href={`${base}/card/${card.id}`}
+                      aria-label={getCardName(card.id)}
+                    >
+                      <div class='origin-top-left scale-[0.85]'>
+                        <div data-card-variant='base'>
+                          <CardView card={card} variant='base' />
+                        </div>
+                        {card.upgrade && (
+                          <div data-card-variant='upgrade' class='hidden'>
+                            <CardView card={card} variant='upgrade' />
+                          </div>
+                        )}
+                      </div>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div class='mt-3 text-[11px] text-[#9ea2b3]'>暂无</div>
+            )}
+          </div>
+
+          <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
+            <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>初始遗物</h2>
+            {startingRelics.length > 0 ? (
+              <div class='mt-4 grid gap-3 sm:grid-cols-2'>
+                {startingRelics.map((relicId) => {
+                  const relic = findRelic(relicId);
+                  const relicImage = getRelicImage(relic);
+                  return (
+                    <a
+                      class='group flex gap-3 rounded-[14px] border border-white/10 bg-white/5 p-3 transition hover:border-white/25 hover:bg-white/10'
+                      href={`${base}/relic/${relicId}`}
+                    >
+                      <div class='h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2'>
+                        {relicImage ? (
+                          <img
+                            class='h-full w-full object-contain'
+                            src={`${base}${relicImage}`}
+                            alt={getRelicName(relicId)}
+                            loading='lazy'
+                          />
+                        ) : (
+                          <div class='flex h-full w-full items-center justify-center text-[10px] text-white/40'>
+                            —
+                          </div>
+                        )}
+                      </div>
+                      <div class='min-w-0 flex-1'>
+                        <div class='text-[13px] font-semibold text-[#fdf0d8]'>
+                          {getRelicName(relicId)}
+                        </div>
+                        {relic ? (
+                          <div
+                            class='mt-1 text-[11px] leading-[1.35] text-[#f2e5cd]'
+                            set:html={formatRelicText(getRelicDesc(relic), base)}
+                          />
+                        ) : (
+                          <div class='mt-1 text-[11px] text-[#9ea2b3]'>暂无描述</div>
+                        )}
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            ) : (
+              <div class='mt-3 text-[11px] text-[#9ea2b3]'>暂无</div>
+            )}
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const toggle = document.getElementById("deck-toggle-upgrade");
+  const deck = document.querySelector("[data-deck-cards]");
+
+  if (toggle && deck) {
+    const setState = (showUpgrade: boolean) => {
+      deck.setAttribute("data-show-upgrade", showUpgrade ? "1" : "0");
+      toggle.textContent = showUpgrade ? "显示基础" : "显示升级";
+
+      deck.querySelectorAll("[data-card-entry]").forEach((entry) => {
+        const hasUpgrade = entry.getAttribute("data-has-upgrade") === "1";
+        if (!hasUpgrade) return;
+
+        const baseEl = entry.querySelector("[data-card-variant='base']");
+        const upgradeEl = entry.querySelector("[data-card-variant='upgrade']");
+        if (showUpgrade) {
+          baseEl?.classList.add("hidden");
+          upgradeEl?.classList.remove("hidden");
+        } else {
+          baseEl?.classList.remove("hidden");
+          upgradeEl?.classList.add("hidden");
+        }
+      });
+    };
+
+    let showingUpgrade = false;
+    toggle.addEventListener("click", () => {
+      showingUpgrade = !showingUpgrade;
+      setState(showingUpgrade);
+    });
+  }
+</script>
