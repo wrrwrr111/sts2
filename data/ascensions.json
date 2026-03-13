@@ -1,0 +1,90 @@
+[
+  {
+    "id": "LEVEL_00",
+    "level": 0,
+    "name": "No Ascension",
+    "name_zh": "无进阶",
+    "description": "Play without any Ascension modifiers.",
+    "description_zh": "在没有任何进阶调整的影响下游玩。"
+  },
+  {
+    "id": "LEVEL_01",
+    "level": 1,
+    "name": "Swarming Elites",
+    "name_zh": "精英蜂拥",
+    "description": "[gold]Elites[/gold] spawn more often.",
+    "description_zh": "[gold]精英[/gold]敌人出现更加频繁。"
+  },
+  {
+    "id": "LEVEL_02",
+    "level": 2,
+    "name": "Weary Traveler",
+    "name_zh": "旅途劳顿",
+    "description": "Ancients only heal [blue]80%[/blue] of your missing HP.",
+    "description_zh": "先古之民只会回复你已损失生命值的[blue]80%[/blue]。"
+  },
+  {
+    "id": "LEVEL_03",
+    "level": 3,
+    "name": "Poverty",
+    "name_zh": "贫穷",
+    "description": "Enemies and Treasure Chests drop [blue]25%[/blue] less [gold]Gold[/gold].",
+    "description_zh": "敌人和宝箱掉落的[gold]金币[/gold]减少[blue]25%[/blue]。"
+  },
+  {
+    "id": "LEVEL_04",
+    "level": 4,
+    "name": "Tight Belt",
+    "name_zh": "收紧腰带",
+    "description": "Start each run with 1 less potion slot.",
+    "description_zh": "游戏开始时药水栏位减少1。"
+  },
+  {
+    "id": "LEVEL_05",
+    "level": 5,
+    "name": "Ascender's Bane",
+    "name_zh": "进阶之灾",
+    "description": "Start each run [red]Cursed[/red].",
+    "description_zh": "游戏开始时被[red]诅咒[/red]。"
+  },
+  {
+    "id": "LEVEL_06",
+    "level": 6,
+    "name": "Gloom",
+    "name_zh": "阴郁",
+    "description": "Less Rest Sites.",
+    "description_zh": "休息处变少。"
+  },
+  {
+    "id": "LEVEL_07",
+    "level": 7,
+    "name": "Scarcity",
+    "name_zh": "稀缺",
+    "description": "Rare and Upgraded cards appear less often.",
+    "description_zh": "稀有和已升级卡牌更少出现。"
+  },
+  {
+    "id": "LEVEL_08",
+    "level": 8,
+    "name": "Tough Enemies",
+    "name_zh": "强韧敌人",
+    "description": "All enemies are harder to kill.",
+    "description_zh": "所有的敌人变得更难杀死。"
+  },
+  {
+    "id": "LEVEL_09",
+    "level": 9,
+    "name": "Deadly Enemies",
+    "name_zh": "致命敌人",
+    "description": "All enemies have deadlier attacks.",
+    "description_zh": "所有的敌人变得更加致命。"
+  },
+  {
+    "id": "LEVEL_10",
+    "level": 10,
+    "name": "Double Boss",
+    "name_zh": "双重Boss",
+    "description": "Fight two bosses at the end of Act 3.",
+    "description_zh": "在第3幕末尾与两名首领战斗。"
+  }
+]
