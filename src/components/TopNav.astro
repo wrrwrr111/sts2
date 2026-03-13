@@ -1,18 +1,31 @@
 ---
+import type { Lang } from "../lib/i18n";
+import { withLang } from "../lib/i18n";
+
 type Props = {
   current?: "cards" | "relics" | "events" | "monsters" | "characters" | "potions";
   basePath?: string;
+  lang?: Lang;
 };
 
-const { current = "cards", basePath = "" } = Astro.props;
+const { current = "cards", basePath = "", lang = "zh" } = Astro.props;
 const base = basePath.replace(/\/$/, "");
+const isEn = lang === "en";
 const items = [
-  { key: "cards", label: "卡牌", href: `${base}/` },
-  { key: "characters", label: "角色", href: `${base}/characters` },
-  { key: "potions", label: "药剂", href: `${base}/potions` },
-  { key: "relics", label: "遗物", href: `${base}/relics` },
-  { key: "events", label: "事件", href: `${base}/events` },
-  { key: "monsters", label: "怪物", href: `${base}/monsters` },
+  { key: "cards", label: isEn ? "Cards" : "卡牌", href: withLang(`${base}/`, lang) },
+  {
+    key: "characters",
+    label: isEn ? "Characters" : "角色",
+    href: withLang(`${base}/characters`, lang),
+  },
+  { key: "potions", label: isEn ? "Potions" : "药剂", href: withLang(`${base}/potions`, lang) },
+  { key: "relics", label: isEn ? "Relics" : "遗物", href: withLang(`${base}/relics`, lang) },
+  { key: "events", label: isEn ? "Events" : "事件", href: withLang(`${base}/events`, lang) },
+  {
+    key: "monsters",
+    label: isEn ? "Monsters" : "怪物",
+    href: withLang(`${base}/monsters`, lang),
+  },
 ] as const;
 ---
 

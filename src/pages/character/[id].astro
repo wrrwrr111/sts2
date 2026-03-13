@@ -8,6 +8,7 @@ import TopNav from "../../components/TopNav.astro";
 import CardView from "../../components/CardView.astro";
 import type { Card } from "../../lib/cardModels";
 import { formatRelicText } from "../../lib/relicText";
+import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type Character = {
   id: string;
@@ -48,6 +49,9 @@ type Orb = {
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
+
 const characters = charactersData as Character[];
 const cards = cardsData as Card[];
 const relics = relicsData as Relic[];
@@ -66,8 +70,30 @@ if (!character) {
   return new Response("Not found", { status: 404 });
 }
 
+const t = {
+  back: isEn ? "Back to Characters" : "返回角色",
+  role: isEn ? "Characters" : "角色",
+  unknown: isEn ? "Unknown" : "未知",
+  noDescription: isEn ? "No description." : "暂无描述。",
+  unlockPrefix: isEn ? "Unlock:" : "解锁条件：完成",
+  intro: isEn ? "Overview" : "角色介绍",
+  startingHp: isEn ? "Starting HP" : "初始生命",
+  startingGold: isEn ? "Starting Gold" : "初始金币",
+  maxEnergy: isEn ? "Max Energy" : "最大能量",
+  orbSlots: isEn ? "Orb Slots" : "充能球位",
+  orbs: isEn ? "Orbs" : "充能球",
+  passive: isEn ? "Passive" : "被动",
+  evoke: isEn ? "Evoke" : "激发",
+  startingDeck: isEn ? "Starting Deck" : "起始牌组",
+  showUpgrade: isEn ? "Show Upgrade" : "显示升级",
+  showBase: isEn ? "Show Base" : "显示基础",
+  none: isEn ? "None" : "暂无",
+  startingRelics: isEn ? "Starting Relics" : "初始遗物",
+  noRelicDesc: isEn ? "No description" : "暂无描述",
+};
+
 const getName = (item: { name?: string | null; name_zh?: string | null; id: string }) =>
-  item.name_zh ?? item.name ?? item.id;
+  pickText(lang, item.name_zh, item.name, item.id);
 
 const normalizeImageUrl = (url: string | null | undefined) => {
   if (!url) return null;
@@ -94,7 +120,7 @@ const getCardName = (cardId: string) =>
 const getRelicName = (relicId: string) =>
   getName(findRelic(relicId) ?? { id: relicId });
 const getRelicDesc = (relic: Relic | null) =>
-  relic?.description_zh ?? relic?.description ?? "";
+  pickText(lang, relic?.description_zh, relic?.description);
 const getRelicImage = (relic: Relic | null) =>
   normalizeImageUrl(relic?.image_url ?? null) ??
   (relic ? `/images/relics/${relic.id.toLowerCase()}.png` : null);
@@ -106,7 +132,7 @@ const getDeckCounts = (deck: string[] | null | undefined) => {
     if (!counts.has(id)) order.push(id);
     counts.set(id, (counts.get(id) ?? 0) + 1);
   }
-  return order.map((id) => ({ id, count: counts.get(id) ?? 1 }));
+  return order.map((value) => ({ id: value, count: counts.get(value) ?? 1 }));
 };
 
 const deckCounts = getDeckCounts(character.starting_deck);
@@ -118,16 +144,14 @@ const startingRelics = character.starting_relics ?? [];
 const showOrbs =
   character.id?.toLowerCase() === "defect" || character.color === "blue";
 const displayOrbs = showOrbs ? orbs : [];
-const getOrbValues = (orb: Orb) => {
-  return {
-    passive: orb.passive ?? null,
-    evoke: orb.evoke ?? null,
-    note: null,
-  };
-};
+const getOrbValues = (orb: Orb) => ({
+  passive: orb.passive ?? null,
+  evoke: orb.evoke ?? null,
+  note: null,
+});
 
 const formatOrbDescription = (orb: Orb) => {
-  const baseDesc = orb.description_zh ?? orb.description ?? "";
+  const baseDesc = pickText(lang, orb.description_zh, orb.description);
   const values = getOrbValues(orb);
   let text = baseDesc;
   if (values.passive !== null && values.passive !== undefined) {
@@ -142,25 +166,31 @@ const formatOrbDescription = (orb: Orb) => {
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/character/${character.id}`, origin).toString();
-const pageTitle = `${getName(character)} - 角色 | 杀戮尖塔2 中文资料库`;
+const canonical = new URL(withLang(`${base}/character/${character.id}`, lang), origin).toString();
+const pageTitle = `${getName(character)} - ${isEn ? "Character" : "角色"} | ${
+  isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"
+}`;
 const rawDesc =
-  (character.description_zh ?? character.description ?? "")
+  pickText(lang, character.description_zh, character.description)
     .replace(/\s+/g, " ")
     .trim() || getName(character);
 const pageDescription = rawDesc.slice(0, 160);
 const ogImage = new URL(`${base}${characterImage}`, origin).toString();
 
 const colorLabel: Record<string, string> = {};
-for (const character of characters) {
-  if (!character.color) continue;
-  colorLabel[character.color] = character.name_zh ?? character.name ?? character.id;
+for (const characterItem of characters) {
+  if (!characterItem.color) continue;
+  colorLabel[characterItem.color] = getName(characterItem);
 }
 const unlocksAfter = character.unlocks_after
   ? getName(characters.find((c) => c.id === character.unlocks_after) ?? {
       id: character.unlocks_after,
     })
   : null;
+
+const deckCountLabel = isEn
+  ? `${deckCounts.reduce((sum, item) => sum + item.count, 0)} cards`
+  : `共 ${deckCounts.reduce((sum, item) => sum + item.count, 0)} 张`;
 ---
 
 <Layout>
@@ -179,87 +209,87 @@ const unlocksAfter = character.unlocks_after
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={getName(character)} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
-      <div class='flex flex-wrap items-end justify-between gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
           <a
-            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
-            href={`${base}/characters`}
+            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            href={withLang(`${base}/characters`, lang)}
           >
-            返回角色
+            {t.back}
           </a>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
             {getName(character)}
           </h1>
-          <p class='mt-1 text-[#c4c7d6]'>
+          <p class="mt-1 text-[#c4c7d6]">
             {(character.name ?? character.id).toUpperCase()}
           </p>
         </div>
-        <TopNav current='characters' basePath={base} />
+        <TopNav current="characters" basePath={base} lang={lang} />
       </div>
 
-      <section class='grid gap-6 lg:grid-cols-[320px_1fr]'>
-        <div class='rounded-[18px] border border-white/10 bg-white/5 p-4 h-fit'>
-          <div class='rounded-[14px] border border-white/10 bg-black/30 p-3'>
+      <section class="grid gap-6 lg:grid-cols-[320px_1fr]">
+        <div class="rounded-[18px] border border-white/10 bg-white/5 p-4 h-fit">
+          <div class="rounded-[14px] border border-white/10 bg-black/30 p-3">
             <img
-              class='h-[220px] w-full object-contain'
+              class="h-[220px] w-full object-contain"
               src={`${base}${characterImage}`}
               alt={getName(character)}
-              loading='lazy'
+              loading="lazy"
             />
           </div>
-          <div class='mt-4 grid gap-2'>
-            <div class='inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[#f2e5cd]'>
-              {colorLabel[character.color ?? ""] ?? (character.color ?? "未知")}
+          <div class="mt-4 grid gap-2">
+            <div class="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[#f2e5cd]">
+              {colorLabel[character.color ?? ""] ?? (character.color ?? t.unknown)}
             </div>
             {unlocksAfter && (
-              <div class='text-center text-[11px] text-[#9ea2b3]'>
-                解锁条件：完成 {unlocksAfter}
+              <div class="text-center text-[11px] text-[#9ea2b3]">
+                {isEn ? `${t.unlockPrefix} ${unlocksAfter}` : `${t.unlockPrefix} ${unlocksAfter}`}
               </div>
             )}
           </div>
         </div>
 
-        <div class='flex flex-col gap-4'>
-          <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
-            <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>角色介绍</h2>
-            <p class='mt-2 whitespace-pre-line text-[12px] leading-[1.5] text-[#f2e5cd]'>
-              {character.description_zh ?? character.description ?? "暂无描述。"}
+        <div class="flex flex-col gap-4">
+          <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+            <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.intro}</h2>
+            <p class="mt-2 whitespace-pre-line text-[12px] leading-[1.5] text-[#f2e5cd]">
+              {pickText(lang, character.description_zh, character.description) || t.noDescription}
             </p>
           </div>
 
-          <div class='grid gap-3 sm:grid-cols-2'>
-            <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
-              <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                初始生命
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div class="rounded-[16px] border border-white/10 bg-white/5 p-4">
+              <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                {t.startingHp}
               </div>
-              <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+              <div class="mt-1 text-[18px] font-semibold text-[#fdf0d8]">
                 {character.starting_hp ?? "—"}
               </div>
             </div>
-            <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
-              <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                初始金币
+            <div class="rounded-[16px] border border-white/10 bg-white/5 p-4">
+              <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                {t.startingGold}
               </div>
-              <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+              <div class="mt-1 text-[18px] font-semibold text-[#fdf0d8]">
                 {character.starting_gold ?? "—"}
               </div>
             </div>
-            <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
-              <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                最大能量
+            <div class="rounded-[16px] border border-white/10 bg-white/5 p-4">
+              <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                {t.maxEnergy}
               </div>
-              <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+              <div class="mt-1 text-[18px] font-semibold text-[#fdf0d8]">
                 {character.max_energy ?? "—"}
               </div>
             </div>
             {character.orb_slots !== null && character.orb_slots !== undefined && (
-              <div class='rounded-[16px] border border-white/10 bg-white/5 p-4'>
-                <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                  充能球位
+              <div class="rounded-[16px] border border-white/10 bg-white/5 p-4">
+                <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                  {t.orbSlots}
                 </div>
-                <div class='mt-1 text-[18px] font-semibold text-[#fdf0d8]'>
+                <div class="mt-1 text-[18px] font-semibold text-[#fdf0d8]">
                   {character.orb_slots}
                 </div>
               </div>
@@ -267,9 +297,9 @@ const unlocksAfter = character.unlocks_after
           </div>
 
           {displayOrbs.length > 0 && (
-            <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
-              <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>充能球</h2>
-              <div class='mt-4 grid gap-3 sm:grid-cols-2'>
+            <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+              <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.orbs}</h2>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
                 {displayOrbs.map((orb) => {
                   const values = getOrbValues(orb);
                   const showValues =
@@ -277,33 +307,33 @@ const unlocksAfter = character.unlocks_after
                     values.evoke !== null ||
                     Boolean(values.note);
                   return (
-                    <div class='rounded-[14px] border border-white/10 bg-white/5 p-3'>
-                      <div class='flex items-center gap-3'>
-                        <div class='h-[44px] w-[44px] rounded-[10px] border border-white/10 bg-black/30 p-1.5'>
+                    <div class="rounded-[14px] border border-white/10 bg-white/5 p-3">
+                      <div class="flex items-center gap-3">
+                        <div class="h-[44px] w-[44px] rounded-[10px] border border-white/10 bg-black/30 p-1.5">
                           {orb.image_url ? (
                             <img
-                              class='h-full w-full object-contain'
+                              class="h-full w-full object-contain"
                               src={`${base}${orb.image_url}`}
-                              alt={orb.name_zh ?? orb.name ?? orb.id}
-                              loading='lazy'
+                              alt={pickText(lang, orb.name_zh, orb.name, orb.id)}
+                              loading="lazy"
                             />
                           ) : (
-                            <div class='flex h-full w-full items-center justify-center text-[10px] text-white/40'>
+                            <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
                               —
                             </div>
                           )}
                         </div>
-                        <div class='min-w-0 flex-1'>
-                          <div class='text-[13px] font-semibold text-[#fdf0d8]'>
-                            {orb.name_zh ?? orb.name ?? orb.id}
+                        <div class="min-w-0 flex-1">
+                          <div class="text-[13px] font-semibold text-[#fdf0d8]">
+                            {pickText(lang, orb.name_zh, orb.name, orb.id)}
                           </div>
                           {showValues && (
-                            <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                              被动 {values.passive ?? "?"}
-                              <span class='mx-1'>/</span>
-                              激发 {values.evoke ?? "?"}
+                            <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                              {t.passive} {values.passive ?? "?"}
+                              <span class="mx-1">/</span>
+                              {t.evoke} {values.evoke ?? "?"}
                               {values.note && (
-                                <span class='ml-2 text-[#b7bccb]'>
+                                <span class="ml-2 text-[#b7bccb]">
                                   {values.note}
                                 </span>
                               )}
@@ -312,19 +342,19 @@ const unlocksAfter = character.unlocks_after
                         </div>
                       </div>
                       {showValues && (
-                        <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:hidden'>
-                          被动 {values.passive ?? "?"}
-                          <span class='mx-1'>/</span>
-                          激发 {values.evoke ?? "?"}
+                        <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:hidden">
+                          {t.passive} {values.passive ?? "?"}
+                          <span class="mx-1">/</span>
+                          {t.evoke} {values.evoke ?? "?"}
                           {values.note && (
-                            <span class='ml-2 text-[#b7bccb]'>
+                            <span class="ml-2 text-[#b7bccb]">
                               {values.note}
                             </span>
                           )}
                         </div>
                       )}
                       <div
-                        class='mt-2 text-[11px] leading-[1.35] text-[#f2e5cd]'
+                        class="mt-2 text-[11px] leading-[1.35] text-[#f2e5cd]"
                         set:html={formatRelicText(formatOrbDescription(orb), base)}
                       />
                     </div>
@@ -334,48 +364,48 @@ const unlocksAfter = character.unlocks_after
             </div>
           )}
 
-          <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
-            <div class='flex flex-wrap items-center justify-between gap-2'>
-              <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>起始牌组</h2>
-              <div class='flex flex-wrap items-center gap-3'>
+          <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.startingDeck}</h2>
+              <div class="flex flex-wrap items-center gap-3">
                 {deckCounts.length > 0 && (
-                  <div class='text-[11px] text-[#9ea2b3]'>
-                    共 {deckCounts.reduce((sum, item) => sum + item.count, 0)} 张
-                  </div>
+                  <div class="text-[11px] text-[#9ea2b3]">{deckCountLabel}</div>
                 )}
                 {deckHasUpgrades && (
                   <button
-                    type='button'
-                    id='deck-toggle-upgrade'
-                    class='rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-[#f2e5cd] hover:border-white/30 hover:bg-white/15'
+                    type="button"
+                    id="deck-toggle-upgrade"
+                    data-label-upgrade={t.showUpgrade}
+                    data-label-base={t.showBase}
+                    class="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-[#f2e5cd] hover:border-white/30 hover:bg-white/15"
                   >
-                    显示升级
+                    {t.showUpgrade}
                   </button>
                 )}
               </div>
             </div>
             {deckCards.length > 0 ? (
               <div
-                class='mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4'
+                class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
                 data-deck-cards
               >
                 {deckCards.map((card) => (
                   <div
-                    class='flex justify-center'
+                    class="flex justify-center"
                     data-card-entry
                     data-has-upgrade={card.upgrade ? "1" : "0"}
                   >
                     <a
-                      href={`${base}/card/${card.id}`}
+                      href={withLang(`${base}/card/${card.id}`, lang)}
                       aria-label={getCardName(card.id)}
                     >
-                      <div class='origin-top-left scale-[0.85]'>
-                        <div data-card-variant='base'>
-                          <CardView card={card} variant='base' />
+                      <div class="origin-top-left scale-[0.85]">
+                        <div data-card-variant="base">
+                          <CardView card={card} variant="base" lang={lang} />
                         </div>
                         {card.upgrade && (
-                          <div data-card-variant='upgrade' class='hidden'>
-                            <CardView card={card} variant='upgrade' />
+                          <div data-card-variant="upgrade" class="hidden">
+                            <CardView card={card} variant="upgrade" lang={lang} />
                           </div>
                         )}
                       </div>
@@ -384,47 +414,47 @@ const unlocksAfter = character.unlocks_after
                 ))}
               </div>
             ) : (
-              <div class='mt-3 text-[11px] text-[#9ea2b3]'>暂无</div>
+              <div class="mt-3 text-[11px] text-[#9ea2b3]">{t.none}</div>
             )}
           </div>
 
-          <div class='rounded-[18px] border border-white/10 bg-white/5 p-4'>
-            <h2 class='text-[14px] font-semibold text-[#fdf0d8]'>初始遗物</h2>
+          <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+            <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.startingRelics}</h2>
             {startingRelics.length > 0 ? (
-              <div class='mt-4 grid gap-3 sm:grid-cols-2'>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
                 {startingRelics.map((relicId) => {
                   const relic = findRelic(relicId);
                   const relicImage = getRelicImage(relic);
                   return (
                     <a
-                      class='group flex gap-3 rounded-[14px] border border-white/10 bg-white/5 p-3 transition hover:border-white/25 hover:bg-white/10'
-                      href={`${base}/relic/${relicId}`}
+                      class="group flex gap-3 rounded-[14px] border border-white/10 bg-white/5 p-3 transition hover:border-white/25 hover:bg-white/10"
+                      href={withLang(`${base}/relic/${relicId}`, lang)}
                     >
-                      <div class='h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2'>
+                      <div class="h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2">
                         {relicImage ? (
                           <img
-                            class='h-full w-full object-contain'
+                            class="h-full w-full object-contain"
                             src={`${base}${relicImage}`}
                             alt={getRelicName(relicId)}
-                            loading='lazy'
+                            loading="lazy"
                           />
                         ) : (
-                          <div class='flex h-full w-full items-center justify-center text-[10px] text-white/40'>
+                          <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
                             —
                           </div>
                         )}
                       </div>
-                      <div class='min-w-0 flex-1'>
-                        <div class='text-[13px] font-semibold text-[#fdf0d8]'>
+                      <div class="min-w-0 flex-1">
+                        <div class="text-[13px] font-semibold text-[#fdf0d8]">
                           {getRelicName(relicId)}
                         </div>
                         {relic ? (
                           <div
-                            class='mt-1 text-[11px] leading-[1.35] text-[#f2e5cd]'
+                            class="mt-1 text-[11px] leading-[1.35] text-[#f2e5cd]"
                             set:html={formatRelicText(getRelicDesc(relic), base)}
                           />
                         ) : (
-                          <div class='mt-1 text-[11px] text-[#9ea2b3]'>暂无描述</div>
+                          <div class="mt-1 text-[11px] text-[#9ea2b3]">{t.noRelicDesc}</div>
                         )}
                       </div>
                     </a>
@@ -432,7 +462,7 @@ const unlocksAfter = character.unlocks_after
                 })}
               </div>
             ) : (
-              <div class='mt-3 text-[11px] text-[#9ea2b3]'>暂无</div>
+              <div class="mt-3 text-[11px] text-[#9ea2b3]">{t.none}</div>
             )}
           </div>
         </div>
@@ -442,13 +472,18 @@ const unlocksAfter = character.unlocks_after
 </Layout>
 
 <script>
-  const toggle = document.getElementById("deck-toggle-upgrade");
+  const toggle = document.getElementById("deck-toggle-upgrade") as
+    | HTMLButtonElement
+    | null;
   const deck = document.querySelector("[data-deck-cards]");
 
   if (toggle && deck) {
     const setState = (showUpgrade: boolean) => {
       deck.setAttribute("data-show-upgrade", showUpgrade ? "1" : "0");
-      toggle.textContent = showUpgrade ? "显示基础" : "显示升级";
+      const labelBase = toggle.getAttribute("data-label-base") ?? "显示基础";
+      const labelUpgrade =
+        toggle.getAttribute("data-label-upgrade") ?? "显示升级";
+      toggle.textContent = showUpgrade ? labelBase : labelUpgrade;
 
       deck.querySelectorAll("[data-card-entry]").forEach((entry) => {
         const hasUpgrade = entry.getAttribute("data-has-upgrade") === "1";

@@ -5,9 +5,11 @@ import TopNav from "../components/TopNav.astro";
 import cardsData from "../../data/cards.json";
 import charactersData from "../../data/characters.json";
 import type { Card } from "../lib/cardModels";
+import { getLangFromUrl, pickText, withLang } from "../lib/i18n";
 
-// 获取base路径
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
 
 const cards = cardsData as Card[];
 const characters = charactersData as Array<{
@@ -20,15 +22,65 @@ const characterOptions = characters
   .filter((character) => character.color)
   .map((character) => ({
     value: character.color as string,
-    label: character.name_zh ?? character.name ?? character.id,
+    label: pickText(lang, character.name_zh, character.name, character.id),
   }));
 
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/`, origin).toString();
-const pageTitle = "卡牌库 | 杀戮尖塔2 中文资料库";
-const pageDescription = `收录杀戮尖塔2全部卡牌，共 ${cards.length} 张。支持类型、稀有度、角色、费用筛选与搜索。`;
+const canonical = new URL(withLang(`${base}/`, lang), origin).toString();
+const pageTitle = isEn
+  ? "Card Library | Slay the Spire 2 Database"
+  : "卡牌库 | 杀戮尖塔2 中文资料库";
+const pageDescription = isEn
+  ? `All Slay the Spire 2 cards (${cards.length} total), with filters for type, rarity, character, cost, and search.`
+  : `收录杀戮尖塔2全部卡牌，共 ${cards.length} 张。支持类型、稀有度、角色、费用筛选与搜索。`;
+
+const t = {
+  navLabel: isEn ? "Cards" : "卡牌",
+  title: isEn ? "Card Compendium" : "卡牌图鉴",
+  count: isEn ? `${cards.length} cards` : `共 ${cards.length} 张卡牌`,
+  type: isEn ? "Type" : "类型",
+  rarity: isEn ? "Rarity" : "稀有度",
+  character: isEn ? "Character" : "角色",
+  cost: isEn ? "Cost" : "费用",
+  search: isEn ? "Search" : "搜索",
+  all: isEn ? "All" : "全部",
+  noColor: isEn ? "Colorless" : "无色",
+  status: isEn ? "Status" : "状态",
+  curse: isEn ? "Curse" : "诅咒",
+  event: isEn ? "Event" : "事件",
+  token: isEn ? "Token" : "衍生",
+  quest: isEn ? "Quest" : "任务",
+  reset: isEn ? "Reset" : "重置",
+  showUpgrade: isEn ? "Show Upgrade" : "显示升级",
+  showBase: isEn ? "Show Base" : "显示基础",
+  searchPlaceholder: isEn
+    ? "Name / Description / Keyword"
+    : "名称 / 描述 / 关键字",
+};
+
+const typeOptions = [
+  { value: "Attack", label: isEn ? "Attack" : "攻击" },
+  { value: "Skill", label: isEn ? "Skill" : "技能" },
+  { value: "Power", label: isEn ? "Power" : "能力" },
+  { value: "Status", label: isEn ? "Status" : "状态" },
+  { value: "Curse", label: isEn ? "Curse" : "诅咒" },
+  { value: "Quest", label: isEn ? "Quest" : "任务" },
+];
+
+const rarityOptions = [
+  { value: "Basic", label: isEn ? "Basic" : "基础" },
+  { value: "Common", label: isEn ? "Common" : "普通" },
+  { value: "Uncommon", label: isEn ? "Uncommon" : "罕见" },
+  { value: "Rare", label: isEn ? "Rare" : "稀有" },
+  { value: "Ancient", label: isEn ? "Ancient" : "古代" },
+  { value: "Event", label: isEn ? "Event" : "事件" },
+  { value: "Token", label: isEn ? "Token" : "衍生" },
+  { value: "Status", label: isEn ? "Status" : "状态" },
+  { value: "Curse", label: isEn ? "Curse" : "诅咒" },
+  { value: "Quest", label: isEn ? "Quest" : "任务" },
+];
 ---
 
 <Layout>
@@ -43,164 +95,133 @@ const pageDescription = `收录杀戮尖塔2全部卡牌，共 ${cards.length} �
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
       <header>
-        <div class='flex flex-wrap items-end justify-between gap-6'>
+        <div class="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
-              卡牌
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+              {t.navLabel}
             </div>
-            <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
-              卡牌图鉴
+            <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
+              {t.title}
             </h1>
-            <p class='mt-1 text-[#c4c7d6]'>共 {cards.length} 张卡牌</p>
+            <p class="mt-1 text-[#c4c7d6]">{t.count}</p>
           </div>
-          <TopNav current='cards' basePath={base} />
+          <TopNav current="cards" basePath={base} lang={lang} />
         </div>
       </header>
 
       <section
-        class='grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]'
-        aria-label='Card filters'
+        class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]"
+        aria-label="Card filters"
       >
-      <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-        <span>类型</span>
-        <select
-          id='filter-type'
-          class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.type}</span>
+          <select
+            id="filter-type"
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
+          >
+            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+            {typeOptions.map((opt) => (
+              <option value={opt.value} class="bg-[#1a1c24] text-[#f4f4f1]">
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.rarity}</span>
+          <select
+            id="filter-rarity"
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
+          >
+            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+            {rarityOptions.map((opt) => (
+              <option value={opt.value} class="bg-[#1a1c24] text-[#f4f4f1]">
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.character}</span>
+          <select
+            id="filter-color"
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
+          >
+            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+            {characterOptions.map((opt) => (
+              <option value={opt.value} class="bg-[#1a1c24] text-[#f4f4f1]">
+                {opt.label}
+              </option>
+            ))}
+            <option value="colorless" class="bg-[#1a1c24] text-[#f4f4f1]">{t.noColor}</option>
+            <option value="status" class="bg-[#1a1c24] text-[#f4f4f1]">{t.status}</option>
+            <option value="curse" class="bg-[#1a1c24] text-[#f4f4f1]">{t.curse}</option>
+            <option value="event" class="bg-[#1a1c24] text-[#f4f4f1]">{t.event}</option>
+            <option value="token" class="bg-[#1a1c24] text-[#f4f4f1]">{t.token}</option>
+            <option value="quest" class="bg-[#1a1c24] text-[#f4f4f1]">{t.quest}</option>
+          </select>
+        </label>
+
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.cost}</span>
+          <select
+            id="filter-cost"
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
+          >
+            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+            <option value="0" class="bg-[#1a1c24] text-[#f4f4f1]">0</option>
+            <option value="1" class="bg-[#1a1c24] text-[#f4f4f1]">1</option>
+            <option value="2" class="bg-[#1a1c24] text-[#f4f4f1]">2</option>
+            <option value="3" class="bg-[#1a1c24] text-[#f4f4f1]">3</option>
+            <option value="4+" class="bg-[#1a1c24] text-[#f4f4f1]">4+</option>
+            <option value="X" class="bg-[#1a1c24] text-[#f4f4f1]">X</option>
+          </select>
+        </label>
+
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.search}</span>
+          <input
+            id="filter-search"
+            type="search"
+            placeholder={t.searchPlaceholder}
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20"
+          />
+        </label>
+
+        <button
+          type="button"
+          id="filter-reset"
+          class="rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors"
         >
-          <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
-          <option value='Attack' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >攻击</option
-          >
-          <option value='Skill' class='bg-[#1a1c24] text-[#f4f4f1]'>技能</option
-          >
-          <option value='Power' class='bg-[#1a1c24] text-[#f4f4f1]'>能力</option
-          >
-          <option value='Status' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >状态</option
-          >
-          <option value='Curse' class='bg-[#1a1c24] text-[#f4f4f1]'>诅咒</option
-          >
-          <option value='Quest' class='bg-[#1a1c24] text-[#f4f4f1]'>任务</option
-          >
-        </select>
-      </label>
-
-      <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-        <span>稀有度</span>
-        <select
-          id='filter-rarity'
-          class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
+          {t.reset}
+        </button>
+        <button
+          type="button"
+          id="toggle-upgrade"
+          data-label-upgrade={t.showUpgrade}
+          data-label-base={t.showBase}
+          class="rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors"
         >
-          <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
-          <option value='Basic' class='bg-[#1a1c24] text-[#f4f4f1]'>基础</option
-          >
-          <option value='Common' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >普通</option
-          >
-          <option value='Uncommon' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >罕见</option
-          >
-          <option value='Rare' class='bg-[#1a1c24] text-[#f4f4f1]'>稀有</option>
-          <option value='Ancient' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >古代</option
-          >
-          <option value='Event' class='bg-[#1a1c24] text-[#f4f4f1]'>事件</option
-          >
-          <option value='Token' class='bg-[#1a1c24] text-[#f4f4f1]'>衍生</option
-          >
-          <option value='Status' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >状态</option
-          >
-          <option value='Curse' class='bg-[#1a1c24] text-[#f4f4f1]'>诅咒</option
-          >
-          <option value='Quest' class='bg-[#1a1c24] text-[#f4f4f1]'>任务</option
-          >
-        </select>
-      </label>
-
-      <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-        <span>角色</span>
-        <select
-          id='filter-color'
-          class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
-        >
-          <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
-          {characterOptions.map((opt) => (
-            <option value={opt.value} class='bg-[#1a1c24] text-[#f4f4f1]'>
-              {opt.label}
-            </option>
-          ))}
-          <option value='colorless' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >无色</option
-          >
-          <option value='status' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >状态</option
-          >
-          <option value='curse' class='bg-[#1a1c24] text-[#f4f4f1]'>诅咒</option
-          >
-          <option value='event' class='bg-[#1a1c24] text-[#f4f4f1]'>事件</option
-          >
-          <option value='token' class='bg-[#1a1c24] text-[#f4f4f1]'>衍生</option
-          >
-          <option value='quest' class='bg-[#1a1c24] text-[#f4f4f1]'>任务</option
-          >
-        </select>
-      </label>
-
-      <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-        <span>费用</span>
-        <select
-          id='filter-cost'
-          class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
-        >
-          <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
-          <option value='0' class='bg-[#1a1c24] text-[#f4f4f1]'>0</option>
-          <option value='1' class='bg-[#1a1c24] text-[#f4f4f1]'>1</option>
-          <option value='2' class='bg-[#1a1c24] text-[#f4f4f1]'>2</option>
-          <option value='3' class='bg-[#1a1c24] text-[#f4f4f1]'>3</option>
-          <option value='4+' class='bg-[#1a1c24] text-[#f4f4f1]'>4+</option>
-          <option value='X' class='bg-[#1a1c24] text-[#f4f4f1]'>X</option>
-        </select>
-      </label>
-
-      <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-        <span>搜索</span>
-        <input
-          id='filter-search'
-          type='search'
-          placeholder='名称 / 描述 / 关键字'
-          class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20'
-        />
-      </label>
-
-      <button
-        type='button'
-        id='filter-reset'
-        class='rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors'
-      >
-        重置
-      </button>
-      <button
-        type='button'
-        id='toggle-upgrade'
-        class='rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors'
-      >
-        显示升级
-      </button>
+          {t.showUpgrade}
+        </button>
       </section>
 
       <section
-        class='grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-[15px]'
-        aria-label='Card gallery'
+        class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-[15px]"
+        aria-label="Card gallery"
       >
         {
           cards.map((card) => {
             return (
-              <div class='card-tile mx-auto h-[253px] w-[180px]'>
-                <CardView card={card} />
+              <div class="card-tile mx-auto h-[253px] w-[180px]">
+                <a class="block" href={withLang(`${base}/card/${card.id}`, lang)}>
+                  <CardView card={card} lang={lang} />
+                </a>
               </div>
             );
           })
@@ -272,11 +293,14 @@ const pageDescription = `收录杀戮尖塔2全部卡牌，共 ${cards.length} �
     applyFilters();
   });
 
-  const upgradeEl = byId("toggle-upgrade");
+  const upgradeEl = byId("toggle-upgrade") as HTMLButtonElement | null;
   upgradeEl?.addEventListener("click", () => {
     document.body.classList.toggle("show-upgrade");
     const enabled = document.body.classList.contains("show-upgrade");
-    upgradeEl.textContent = enabled ? "显示基础" : "显示升级";
+    const labelBase = upgradeEl.getAttribute("data-label-base") ?? "显示基础";
+    const labelUpgrade =
+      upgradeEl.getAttribute("data-label-upgrade") ?? "显示升级";
+    upgradeEl.textContent = enabled ? labelBase : labelUpgrade;
     document.querySelectorAll('[data-has-upgrade="1"]').forEach((card) => {
       const base = card.querySelector('[data-desc="base"]');
       const upgrade = card.querySelector('[data-desc="upgrade"]');

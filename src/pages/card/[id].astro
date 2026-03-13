@@ -5,8 +5,11 @@ import CardView from "../../components/CardView.astro";
 import type { Card } from "../../lib/cardModels";
 import { TYPE_ZH } from "../../lib/cardModels";
 import TopNav from "../../components/TopNav.astro";
+import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
 
 const cards = cardsData as Card[];
 export const getStaticPaths = () =>
@@ -15,33 +18,50 @@ export const getStaticPaths = () =>
   }));
 
 const { id } = Astro.params;
-console.log(`[card] requested id=${id ?? ""}`);
 const card = cards.find((item) => item.id?.toLowerCase() === id?.toLowerCase());
 if (!card) {
-  console.warn(`[card] not found for id=${id ?? ""}`);
   return new Response("Not found", { status: 404 });
 }
 
-const displayName = card.name_zh ?? card.name ?? card.id;
-const typeLabel = card.type ? (TYPE_ZH[card.type] ?? card.type) : "";
-const rarityLabel = card.rarity ?? "";
-const rawDesc = (card.description_zh ?? card.description ?? "")
+const rarityLabelMap: Record<string, string> = {
+  Basic: isEn ? "Basic" : "基础",
+  Common: isEn ? "Common" : "普通",
+  Uncommon: isEn ? "Uncommon" : "罕见",
+  Rare: isEn ? "Rare" : "稀有",
+  Ancient: isEn ? "Ancient" : "古代",
+  Event: isEn ? "Event" : "事件",
+  Token: isEn ? "Token" : "衍生",
+  Status: isEn ? "Status" : "状态",
+  Curse: isEn ? "Curse" : "诅咒",
+  Quest: isEn ? "Quest" : "任务",
+};
+
+const displayName = pickText(lang, card.name_zh, card.name, card.id);
+const typeLabel = card.type
+  ? isEn
+    ? card.type
+    : (TYPE_ZH[card.type] ?? card.type)
+  : "";
+const rarityLabel = card.rarity ? (rarityLabelMap[card.rarity] ?? card.rarity) : "";
+const rawDesc = pickText(lang, card.description_zh, card.description)
   .replace(/\[\/?[a-zA-Z0-9_]+\]/g, "")
   .replace(/\s+/g, " ")
   .trim();
 const cardDescription = [
   rawDesc,
-  typeLabel && `类型：${typeLabel}`,
-  rarityLabel && `稀有度：${rarityLabel}`,
+  typeLabel && `${isEn ? "Type" : "类型"}: ${typeLabel}`,
+  rarityLabel && `${isEn ? "Rarity" : "稀有度"}: ${rarityLabel}`,
 ]
   .filter(Boolean)
   .join(" · ")
   .slice(0, 160);
-const pageTitle = `${displayName} - 卡牌 | 杀戮尖塔2 中文资料库`;
+const pageTitle = `${displayName} - ${isEn ? "Card" : "卡牌"} | ${
+  isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"
+}`;
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/card/${card.id}`, origin).toString();
+const canonical = new URL(withLang(`${base}/card/${card.id}`, lang), origin).toString();
 const normalizeImageUrl = (url: string | null) => {
   if (!url) return null;
   return url.replace("/static/images/", "/images/");
@@ -52,9 +72,18 @@ const cardImagePath =
   `/images/cards/${card.id.toLowerCase()}.png`;
 const ogImage = new URL(`${base}${cardImagePath}`, origin).toString();
 const hasUpgrade = Boolean(card.upgrade);
-const subtitle = [typeLabel && `类型：${typeLabel}`, rarityLabel && `稀有度：${rarityLabel}`]
+const subtitle = [
+  typeLabel && `${isEn ? "Type" : "类型"}: ${typeLabel}`,
+  rarityLabel && `${isEn ? "Rarity" : "稀有度"}: ${rarityLabel}`,
+]
   .filter(Boolean)
   .join(" · ");
+
+const t = {
+  back: isEn ? "Back to Cards" : "返回卡牌",
+  base: isEn ? "Base" : "普通",
+  upgrade: isEn ? "Upgrade" : "升级",
+};
 ---
 
 <Layout>
@@ -73,41 +102,41 @@ const subtitle = [typeLabel && `类型：${typeLabel}`, rarityLabel && `稀有�
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={displayName} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
-      <div class='flex flex-wrap items-end justify-between gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
           <a
-            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
-            href={`${base}/`}
+            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            href={withLang(`${base}/`, lang)}
           >
-            返回卡牌
+            {t.back}
           </a>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
             {displayName}
           </h1>
-          {subtitle && <p class='mt-1 text-[#c4c7d6]'>{subtitle}</p>}
+          {subtitle && <p class="mt-1 text-[#c4c7d6]">{subtitle}</p>}
         </div>
-        <TopNav current='cards' basePath={base} />
+        <TopNav current="cards" basePath={base} lang={lang} />
       </div>
       {hasUpgrade ? (
-        <div class='flex flex-wrap items-start gap-6'>
-          <div class='flex flex-col items-center gap-2'>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
-              普通
+        <div class="flex flex-wrap items-start gap-6">
+          <div class="flex flex-col items-center gap-2">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+              {t.base}
             </div>
-            <CardView card={card} variant='base' />
+            <CardView card={card} variant="base" lang={lang} />
           </div>
-          <div class='flex flex-col items-center gap-2'>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
-              升级
+          <div class="flex flex-col items-center gap-2">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+              {t.upgrade}
             </div>
-            <CardView card={card} variant='upgrade' />
+            <CardView card={card} variant="upgrade" lang={lang} />
           </div>
         </div>
       ) : (
-        <div class='flex items-start'>
-          <CardView card={card} />
+        <div class="flex items-start">
+          <CardView card={card} lang={lang} />
         </div>
       )}
     </div>

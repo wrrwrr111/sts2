@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
+import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type Potion = {
   id: string;
@@ -15,11 +16,13 @@ type Potion = {
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
 const potions = potionsData as Potion[];
 
-const getName = (potion: Potion) => potion.name_zh ?? potion.name ?? potion.id;
+const getName = (potion: Potion) => pickText(lang, potion.name_zh, potion.name, potion.id);
 const getDesc = (potion: Potion) =>
-  potion.description_zh ?? potion.description ?? "";
+  pickText(lang, potion.description_zh, potion.description);
 
 const normalizeImageUrl = (url: string | null | undefined) => {
   if (!url) return null;
@@ -31,10 +34,10 @@ const getImage = (potion: Potion) =>
   `/images/potions/${potion.id.toLowerCase()}.png`;
 
 const rarityLabel: Record<string, string> = {
-  Common: "普通",
-  Uncommon: "罕见",
-  Rare: "稀有",
-  Ancient: "古代",
+  Common: isEn ? "Common" : "普通",
+  Uncommon: isEn ? "Uncommon" : "罕见",
+  Rare: isEn ? "Rare" : "稀有",
+  Ancient: isEn ? "Ancient" : "古代",
 };
 
 const rarities = Array.from(
@@ -44,9 +47,25 @@ const rarities = Array.from(
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/potions`, origin).toString();
-const pageTitle = "药剂库 | 杀戮尖塔2 中文资料库";
-const pageDescription = `收录杀戮尖塔2全部药剂，共 ${potions.length} 个。支持稀有度筛选与搜索。`;
+const canonical = new URL(withLang(`${base}/potions`, lang), origin).toString();
+const pageTitle = isEn
+  ? "Potion Library | Slay the Spire 2 Database"
+  : "药剂库 | 杀戮尖塔2 中文资料库";
+const pageDescription = isEn
+  ? `All Slay the Spire 2 potions (${potions.length} total), with rarity filter and search.`
+  : `收录杀戮尖塔2全部药剂，共 ${potions.length} 个。支持稀有度筛选与搜索。`;
+
+const t = {
+  navLabel: isEn ? "Potions" : "药剂",
+  title: isEn ? "Potion Compendium" : "药剂图鉴",
+  count: isEn ? `${potions.length} potions` : `共 ${potions.length} 个药剂`,
+  rarity: isEn ? "Rarity" : "稀有度",
+  search: isEn ? "Search" : "搜索",
+  all: isEn ? "All" : "全部",
+  reset: isEn ? "Reset" : "重置",
+  searchPlaceholder: isEn ? "Name / Description" : "名称 / 描述",
+  unknown: isEn ? "Unknown" : "未知",
+};
 ---
 
 <Layout>
@@ -61,63 +80,63 @@ const pageDescription = `收录杀戮尖塔2全部药剂，共 ${potions.length}
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
-      <div class='flex flex-wrap items-end justify-between gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
-            药剂
+          <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+            {t.navLabel}
           </div>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>药剂图鉴</h1>
-          <p class='mt-1 text-[#c4c7d6]'>共 {potions.length} 个药剂</p>
+          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">{t.title}</h1>
+          <p class="mt-1 text-[#c4c7d6]">{t.count}</p>
         </div>
-        <TopNav current='potions' basePath={base} />
+        <TopNav current="potions" basePath={base} lang={lang} />
       </div>
 
       <section
-        class='grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]'
-        aria-label='Potion filters'
+        class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]"
+        aria-label="Potion filters"
       >
-        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-          <span>稀有度</span>
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.rarity}</span>
           <select
-            id='potion-filter-rarity'
-            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
+            id="potion-filter-rarity"
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
           >
-            <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
+            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
             {rarities.map((r) => (
-              <option value={r} class='bg-[#1a1c24] text-[#f4f4f1]'>
+              <option value={r} class="bg-[#1a1c24] text-[#f4f4f1]">
                 {rarityLabel[r] ?? r}
               </option>
             ))}
           </select>
         </label>
 
-        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-          <span>搜索</span>
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.search}</span>
           <input
-            id='potion-filter-search'
-            type='search'
-            placeholder='名称 / 描述'
-            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20'
+            id="potion-filter-search"
+            type="search"
+            placeholder={t.searchPlaceholder}
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20"
           />
         </label>
 
         <button
-          type='button'
-          id='potion-filter-reset'
-          class='rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors'
+          type="button"
+          id="potion-filter-reset"
+          class="rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors"
         >
-          重置
+          {t.reset}
         </button>
       </section>
 
-      <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {potions.map((potion) => (
           <a
-            href={`${base}/potion/${potion.id}`}
-            class='potion-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10'
-            data-potion='1'
+            href={withLang(`${base}/potion/${potion.id}`, lang)}
+            class="potion-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+            data-potion="1"
             data-rarity-raw={potion.rarity ?? ""}
             data-search={[
               getName(potion),
@@ -127,26 +146,26 @@ const pageDescription = `收录杀戮尖塔2全部药剂，共 ${potions.length}
               .join(" ")
               .toLowerCase()}
           >
-            <div class='flex items-center gap-3'>
-              <div class='h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2'>
+            <div class="flex items-center gap-3">
+              <div class="h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2">
                 <img
-                  class='h-full w-full object-contain'
+                  class="h-full w-full object-contain"
                   src={`${base}${getImage(potion)}`}
                   alt={getName(potion)}
-                  loading='lazy'
+                  loading="lazy"
                 />
               </div>
-              <div class='min-w-0 flex-1'>
-                <div class='text-[14px] font-semibold text-[#fdf0d8]'>
+              <div class="min-w-0 flex-1">
+                <div class="text-[14px] font-semibold text-[#fdf0d8]">
                   {getName(potion)}
                 </div>
-                <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                  {(potion.rarity ?? "未知").toUpperCase()}
+                <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                  {(rarityLabel[potion.rarity ?? ""] ?? potion.rarity ?? t.unknown).toUpperCase()}
                 </div>
               </div>
             </div>
             <div
-              class='mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]'
+              class="mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]"
               set:html={formatRelicText(getDesc(potion), base)}
             />
           </a>
