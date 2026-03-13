@@ -1,9 +1,10 @@
 # Extraction data (large, from game files)
 extraction/
 *.pck
-spire-codex-main/
+spire-codex/
 backend/
 node_modules/
 dist/
 .DS_Store
 .astro
+__pycache__/
