@@ -2,14 +2,10 @@
 import json
 import re
 from pathlib import Path
+from path_utils import DECOMPILED, LOCALIZATION_EN, LOCALIZATION_ZH, OUTPUT
 
-BASE = Path(__file__).resolve().parents[2]
-DECOMPILED = BASE / "extraction" / "decompiled"
-LOCALIZATION_EN = BASE / "extraction" / "raw" / "localization" / "eng"
-LOCALIZATION_ZH = BASE / "extraction" / "raw" / "localization" / "zhs"
 EPOCHS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Timeline.Epochs"
 STORIES_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Timeline.Stories"
-OUTPUT = BASE / "data"
 
 ERA_VALUES = {
     "Prehistoria0": -20000,
@@ -54,6 +50,14 @@ def epoch_class_to_id(class_name: str) -> str:
 
 def load_localization(locale_dir: Path) -> dict:
     loc_file = locale_dir / "epochs.json"
+    if loc_file.exists():
+        with open(loc_file, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def load_eras_localization(locale_dir: Path) -> dict:
+    loc_file = locale_dir / "eras.json"
     if loc_file.exists():
         with open(loc_file, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -244,6 +248,10 @@ def parse_single_epoch(
         "title": title,
         "title_zh": title_zh if title_zh != title else None,
         "era": era,
+        "era_name": None,
+        "era_year": None,
+        "era_name_zh": None,
+        "era_year_zh": None,
         "era_position": era_position,
         "story_id": story_id,
         "sort_order": sort_order,
@@ -264,12 +272,24 @@ def parse_single_epoch(
 def parse_all_epochs() -> list[dict]:
     localization = load_localization(LOCALIZATION_EN)
     localization_zh = load_localization(LOCALIZATION_ZH)
+    eras_loc = load_eras_localization(LOCALIZATION_EN)
+    eras_loc_zh = load_eras_localization(LOCALIZATION_ZH)
     title_map = get_title_map(LOCALIZATION_EN)
     title_map_zh = get_title_map(LOCALIZATION_ZH)
     epochs = []
     for filepath in sorted(EPOCHS_DIR.glob("*.cs")):
         epoch = parse_single_epoch(filepath, localization, localization_zh, title_map, title_map_zh)
         if epoch:
+            if epoch["era"]:
+                era_key = epoch["era"].upper()
+                era_name = eras_loc.get(f"{era_key}.name", "")
+                era_year = eras_loc.get(f"{era_key}.year", "")
+                era_name_zh = eras_loc_zh.get(f"{era_key}.name", era_name)
+                era_year_zh = eras_loc_zh.get(f"{era_key}.year", era_year)
+                epoch["era_name"] = era_name if era_name else None
+                epoch["era_year"] = era_year if era_year else None
+                epoch["era_name_zh"] = era_name_zh if era_name_zh and era_name_zh != era_name else None
+                epoch["era_year_zh"] = era_year_zh if era_year_zh and era_year_zh != era_year else None
             epochs.append(epoch)
     epochs.sort(key=lambda e: e["sort_order"])
     return epochs

@@ -3,13 +3,15 @@ import json
 import re
 from pathlib import Path
 from description_resolver import resolve_description, extract_vars_from_source
+from path_utils import DECOMPILED, IMAGES_ROOT, LOCALIZATION_EN, LOCALIZATION_ZH, OUTPUT
 
-BASE = Path(__file__).resolve().parents[2]
-DECOMPILED = BASE / "extraction" / "decompiled"
-LOCALIZATION_EN = BASE / "extraction" / "raw" / "localization" / "eng"
-LOCALIZATION_ZH = BASE / "extraction" / "raw" / "localization" / "zhs"
 POWERS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Powers"
-OUTPUT = BASE / "data"
+POWERS_IMAGES = IMAGES_ROOT / "powers"
+
+# Aliases for powers whose icon filename doesn't match the ID pattern
+IMAGE_ALIASES: dict[str, str] = {
+    "TEMPORARY_DEXTERITY": "dexterity_down_power.png",
+}
 
 
 def class_name_to_id(name: str) -> str:
@@ -26,8 +28,8 @@ def load_localization(locale_dir: Path) -> dict:
     return {}
 
 
-def get_power_strings(power_id: str, class_name: str, localization: dict) -> tuple[str, str]:
-    """Return (title, description_raw) for a power in the given locale."""
+def get_power_strings(power_id: str, class_name: str, localization: dict) -> tuple[str, str, str]:
+    """Return (title, smart_description_raw, plain_description_raw) for a power in one locale."""
     title = localization.get(f"{power_id}.title")
     if title is None:
         title = localization.get(f"{power_id}_POWER.title")
@@ -39,11 +41,10 @@ def get_power_strings(power_id: str, class_name: str, localization: dict) -> tup
     if f"{power_id}.smartDescription" not in localization and f"{power_id}.description" not in localization:
         desc_key = f"{power_id}_POWER" if f"{power_id}_POWER.smartDescription" in localization else class_name_to_id(class_name)
 
-    description_raw = localization.get(f"{desc_key}.smartDescription", "")
-    if not description_raw:
-        description_raw = localization.get(f"{desc_key}.description", "")
+    smart_raw = localization.get(f"{desc_key}.smartDescription", "")
+    plain_raw = localization.get(f"{desc_key}.description", "")
 
-    return title, description_raw
+    return title, smart_raw, plain_raw
 
 
 def parse_single_power(filepath: Path, localization: dict, localization_zh: dict) -> dict | None:
@@ -72,15 +73,54 @@ def parse_single_power(filepath: Path, localization: dict, localization_zh: dict
 
     # Extract variable values from source
     all_vars = extract_vars_from_source(content)
+    all_vars.setdefault("OwnerName", "this creature")
 
-    # Localization — try both with and without POWER suffix
-    title, description_raw = get_power_strings(power_id, class_name, localization)
-    title_zh, description_raw_zh = get_power_strings(power_id, class_name, localization_zh)
+    # Localization strings in both locales
+    title, smart_raw, plain_raw = get_power_strings(power_id, class_name, localization)
+    title_zh, smart_raw_zh, plain_raw_zh = get_power_strings(power_id, class_name, localization_zh)
 
-    description_resolved = resolve_description(description_raw, all_vars) if description_raw else ""
+    # Prefer smartDescription but fall back to plain description for unresolved templates
+    if smart_raw:
+        description_raw = smart_raw
+        description_resolved = resolve_description(smart_raw, all_vars)
+        amount_missing = "{Amount" in smart_raw and "Amount" not in all_vars
+        has_artifacts = bool(re.search(r'\[Amount\]|\[Applier|:cond:|==\d+\?|>\d+\?', description_resolved))
+        if (amount_missing or has_artifacts) and plain_raw:
+            description_raw = plain_raw
+            description_resolved = resolve_description(plain_raw, all_vars)
+    elif plain_raw:
+        description_raw = plain_raw
+        description_resolved = resolve_description(plain_raw, all_vars)
+    else:
+        description_raw = ""
+        description_resolved = ""
+
+    if smart_raw_zh:
+        description_raw_zh = smart_raw_zh
+        description_resolved_zh = resolve_description(smart_raw_zh, all_vars)
+        amount_missing_zh = "{Amount" in smart_raw_zh and "Amount" not in all_vars
+        has_artifacts_zh = bool(re.search(r'\[Amount\]|\[Applier|:cond:|==\d+\?|>\d+\?', description_resolved_zh))
+        if (amount_missing_zh or has_artifacts_zh) and plain_raw_zh:
+            description_raw_zh = plain_raw_zh
+            description_resolved_zh = resolve_description(plain_raw_zh, all_vars)
+    elif plain_raw_zh:
+        description_raw_zh = plain_raw_zh
+        description_resolved_zh = resolve_description(plain_raw_zh, all_vars)
+    else:
+        description_raw_zh = description_raw
+        description_resolved_zh = description_resolved
+
     desc_clean = description_resolved
-    description_resolved_zh = resolve_description(description_raw_zh, all_vars) if description_raw_zh else ""
     desc_clean_zh = description_resolved_zh
+
+    # Resolve image URL
+    image_url = None
+    if power_id in IMAGE_ALIASES:
+        icon_file = POWERS_IMAGES / IMAGE_ALIASES[power_id]
+    else:
+        icon_file = POWERS_IMAGES / f"{power_id.lower()}_power.png"
+    if icon_file.exists():
+        image_url = f"/images/powers/{icon_file.name}"
 
     return {
         "id": power_id,
@@ -93,6 +133,7 @@ def parse_single_power(filepath: Path, localization: dict, localization_zh: dict
         "type": power_type,
         "stack_type": stack_type,
         "allow_negative": allow_negative if allow_negative else None,
+        "image_url": image_url,
     }
 
 

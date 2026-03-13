@@ -2,14 +2,10 @@
 import json
 import re
 from pathlib import Path
+from path_utils import DECOMPILED, LOCALIZATION_EN, LOCALIZATION_ZH, OUTPUT
 
-BASE = Path(__file__).resolve().parents[2]
-DECOMPILED = BASE / "extraction" / "decompiled"
-LOCALIZATION_EN = BASE / "extraction" / "raw" / "localization" / "eng"
-LOCALIZATION_ZH = BASE / "extraction" / "raw" / "localization" / "zhs"
 ENCOUNTERS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Encounters"
 ACTS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Acts"
-OUTPUT = BASE / "data"
 
 
 def class_name_to_id(name: str) -> str:
