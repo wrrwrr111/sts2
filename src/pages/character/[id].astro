@@ -748,11 +748,60 @@ const deckCountLabel = isEn
                                   {t.eventOfferings}
                                 </div>
                                 <div class="mt-1 flex flex-wrap gap-1.5">
-                                  {(dialogue.event.relics ?? []).map((relicId) => (
-                                    <span class="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] text-[#f2e5cd]">
-                                      {getRelicName(relicId)}
-                                    </span>
-                                  ))}
+                                  {(dialogue.event.relics ?? []).map((relicId, relicIdx) => {
+                                    const relic = findRelic(relicId);
+                                    const relicName = getRelicName(relicId);
+                                    const relicImage = getRelicImage(relic);
+                                    const popoverId = `offering-${idx}-${relicIdx}`;
+                                    return (
+                                      <div class="relative">
+                                        <button
+                                          type="button"
+                                          class="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] text-[#f2e5cd] transition hover:border-white/30 hover:bg-white/20"
+                                          data-offering-trigger
+                                          data-popover-id={popoverId}
+                                          aria-expanded="false"
+                                        >
+                                          {relicName}
+                                        </button>
+                                        <template id={popoverId}>
+                                          <div class="w-[260px] rounded-[12px] border border-white/15 bg-[#10141f] p-3 shadow-[0_16px_36px_rgba(0,0,0,0.45)]">
+                                            <div class="flex items-start gap-2.5">
+                                              <div class="h-[44px] w-[44px] shrink-0 rounded-[10px] border border-white/10 bg-black/30 p-1.5">
+                                                {relicImage ? (
+                                                  <img
+                                                    class="h-full w-full object-contain"
+                                                    src={`${base}${relicImage}`}
+                                                    alt={relicName}
+                                                    loading="lazy"
+                                                  />
+                                                ) : (
+                                                  <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
+                                                    —
+                                                  </div>
+                                                )}
+                                              </div>
+                                              <div class="min-w-0 flex-1">
+                                                <div class="text-[12px] font-semibold text-[#fdf0d8]">
+                                                  {relicName}
+                                                </div>
+                                                {relic ? (
+                                                  <div
+                                                    class="mt-1 text-[11px] leading-[1.35] text-[#f2e5cd]"
+                                                    set:html={formatRelicText(getRelicDesc(relic), base)}
+                                                  />
+                                                ) : (
+                                                  <div class="mt-1 text-[11px] text-[#9ea2b3]">
+                                                    {t.noRelicDesc}
+                                                  </div>
+                                                )}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </template>
+                                      </div>
+                                    );
+                                  })}
                                 </div>
                               </div>
                             )}
@@ -777,9 +826,18 @@ const deckCountLabel = isEn
       </section>
     </div>
   </main>
+  <div
+    id="offering-popover"
+    class="fixed left-0 top-0 z-[80] hidden"
+    style="pointer-events: none;"
+  >
+    <div data-offering-popover-content></div>
+  </div>
 </Layout>
 
 <script>
+  import { autoUpdate, computePosition, flip, offset, shift } from "@floating-ui/dom";
+
   const toggle = document.getElementById("deck-toggle-upgrade") as
     | HTMLButtonElement
     | null;
@@ -838,4 +896,140 @@ const deckCountLabel = isEn
       }
     });
   });
+
+  const offeringPopover = document.getElementById("offering-popover") as
+    | HTMLDivElement
+    | null;
+  const offeringContent = offeringPopover?.querySelector(
+    "[data-offering-popover-content]",
+  ) as HTMLDivElement | null;
+  const offeringTriggers = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-offering-trigger]"),
+  );
+
+  if (offeringPopover && offeringContent && offeringTriggers.length > 0) {
+    let cleanupAutoUpdate: (() => void) | null = null;
+    let activeTrigger: HTMLButtonElement | null = null;
+    let pinned = false;
+    let closeTimer: number | null = null;
+    let pointerInsidePopover = false;
+
+    const clearCloseTimer = () => {
+      if (closeTimer !== null) {
+        window.clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+    };
+
+    const setTriggerExpanded = (trigger: HTMLButtonElement | null, open: boolean) => {
+      if (!trigger) return;
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+
+    const closePopover = () => {
+      clearCloseTimer();
+      cleanupAutoUpdate?.();
+      cleanupAutoUpdate = null;
+      setTriggerExpanded(activeTrigger, false);
+      activeTrigger = null;
+      pinned = false;
+      pointerInsidePopover = false;
+      offeringPopover.classList.add("hidden");
+      offeringPopover.style.pointerEvents = "none";
+    };
+
+    const updatePosition = async (trigger: HTMLButtonElement) => {
+      const { x, y } = await computePosition(trigger, offeringPopover, {
+        placement: "top",
+        middleware: [offset(10), flip({ padding: 8 }), shift({ padding: 8 })],
+      });
+      offeringPopover.style.left = `${x}px`;
+      offeringPopover.style.top = `${y}px`;
+    };
+
+    const openPopover = (trigger: HTMLButtonElement, pin: boolean) => {
+      const templateId = trigger.getAttribute("data-popover-id");
+      if (!templateId) return;
+      const template = document.getElementById(templateId) as HTMLTemplateElement | null;
+      if (!template) return;
+
+      clearCloseTimer();
+      if (activeTrigger && activeTrigger !== trigger) {
+        setTriggerExpanded(activeTrigger, false);
+      }
+
+      activeTrigger = trigger;
+      pinned = pin;
+      pointerInsidePopover = false;
+      offeringContent.innerHTML = template.innerHTML;
+      offeringPopover.classList.remove("hidden");
+      offeringPopover.style.pointerEvents = "auto";
+      setTriggerExpanded(trigger, true);
+
+      cleanupAutoUpdate?.();
+      cleanupAutoUpdate = autoUpdate(trigger, offeringPopover, () => {
+        void updatePosition(trigger);
+      });
+      void updatePosition(trigger);
+    };
+
+    const scheduleClose = () => {
+      clearCloseTimer();
+      if (pinned || pointerInsidePopover) return;
+      closeTimer = window.setTimeout(() => {
+        if (pinned || pointerInsidePopover) return;
+        closePopover();
+      }, 120);
+    };
+
+    for (const trigger of offeringTriggers) {
+      trigger.addEventListener("mouseenter", () => {
+        openPopover(trigger, false);
+      });
+      trigger.addEventListener("mouseleave", () => {
+        scheduleClose();
+      });
+      trigger.addEventListener("focus", () => {
+        openPopover(trigger, false);
+      });
+      trigger.addEventListener("blur", () => {
+        scheduleClose();
+      });
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        const alreadyPinned =
+          activeTrigger === trigger &&
+          !offeringPopover.classList.contains("hidden") &&
+          pinned;
+        if (alreadyPinned) {
+          closePopover();
+          return;
+        }
+        openPopover(trigger, true);
+      });
+    }
+
+    offeringPopover.addEventListener("mouseenter", () => {
+      pointerInsidePopover = true;
+      clearCloseTimer();
+    });
+    offeringPopover.addEventListener("mouseleave", () => {
+      pointerInsidePopover = false;
+      scheduleClose();
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("[data-offering-trigger]")) return;
+      if (offeringPopover.contains(target)) return;
+      closePopover();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closePopover();
+      }
+    });
+  }
 </script>
