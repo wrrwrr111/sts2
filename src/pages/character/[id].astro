@@ -4,6 +4,7 @@ import charactersData from "../../../data/characters.json";
 import cardsData from "../../../data/cards.json";
 import relicsData from "../../../data/relics.json";
 import orbsData from "../../../data/orbs.json";
+import eventsData from "../../../data/events.json";
 import TopNav from "../../components/TopNav.astro";
 import CardView from "../../components/CardView.astro";
 import type { Card } from "../../lib/cardModels";
@@ -25,7 +26,50 @@ type Character = {
   unlocks_after?: string | null;
   gender?: string | null;
   color?: string | null;
+  dialogue_color?: string | null;
+  quotes?: Record<string, string> | null;
+  quotes_zh?: Record<string, string> | null;
+  dialogues?: AncientDialogue[] | null;
+  dialogues_zh?: AncientDialogue[] | null;
   image_url?: string | null;
+};
+
+type AncientDialogueLine = {
+  order: number | string;
+  speaker: string;
+  text: string;
+};
+
+type AncientDialogue = {
+  ancient: string;
+  ancient_name?: string | null;
+  lines?: AncientDialogueLine[] | null;
+};
+
+type EventOption = {
+  id: string;
+  title?: string | null;
+  title_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+};
+
+type EventItem = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  type?: string | null;
+  image_url?: string | null;
+  epithet?: string | null;
+  epithet_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+  options?: EventOption[] | null;
+  relics?: string[] | null;
+};
+
+type AncientDialogueWithEvent = AncientDialogue & {
+  event?: EventItem | null;
 };
 
 type Relic = {
@@ -56,6 +100,7 @@ const characters = charactersData as Character[];
 const cards = cardsData as Card[];
 const relics = relicsData as Relic[];
 const orbs = orbsData as Orb[];
+const events = eventsData as EventItem[];
 
 export const getStaticPaths = () =>
   (charactersData as Character[]).map((character) => ({
@@ -90,6 +135,19 @@ const t = {
   none: isEn ? "None" : "暂无",
   startingRelics: isEn ? "Starting Relics" : "初始遗物",
   noRelicDesc: isEn ? "No description" : "暂无描述",
+  ancients: isEn ? "Ancient Interactions" : "远古者互动",
+  ancientQuotes: isEn ? "Character Lines" : "角色台词",
+  ancientDialogues: isEn ? "Ancient Dialogues" : "远古对话",
+  noAncients: isEn ? "No ancient data yet." : "暂无远古者相关内容。",
+  ancientSpeaker: isEn ? "Ancient" : "远古者",
+  characterSpeaker: isEn ? "Character" : "角色",
+  dialogueLines: isEn ? "lines" : "句",
+  expand: isEn ? "Expand" : "展开",
+  collapse: isEn ? "Collapse" : "收起",
+  ancientEvent: isEn ? "Ancient Event" : "先古事件",
+  eventChoices: isEn ? "Choices" : "选项",
+  eventOfferings: isEn ? "Offerings" : "供奉遗物",
+  noAncientEvent: isEn ? "No event data found." : "未找到对应先古事件数据。",
 };
 
 const getName = (item: { name?: string | null; name_zh?: string | null; id: string }) =>
@@ -124,6 +182,18 @@ const getRelicDesc = (relic: Relic | null) =>
 const getRelicImage = (relic: Relic | null) =>
   normalizeImageUrl(relic?.image_url ?? null) ??
   (relic ? `/images/relics/${relic.id.toLowerCase()}.png` : null);
+const getEventName = (event: EventItem | null | undefined) =>
+  event ? pickText(lang, event.name_zh, event.name, event.id) : null;
+const getEventEpithet = (event: EventItem | null | undefined) =>
+  event ? pickText(lang, event.epithet_zh, event.epithet) : null;
+const getEventDescription = (event: EventItem | null | undefined) =>
+  event ? pickText(lang, event.description_zh, event.description) : null;
+const getEventOptionTitle = (option: EventOption) =>
+  pickText(lang, option.title_zh, option.title, option.id);
+const getEventOptionDesc = (option: EventOption) =>
+  pickText(lang, option.description_zh, option.description);
+const getAncientIcon = (dialogue: AncientDialogueWithEvent) =>
+  normalizeImageUrl(dialogue.event?.image_url ?? null);
 
 const getDeckCounts = (deck: string[] | null | undefined) => {
   const counts = new Map<string, number>();
@@ -144,6 +214,81 @@ const startingRelics = character.starting_relics ?? [];
 const showOrbs =
   character.id?.toLowerCase() === "defect" || character.color === "blue";
 const displayOrbs = showOrbs ? orbs : [];
+
+const quoteLabelMap: Record<string, string> = {
+  event_death_prevention: isEn ? "Death Prevention" : "活动保命台词",
+  gold_monologue: isEn ? "Gold Monologue" : "金币独白",
+  aroma_principle: isEn ? "Aroma Principle" : "香气法则",
+  banter_alive: isEn ? "Banter (Alive)" : "存活嘲讽",
+  banter_dead: isEn ? "Banter (Dead)" : "死亡嘲讽",
+  unlock_text: isEn ? "Unlock Text" : "解锁文本",
+  cards_modifier_title: isEn ? "Card Modifier Title" : "卡牌修饰标题",
+  cards_modifier_description: isEn
+    ? "Card Modifier Description"
+    : "卡牌修饰描述",
+};
+
+const quoteEntries = Object.entries(
+  (isEn ? character.quotes : (character.quotes_zh ?? character.quotes)) ?? {},
+)
+  .map(([key, value]) => ({
+    key,
+    label: quoteLabelMap[key] ?? key,
+    text: value,
+  }))
+  .filter((item) => item.text && item.text.trim().length > 0);
+
+const rawAncientDialogues =
+  (isEn ? character.dialogues : (character.dialogues_zh ?? character.dialogues)) ??
+  [];
+
+const eventById = new Map(events.map((event) => [event.id.toUpperCase(), event]));
+const eventByName = new Map(
+  events.map((event) => [normalizeId(pickText(lang, event.name_zh, event.name, event.id)), event]),
+);
+
+const ancientDialogues: AncientDialogueWithEvent[] = (() => {
+  const merged = new Map<string, AncientDialogue>();
+  for (const dialogue of rawAncientDialogues) {
+    const key = (dialogue.ancient ?? dialogue.ancient_name ?? "").toUpperCase();
+    if (!key) continue;
+    const existing = merged.get(key);
+    if (!existing) {
+      merged.set(key, {
+        ancient: dialogue.ancient,
+        ancient_name: dialogue.ancient_name,
+        lines: [...(dialogue.lines ?? [])],
+      });
+      continue;
+    }
+    if (!existing.ancient && dialogue.ancient) {
+      existing.ancient = dialogue.ancient;
+    }
+    if (!existing.ancient_name && dialogue.ancient_name) {
+      existing.ancient_name = dialogue.ancient_name;
+    }
+    const seen = new Set(
+      (existing.lines ?? []).map((line) => `${line.speaker}::${line.text}`),
+    );
+    for (const line of dialogue.lines ?? []) {
+      const sig = `${line.speaker}::${line.text}`;
+      if (seen.has(sig)) continue;
+      (existing.lines ??= []).push(line);
+      seen.add(sig);
+    }
+  }
+  return Array.from(merged.entries()).map(([key, dialogue]) => {
+    const eventFromId = eventById.get(key);
+    const eventFromName = eventByName.get(
+      normalizeId(dialogue.ancient_name ?? dialogue.ancient ?? ""),
+    );
+    return {
+      ...dialogue,
+      event: eventFromId ?? eventFromName ?? null,
+    };
+  });
+})();
+
 const getOrbValues = (orb: Orb) => ({
   passive: orb.passive ?? null,
   evoke: orb.evoke ?? null,
@@ -296,74 +441,6 @@ const deckCountLabel = isEn
             )}
           </div>
 
-          {displayOrbs.length > 0 && (
-            <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-              <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.orbs}</h2>
-              <div class="mt-4 grid gap-3 sm:grid-cols-2">
-                {displayOrbs.map((orb) => {
-                  const values = getOrbValues(orb);
-                  const showValues =
-                    values.passive !== null ||
-                    values.evoke !== null ||
-                    Boolean(values.note);
-                  return (
-                    <div class="rounded-[14px] border border-white/10 bg-white/5 p-3">
-                      <div class="flex items-center gap-3">
-                        <div class="h-[44px] w-[44px] rounded-[10px] border border-white/10 bg-black/30 p-1.5">
-                          {orb.image_url ? (
-                            <img
-                              class="h-full w-full object-contain"
-                              src={`${base}${orb.image_url}`}
-                              alt={pickText(lang, orb.name_zh, orb.name, orb.id)}
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
-                              —
-                            </div>
-                          )}
-                        </div>
-                        <div class="min-w-0 flex-1">
-                          <div class="text-[13px] font-semibold text-[#fdf0d8]">
-                            {pickText(lang, orb.name_zh, orb.name, orb.id)}
-                          </div>
-                          {showValues && (
-                            <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
-                              {t.passive} {values.passive ?? "?"}
-                              <span class="mx-1">/</span>
-                              {t.evoke} {values.evoke ?? "?"}
-                              {values.note && (
-                                <span class="ml-2 text-[#b7bccb]">
-                                  {values.note}
-                                </span>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      {showValues && (
-                        <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:hidden">
-                          {t.passive} {values.passive ?? "?"}
-                          <span class="mx-1">/</span>
-                          {t.evoke} {values.evoke ?? "?"}
-                          {values.note && (
-                            <span class="ml-2 text-[#b7bccb]">
-                              {values.note}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                      <div
-                        class="mt-2 text-[11px] leading-[1.35] text-[#f2e5cd]"
-                        set:html={formatRelicText(formatOrbDescription(orb), base)}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
           <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.startingDeck}</h2>
@@ -465,6 +542,237 @@ const deckCountLabel = isEn
               <div class="mt-3 text-[11px] text-[#9ea2b3]">{t.none}</div>
             )}
           </div>
+
+          {displayOrbs.length > 0 && (
+            <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+              <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.orbs}</h2>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                {displayOrbs.map((orb) => {
+                  const values = getOrbValues(orb);
+                  const showValues =
+                    values.passive !== null ||
+                    values.evoke !== null ||
+                    Boolean(values.note);
+                  return (
+                    <div class="rounded-[14px] border border-white/10 bg-white/5 p-3">
+                      <div class="flex items-center gap-3">
+                        <div class="h-[44px] w-[44px] rounded-[10px] border border-white/10 bg-black/30 p-1.5">
+                          {orb.image_url ? (
+                            <img
+                              class="h-full w-full object-contain"
+                              src={`${base}${orb.image_url}`}
+                              alt={pickText(lang, orb.name_zh, orb.name, orb.id)}
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
+                              —
+                            </div>
+                          )}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <div class="text-[13px] font-semibold text-[#fdf0d8]">
+                            {pickText(lang, orb.name_zh, orb.name, orb.id)}
+                          </div>
+                          {showValues && (
+                            <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                              {t.passive} {values.passive ?? "?"}
+                              <span class="mx-1">/</span>
+                              {t.evoke} {values.evoke ?? "?"}
+                              {values.note && (
+                                <span class="ml-2 text-[#b7bccb]">
+                                  {values.note}
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {showValues && (
+                        <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:hidden">
+                          {t.passive} {values.passive ?? "?"}
+                          <span class="mx-1">/</span>
+                          {t.evoke} {values.evoke ?? "?"}
+                          {values.note && (
+                            <span class="ml-2 text-[#b7bccb]">
+                              {values.note}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      <div
+                        class="mt-2 text-[11px] leading-[1.35] text-[#f2e5cd]"
+                        set:html={formatRelicText(formatOrbDescription(orb), base)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          
+          <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+            <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.ancients}</h2>
+            {quoteEntries.length > 0 && (
+              <div class="mt-3">
+                <h3 class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                  {t.ancientQuotes}
+                </h3>
+                <div class="mt-2 grid gap-2 sm:grid-cols-2">
+                  {quoteEntries.map((quote) => (
+                    <div class="rounded-[12px] border border-white/10 bg-white/5 p-3">
+                      <div class="text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                        {quote.label}
+                      </div>
+                      <p
+                        class="mt-1 text-[12px] leading-[1.45] text-[#f2e5cd]"
+                        set:html={formatRelicText(quote.text, base)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {ancientDialogues.length > 0 && (
+              <div class="mt-4">
+                <h3 class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                  {t.ancientDialogues}
+                </h3>
+                <div class="mt-2 grid gap-2">
+                  {ancientDialogues.map((dialogue, idx) => (
+                    <div class="rounded-[12px] border border-white/10 bg-white/5 p-3">
+                      {(() => {
+                        const icon = getAncientIcon(dialogue);
+                        return (
+                      <button
+                        type="button"
+                        class="flex w-full items-center justify-between gap-2 text-left"
+                        data-ancient-toggle
+                        data-target={`ancient-panel-${idx}`}
+                        data-label-expand={t.expand}
+                        data-label-collapse={t.collapse}
+                        aria-expanded="false"
+                      >
+                        <div class="flex min-w-0 items-center gap-2">
+                          <div class="h-[32px] w-[32px] shrink-0 overflow-hidden rounded-[8px] border border-white/10 bg-black/30">
+                            {icon ? (
+                              <img
+                                class="h-full w-full object-cover"
+                                src={`${base}${icon}`}
+                                alt={dialogue.ancient_name ?? dialogue.ancient}
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
+                                {(dialogue.ancient_name ?? dialogue.ancient).slice(0, 1).toUpperCase()}
+                              </div>
+                            )}
+                          </div>
+                          <div class="min-w-0">
+                            <span class="text-[12px] font-semibold text-[#fdf0d8]">
+                              {dialogue.ancient_name ?? dialogue.ancient}
+                            </span>
+                            <span class="ml-2 text-[10px] font-normal uppercase tracking-[0.16em] text-[#9ea2b3]">
+                              {(dialogue.lines ?? []).length} {t.dialogueLines}
+                            </span>
+                          </div>
+                        </div>
+                        <span
+                          data-ancient-toggle-label
+                          class="text-[10px] uppercase tracking-[0.16em] text-[#9ea2b3]"
+                        >
+                          {t.expand}
+                        </span>
+                      </button>
+                        );
+                      })()}
+                      <div id={`ancient-panel-${idx}`} class="mt-2 hidden">
+                        {(dialogue.lines ?? []).map((line) => (
+                          <div class="mt-2 rounded-[10px] border border-white/10 bg-black/20 p-2">
+                            <div class="text-[10px] uppercase tracking-[0.16em] text-[#9ea2b3]">
+                              {line.speaker === "ancient"
+                                ? t.ancientSpeaker
+                                : t.characterSpeaker}
+                            </div>
+                            <p
+                              class="mt-1 text-[12px] leading-[1.45] text-[#f2e5cd]"
+                              set:html={formatRelicText(line.text, base)}
+                            />
+                          </div>
+                        ))}
+                        {dialogue.event ? (
+                          <div class="mt-3 rounded-[10px] border border-white/10 bg-black/20 p-3">
+                            <div class="text-[10px] uppercase tracking-[0.18em] text-[#9ea2b3]">
+                              {t.ancientEvent}
+                            </div>
+                            <div class="mt-1 text-[12px] font-semibold text-[#fdf0d8]">
+                              {getEventName(dialogue.event)}
+                            </div>
+                            {getEventEpithet(dialogue.event) && (
+                              <div class="mt-1 text-[11px] text-[#b8bdd0]">
+                                {getEventEpithet(dialogue.event)}
+                              </div>
+                            )}
+                            {getEventDescription(dialogue.event) && (
+                              <div
+                                class="mt-2 text-[12px] leading-[1.45] text-[#f2e5cd]"
+                                set:html={formatRelicText(getEventDescription(dialogue.event), base)}
+                              />
+                            )}
+                            {(dialogue.event.options?.length ?? 0) > 0 && (
+                              <div class="mt-3">
+                                <div class="text-[10px] uppercase tracking-[0.16em] text-[#9ea2b3]">
+                                  {t.eventChoices}
+                                </div>
+                                <div class="mt-1 grid gap-1.5">
+                                  {(dialogue.event.options ?? []).map((option) => (
+                                    <div class="rounded-[8px] border border-white/10 bg-white/5 px-2 py-1.5">
+                                      <div class="text-[11px] font-semibold text-[#f2e5cd]">
+                                        {getEventOptionTitle(option)}
+                                      </div>
+                                      {getEventOptionDesc(option) && (
+                                        <div
+                                          class="mt-0.5 text-[11px] text-[#cfd3e2]"
+                                          set:html={formatRelicText(getEventOptionDesc(option), base)}
+                                        />
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {(dialogue.event.relics?.length ?? 0) > 0 && (
+                              <div class="mt-3">
+                                <div class="text-[10px] uppercase tracking-[0.16em] text-[#9ea2b3]">
+                                  {t.eventOfferings}
+                                </div>
+                                <div class="mt-1 flex flex-wrap gap-1.5">
+                                  {(dialogue.event.relics ?? []).map((relicId) => (
+                                    <span class="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] text-[#f2e5cd]">
+                                      {getRelicName(relicId)}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div class="mt-3 text-[11px] text-[#9ea2b3]">
+                            {t.noAncientEvent}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {quoteEntries.length === 0 && ancientDialogues.length === 0 && (
+              <div class="mt-2 text-[11px] text-[#9ea2b3]">{t.noAncients}</div>
+            )}
+          </div>
         </div>
       </section>
     </div>
@@ -507,4 +815,27 @@ const deckCountLabel = isEn
       setState(showingUpgrade);
     });
   }
+
+  document.querySelectorAll<HTMLButtonElement>("[data-ancient-toggle]").forEach((btn) => {
+    const targetId = btn.getAttribute("data-target");
+    if (!targetId) return;
+    const panel = document.getElementById(targetId);
+    const stateEl = btn.querySelector<HTMLElement>("[data-ancient-toggle-label]");
+    const expandLabel = btn.getAttribute("data-label-expand") ?? "展开";
+    const collapseLabel = btn.getAttribute("data-label-collapse") ?? "收起";
+    if (!panel || !stateEl) return;
+
+    btn.addEventListener("click", () => {
+      const isOpen = !panel.classList.contains("hidden");
+      if (isOpen) {
+        panel.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+        stateEl.textContent = expandLabel;
+      } else {
+        panel.classList.remove("hidden");
+        btn.setAttribute("aria-expanded", "true");
+        stateEl.textContent = collapseLabel;
+      }
+    });
+  });
 </script>

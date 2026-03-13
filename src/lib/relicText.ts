@@ -1,11 +1,18 @@
 const escapeHtml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-const openTag = (tag: string) => {
+const openTag = (tag: string, arg?: string) => {
   const t = tag.toLowerCase();
   if (t === "b") return '<strong class="inline-block">';
   if (t === "i") return '<em class="inline-block">';
   if (t === "u") return '<span class="inline-block underline">';
+  if (t === "font_size") {
+    const parsed = Number(arg ?? 0);
+    const px = Number.isFinite(parsed)
+      ? Math.max(10, Math.min(48, parsed))
+      : 16;
+    return `<span class="inline-block align-baseline" style="font-size:${px}px;line-height:1.15;">`;
+  }
   if (t === "gold") return '<span class="inline-block text-[#ffd38c]">';
   if (t === "red") return '<span class="inline-block text-[#ff7b7b]">';
   if (t === "blue") return '<span class="inline-block text-[#7fb8ff]">';
@@ -55,10 +62,15 @@ export const formatRelicText = (desc: string, basePath: string) => {
         )
         .join("")}</span>`;
     })
-    .replace(/\[([a-zA-Z0-9_]+)\]([\s\S]*?)\[\/\1\]/g, (_, tag, inner) => {
-      return `${openTag(tag)}${inner}${closeTag(tag)}`;
+    .replace(
+      /\[([a-zA-Z0-9_]+)(?:=([^\]]+))?\]([\s\S]*?)\[\/\1\]/g,
+      (_, tag, arg, inner) => {
+        return `${openTag(tag, arg)}${inner}${closeTag(tag)}`;
+      },
+    )
+    .replace(/\[([a-zA-Z0-9_]+)(?:=([^\]]+))?\]/g, (_, tag, arg) => {
+      return openTag(tag, arg);
     })
-    .replace(/\[([a-zA-Z0-9_]+)\]/g, (_, tag) => openTag(tag))
     .replace(/\[\/([a-zA-Z0-9_]+)\]/g, (_, tag) => closeTag(tag))
     .replace(/\n/g, "<br />");
 };
