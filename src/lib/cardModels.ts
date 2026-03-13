@@ -19,6 +19,7 @@ export type Card = {
   image_url: string | null;
   beta_image_url: string | null;
   keywords?: string[] | null;
+  spawns_cards?: string[] | null;
   upgrade?: Record<string, string | number> | null;
   vars?: Record<string, number> | null;
 };

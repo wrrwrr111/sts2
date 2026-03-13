@@ -1,5 +1,6 @@
 ---
 import keywordsData from "../../data/keywords.json";
+import cardsData from "../../data/cards.json";
 import type { Card, Keyword } from "../lib/cardModels";
 import { TYPE_ZH } from "../lib/cardModels";
 import type { Lang } from "../lib/i18n";
@@ -9,6 +10,7 @@ type Props = {
   card: Card;
   variant?: "auto" | "base" | "upgrade";
   lang?: Lang;
+  enableSpawnPreview?: boolean;
 };
 
 const getDisplayDesc = (card: Card, lang: Lang) =>
@@ -29,15 +31,22 @@ if (!card) {
 }
 const variant = rawProps?.variant ?? "auto";
 const lang = rawProps?.lang ?? "zh";
+const enableSpawnPreview = rawProps?.enableSpawnPreview ?? false;
 const isEn = lang === "en";
-const isUpgradeView = variant === "upgrade" && Boolean(card.upgrade);
-const showUpgradeLayer = (variant === "auto" || variant === "upgrade") &&
-  Boolean(card.upgrade);
 const showBaseLayer = variant !== "upgrade";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const keywords = keywordsData as Keyword[];
+const allCards = cardsData as Card[];
+const normalizeCardId = (value: string) =>
+  value.toLowerCase().replace(/[^a-z0-9]/g, "");
+const cardMap = new Map(allCards.map((item) => [item.id.toLowerCase(), item]));
+const cardLooseMap = new Map(
+  allCards.map((item) => [normalizeCardId(item.id), item]),
+);
+const findCard = (id: string) =>
+  cardMap.get(id.toLowerCase()) ?? cardLooseMap.get(normalizeCardId(id)) ?? null;
 
 const keywordMap = new Map<
   string,
@@ -194,6 +203,53 @@ const formatNumber = (value: number) => {
   return String(Number(value.toFixed(3))).replace(/\.0+$/, "");
 };
 
+const getVarValue = (varName: string, upgraded: boolean) => {
+  const baseValue = card.vars?.[varName];
+  if (typeof baseValue !== "number") return null;
+  if (!upgraded) return baseValue;
+
+  const upgradeRaw = card.upgrade?.[varName];
+  if (typeof upgradeRaw !== "string") return baseValue;
+  const delta = parseUpgradeDelta(upgradeRaw);
+  if (!delta) return baseValue;
+  return delta.type === "delta"
+    ? baseValue + delta.value
+    : baseValue * delta.value;
+};
+
+const resolveRawCardDescription = (raw: string | null, upgraded: boolean) => {
+  if (!raw) return "";
+  let text = raw;
+  for (let i = 0; i < 4; i++) {
+    const next = text.replace(
+      /\{IfUpgraded:show:([^{}|]*)\|([^{}]*)\}/g,
+      (_, upText, baseText) => (upgraded ? upText : baseText),
+    );
+    if (next === text) break;
+    text = next;
+  }
+
+  text = text.replace(/\{([A-Za-z0-9_]+):diff\(\)\}/g, (_, varName) => {
+    const value = getVarValue(varName, upgraded);
+    return value === null ? `{${varName}:diff()}` : formatNumber(value);
+  });
+
+  text = text.replace(
+    /\{([A-Za-z0-9_]+):plural:([^{}|]*)\|([^{}]*)\}/g,
+    (_, varName, single, plural) => {
+      const value = getVarValue(varName, upgraded);
+      if (value === null) return single;
+      return Math.abs(value) > 1 ? plural : single;
+    },
+  );
+
+  text = text.replace(/\{([A-Za-z0-9_]+)\}/g, (_, varName) => {
+    const value = getVarValue(varName, upgraded);
+    return value === null ? `{${varName}}` : formatNumber(value);
+  });
+  return text;
+};
+
 const formatDescription = (
   desc: string | null,
   color: string | null,
@@ -255,11 +311,25 @@ const isInfection = card.id?.toLowerCase() === "infection";
 const typeLower = card.type?.toLowerCase() ?? "";
 const rarityLower = card.rarity?.toLowerCase() ?? "";
 const colorLower = card.color?.toLowerCase() ?? "";
-const baseDesc = getDisplayDesc(card, lang);
-const upgradedDesc = getDisplayDescUpgraded(card, lang);
-const rawDescForVars =
-  pickText(lang, card.description_raw_zh, card.description_raw) ??
-  getDisplayDesc(card, lang);
+const rawDescTemplate = pickText(lang, card.description_raw_zh, card.description_raw);
+const rawBaseDesc = resolveRawCardDescription(rawDescTemplate, false);
+const rawUpgradeDesc = resolveRawCardDescription(rawDescTemplate, true);
+const explicitUpgradeDesc = pickText(
+  lang,
+  card.description_upgraded_zh,
+  card.description_upgraded,
+);
+const baseDesc = getDisplayDesc(card, lang) || rawBaseDesc;
+const upgradedDesc = explicitUpgradeDesc || rawUpgradeDesc || baseDesc;
+const hasImplicitUpgrade = rawUpgradeDesc.trim() !== rawBaseDesc.trim();
+const hasUpgradeVersion =
+  Boolean(card.upgrade) ||
+  Boolean(explicitUpgradeDesc && explicitUpgradeDesc !== baseDesc) ||
+  hasImplicitUpgrade;
+const isUpgradeView = variant === "upgrade" && hasUpgradeVersion;
+const showUpgradeLayer = (variant === "auto" || variant === "upgrade") &&
+  hasUpgradeVersion;
+const rawDescForVars = rawDescTemplate ?? baseDesc;
 
 const normalizeImageUrl = (url: string | null) => {
   if (!url) return null;
@@ -275,6 +345,17 @@ const getCardImage = (card: Card) => {
 
 const getDisplayName = (card: Card) =>
   pickText(lang, card.name_zh, card.name, card.id);
+
+const getSpawnCardName = (spawnId: string) => {
+  const hit = findCard(spawnId);
+  return hit ? getDisplayName(hit) : spawnId;
+};
+
+const getSpawnCardImage = (spawnId: string) => {
+  const hit = findCard(spawnId);
+  if (!hit) return `/images/cards/${spawnId.toLowerCase()}.png`;
+  return getCardImage(hit);
+};
 
 const getCostLabel = (card: Card) => {
   if (card.is_x_cost) return "X";
@@ -392,25 +473,49 @@ const upgradeHighlights = (() => {
 })();
 const baseDescHtml = baseDesc ? formatDescription(baseDesc, card.color) : "";
 const upgradeDescHtml =
-  card.upgrade && upgradedDesc
+  hasUpgradeVersion && upgradedDesc
     ? formatDescription(upgradedDesc, card.color, {
         highlightValues: upgradeHighlights,
       })
     : "";
 const hasBaseDesc = Boolean(baseDescHtml);
-const hasUpgradeDesc = Boolean(upgradeDescHtml) && !!card.upgrade;
+const hasUpgradeDesc = Boolean(upgradeDescHtml) && hasUpgradeVersion;
 const showUpgradeDesc = showUpgradeLayer && hasUpgradeDesc;
 const showBaseDesc = showBaseLayer;
 const hasKeywords = Boolean(card.keywords && card.keywords.length > 0);
 const keywordLines = hasKeywords
   ? (card.keywords ?? []).map((kw) => ({
       label: keywordLabel(kw),
+      key: kw.toLowerCase(),
       tip:
         keywordTipHtmlMap.get(kw.toLowerCase()) ??
         keywordTipHtmlMap.get(keywordLabel(kw).toLowerCase()) ??
         "",
     }))
   : [];
+const leadingKeywordOrder = ["innate", "ethereal", "unplayable"];
+const leadingKeywordRank = new Map(
+  leadingKeywordOrder.map((key, idx) => [key, idx]),
+);
+const leadingKeywordLines = keywordLines
+  .filter((kw) => leadingKeywordRank.has(kw.key))
+  .sort(
+    (a, b) =>
+      (leadingKeywordRank.get(a.key) ?? Number.MAX_SAFE_INTEGER) -
+      (leadingKeywordRank.get(b.key) ?? Number.MAX_SAFE_INTEGER),
+  );
+const trailingKeywordLines = keywordLines.filter(
+  (kw) => !leadingKeywordRank.has(kw.key),
+);
+const hasLeadingKeywords = leadingKeywordLines.length > 0;
+const hasTrailingKeywords = trailingKeywordLines.length > 0;
+const spawnTitle = isEn ? "Spawns" : "生成卡牌";
+const spawnCards = (card.spawns_cards ?? []).map((spawnId) => ({
+  id: spawnId,
+  label: getSpawnCardName(spawnId),
+  image: `${basePath}${getSpawnCardImage(spawnId)}`,
+}));
+const hasSpawnCards = enableSpawnPreview && spawnCards.length > 0;
 const searchText = [
   getDisplayName(card),
   card.name ?? "",
@@ -432,7 +537,9 @@ const searchText = [
 
 <div class='relative h-full w-full'>
   <article
-    class='relative left-0 top-0 h-[211px] w-[150px] origin-top-left'
+    class={`group relative left-0 top-0 h-[211px] w-[150px] origin-top-left transition-transform duration-150 ${
+      hasSpawnCards ? "hover:scale-[1.08] hover:z-[35]" : ""
+    }`}
     data-card='1'
     data-color={card.color ?? "neutral"}
     data-type={card.type?.toLowerCase() ?? "unknown"}
@@ -441,7 +548,7 @@ const searchText = [
     data-rarity-raw={card.rarity ?? ""}
     data-color-raw={card.color ?? ""}
     data-cost-raw={getCostBucket(card)}
-    data-has-upgrade={card.upgrade ? "1" : "0"}
+    data-has-upgrade={hasUpgradeVersion ? "1" : "0"}
     data-search={searchText}
   >
     <div
@@ -543,7 +650,7 @@ const searchText = [
       {getDisplayName(card)}
     </span>
     {
-      card.upgrade && showUpgradeLayer && (
+      hasUpgradeVersion && showUpgradeLayer && (
         <span
           data-name='upgrade'
           class={`absolute left-[22.5px] top-[5.5px] font-semibold z-[7] w-[105px] text-center text-[13px] text-[#7efe00] [text-shadow:0_1px_2px_rgba(0,0,0,0.35),0_0_2px_rgba(77,75,64,0.95),1px_0_0_rgba(77,75,64,0.9),-1px_0_0_rgba(77,75,64,0.9),0_1px_0_rgba(77,75,64,0.9),0_-1px_0_rgba(77,75,64,0.9)]${variant === "auto" ? " hidden" : ""}`}
@@ -570,6 +677,20 @@ const searchText = [
     {
       (hasBaseDesc || hasUpgradeDesc || hasKeywords) && (
         <div class='absolute left-[14px] top-[124px] z-[6] h-[72px] w-[121.5px] text-center text-[10.5px] leading-[1.02] tracking-[0.02em] text-[#f2e5cd] [text-shadow:0_1px_2px_rgba(0,0,0,0.55),0_0_3px_rgba(0,0,0,0.45),1px_0_0_rgba(0,0,0,0.35),-1px_0_0_rgba(0,0,0,0.35)] flex flex-col items-center justify-center'>
+          {hasLeadingKeywords && (
+            <div
+              class={`${hasBaseDesc || hasUpgradeDesc ? "mb-1" : ""} text-[9px] tracking-[0.08em] text-[#efc751]`}
+            >
+              {leadingKeywordLines.map((kw) => (
+                <div
+                  class={kw.tip ? "cursor-help" : ""}
+                  data-tip-html={kw.tip ? escapeAttr(kw.tip) : undefined}
+                >
+                  {kw.label}
+                </div>
+              ))}
+            </div>
+          )}
           {showBaseDesc && hasBaseDesc && (
             <div data-desc='base' set:html={baseDescHtml} />
           )}
@@ -580,11 +701,11 @@ const searchText = [
               set:html={upgradeDescHtml}
             />
           )}
-          {hasKeywords && (
+          {hasTrailingKeywords && (
             <div
               class={`${hasBaseDesc || hasUpgradeDesc ? "mt-1" : ""} text-[9px] tracking-[0.08em] text-[#efc751]`}
             >
-              {keywordLines.map((kw) => (
+              {trailingKeywordLines.map((kw) => (
                 <div
                   class={kw.tip ? "cursor-help" : ""}
                   data-tip-html={kw.tip ? escapeAttr(kw.tip) : undefined}
@@ -594,6 +715,32 @@ const searchText = [
               ))}
             </div>
           )}
+        </div>
+      )
+    }
+    {
+      hasSpawnCards && (
+        <div
+          class='pointer-events-none absolute left-[156px] top-[8px] z-[30] hidden w-[270px] rounded-[12px] border border-[#8fd0ff]/35 bg-[#0f1624]/95 p-2 shadow-[0_14px_28px_rgba(0,0,0,0.5)] group-hover:block'
+        >
+          <div class='text-center text-[10px] uppercase tracking-[0.14em] text-[#9bd9ff]'>
+            {spawnTitle}
+          </div>
+          <div class='mt-2 grid grid-cols-2 gap-2'>
+            {spawnCards.map((spawn) => (
+              <div class='rounded-[8px] border border-white/10 bg-black/25 p-1.5'>
+                <img
+                  class='h-[72px] w-full rounded-[6px] object-cover'
+                  src={spawn.image}
+                  alt={spawn.label}
+                  loading='lazy'
+                />
+                <div class='mt-1 line-clamp-2 text-center text-[9px] leading-tight text-[#dff2ff]'>
+                  {spawn.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )
     }
