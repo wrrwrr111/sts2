@@ -3,12 +3,25 @@ import Layout from "../layouts/Layout.astro";
 import CardView from "../components/CardView.astro";
 import TopNav from "../components/TopNav.astro";
 import cardsData from "../../data/cards.json";
+import charactersData from "../../data/characters.json";
 import type { Card } from "../lib/cardModels";
 
 // 获取base路径
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const cards = cardsData as Card[];
+const characters = charactersData as Array<{
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  color?: string | null;
+}>;
+const characterOptions = characters
+  .filter((character) => character.color)
+  .map((character) => ({
+    value: character.color as string,
+    label: character.name_zh ?? character.name ?? character.id,
+  }));
 
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
@@ -115,21 +128,11 @@ const pageDescription = `收录杀戮尖塔2全部卡牌，共 ${cards.length} �
           class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
         >
           <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
-          <option value='ironclad' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >铁卫</option
-          >
-          <option value='silent' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >静默</option
-          >
-          <option value='defect' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >故障</option
-          >
-          <option value='necrobinder' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >唤尸</option
-          >
-          <option value='regent' class='bg-[#1a1c24] text-[#f4f4f1]'
-            >摄政</option
-          >
+          {characterOptions.map((opt) => (
+            <option value={opt.value} class='bg-[#1a1c24] text-[#f4f4f1]'>
+              {opt.label}
+            </option>
+          ))}
           <option value='colorless' class='bg-[#1a1c24] text-[#f4f4f1]'
             >无色</option
           >

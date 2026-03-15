@@ -1,6 +1,6 @@
 ---
 type Props = {
-  current?: "cards" | "relics" | "events" | "monsters";
+  current?: "cards" | "relics" | "events" | "monsters" | "characters" | "potions";
   basePath?: string;
 };
 
@@ -8,6 +8,8 @@ const { current = "cards", basePath = "" } = Astro.props;
 const base = basePath.replace(/\/$/, "");
 const items = [
   { key: "cards", label: "卡牌", href: `${base}/` },
+  { key: "characters", label: "角色", href: `${base}/characters` },
+  { key: "potions", label: "药剂", href: `${base}/potions` },
   { key: "relics", label: "遗物", href: `${base}/relics` },
   { key: "events", label: "事件", href: `${base}/events` },
   { key: "monsters", label: "怪物", href: `${base}/monsters` },

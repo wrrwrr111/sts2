@@ -1,0 +1,114 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import charactersData from "../../../data/characters.json";
+import TopNav from "../../components/TopNav.astro";
+
+type Character = {
+  id: string;
+  name: string;
+  name_zh?: string | null;
+  description?: string | null;
+  description_zh?: string | null;
+  starting_hp?: number | null;
+  starting_gold?: number | null;
+  max_energy?: number | null;
+  orb_slots?: number | null;
+  starting_deck?: string[] | null;
+  starting_relics?: string[] | null;
+  unlocks_after?: string | null;
+  gender?: string | null;
+  color?: string | null;
+  image_url?: string | null;
+};
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const characters = charactersData as Character[];
+
+const getName = (character: Character) =>
+  character.name_zh ?? character.name ?? character.id;
+const getDesc = (character: Character) =>
+  character.description_zh ?? character.description ?? "";
+
+const normalizeImageUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  return url.replace("/static/images/", "/images/");
+};
+const getImage = (character: Character) =>
+  normalizeImageUrl(character.image_url ?? null) ??
+  `/images/characters/${character.id.toLowerCase()}.png`;
+
+const colorLabel: Record<string, string> = {};
+for (const character of characters) {
+  if (!character.color) continue;
+  colorLabel[character.color] = character.name_zh ?? character.name ?? character.id;
+}
+
+const origin =
+  Astro.site?.toString().replace(/\/$/, "") ??
+  new URL(Astro.request.url).origin;
+const canonical = new URL(`${base}/characters`, origin).toString();
+const pageTitle = "角色图鉴 | 杀戮尖塔2 中文数据库";
+const pageDescription = `收录杀戮尖塔2全部角色，共 ${characters.length} 位。`;
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+  </Fragment>
+  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
+    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
+      <div class='flex flex-wrap items-end justify-between gap-6'>
+        <div>
+          <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
+            角色
+          </div>
+          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>角色图鉴</h1>
+          <p class='mt-1 text-[#c4c7d6]'>共 {characters.length} 位角色</p>
+        </div>
+        <TopNav current='characters' basePath={base} />
+      </div>
+
+      <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        {characters.map((character) => (
+          <a
+            href={`${base}/character/${character.id}`}
+            class='group relative overflow-hidden rounded-[16px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10'
+          >
+            <div class='flex items-center gap-3'>
+              <div class='h-[68px] w-[68px] rounded-[12px] border border-white/10 bg-black/30 p-2'>
+                <img
+                  class='h-full w-full object-contain'
+                  src={`${base}${getImage(character)}`}
+                  alt={getName(character)}
+                  loading='lazy'
+                />
+              </div>
+              <div class='min-w-0 flex-1'>
+                <div class='text-[15px] font-semibold text-[#fdf0d8]'>
+                  {getName(character)}
+                </div>
+                <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                  {(character.name ?? character.id).toUpperCase()}
+                </div>
+                <div class='mt-2 inline-flex items-center rounded-full border border-white/10 bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-[0.2em] text-[#f2e5cd]'>
+                  {colorLabel[character.color ?? ""] ?? (character.color ?? "未知")}
+                </div>
+              </div>
+            </div>
+            <p class='mt-3 text-[11px] leading-[1.35] text-[#f2e5cd]'>
+              {getDesc(character)}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

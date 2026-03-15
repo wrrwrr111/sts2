@@ -38,6 +38,10 @@ export const formatRelicText = (desc: string, basePath: string) => {
   if (!desc) return "";
   const escaped = escapeHtml(desc);
   return escaped
+    .replace(/\[(passive|evoke)\]/gi, (_, key) => {
+      const label = String(key).toUpperCase();
+      return `<span class="inline-block text-[#bfe5ff] uppercase tracking-[0.08em] text-[0.85em]">${label}</span>`;
+    })
     .replace(/\[energy:(\d+)\]/gi, (_, raw) => {
       const count = Math.max(0, Math.min(9, Number(raw)));
       if (!count) return "";

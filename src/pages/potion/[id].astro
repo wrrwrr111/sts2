@@ -1,81 +1,77 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import relicsData from "../../../data/relics.json";
+import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
 
-type Relic = {
+type Potion = {
   id: string;
   name: string;
   name_zh?: string | null;
   description?: string | null;
   description_zh?: string | null;
-  flavor?: string | null;
-  flavor_zh?: string | null;
   rarity?: string | null;
-  pool?: string | null;
   image_url?: string | null;
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const potions = potionsData as Potion[];
 
-const relics = relicsData as Relic[];
 export const getStaticPaths = () =>
-  (relicsData as Relic[]).map((relic) => ({
-    params: { id: relic.id },
+  (potionsData as Potion[]).map((potion) => ({
+    params: { id: potion.id },
   }));
 
 const { id } = Astro.params;
-const relic = relics.find(
+const potion = potions.find(
   (item) => item.id?.toLowerCase() === id?.toLowerCase(),
 );
 
-if (!relic) {
+if (!potion) {
   return new Response("Not found", { status: 404 });
 }
 
-const displayName = relic.name_zh ?? relic.name ?? relic.id;
-const rawDesc = (relic.description_zh ?? relic.description ?? "")
+const displayName = potion.name_zh ?? potion.name ?? potion.id;
+const rawDesc = (potion.description_zh ?? potion.description ?? "")
   .replace(/\[\/?[a-zA-Z0-9_]+\]/g, "")
   .replace(/\s+/g, " ")
   .trim();
-const cardDescription = [
+const pageDescription = [
   rawDesc,
-  relic.rarity && `稀有度：${relic.rarity}`,
-  relic.pool && `池：${relic.pool}`,
+  potion.rarity && `稀有度：${potion.rarity}`,
 ]
   .filter(Boolean)
   .join(" · ")
   .slice(0, 160);
-const pageTitle = `${displayName} | 杀戮尖塔2 遗物图鉴`;
+const pageTitle = `${displayName} | 杀戮尖塔2 药剂图鉴`;
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/relic/${relic.id}`, origin).toString();
+const canonical = new URL(`${base}/potion/${potion.id}`, origin).toString();
 
 const normalizeImageUrl = (url: string | null | undefined) => {
   if (!url) return null;
   return url.replace("/static/images/", "/images/");
 };
-const relicImagePath =
-  normalizeImageUrl(relic.image_url ?? null) ??
-  `/images/relics/${relic.id.toLowerCase()}.png`;
-const ogImage = new URL(`${base}${relicImagePath}`, origin).toString();
+const potionImagePath =
+  normalizeImageUrl(potion.image_url ?? null) ??
+  `/images/potions/${potion.id.toLowerCase()}.png`;
+const ogImage = new URL(`${base}${potionImagePath}`, origin).toString();
 ---
 
 <Layout>
   <Fragment slot="head">
     <title>{pageTitle}</title>
-    <meta name="description" content={cardDescription} />
+    <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="article" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={cardDescription} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:alt" content={displayName} />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={cardDescription} />
+    <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={displayName} />
   </Fragment>
@@ -85,46 +81,42 @@ const ogImage = new URL(`${base}${relicImagePath}`, origin).toString();
         <div>
           <a
             class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
-            href={`${base}/relics`}
+            href={`${base}/potions`}
           >
-            返回遗物
+            返回药剂
           </a>
           <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
             {displayName}
           </h1>
           <p class='mt-1 text-[#c4c7d6]'>
-            {(relic.rarity ?? "未知")} · {(relic.pool ?? "未知")}
+            {potion.rarity ?? "未知"}
           </p>
         </div>
-        <TopNav current='relics' basePath={base} />
+        <TopNav current='potions' basePath={base} />
       </div>
       <div class='w-full max-w-[720px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
         <div class='flex items-center gap-4'>
           <div class='h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3'>
             <img
               class='h-full w-full object-contain'
-              src={`${base}${relicImagePath}`}
+              src={`${base}${potionImagePath}`}
               alt={displayName}
               loading='lazy'
             />
           </div>
           <div class='flex-1'>
-            <div class='text-[20px] font-semibold text-[#fdf0d8]'>{displayName}</div>
+            <div class='text-[20px] font-semibold text-[#fdf0d8]'>
+              {displayName}
+            </div>
             <div class='mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-              {(relic.rarity ?? "未知").toUpperCase()} · {(relic.pool ?? "").toUpperCase()}
+              {(potion.rarity ?? "未知").toUpperCase()}
             </div>
           </div>
         </div>
         <div
           class='mt-4 text-[13px] leading-[1.4] text-[#f2e5cd]'
-          set:html={formatRelicText(relic.description_zh ?? relic.description ?? "", base)}
+          set:html={formatRelicText(potion.description_zh ?? potion.description ?? "", base)}
         />
-        {(relic.flavor_zh ?? relic.flavor) && (
-          <div
-            class='mt-4 border-t border-white/10 pt-4 text-[12px] italic text-[#c4bfae]'
-            set:html={formatRelicText(relic.flavor_zh ?? relic.flavor ?? "", base)}
-          />
-        )}
       </div>
     </div>
   </main>
