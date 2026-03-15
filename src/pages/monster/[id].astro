@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import TopNav from "../../components/TopNav.astro";
 import monstersData from "../../../data/monsters.json";
+import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type MonsterMove = {
   id: string;
@@ -25,6 +26,8 @@ type Monster = {
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
 const monsters = (monstersData as Monster[]);
 
 export const getStaticPaths = () =>
@@ -41,13 +44,15 @@ if (!monster) {
   return new Response("Not found", { status: 404 });
 }
 
-const displayName = monster.name_zh ?? monster.name ?? monster.id;
-const pageTitle = `${displayName} - 怪物 | 杀戮尖塔2 中文资料库`;
+const displayName = pickText(lang, monster.name_zh, monster.name, monster.id);
+const pageTitle = `${displayName} - ${isEn ? "Monster" : "怪物"} | ${
+  isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"
+}`;
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/monster/${monster.id}`, origin).toString();
-const rawDesc = `类型：${monster.type ?? "未知"}，HP ${monster.min_hp ?? "?"}-${monster.max_hp ?? "?"}`;
+const canonical = new URL(withLang(`${base}/monster/${monster.id}`, lang), origin).toString();
+const rawDesc = `${isEn ? "Type" : "类型"}: ${monster.type ?? (isEn ? "Unknown" : "未知")}, HP ${monster.min_hp ?? "?"}-${monster.max_hp ?? "?"}`;
 const pageDescription = rawDesc.slice(0, 160);
 
 const formatValue = (val: number | null | undefined) =>
@@ -69,6 +74,19 @@ const renderValueTable = (
 
 const damageRows = renderValueTable(monster.damage_values);
 const blockRows = renderValueTable(monster.block_values);
+
+const t = {
+  back: isEn ? "Back to Monsters" : "返回怪物",
+  unknown: isEn ? "Unknown" : "未知",
+  hp: "HP",
+  type: isEn ? "Type" : "类型",
+  moves: isEn ? "Moves" : "动作",
+  damage: isEn ? "Damage" : "伤害",
+  block: isEn ? "Block" : "格挡",
+  action: isEn ? "Action" : "动作",
+  normal: isEn ? "Normal" : "普通",
+  ascension: isEn ? "Ascension" : "进阶",
+};
 ---
 
 <Layout>
@@ -83,42 +101,42 @@ const blockRows = renderValueTable(monster.block_values);
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
-      <div class='flex flex-wrap items-end justify-between gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
           <a
-            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
-            href={`${base}/monsters`}
+            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            href={withLang(`${base}/monsters`, lang)}
           >
-            返回怪物
+            {t.back}
           </a>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
             {displayName}
           </h1>
-          <p class='mt-1 text-[#c4c7d6]'>
-            {(monster.type ?? "未知")} · HP {monster.min_hp ?? "?"}-{monster.max_hp ?? "?"}
+          <p class="mt-1 text-[#c4c7d6]">
+            {(monster.type ?? t.unknown)} · {t.hp} {monster.min_hp ?? "?"}-{monster.max_hp ?? "?"}
           </p>
         </div>
-        <TopNav current='monsters' basePath={base} />
+        <TopNav current="monsters" basePath={base} lang={lang} />
       </div>
-      <div class='w-full max-w-[820px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
-        <div class='flex items-start gap-4'>
+      <div class="w-full max-w-[820px] rounded-[18px] border border-white/10 bg-white/5 p-6">
+        <div class="flex items-start gap-4">
           <div
-            class='relative h-[120px] w-[120px] rounded-[14px] border border-white/10 bg-black/30 p-2'
+            class="relative h-[120px] w-[120px] rounded-[14px] border border-white/10 bg-black/30 p-2"
             data-sprite-wrap
             data-sprite-src={`${base}${spritePath}`}
             data-sprite-meta={`${base}${spriteMetaPath}`}
           >
-            <div class='absolute inset-0 bg-no-repeat bg-center' data-sprite-frame></div>
+            <div class="absolute inset-0 bg-no-repeat bg-center" data-sprite-frame></div>
           </div>
-          <div class='flex-1'>
-            <div class='text-[20px] font-semibold text-[#fdf0d8]'>{displayName}</div>
-            <div class='mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-              {(monster.type ?? "未知").toUpperCase()}
+          <div class="flex-1">
+            <div class="text-[20px] font-semibold text-[#fdf0d8]">{displayName}</div>
+            <div class="mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+              {(monster.type ?? t.unknown).toUpperCase()}
             </div>
-            <div class='mt-3 grid grid-cols-2 gap-2 text-[11px] text-[#c4c7d6]'>
-              <div>HP {monster.min_hp ?? "?"}-{monster.max_hp ?? "?"}</div>
+            <div class="mt-3 grid grid-cols-2 gap-2 text-[11px] text-[#c4c7d6]">
+              <div>{t.hp} {monster.min_hp ?? "?"}-{monster.max_hp ?? "?"}</div>
               {(monster.min_hp_ascension || monster.max_hp_ascension) ? (
                 <div>
                   A: {monster.min_hp_ascension ?? "?"}-{monster.max_hp_ascension ?? "?"}
@@ -127,21 +145,21 @@ const blockRows = renderValueTable(monster.block_values);
                 <div>A: -</div>
               )}
               <div>ID: {monster.id}</div>
-              <div>类型: {monster.type ?? "未知"}</div>
+              <div>{t.type}: {monster.type ?? t.unknown}</div>
             </div>
           </div>
         </div>
 
         {monster.moves && monster.moves.length > 0 && (
-          <div class='mt-4'>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>动作</div>
-            <div class='mt-2 grid gap-2'>
+          <div class="mt-4">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.moves}</div>
+            <div class="mt-2 grid gap-2">
               {monster.moves.map((move) => (
-                <div class='rounded-[10px] border border-white/10 bg-white/5 px-3 py-2'>
-                  <div class='text-[12px] font-semibold text-[#fdf0d8]'>
-                    {move.name_zh ?? move.name ?? move.id}
+                <div class="rounded-[10px] border border-white/10 bg-white/5 px-3 py-2">
+                  <div class="text-[12px] font-semibold text-[#fdf0d8]">
+                    {pickText(lang, move.name_zh, move.name, move.id)}
                   </div>
-                  <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                  <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
                     {move.id}
                   </div>
                 </div>
@@ -151,23 +169,23 @@ const blockRows = renderValueTable(monster.block_values);
         )}
 
         {damageRows.length > 0 && (
-          <div class='mt-6'>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>伤害</div>
-            <div class='mt-2 overflow-hidden rounded-[12px] border border-white/10'>
-              <table class='w-full text-[12px]'>
-                <thead class='bg-white/5 text-[#c4c7d6]'>
+          <div class="mt-6">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.damage}</div>
+            <div class="mt-2 overflow-hidden rounded-[12px] border border-white/10">
+              <table class="w-full text-[12px]">
+                <thead class="bg-white/5 text-[#c4c7d6]">
                   <tr>
-                    <th class='px-3 py-2 text-left font-medium'>动作</th>
-                    <th class='px-3 py-2 text-left font-medium'>普通</th>
-                    <th class='px-3 py-2 text-left font-medium'>进阶</th>
+                    <th class="px-3 py-2 text-left font-medium">{t.action}</th>
+                    <th class="px-3 py-2 text-left font-medium">{t.normal}</th>
+                    <th class="px-3 py-2 text-left font-medium">{t.ascension}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {damageRows.map((row) => (
-                    <tr class='border-t border-white/10'>
-                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.key}</td>
-                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.normal}</td>
-                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.ascension}</td>
+                    <tr class="border-t border-white/10">
+                      <td class="px-3 py-2 text-[#f2e5cd]">{row.key}</td>
+                      <td class="px-3 py-2 text-[#f2e5cd]">{row.normal}</td>
+                      <td class="px-3 py-2 text-[#f2e5cd]">{row.ascension}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -177,23 +195,23 @@ const blockRows = renderValueTable(monster.block_values);
         )}
 
         {blockRows.length > 0 && (
-          <div class='mt-6'>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>格挡</div>
-            <div class='mt-2 overflow-hidden rounded-[12px] border border-white/10'>
-              <table class='w-full text-[12px]'>
-                <thead class='bg-white/5 text-[#c4c7d6]'>
+          <div class="mt-6">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.block}</div>
+            <div class="mt-2 overflow-hidden rounded-[12px] border border-white/10">
+              <table class="w-full text-[12px]">
+                <thead class="bg-white/5 text-[#c4c7d6]">
                   <tr>
-                    <th class='px-3 py-2 text-left font-medium'>动作</th>
-                    <th class='px-3 py-2 text-left font-medium'>普通</th>
-                    <th class='px-3 py-2 text-left font-medium'>进阶</th>
+                    <th class="px-3 py-2 text-left font-medium">{t.action}</th>
+                    <th class="px-3 py-2 text-left font-medium">{t.normal}</th>
+                    <th class="px-3 py-2 text-left font-medium">{t.ascension}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {blockRows.map((row) => (
-                    <tr class='border-t border-white/10'>
-                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.key}</td>
-                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.normal}</td>
-                      <td class='px-3 py-2 text-[#f2e5cd]'>{row.ascension}</td>
+                    <tr class="border-t border-white/10">
+                      <td class="px-3 py-2 text-[#f2e5cd]">{row.key}</td>
+                      <td class="px-3 py-2 text-[#f2e5cd]">{row.normal}</td>
+                      <td class="px-3 py-2 text-[#f2e5cd]">{row.ascension}</td>
                     </tr>
                   ))}
                 </tbody>

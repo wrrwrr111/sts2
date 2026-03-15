@@ -2,19 +2,25 @@
 import keywordsData from "../../data/keywords.json";
 import type { Card, Keyword } from "../lib/cardModels";
 import { TYPE_ZH } from "../lib/cardModels";
+import type { Lang } from "../lib/i18n";
+import { pickText } from "../lib/i18n";
 
 type Props = {
   card: Card;
   variant?: "auto" | "base" | "upgrade";
+  lang?: Lang;
 };
 
-const getDisplayDesc = (card: Card) =>
-  card.description_zh ?? card.description ?? "";
+const getDisplayDesc = (card: Card, lang: Lang) =>
+  pickText(lang, card.description_zh, card.description);
 
-const getDisplayDescUpgraded = (card: Card) =>
-  card.description_upgraded_zh ??
-  card.description_upgraded ??
-  getDisplayDesc(card);
+const getDisplayDescUpgraded = (card: Card, lang: Lang) =>
+  pickText(
+    lang,
+    card.description_upgraded_zh,
+    card.description_upgraded,
+    getDisplayDesc(card, lang),
+  );
 
 const rawProps = (Astro.props ?? null) as Partial<Props> | null;
 const card = rawProps?.card;
@@ -22,6 +28,8 @@ if (!card) {
   throw new Error("CardView requires a card prop");
 }
 const variant = rawProps?.variant ?? "auto";
+const lang = rawProps?.lang ?? "zh";
+const isEn = lang === "en";
 const isUpgradeView = variant === "upgrade" && Boolean(card.upgrade);
 const showUpgradeLayer = (variant === "auto" || variant === "upgrade") &&
   Boolean(card.upgrade);
@@ -48,7 +56,7 @@ for (const k of keywords) {
 const keywordLabel = (kw: string) => {
   const hit = keywordMap.get(kw.toLowerCase());
   if (!hit) return kw;
-  return hit.name_zh ?? hit.name;
+  return isEn ? hit.name ?? hit.name_zh ?? kw : hit.name_zh ?? hit.name ?? kw;
 };
 
 const escapeHtml = (value: string) =>
@@ -236,7 +244,7 @@ const formatDescription = (
 
 const keywordTipHtmlMap = new Map<string, string>();
 for (const k of keywords) {
-  const desc = k.description_zh ?? k.description;
+  const desc = pickText(lang, k.description_zh, k.description);
   const html = formatDescription(desc, null, { tooltips: false });
   keywordTipHtmlMap.set(k.name.toLowerCase(), html);
   if (k.name_zh) keywordTipHtmlMap.set(k.name_zh.toLowerCase(), html);
@@ -247,10 +255,11 @@ const isInfection = card.id?.toLowerCase() === "infection";
 const typeLower = card.type?.toLowerCase() ?? "";
 const rarityLower = card.rarity?.toLowerCase() ?? "";
 const colorLower = card.color?.toLowerCase() ?? "";
-const baseDesc = getDisplayDesc(card);
-const upgradedDesc = getDisplayDescUpgraded(card);
-const rawDescZh =
-  card.description_raw_zh ?? card.description_zh ?? card.description ?? "";
+const baseDesc = getDisplayDesc(card, lang);
+const upgradedDesc = getDisplayDescUpgraded(card, lang);
+const rawDescForVars =
+  pickText(lang, card.description_raw_zh, card.description_raw) ??
+  getDisplayDesc(card, lang);
 
 const normalizeImageUrl = (url: string | null) => {
   if (!url) return null;
@@ -264,7 +273,8 @@ const getCardImage = (card: Card) => {
   return `/images/cards/${card.id.toLowerCase()}.png`;
 };
 
-const getDisplayName = (card: Card) => card.name_zh ?? card.name;
+const getDisplayName = (card: Card) =>
+  pickText(lang, card.name_zh, card.name, card.id);
 
 const getCostLabel = (card: Card) => {
   if (card.is_x_cost) return "X";
@@ -292,8 +302,8 @@ const getStarLabel = (card: Card) =>
   card.star_cost !== null ? String(card.star_cost) : "";
 
 const getTypeLabel = (card: Card) => {
-  if (!card.type) return "未知";
-  return TYPE_ZH[card.type] ?? card.type;
+  if (!card.type) return isEn ? "Unknown" : "未知";
+  return isEn ? card.type : TYPE_ZH[card.type] ?? card.type;
 };
 
 const frameImageFor = (card: Card) => {
@@ -360,7 +370,7 @@ const upgradeCost = getUpgradeCostLabel(card);
 const showBaseCost = showBaseLayer || (isUpgradeView && !upgradeCost);
 const upgradeHighlights = (() => {
   if (!card.upgrade || !card.vars) return new Set<string>();
-  const usedVars = extractVarNames(rawDescZh);
+  const usedVars = extractVarNames(rawDescForVars);
   const varsMap = new Map(
     Object.keys(card.vars).map((key) => [key.toLowerCase(), key]),
   );
@@ -403,10 +413,17 @@ const keywordLines = hasKeywords
   : [];
 const searchText = [
   getDisplayName(card),
+  card.name ?? "",
+  card.name_zh ?? "",
   baseDesc,
+  card.description ?? "",
+  card.description_zh ?? "",
   upgradedDesc,
+  card.description_upgraded ?? "",
+  card.description_upgraded_zh ?? "",
   card.keywords?.join(" ") ?? "",
   getTypeLabel(card),
+  card.type ?? "",
   card.rarity ?? "",
 ]
   .join(" ")

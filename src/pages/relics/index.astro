@@ -4,6 +4,7 @@ import relicsData from "../../../data/relics.json";
 import charactersData from "../../../data/characters.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
+import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type Relic = {
   id: string;
@@ -19,6 +20,8 @@ type Relic = {
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
 const relics = relicsData as Relic[];
 const characters = charactersData as Array<{
   id: string;
@@ -27,8 +30,9 @@ const characters = charactersData as Array<{
   color?: string | null;
 }>;
 
-const getName = (relic: Relic) => relic.name_zh ?? relic.name;
-const getDesc = (relic: Relic) => relic.description_zh ?? relic.description ?? "";
+const getName = (relic: Relic) => pickText(lang, relic.name_zh, relic.name, relic.id);
+const getDesc = (relic: Relic) =>
+  pickText(lang, relic.description_zh, relic.description);
 
 const normalizeImageUrl = (url: string | null | undefined) => {
   if (!url) return null;
@@ -40,22 +44,27 @@ const getImage = (relic: Relic) =>
   `/images/relics/${relic.id.toLowerCase()}.png`;
 
 const rarityLabel: Record<string, string> = {
-  Ancient: "古代",
-  Common: "普通",
-  Uncommon: "罕见",
-  Rare: "稀有",
-  Event: "事件",
-  Starter: "初始",
-  Shop: "商店",
-  None: "无",
-  Unknown: "未知",
+  Ancient: isEn ? "Ancient" : "古代",
+  Common: isEn ? "Common" : "普通",
+  Uncommon: isEn ? "Uncommon" : "罕见",
+  Rare: isEn ? "Rare" : "稀有",
+  Event: isEn ? "Event" : "事件",
+  Starter: isEn ? "Starter" : "初始",
+  Shop: isEn ? "Shop" : "商店",
+  None: isEn ? "None" : "无",
+  Unknown: isEn ? "Unknown" : "未知",
 };
 const poolLabel: Record<string, string> = {
-  shared: "共享",
+  shared: isEn ? "Shared" : "共享",
 };
 for (const character of characters) {
   if (!character.color) continue;
-  poolLabel[character.color] = character.name_zh ?? character.name ?? character.id;
+  poolLabel[character.color] = pickText(
+    lang,
+    character.name_zh,
+    character.name,
+    character.id,
+  );
 }
 
 const rarities = Array.from(
@@ -68,9 +77,26 @@ const pools = Array.from(
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/relics`, origin).toString();
-const pageTitle = "遗物库 | 杀戮尖塔2 中文资料库";
-const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 个。支持稀有度、来源筛选与搜索。`;
+const canonical = new URL(withLang(`${base}/relics`, lang), origin).toString();
+const pageTitle = isEn
+  ? "Relic Library | Slay the Spire 2 Database"
+  : "遗物库 | 杀戮尖塔2 中文资料库";
+const pageDescription = isEn
+  ? `All Slay the Spire 2 relics (${relics.length} total), with rarity/pool filters and search.`
+  : `收录杀戮尖塔2全部遗物，共 ${relics.length} 个。支持稀有度、来源筛选与搜索。`;
+
+const t = {
+  navLabel: isEn ? "Relics" : "遗物",
+  title: isEn ? "Relic Compendium" : "遗物图鉴",
+  count: isEn ? `${relics.length} relics` : `共 ${relics.length} 个遗物`,
+  rarity: isEn ? "Rarity" : "稀有度",
+  pool: isEn ? "Pool" : "来源",
+  search: isEn ? "Search" : "搜索",
+  all: isEn ? "All" : "全部",
+  reset: isEn ? "Reset" : "重置",
+  searchPlaceholder: isEn ? "Name / Description / Flavor" : "名称 / 描述 / 风味",
+  unknown: isEn ? "Unknown" : "未知",
+};
 ---
 
 <Layout>
@@ -85,110 +111,110 @@ const pageDescription = `收录杀戮尖塔2全部遗物，共 ${relics.length} 
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
-      <div class='flex flex-wrap items-end justify-between gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>
-            遗物
+          <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+            {t.navLabel}
           </div>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>遗物图鉴</h1>
-          <p class='mt-1 text-[#c4c7d6]'>共 {relics.length} 个遗物</p>
+          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">{t.title}</h1>
+          <p class="mt-1 text-[#c4c7d6]">{t.count}</p>
         </div>
-        <TopNav current='relics' basePath={base} />
+        <TopNav current="relics" basePath={base} lang={lang} />
       </div>
 
       <section
-        class='grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]'
-        aria-label='Relic filters'
+        class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]"
+        aria-label="Relic filters"
       >
-        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-          <span>稀有度</span>
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.rarity}</span>
           <select
-            id='relic-filter-rarity'
-            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
+            id="relic-filter-rarity"
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
           >
-            <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
+            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
             {rarities.map((r) => (
-              <option value={r} class='bg-[#1a1c24] text-[#f4f4f1]'>
+              <option value={r} class="bg-[#1a1c24] text-[#f4f4f1]">
                 {rarityLabel[r] ?? r}
               </option>
             ))}
           </select>
         </label>
 
-        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-          <span>来源</span>
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.pool}</span>
           <select
-            id='relic-filter-pool'
-            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20'
+            id="relic-filter-pool"
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
           >
-            <option value='all' class='bg-[#1a1c24] text-[#f4f4f1]'>全部</option>
+            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
             {pools.map((p) => (
-              <option value={p} class='bg-[#1a1c24] text-[#f4f4f1]'>
+              <option value={p} class="bg-[#1a1c24] text-[#f4f4f1]">
                 {poolLabel[p] ?? p}
               </option>
             ))}
           </select>
         </label>
 
-        <label class='grid gap-1.5 text-[13px] text-[#b6bbcc]'>
-          <span>搜索</span>
+        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
+          <span>{t.search}</span>
           <input
-            id='relic-filter-search'
-            type='search'
-            placeholder='名称 / 描述 / 风味'
-            class='rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20'
+            id="relic-filter-search"
+            type="search"
+            placeholder={t.searchPlaceholder}
+            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20"
           />
         </label>
 
         <button
-          type='button'
-          id='relic-filter-reset'
-          class='rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors'
+          type="button"
+          id="relic-filter-reset"
+          class="rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors"
         >
-          重置
+          {t.reset}
         </button>
       </section>
 
-      <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {relics.map((relic) => (
           <a
-            href={`${base}/relic/${relic.id}`}
-            class='relic-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10'
-            data-relic='1'
+            href={withLang(`${base}/relic/${relic.id}`, lang)}
+            class="relic-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+            data-relic="1"
             data-rarity-raw={relic.rarity ?? ""}
             data-pool-raw={relic.pool ?? ""}
             data-search={[
               getName(relic),
               getDesc(relic),
-              relic.flavor_zh ?? relic.flavor ?? "",
+              pickText(lang, relic.flavor_zh, relic.flavor),
               relic.rarity ?? "",
               relic.pool ?? "",
             ]
               .join(" ")
               .toLowerCase()}
           >
-            <div class='flex items-center gap-3'>
-              <div class='h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2'>
+            <div class="flex items-center gap-3">
+              <div class="h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2">
                 <img
-                  class='h-full w-full object-contain'
+                  class="h-full w-full object-contain"
                   src={`${base}${getImage(relic)}`}
                   alt={getName(relic)}
-                  loading='lazy'
+                  loading="lazy"
                 />
               </div>
-              <div class='min-w-0 flex-1'>
-                <div class='text-[14px] font-semibold text-[#fdf0d8]'>
+              <div class="min-w-0 flex-1">
+                <div class="text-[14px] font-semibold text-[#fdf0d8]">
                   {getName(relic)}
                 </div>
-                <div class='mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-                  {(relic.rarity ?? "未知").toUpperCase()} · {(relic.pool ?? "").toUpperCase()}
+                <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                  {(rarityLabel[relic.rarity ?? ""] ?? relic.rarity ?? t.unknown).toUpperCase()} · {(poolLabel[relic.pool ?? ""] ?? relic.pool ?? "").toUpperCase()}
                 </div>
               </div>
             </div>
             <div
-              class='mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]'
+              class="mt-3 text-[11px] leading-[1.3] text-[#f2e5cd]"
               set:html={formatRelicText(getDesc(relic), base)}
             />
           </a>

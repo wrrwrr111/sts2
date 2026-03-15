@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
+import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type Potion = {
   id: string;
@@ -15,6 +16,8 @@ type Potion = {
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
 const potions = potionsData as Potion[];
 
 export const getStaticPaths = () =>
@@ -31,23 +34,25 @@ if (!potion) {
   return new Response("Not found", { status: 404 });
 }
 
-const displayName = potion.name_zh ?? potion.name ?? potion.id;
-const rawDesc = (potion.description_zh ?? potion.description ?? "")
+const displayName = pickText(lang, potion.name_zh, potion.name, potion.id);
+const rawDesc = pickText(lang, potion.description_zh, potion.description)
   .replace(/\[\/?[a-zA-Z0-9_]+\]/g, "")
   .replace(/\s+/g, " ")
   .trim();
 const pageDescription = [
   rawDesc,
-  potion.rarity && `稀有度：${potion.rarity}`,
+  potion.rarity && `${isEn ? "Rarity" : "稀有度"}: ${potion.rarity}`,
 ]
   .filter(Boolean)
   .join(" · ")
   .slice(0, 160);
-const pageTitle = `${displayName} - 药剂 | 杀戮尖塔2 中文资料库`;
+const pageTitle = `${displayName} - ${isEn ? "Potion" : "药剂"} | ${
+  isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"
+}`;
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/potion/${potion.id}`, origin).toString();
+const canonical = new URL(withLang(`${base}/potion/${potion.id}`, lang), origin).toString();
 
 const normalizeImageUrl = (url: string | null | undefined) => {
   if (!url) return null;
@@ -57,6 +62,18 @@ const potionImagePath =
   normalizeImageUrl(potion.image_url ?? null) ??
   `/images/potions/${potion.id.toLowerCase()}.png`;
 const ogImage = new URL(`${base}${potionImagePath}`, origin).toString();
+
+const rarityLabelMap: Record<string, string> = {
+  Common: isEn ? "Common" : "普通",
+  Uncommon: isEn ? "Uncommon" : "罕见",
+  Rare: isEn ? "Rare" : "稀有",
+  Ancient: isEn ? "Ancient" : "古代",
+};
+const rarityLabel = rarityLabelMap[potion.rarity ?? ""] ?? potion.rarity ?? (isEn ? "Unknown" : "未知");
+
+const t = {
+  back: isEn ? "Back to Potions" : "返回药剂",
+};
 ---
 
 <Layout>
@@ -75,47 +92,47 @@ const ogImage = new URL(`${base}${potionImagePath}`, origin).toString();
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={displayName} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
-      <div class='flex flex-wrap items-end justify-between gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
           <a
-            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
-            href={`${base}/potions`}
+            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            href={withLang(`${base}/potions`, lang)}
           >
-            返回药剂
+            {t.back}
           </a>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
             {displayName}
           </h1>
-          <p class='mt-1 text-[#c4c7d6]'>
-            {potion.rarity ?? "未知"}
+          <p class="mt-1 text-[#c4c7d6]">
+            {rarityLabel}
           </p>
         </div>
-        <TopNav current='potions' basePath={base} />
+        <TopNav current="potions" basePath={base} lang={lang} />
       </div>
-      <div class='w-full max-w-[720px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
-        <div class='flex items-center gap-4'>
-          <div class='h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3'>
+      <div class="w-full max-w-[720px] rounded-[18px] border border-white/10 bg-white/5 p-6">
+        <div class="flex items-center gap-4">
+          <div class="h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3">
             <img
-              class='h-full w-full object-contain'
+              class="h-full w-full object-contain"
               src={`${base}${potionImagePath}`}
               alt={displayName}
-              loading='lazy'
+              loading="lazy"
             />
           </div>
-          <div class='flex-1'>
-            <div class='text-[20px] font-semibold text-[#fdf0d8]'>
+          <div class="flex-1">
+            <div class="text-[20px] font-semibold text-[#fdf0d8]">
               {displayName}
             </div>
-            <div class='mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-              {(potion.rarity ?? "未知").toUpperCase()}
+            <div class="mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+              {rarityLabel.toUpperCase()}
             </div>
           </div>
         </div>
         <div
-          class='mt-4 text-[13px] leading-[1.4] text-[#f2e5cd]'
-          set:html={formatRelicText(potion.description_zh ?? potion.description ?? "", base)}
+          class="mt-4 text-[13px] leading-[1.4] text-[#f2e5cd]"
+          set:html={formatRelicText(pickText(lang, potion.description_zh, potion.description), base)}
         />
       </div>
     </div>

@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import eventsData from "../../../data/events.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
+import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type EventOption = {
   id: string;
@@ -32,6 +33,8 @@ type EventItem = {
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lang = getLangFromUrl(Astro.url);
+const isEn = lang === "en";
 const events = eventsData as EventItem[];
 
 export const getStaticPaths = () =>
@@ -48,24 +51,33 @@ if (!event) {
   return new Response("Not found", { status: 404 });
 }
 
-const displayName = event.name_zh ?? event.name ?? event.id;
-const rawDesc = (event.description_zh ?? event.description ?? "")
+const displayName = pickText(lang, event.name_zh, event.name, event.id);
+const rawDesc = pickText(lang, event.description_zh, event.description)
   .replace(/\[\/?[a-zA-Z0-9_]+\]/g, "")
   .replace(/\s+/g, " ")
   .trim();
 const pageDescription = [
   rawDesc,
-  event.act && `章节：${event.act}`,
-  event.type && `类型：${event.type}`,
+  event.act && `${isEn ? "Act" : "章节"}: ${event.act}`,
+  event.type && `${isEn ? "Type" : "类型"}: ${event.type}`,
 ]
   .filter(Boolean)
   .join(" · ")
   .slice(0, 160);
-const pageTitle = `${displayName} - 事件 | 杀戮尖塔2 中文资料库`;
+const pageTitle = `${displayName} - ${isEn ? "Event" : "事件"} | ${
+  isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"
+}`;
 const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
-const canonical = new URL(`${base}/event/${event.id}`, origin).toString();
+const canonical = new URL(withLang(`${base}/event/${event.id}`, lang), origin).toString();
+
+const t = {
+  back: isEn ? "Back to Events" : "返回事件",
+  unknown: isEn ? "Unknown" : "未知",
+  options: isEn ? "Options" : "选项",
+  pages: isEn ? "Pages" : "事件页面",
+};
 ---
 
 <Layout>
@@ -80,52 +92,52 @@ const canonical = new URL(`${base}/event/${event.id}`, origin).toString();
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class='px-4 pb-10 pt-12 sm:px-[6vw]' data-base-path={base}>
-    <div class='mx-auto flex max-w-[1100px] flex-col gap-6'>
-      <div class='flex flex-wrap items-end justify-between gap-6'>
+  <main class="px-4 pb-10 pt-12 sm:px-[6vw]" data-base-path={base}>
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
           <a
-            class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]'
-            href={`${base}/events`}
+            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            href={withLang(`${base}/events`, lang)}
           >
-            返回事件
+            {t.back}
           </a>
-          <h1 class='mt-2 text-[26px] font-semibold text-[#fdf0d8]'>
+          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
             {displayName}
           </h1>
-          <p class='mt-1 text-[#c4c7d6]'>
-            {(event.act ?? "未知")} · {(event.type ?? "未知")}
+          <p class="mt-1 text-[#c4c7d6]">
+            {(event.act ?? t.unknown)} · {(event.type ?? t.unknown)}
           </p>
         </div>
-        <TopNav current='events' basePath={base} />
+        <TopNav current="events" basePath={base} lang={lang} />
       </div>
-      <div class='w-full max-w-[820px] rounded-[18px] border border-white/10 bg-white/5 p-6'>
-        <div class='flex items-start justify-between gap-4'>
+      <div class="w-full max-w-[820px] rounded-[18px] border border-white/10 bg-white/5 p-6">
+        <div class="flex items-start justify-between gap-4">
           <div>
-            <div class='text-[20px] font-semibold text-[#fdf0d8]'>{displayName}</div>
-            <div class='mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
-              {(event.act ?? "未知").toUpperCase()} · {(event.type ?? "").toUpperCase()}
+            <div class="text-[20px] font-semibold text-[#fdf0d8]">{displayName}</div>
+            <div class="mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+              {(event.act ?? t.unknown).toUpperCase()} · {(event.type ?? "").toUpperCase()}
             </div>
           </div>
         </div>
         <div
-          class='mt-4 text-[13px] leading-[1.5] text-[#f2e5cd]'
-          set:html={formatRelicText(event.description_zh ?? event.description ?? "", base)}
+          class="mt-4 text-[13px] leading-[1.5] text-[#f2e5cd]"
+          set:html={formatRelicText(pickText(lang, event.description_zh, event.description), base)}
         />
 
         {event.options && event.options.length > 0 && (
-          <div class='mt-5'>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>选项</div>
-            <div class='mt-2 grid gap-2'>
+          <div class="mt-5">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.options}</div>
+            <div class="mt-2 grid gap-2">
               {event.options.map((opt) => (
-                <div class='rounded-[10px] border border-white/10 bg-white/5 px-3 py-2'>
-                  <div class='text-[12px] font-semibold text-[#fdf0d8]'>
-                    {opt.title_zh ?? opt.title ?? opt.id}
+                <div class="rounded-[10px] border border-white/10 bg-white/5 px-3 py-2">
+                  <div class="text-[12px] font-semibold text-[#fdf0d8]">
+                    {pickText(lang, opt.title_zh, opt.title, opt.id)}
                   </div>
-                  {(opt.description_zh ?? opt.description) && (
+                  {(pickText(lang, opt.description_zh, opt.description)) && (
                     <div
-                      class='mt-1 text-[12px] text-[#f2e5cd]'
-                      set:html={formatRelicText(opt.description_zh ?? opt.description ?? "", base)}
+                      class="mt-1 text-[12px] text-[#f2e5cd]"
+                      set:html={formatRelicText(pickText(lang, opt.description_zh, opt.description), base)}
                     />
                   )}
                 </div>
@@ -135,31 +147,31 @@ const canonical = new URL(`${base}/event/${event.id}`, origin).toString();
         )}
 
         {event.pages && event.pages.length > 0 && (
-          <div class='mt-6 border-t border-white/10 pt-5'>
-            <div class='text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]'>事件页面</div>
-            <div class='mt-3 grid gap-3'>
+          <div class="mt-6 border-t border-white/10 pt-5">
+            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.pages}</div>
+            <div class="mt-3 grid gap-3">
               {event.pages.map((page) => (
-                <div class='rounded-[12px] border border-white/10 bg-black/20 p-4'>
-                  <div class='text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]'>
+                <div class="rounded-[12px] border border-white/10 bg-black/20 p-4">
+                  <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
                     {page.id}
                   </div>
-                  {(page.description_zh ?? page.description) && (
+                  {(pickText(lang, page.description_zh, page.description)) && (
                     <div
-                      class='mt-2 text-[12px] leading-[1.45] text-[#f2e5cd]'
-                      set:html={formatRelicText(page.description_zh ?? page.description ?? "", base)}
+                      class="mt-2 text-[12px] leading-[1.45] text-[#f2e5cd]"
+                      set:html={formatRelicText(pickText(lang, page.description_zh, page.description), base)}
                     />
                   )}
                   {page.options && page.options.length > 0 && (
-                    <div class='mt-3 grid gap-2'>
+                    <div class="mt-3 grid gap-2">
                       {page.options.map((opt) => (
-                        <div class='rounded-[10px] border border-white/10 bg-white/5 px-3 py-2'>
-                          <div class='text-[12px] font-semibold text-[#fdf0d8]'>
-                            {opt.title_zh ?? opt.title ?? opt.id}
+                        <div class="rounded-[10px] border border-white/10 bg-white/5 px-3 py-2">
+                          <div class="text-[12px] font-semibold text-[#fdf0d8]">
+                            {pickText(lang, opt.title_zh, opt.title, opt.id)}
                           </div>
-                          {(opt.description_zh ?? opt.description) && (
+                          {(pickText(lang, opt.description_zh, opt.description)) && (
                             <div
-                              class='mt-1 text-[12px] text-[#f2e5cd]'
-                              set:html={formatRelicText(opt.description_zh ?? opt.description ?? "", base)}
+                              class="mt-1 text-[12px] text-[#f2e5cd]"
+                              set:html={formatRelicText(pickText(lang, opt.description_zh, opt.description), base)}
                             />
                           )}
                         </div>

@@ -1,24 +1,43 @@
 ---
 import '../styles/global.css';
+import { getLangFromUrl, withLang } from "../lib/i18n";
+
+const currentUrl = Astro.url;
+const currentParams = new URLSearchParams(currentUrl.search);
+const currentLang = getLangFromUrl(currentUrl);
+const isEn = currentLang === "en";
 
 // SEO配置
-const siteTitle = '杀戮尖塔2 中文资料库 | Slay the Spire 2 Database';
-const siteDescription = '杀戮尖塔2（Slay the Spire 2）中文资料库，收录卡牌、角色、遗物、药剂、事件与怪物信息，支持筛选与搜索。';
-const siteKeywords = '杀戮尖塔2,Slay the Spire 2,中文资料库,卡牌,角色,遗物,药剂,事件,怪物,中文翻译';
+const siteTitle = isEn
+	? 'Slay the Spire 2 Database | STS2 Compendium'
+	: '杀戮尖塔2 中文资料库 | Slay the Spire 2 Database';
+const siteDescription = isEn
+	? 'A Slay the Spire 2 database for cards, characters, relics, potions, events, and monsters with filters and search.'
+	: '杀戮尖塔2（Slay the Spire 2）中文资料库，收录卡牌、角色、遗物、药剂、事件与怪物信息，支持筛选与搜索。';
+const siteKeywords = isEn
+	? 'Slay the Spire 2,STS2,database,cards,characters,relics,potions,events,monsters'
+	: '杀戮尖塔2,Slay the Spire 2,中文资料库,卡牌,角色,遗物,药剂,事件,怪物,中文翻译';
 const siteAuthor = 'Baze';
 const siteUrl = 'https://sts2.urarawin.com';
 const siteImage = ''; // 如果有社交媒体分享图片的话
+const currentNoLangQuery = new URLSearchParams(currentParams);
+currentNoLangQuery.delete("lang");
+const currentPathWithQuery = `${currentUrl.pathname}${
+	currentNoLangQuery.toString() ? `?${currentNoLangQuery.toString()}` : ""
+}`;
+const zhHref = withLang(currentPathWithQuery, "zh");
+const enHref = withLang(currentPathWithQuery, "en");
 const siteJsonLd = {
 	"@context": "https://schema.org",
 	"@type": "WebSite",
-	name: "杀戮尖塔2 中文资料库",
+	name: isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库",
 	url: siteUrl,
 	description: siteDescription,
 	author: {
 		"@type": "Organization",
 		name: "STS2 中文社区",
 	},
-	inLanguage: "zh-CN",
+	inLanguage: isEn ? "en" : "zh-CN",
 	potentialAction: {
 		"@type": "SearchAction",
 		target: `${siteUrl}/?search={search_term_string}`,
@@ -28,7 +47,7 @@ const siteJsonLd = {
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={isEn ? "en" : "zh-CN"}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,10 +71,10 @@ const siteJsonLd = {
 		<meta property="og:url" content={siteUrl} />
 		<meta property="og:title" content={siteTitle} />
 		<meta property="og:description" content={siteDescription} />
-		<meta property="og:site_name" content="杀戮尖塔2 中文资料库" />
-		<meta property="og:locale" content="zh_CN" />
+		<meta property="og:site_name" content={isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"} />
+		<meta property="og:locale" content={isEn ? "en_US" : "zh_CN"} />
 		{siteImage && <meta property="og:image" content={siteImage} />}
-		{siteImage && <meta property="og:image:alt" content="杀戮尖塔2 中文资料库预览" />}
+		{siteImage && <meta property="og:image:alt" content={isEn ? "Slay the Spire 2 Database preview" : "杀戮尖塔2 中文资料库预览"} />}
 		
 		<!-- Twitter 分享卡片 -->
 		<meta name="twitter:card" content="summary_large_image" />
@@ -63,7 +82,7 @@ const siteJsonLd = {
 		<meta name="twitter:title" content={siteTitle} />
 		<meta name="twitter:description" content={siteDescription} />
 		{siteImage && <meta name="twitter:image" content={siteImage} />}
-		{siteImage && <meta name="twitter:image:alt" content="杀戮尖塔2 中文资料库预览" />}
+		{siteImage && <meta name="twitter:image:alt" content={isEn ? "Slay the Spire 2 Database preview" : "杀戮尖塔2 中文资料库预览"} />}
 		
 		<!-- 图标 -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -76,8 +95,8 @@ const siteJsonLd = {
 		<meta name="msapplication-TileColor" content="#10121a" />
 		
 		<!-- 额外的SEO优化标签 -->
-		<meta name="application-name" content="STS2 中文资料库" />
-		<meta name="category" content="游戏数据库" />
+		<meta name="application-name" content={isEn ? "STS2 Database" : "STS2 中文资料库"} />
+		<meta name="category" content={isEn ? "Game Database" : "游戏数据库"} />
 		
 		<!-- 结构化数据 (JSON-LD) 帮助搜索引擎理解网站内容 -->
 		<script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)}></script>
@@ -87,19 +106,54 @@ const siteJsonLd = {
 		class="min-h-screen text-[#f2f2f0] bg-[radial-gradient(1200px_700px_at_20%_-10%,_#202235_0%,_#10121a_55%,_#0a0b10_100%)]"
 		style="font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', Georgia, serif;"
 	>
+		<script is:inline>
+			(() => {
+				const url = new URL(window.location.href);
+				const queryLang = url.searchParams.get("lang");
+				if (queryLang !== "en" && queryLang !== "zh") return;
+				url.searchParams.delete("lang");
+				const path = url.pathname;
+				const isEnPath = path === "/en" || path.startsWith("/en/");
+				if (queryLang === "en" && !isEnPath) {
+					url.pathname = path === "/" ? "/en" : `/en${path}`;
+					window.location.replace(url.toString());
+					return;
+				}
+				if (queryLang === "zh" && isEnPath) {
+					url.pathname = path === "/en" ? "/" : path.slice(3) || "/";
+					window.location.replace(url.toString());
+				}
+			})();
+		</script>
+		<div class="fixed right-3 top-3 z-[999] flex items-center overflow-hidden rounded-full border border-white/15 bg-black/45 text-[11px] backdrop-blur-sm">
+			<a
+				href={zhHref}
+				aria-current={currentLang === "zh" ? "true" : undefined}
+				class={`px-2.5 py-1 transition ${currentLang === "zh" ? "bg-white/20 text-white" : "text-white/70 hover:text-white"}`}
+			>
+				中
+			</a>
+			<a
+				href={enHref}
+				aria-current={currentLang === "en" ? "true" : undefined}
+				class={`border-l border-white/10 px-2.5 py-1 transition ${currentLang === "en" ? "bg-white/20 text-white" : "text-white/70 hover:text-white"}`}
+			>
+				EN
+			</a>
+		</div>
 		<div class="min-h-screen flex flex-col">
 			<main class="flex-1">
 				<slot />
 			</main>
 			<footer class="border-t border-white/10 bg-black/20">
 				<div class="mx-auto max-w-6xl px-4 py-3 flex flex-col items-center gap-2 text-center text-[11px] text-white/70 sm:flex-row sm:justify-center sm:gap-3">
-					<p class="leading-tight">免责声明：本项目仅用于学习与交流，所有内容版权归原作者与版权方所有。</p>
+					<p class="leading-tight">{isEn ? "Disclaimer: This project is for learning only. All content rights belong to their original owners." : "免责声明：本项目仅用于学习与交流，所有内容版权归原作者与版权方所有。"}</p>
 					<a
 						class="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-1 text-[11px] text-white/70 transition hover:border-white/30 hover:text-white"
 						href="https://github.com/wrrwrr111/sts2"
 						rel="noreferrer"
 						target="_blank"
-						aria-label="GitHub 仓库"
+						aria-label={isEn ? "GitHub repository" : "GitHub 仓库"}
 					>
 						<svg
 							class="h-[14px] w-[14px]"
