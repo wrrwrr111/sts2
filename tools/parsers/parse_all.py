@@ -10,6 +10,9 @@ from event_parser import main as parse_events
 from power_parser import main as parse_powers
 from keyword_parser import main as parse_keywords_etc
 from epoch_parser import main as parse_epochs
+from act_parser import main as parse_acts
+from ascension_parser import main as parse_ascensions
+from pool_parser import main as parse_pools
 
 if __name__ == "__main__":
     print("=== Parsing Slay the Spire 2 Game Data ===\n")
@@ -24,4 +27,7 @@ if __name__ == "__main__":
     parse_powers()
     parse_keywords_etc()
     parse_epochs()
+    parse_acts()
+    parse_ascensions()
+    parse_pools()  # Must run after potions
     print("\n=== Done! ===")

@@ -3,15 +3,11 @@ import json
 import re
 from pathlib import Path
 from description_resolver import resolve_description, extract_vars_from_source
+from path_utils import DECOMPILED, IMAGES_ROOT, LOCALIZATION_EN, LOCALIZATION_ZH, OUTPUT
 
-BASE = Path(__file__).resolve().parents[2]
-DECOMPILED = BASE / "extraction" / "decompiled"
-LOCALIZATION_EN = BASE / "extraction" / "raw" / "localization" / "eng"
-LOCALIZATION_ZH = BASE / "extraction" / "raw" / "localization" / "zhs"
 EVENTS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Events"
 ACTS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Acts"
-IMAGES_DIR = BASE / "public" / "images" / "misc" / "ancients"
-OUTPUT = BASE / "data"
+IMAGES_DIR = IMAGES_ROOT / "misc" / "ancients"
 
 
 def class_name_to_id(name: str) -> str:
@@ -103,6 +99,56 @@ def extract_event_vars(content: str, title_map: dict[str, str]) -> dict[str, int
     for m in re.finditer(r'new\s+DynamicVar\("(\w+)",\s*(\d+)m?\)', content):
         vars_dict[m.group(1)] = int(m.group(2))
 
+    # Typed vars with named keys: new GoldVar("Prize1", 35), new HpLossVar("Name", 11m)
+    for m in re.finditer(r'new\s+\w+Var\(\s*"(\w+)"\s*,\s*(\d+)m?\s*(?:,\s*[^)]+)?\)', content):
+        vars_dict[m.group(1)] = int(m.group(2))
+
+    # Typed vars with array references: new GoldVar(_prizeKeys[N], _prizeCosts[N])
+    arrays: dict[str, list] = {}
+    for m in re.finditer(
+        r'(?:static|readonly)\s+(?:.*?)(?:string|int|decimal)\[\]\s+(_\w+)\s*=\s*(?:new\s+\w+\[\d*\]\s*\{|new\s*\[\]\s*\{|\{)\s*([^}]+)\}',
+        content,
+    ):
+        arr_name = m.group(1)
+        raw_vals = m.group(2)
+        if '"' in raw_vals:
+            arrays[arr_name] = [v.strip().strip('"') for v in raw_vals.split(',')]
+        else:
+            arrays[arr_name] = [int(v.strip().rstrip('m')) for v in raw_vals.split(',') if v.strip().rstrip('m').isdigit()]
+
+    # Resolve array-indexed var declarations: new XxxVar(keysArr[i], valsArr[i])
+    for m in re.finditer(r'new\s+\w+Var\((_\w+)\[(\d+)\]\s*,\s*(_\w+)\[(\d+)\]\)', content):
+        key_arr, key_idx, val_arr, val_idx = m.group(1), int(m.group(2)), m.group(3), int(m.group(4))
+        keys = arrays.get(key_arr, [])
+        vals = arrays.get(val_arr, [])
+        if key_idx < len(keys) and val_idx < len(vals):
+            vars_dict[keys[key_idx]] = vals[val_idx]
+
+    # CalculateVars ranges and percentages
+    calc_match = re.search(r'CalculateVars\(\)\s*\{(.*?)\n\s*\}', content, re.DOTALL)
+    if calc_match:
+        calc_body = calc_match.group(1)
+        for rm in re.finditer(r'DynamicVars\.(\w+)\.BaseValue\s*=\s*(?:base\.)?Rng\.NextInt\((\d+),\s*(\d+)\)', calc_body):
+            var_name = rm.group(1)
+            low, high = int(rm.group(2)), int(rm.group(3))
+            vars_dict[var_name] = f"{low}-{high}"
+        for rm in re.finditer(r'DynamicVars\.(\w+)\.BaseValue\s*=.*?MaxHp\s*\*\s*(\d+(?:\.\d+)?)m', calc_body):
+            var_name = rm.group(1)
+            pct = float(rm.group(2))
+            vars_dict[var_name] = f"{int(pct * 100)}% Max HP"
+
+    # HealRestSiteOption.GetHealAmount pattern (30% Max HP)
+    if "HealRestSiteOption.GetHealAmount" in content:
+        if "Heal" not in vars_dict or vars_dict.get("Heal") == 0:
+            vars_dict["Heal"] = "30% Max HP"
+
+    # Pattern: CurrentHpLoss => N + NumberOfHoldOns
+    for rm in re.finditer(r'Current(\w+)\s*=>\s*(\d+)\s*\+\s*(\w+)', content):
+        var_name = rm.group(1)
+        base_val = int(rm.group(2))
+        if var_name not in vars_dict or vars_dict.get(var_name) == 0:
+            vars_dict[var_name] = f"{base_val}+"
+
     # StringVar with model references:
     # new StringVar("Name", ModelDb.Card<ClassName>().Title)
     # new StringVar("Name", ModelDb.Enchantment<ClassName>().Title.GetFormattedText())
@@ -125,10 +171,70 @@ def extract_event_vars(content: str, title_map: dict[str, str]) -> dict[str, int
     for m in re.finditer(r'new\s+StringVar\("(\w+)",\s*"([^"]+)"\)', content):
         vars_dict[m.group(1)] = m.group(2)
 
+    # Empty StringVar (runtime-populated): new StringVar("RandomRelic")
+    for m in re.finditer(r'new\s+StringVar\("(\w+)"\)', content):
+        name = m.group(1)
+        if name not in vars_dict:
+            if "relic" in name.lower():
+                vars_dict[name] = "one of your Relics" if "owned" in name.lower() else "a random Relic"
+            elif "card" in name.lower():
+                vars_dict[name] = "a random Card"
+            elif "potion" in name.lower():
+                vars_dict[name] = "a random Potion"
+            else:
+                readable = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', name)
+                readable = re.sub(r'\d+', '', readable).strip()
+                vars_dict[name] = readable
+
+    # Dynamically-added vars via LocString.Add("VarName", value)
+    for m in re.finditer(r'\.Add\(\s*"(\w+)"\s*,', content):
+        name = m.group(1)
+        if name not in vars_dict:
+            nl = name.lower()
+            if nl == "potion":
+                vars_dict[name] = "a Potion"
+            elif "relic" in nl:
+                vars_dict[name] = "a random Relic"
+            elif "card" in nl:
+                vars_dict[name] = "a random Card"
+            elif "potion" in nl:
+                vars_dict[name] = "a random Potion"
+
+    # RelicOption patterns: RelicOption<ClassName>() — extract relic names for options
+    for m in re.finditer(r'RelicOption<(\w+)>', content):
+        relic_class = m.group(1)
+        entity_id = class_name_to_id(relic_class)
+        title = title_map.get(entity_id)
+        if title:
+            vars_dict[relic_class] = title
+
     # Also get vars from standard extraction
-    vars_dict.update(extract_vars_from_source(content))
+    standard_vars = extract_vars_from_source(content)
+    for k, v in standard_vars.items():
+        if k not in vars_dict:
+            vars_dict[k] = v
 
     return vars_dict
+
+
+def load_relic_descriptions() -> dict[str, str]:
+    """Load relic descriptions for enriching RelicOption events."""
+    relic_file = OUTPUT / "relics.json"
+    if relic_file.exists():
+        with open(relic_file, "r", encoding="utf-8") as f:
+            relics = json.load(f)
+        return {r["id"]: r["description"] for r in relics}
+    return {}
+
+
+_relic_desc_cache: dict[str, str] | None = None
+
+
+def get_relic_descriptions() -> dict[str, str]:
+    global _relic_desc_cache
+    if _relic_desc_cache is None:
+        _relic_desc_cache = load_relic_descriptions()
+    return _relic_desc_cache
 
 
 def parse_options_from_localization(
@@ -160,12 +266,17 @@ def parse_page_options(
             option_name = rest.split(".")[0]
             option_keys.add(option_name)
 
+    relic_descs = get_relic_descriptions()
     for opt_name in sorted(option_keys):
         title_raw = localization.get(f"{prefix}{opt_name}.title", opt_name)
         title = strip_rich_tags(resolve_description(title_raw, vars_dict))
         desc_raw = localization.get(f"{prefix}{opt_name}.description", "")
         desc_resolved = resolve_description(desc_raw, vars_dict) if desc_raw else ""
         desc_clean = strip_rich_tags(desc_resolved)
+        if not desc_clean:
+            relic_desc = relic_descs.get(opt_name)
+            if relic_desc:
+                desc_clean = f"Obtain [gold]{title}[/gold]. {relic_desc}"
         option = {
             "id": opt_name,
             "title": title,
@@ -333,8 +444,8 @@ def parse_single_event(
     desc_resolved_zh = resolve_description(desc_raw_zh, vars_dict_zh) if desc_raw_zh else ""
     desc_clean_zh = strip_rich_tags(desc_resolved_zh)
 
-    # Options (choices)
-    options = parse_options_from_localization(
+    # Options (choices) — skip for Ancient events, offerings are handled as relics
+    options = [] if is_ancient else parse_options_from_localization(
         event_id,
         localization,
         vars_dict,

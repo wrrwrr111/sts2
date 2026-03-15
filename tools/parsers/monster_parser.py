@@ -2,15 +2,11 @@
 import json
 import re
 from pathlib import Path
+from path_utils import DECOMPILED, IMAGES_ROOT, LOCALIZATION_EN, LOCALIZATION_ZH, OUTPUT
 
-BASE = Path(__file__).resolve().parents[2]
-DECOMPILED = BASE / "extraction" / "decompiled"
-LOCALIZATION_EN = BASE / "extraction" / "raw" / "localization" / "eng"
-LOCALIZATION_ZH = BASE / "extraction" / "raw" / "localization" / "zhs"
 MONSTERS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Monsters"
 ENCOUNTERS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Encounters"
-IMAGES_DIR = BASE / "public" / "images" / "monsters"
-OUTPUT = BASE / "data"
+IMAGES_DIR = IMAGES_ROOT / "monsters"
 
 
 def class_name_to_id(name: str) -> str:
@@ -164,6 +160,12 @@ def parse_single_monster(filepath: Path, localization: dict, localization_zh: di
         "BOWLBUG_NECTAR": "bowlbug_nectar",
         "BOWLBUG_ROCK": "bowlbug_rock",
         "BOWLBUG_SILK": "bowlbug_silk",
+        "CRUSHER": "crusher",
+        "ROCKET": "rocket",
+        "DOORMAKER": "doormaker",
+        "FLYCONID": "flyconid",
+        "OVICOPTER": "ovicopter",
+        "DECIMILLIPEDE_SEGMENT": "decimillipede",
     }
     img_name = IMAGE_ALIASES.get(monster_id, monster_id.lower())
     image_file = IMAGES_DIR / f"{img_name}.png"

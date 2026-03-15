@@ -1,17 +1,13 @@
 """Parse card data from decompiled C# files and localization JSON."""
 import json
-import os
 import re
 from pathlib import Path
+from description_resolver import resolve_description as shared_resolve_description, extract_vars_from_source
+from path_utils import DECOMPILED, IMAGES_ROOT, LOCALIZATION_EN, LOCALIZATION_ZH, OUTPUT
 
-BASE = Path(__file__).resolve().parents[2]
-DECOMPILED = BASE / "extraction" / "decompiled"
-LOCALIZATION_EN = BASE / "extraction" / "raw" / "localization" / "eng"
-LOCALIZATION_ZH = BASE / "extraction" / "raw" / "localization" / "zhs"
 CARDS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Cards"
 POOLS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.CardPools"
-STATIC_IMAGES = BASE / "public" / "images" / "cards"
-OUTPUT = BASE / "data"
+STATIC_IMAGES = IMAGES_ROOT / "cards"
 
 CARD_TYPE_MAP = {0: "None", 1: "Attack", 2: "Skill", 3: "Power", 4: "Status", 5: "Curse", 6: "Quest"}
 CARD_RARITY_MAP = {0: "None", 1: "Basic", 2: "Common", 3: "Uncommon", 4: "Rare", 5: "Ancient", 6: "Event", 7: "Token", 8: "Status", 9: "Curse", 10: "Quest"}
@@ -92,25 +88,12 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
 
     card_id = class_name_to_id(class_name)
 
-    # Extract dynamic vars
+    # Extract dynamic vars using shared extractor first
     damage = None
     block = None
     magic_number = None
     keywords = []
-    # Collect ALL var values into a dict for description rendering
-    all_vars: dict[str, int] = {}
-
-    # DamageVar patterns
-    dmg_match = re.search(r'new DamageVar\((\d+)m', content)
-    if dmg_match:
-        damage = int(dmg_match.group(1))
-        all_vars["Damage"] = damage
-
-    # BlockVar patterns
-    blk_match = re.search(r'new BlockVar\((\d+)m', content)
-    if blk_match:
-        block = int(blk_match.group(1))
-        all_vars["Block"] = block
+    all_vars: dict[str, int] = extract_vars_from_source(content)
 
     # PowerVar patterns - collect all
     powers_applied = []
@@ -120,34 +103,12 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
         powers_applied.append({"power": power_name.replace("Power", ""), "amount": power_val})
         all_vars[power_name] = power_val
 
-    # Generic Var patterns: new XxxVar(Nm) or new XxxVar(N)
-    for vm in re.finditer(r'new (\w+)Var(?:<\w+>)?\((\d+)m?\)', content):
-        var_type = vm.group(1)
-        var_val = int(vm.group(2))
-        # Map var type to template name
-        var_map = {
-            "Cards": "Cards", "Energy": "Energy", "HpLoss": "HpLoss",
-            "ExtraDamage": "ExtraDamage", "Repeat": "Repeat", "Summon": "Summon",
-            "Forge": "Forge", "Gold": "Gold", "Heal": "Heal", "MaxHp": "MaxHp",
-            "Stars": "Stars", "OstyDamage": "OstyDamage", "Int": "Int",
-            "CalculatedDamage": "CalculatedDamage", "CalculatedBlock": "CalculatedBlock",
-            "CalculationBase": "CalculationBase", "CalculationExtra": "CalculationExtra",
-            "Calculated": "Calculated",
-        }
-        name = var_map.get(var_type, var_type)
-        if name not in all_vars:
-            all_vars[name] = var_val
-
-    # Also capture named DynamicVar instances: Xxx = new DynamicVar("Xxx", N)
-    for dv in re.finditer(r'new DynamicVar\("(\w+)",\s*(\d+)m?\)', content):
-        all_vars[dv.group(1)] = int(dv.group(2))
-    # DynamicVar with just a number: new DynamicVar(N)
-    for dv in re.finditer(r'(\w+)\s*=\s*new DynamicVar\((\d+)m?\)', content):
-        all_vars[dv.group(1)] = int(dv.group(2))
-
-    # IntVar: Xxx = new IntVar(N)
-    for iv in re.finditer(r'(\w+)\s*=\s*new IntVar\((\d+)\)', content):
-        all_vars[iv.group(1)] = int(iv.group(2))
+    # Extract explicit Damage/Block from vars
+    damage = all_vars.get("Damage")
+    block = all_vars.get("Block")
+    if damage is None and "OstyDamage" in all_vars:
+        damage = all_vars["OstyDamage"]
+        all_vars["Damage"] = damage
 
     # Star cost: CanonicalStarCost => N means the card costs stars
     star_cost_match = re.search(r'CanonicalStarCost\s*=>\s*(\d+)', content)
@@ -230,6 +191,22 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
         if re.search(rf'CardTag\.{tag}', content):
             tags.append(tag)
 
+    # Related/spawned cards
+    related = set()
+    all_card_files = {f.stem for f in CARDS_DIR.glob("*.cs")}
+    for m in re.finditer(r'HoverTipFactory\.FromCard(?:WithCardHoverTips)?<(\w+)>', content):
+        related.add(m.group(1))
+    for m in re.finditer(r'CreateCard<(\w+)>', content):
+        related.add(m.group(1))
+    for m in re.finditer(r'(\w+)\.Create\(', content):
+        if m.group(1) in all_card_files:
+            related.add(m.group(1))
+    for m in re.finditer(r'\.OfType<(\w+)>\(\)', content):
+        if m.group(1) in all_card_files:
+            related.add(m.group(1))
+    related.discard(class_name)
+    spawns_cards = sorted(class_name_to_id(s) for s in related) if related else None
+
     # Multi-hit
     hit_count = None
     hit_match = re.search(r'WithHitCount\((\d+)\)', content)
@@ -247,89 +224,8 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
     # Character color from pool
     color = card_pools.get(class_name, "unknown")
 
-    # Render description by resolving template vars
-    def resolve_description(raw: str, vars_dict: dict[str, int], is_upgraded: bool = False) -> str:
-        """Resolve SmartFormat templates in card descriptions."""
-        text = raw
-
-        # Handle {IfUpgraded:show:A|B} or {IfUpgraded:show:A}
-        def resolve_if_upgraded(m):
-            parts = m.group(1)
-            if "|" in parts:
-                a, b = parts.split("|", 1)
-                return a if is_upgraded else b
-            return parts if is_upgraded else ""
-        text = re.sub(r'\{IfUpgraded:show:([^}]*)\}', resolve_if_upgraded, text)
-
-        # Handle {Var:energyIcons()} and {Var:energyIcons(N)} -> [energy:N]
-        def resolve_energy_icons(m):
-            var_name = m.group(1)
-            explicit_count = m.group(2)
-            if explicit_count:
-                return f"[energy:{explicit_count}]"
-            val = vars_dict.get(var_name, 1)
-            return f"[energy:{val}]"
-        text = re.sub(r'\{(\w+):energyIcons\((\d*)\)\}', resolve_energy_icons, text)
-
-        # Handle {Var:starIcons()} -> [star:N]
-        def resolve_star_icons(m):
-            var_name = m.group(1)
-            val = vars_dict.get(var_name, 1)
-            return f"[star:{val}]"
-        text = re.sub(r'\{(\w+):starIcons\(\)\}', resolve_star_icons, text)
-
-        # Handle {SingleStarIcon} -> [star:1]
-        text = re.sub(r'\{SingleStarIcon\}', '[star:1]', text, flags=re.IGNORECASE)
-
-        # Handle {Var:plural:singular|plural}
-        def resolve_plural(m):
-            var_name = m.group(1)
-            singular = m.group(2)
-            plural_form = m.group(3)
-            val = vars_dict.get(var_name, 2)
-            return singular if val == 1 else plural_form
-        text = re.sub(r'\{(\w+):plural:([^|]+)\|([^}]+)\}', resolve_plural, text)
-
-        # Handle {Var:diff()} -> value
-        def resolve_diff(m):
-            var_name = m.group(1)
-            val = vars_dict.get(var_name)
-            if val is None:
-                # Try case-insensitive lookup
-                for k, v in vars_dict.items():
-                    if k.lower() == var_name.lower():
-                        return str(v)
-                return "X"
-            return str(val)
-        text = re.sub(r'\{(\w+):diff\(\)\}', resolve_diff, text)
-
-        # Handle remaining {Var} without formatter
-        def resolve_bare(m):
-            var_name = m.group(1)
-            val = vars_dict.get(var_name)
-            if val is None:
-                for k, v in vars_dict.items():
-                    if k.lower() == var_name.lower():
-                        return str(v)
-            return str(val) if val is not None else ""
-        text = re.sub(r'\{(\w+)\}', resolve_bare, text)
-
-        # Handle {Var:cond:...} and other complex formatters we can't resolve -> just show value
-        def resolve_remaining(m):
-            inner = m.group(1)
-            var_name = inner.split(":")[0]
-            val = vars_dict.get(var_name)
-            if val is None:
-                for k, v in vars_dict.items():
-                    if k.lower() == var_name.lower():
-                        return str(v)
-            return str(val) if val is not None else ""
-        text = re.sub(r'\{([^}]+)\}', resolve_remaining, text)
-
-        return text
-
-    desc_rendered = resolve_description(description, all_vars)
-    desc_rendered_zh = resolve_description(description_zh, all_vars)
+    desc_rendered = shared_resolve_description(description, all_vars)
+    desc_rendered_zh = shared_resolve_description(description_zh, all_vars)
 
     def apply_upgrade(vars_dict: dict[str, int], upgrade_dict: dict) -> dict[str, int]:
         """Apply upgrade deltas to a vars dict, matching keys case-insensitively."""
@@ -397,6 +293,7 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
         "hp_loss": hp_loss,
         "keywords": keywords if keywords else None,
         "tags": tags if tags else None,
+        "spawns_cards": spawns_cards,
         "vars": all_vars if all_vars else None,
         "upgrade": {},
         "image_url": f"/images/cards/{card_id.lower()}.png" if (STATIC_IMAGES / f"{card_id.lower()}.png").exists() else None,
@@ -411,18 +308,43 @@ def parse_single_card(filepath: Path, localization: dict, localization_zh: dict,
         card["upgrade"]["cost"] = cost_upgrade
 
     # Upgrade power vars
-    for pm in re.finditer(r'(\w+)\.UpgradeValueBy\((\d+)m\)', content):
+    for pm in re.finditer(r'(\w+)\.UpgradeValueBy\((-?\d+)m\)', content):
         var_name = pm.group(1)
         val = int(pm.group(2))
         if var_name not in ("Damage", "Block"):
-            card["upgrade"][var_name.lower()] = f"+{val}"
+            card["upgrade"][var_name.lower()] = f"{val:+d}"
+
+    # Upgrade vars — dictionary access: ["VarName"].UpgradeValueBy(Nm)
+    for pm in re.finditer(r'\["(\w+)"\]\.UpgradeValueBy\((-?\d+)m\)', content):
+        var_name = pm.group(1)
+        val = int(pm.group(2))
+        if var_name.lower() not in card["upgrade"]:
+            card["upgrade"][var_name.lower()] = f"{val:+d}"
+
+    # Keyword upgrades in OnUpgrade
+    upgrade_block_match = re.search(r'void\s+OnUpgrade\(\)\s*\{', content)
+    if upgrade_block_match:
+        start = upgrade_block_match.end()
+        depth = 1
+        i = start
+        while i < len(content) and depth > 0:
+            if content[i] == '{':
+                depth += 1
+            elif content[i] == '}':
+                depth -= 1
+            i += 1
+        upgrade_body = content[start:i - 1]
+        for km in re.finditer(r'AddKeyword\(CardKeyword\.(\w+)\)', upgrade_body):
+            card["upgrade"][f"add_{km.group(1).lower()}"] = True
+        for km in re.finditer(r'RemoveKeyword\(CardKeyword\.(\w+)\)', upgrade_body):
+            card["upgrade"][f"remove_{km.group(1).lower()}"] = True
 
     if not card["upgrade"]:
         card["upgrade"] = None
     else:
         upgraded_vars = apply_upgrade(all_vars, card["upgrade"])
-        card["description_upgraded"] = resolve_description(description, upgraded_vars, True)
-        card["description_upgraded_zh"] = resolve_description(description_zh, upgraded_vars, True)
+        card["description_upgraded"] = shared_resolve_description(description, upgraded_vars, True)
+        card["description_upgraded_zh"] = shared_resolve_description(description_zh, upgraded_vars, True)
 
     return card
 
