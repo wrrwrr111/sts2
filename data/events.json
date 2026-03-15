@@ -1179,9 +1179,9 @@
       {
         "id": "REST",
         "title": "Rest",
-        "description": "Heal [green]0[/green] HP. Fight some [red]enemies[/red].",
+        "description": "Heal [green]30% Max HP[/green] HP. Fight some [red]enemies[/red].",
         "title_zh": "休息",
-        "description_zh": "回复[green]0[/green]点生命。[red]进入战斗[/red]。"
+        "description_zh": "回复[green]30% Max HP[/green]点生命。[red]进入战斗[/red]。"
       },
       {
         "id": "TRUDGE_ON",
@@ -1200,9 +1200,9 @@
           {
             "id": "REST",
             "title": "Rest",
-            "description": "Heal [green]0[/green] HP. Fight some [red]enemies[/red].",
+            "description": "Heal [green]30% Max HP[/green] HP. Fight some [red]enemies[/red].",
             "title_zh": "休息",
-            "description_zh": "回复[green]0[/green]点生命。[red]进入战斗[/red]。"
+            "description_zh": "回复[green]30% Max HP[/green]点生命。[red]进入战斗[/red]。"
           },
           {
             "id": "TRUDGE_ON",
@@ -1322,9 +1322,9 @@
           {
             "id": "TAKE",
             "title": "TAKE",
-            "description": "Receive [gold][Relic Name][/gold].",
+            "description": "Receive [gold]a random Relic[/gold].",
             "title_zh": null,
-            "description_zh": "获得[gold][Relic Name][/gold]。"
+            "description_zh": "获得[gold]a random Relic[/gold]。"
           }
         ]
       },
@@ -1541,8 +1541,8 @@
       },
       {
         "id": "GRAB_SOMETHING_OFF_THE_BELT",
-        "description": "You grab the [gold][Last Dish Title][/gold] from the belt and scarf it down.\n[green]Tasty![/green]",
-        "description_zh": "你从传送带上拿了盘[gold][Last Dish Title][/gold]转眼间就吃完了。\n[green]好吃！[/green]",
+        "description": "You grab the [gold]Last Dish Title[/gold] from the belt and scarf it down.\n[green]Tasty![/green]",
+        "description_zh": "你从传送带上拿了盘[gold]Last Dish Title[/gold]转眼间就吃完了。\n[green]好吃！[/green]",
         "options": [
           {
             "id": "LEAVE",
@@ -1732,16 +1732,16 @@
       {
         "id": "BIG_MUSHROOM",
         "title": "Big Mushroom",
-        "description": "",
+        "description": "Obtain [gold]Big Mushroom[/gold]. Upon pickup, raise your Max HP by [blue]20[/blue]. At the start of each combat, draw [blue]2[/blue] fewer cards.",
         "title_zh": "大蘑菇",
-        "description_zh": null
+        "description_zh": ""
       },
       {
         "id": "FRAGRANT_MUSHROOM",
         "title": "Fragrant Mushroom",
-        "description": "",
+        "description": "Obtain [gold]Fragrant Mushroom[/gold]. Upon pickup, lose [red]15[/red] HP and [gold]Upgrade[/gold] [blue]3[/blue] random cards.",
         "title_zh": "芳香蘑菇",
-        "description_zh": null
+        "description_zh": ""
       }
     ],
     "pages": [
@@ -1763,16 +1763,16 @@
           {
             "id": "BIG_MUSHROOM",
             "title": "Big Mushroom",
-            "description": "",
+            "description": "Obtain [gold]Big Mushroom[/gold]. Upon pickup, raise your Max HP by [blue]20[/blue]. At the start of each combat, draw [blue]2[/blue] fewer cards.",
             "title_zh": "大蘑菇",
-            "description_zh": null
+            "description_zh": ""
           },
           {
             "id": "FRAGRANT_MUSHROOM",
             "title": "Fragrant Mushroom",
-            "description": "",
+            "description": "Obtain [gold]Fragrant Mushroom[/gold]. Upon pickup, lose [red]15[/red] HP and [gold]Upgrade[/gold] [blue]3[/blue] random cards.",
             "title_zh": "芳香蘑菇",
-            "description_zh": null
+            "description_zh": ""
           }
         ]
       },
@@ -2835,15 +2835,7 @@
     "act": "Act 2 - Hive",
     "description": "Puppet puppet!! All the way up here?! Take these, take take!",
     "description_zh": "傀儡傀儡！！一路来到这里？！收下这些，拿去拿去！",
-    "options": [
-      {
-        "id": "OPTION_POOL_3_LOCKED",
-        "title": "Locked",
-        "description": "You have no starter relics or cards.",
-        "title_zh": "锁定",
-        "description_zh": "你没有初始遗物或卡牌。"
-      }
-    ],
+    "options": null,
     "pages": null,
     "epithet": "Living Rainbow",
     "dialogue": {
@@ -3791,23 +3783,23 @@
       {
         "id": "BOTTOM",
         "title": "Take the Bottom One",
-        "description": "Trade [gold][Bottom Relic Owned][/gold] for [gold][Bottom Relic New][/gold].",
+        "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
         "title_zh": "拿下面那件",
-        "description_zh": "用[gold][Bottom Relic Owned][/gold]换[gold][Bottom Relic New][/gold]。"
+        "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
       },
       {
         "id": "MIDDLE",
         "title": "Take the Middle One",
-        "description": "Trade [gold][Middle Relic Owned][/gold] for [gold][Middle Relic New][/gold].",
+        "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
         "title_zh": "拿中间这件",
-        "description_zh": "用[gold][Middle Relic Owned][/gold]换[gold][Middle Relic New][/gold]。"
+        "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
       },
       {
         "id": "TOP",
         "title": "Take the Top One",
-        "description": "Trade [gold][Top Relic Owned][/gold] for [gold][Top Relic New][/gold].",
+        "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
         "title_zh": "拿上面那件",
-        "description_zh": "用[gold][Top Relic Owned][/gold]换[gold][Top Relic New][/gold]。"
+        "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
       }
     ],
     "pages": [
@@ -3824,23 +3816,23 @@
           {
             "id": "BOTTOM",
             "title": "Take the Bottom One",
-            "description": "Trade [gold][Bottom Relic Owned][/gold] for [gold][Bottom Relic New][/gold].",
+            "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
             "title_zh": "拿下面那件",
-            "description_zh": "用[gold][Bottom Relic Owned][/gold]换[gold][Bottom Relic New][/gold]。"
+            "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
           },
           {
             "id": "MIDDLE",
             "title": "Take the Middle One",
-            "description": "Trade [gold][Middle Relic Owned][/gold] for [gold][Middle Relic New][/gold].",
+            "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
             "title_zh": "拿中间这件",
-            "description_zh": "用[gold][Middle Relic Owned][/gold]换[gold][Middle Relic New][/gold]。"
+            "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
           },
           {
             "id": "TOP",
             "title": "Take the Top One",
-            "description": "Trade [gold][Top Relic Owned][/gold] for [gold][Top Relic New][/gold].",
+            "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
             "title_zh": "拿上面那件",
-            "description_zh": "用[gold][Top Relic Owned][/gold]换[gold][Top Relic New][/gold]。"
+            "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
           }
         ]
       }
@@ -4189,16 +4181,16 @@
       {
         "id": "HOLD_ON_0",
         "title": "Hold On",
-        "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+        "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
         "title_zh": "再撑一会",
-        "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+        "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
       },
       {
         "id": "OVERCOME",
         "title": "Overcome",
-        "description": "[red][Random Card][/red] is removed from your [gold]Deck[/gold].",
+        "description": "[red]a random Card[/red] is removed from your [gold]Deck[/gold].",
         "title_zh": "跨越",
-        "description_zh": "[red][Random Card][/red]将从你的[gold]牌组[/gold]中被移除。"
+        "description_zh": "[red]a random Card[/red]将从你的[gold]牌组[/gold]中被移除。"
       }
     ],
     "pages": [
@@ -4210,9 +4202,9 @@
           {
             "id": "HOLD_ON_1",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4224,9 +4216,9 @@
           {
             "id": "HOLD_ON_2",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4238,9 +4230,9 @@
           {
             "id": "HOLD_ON_3",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4252,9 +4244,9 @@
           {
             "id": "HOLD_ON_4",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4266,9 +4258,9 @@
           {
             "id": "HOLD_ON_5",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4280,9 +4272,9 @@
           {
             "id": "HOLD_ON_6",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4294,9 +4286,9 @@
           {
             "id": "HOLD_ON_LOOP",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4308,9 +4300,9 @@
           {
             "id": "HOLD_ON_LOOP",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           }
         ]
       },
@@ -4322,16 +4314,16 @@
           {
             "id": "HOLD_ON_0",
             "title": "Hold On",
-            "description": "Lose [red][Hp Loss][/red] HP. The card in the above option is randomized.",
+            "description": "Lose [red]3+[/red] HP. The card in the above option is randomized.",
             "title_zh": "再撑一会",
-            "description_zh": "失去[red][Hp Loss][/red]点生命。重新随机上方选项中的卡牌。"
+            "description_zh": "失去[red]3+[/red]点生命。重新随机上方选项中的卡牌。"
           },
           {
             "id": "OVERCOME",
             "title": "Overcome",
-            "description": "[red][Random Card][/red] is removed from your [gold]Deck[/gold].",
+            "description": "[red]a random Card[/red] is removed from your [gold]Deck[/gold].",
             "title_zh": "跨越",
-            "description_zh": "[red][Random Card][/red]将从你的[gold]牌组[/gold]中被移除。"
+            "description_zh": "[red]a random Card[/red]将从你的[gold]牌组[/gold]中被移除。"
           }
         ]
       },
@@ -4489,9 +4481,9 @@
       {
         "id": "LIFT",
         "title": "Drink and Lift",
-        "description": "Lose [red][Drink Random Potion][/red]. Gain [blue]10[/blue] Max HP.",
+        "description": "Lose [red]a random Potion[/red]. Gain [blue]10[/blue] Max HP.",
         "title_zh": "喝药抬起",
-        "description_zh": "失去[red][Drink Random Potion][/red]。获得[blue]10[/blue]最大生命。"
+        "description_zh": "失去[red]a random Potion[/red]。获得[blue]10[/blue]最大生命。"
       },
       {
         "id": "LIFT_LOCKED",
@@ -4524,9 +4516,9 @@
           {
             "id": "LIFT",
             "title": "Drink and Lift",
-            "description": "Lose [red][Drink Random Potion][/red]. Gain [blue]10[/blue] Max HP.",
+            "description": "Lose [red]a random Potion[/red]. Gain [blue]10[/blue] Max HP.",
             "title_zh": "喝药抬起",
-            "description_zh": "失去[red][Drink Random Potion][/red]。获得[blue]10[/blue]最大生命。"
+            "description_zh": "失去[red]a random Potion[/red]。获得[blue]10[/blue]最大生命。"
           },
           {
             "id": "LIFT_LOCKED",
@@ -4553,8 +4545,8 @@
       },
       {
         "id": "LIFT",
-        "description": "You slam the [gold][Drink Random Potion][/gold] down and [jitter]lift with all your might[/jitter]!!\n\nNothing happens.",
-        "description_zh": "你一口闷了[gold][Drink Random Potion][/gold]，然后[jitter]用全身的力气试图抬起那块石头[/jitter]！！\n\n什么也没发生。"
+        "description": "You slam the [gold]a random Potion[/gold] down and [jitter]lift with all your might[/jitter]!!\n\nNothing happens.",
+        "description_zh": "你一口闷了[gold]a random Potion[/gold]，然后[jitter]用全身的力气试图抬起那块石头[/jitter]！！\n\n什么也没发生。"
       },
       {
         "id": "PUSH",
@@ -5773,9 +5765,9 @@
       {
         "id": "POTION",
         "title": "Insert [Rarity] Potion",
-        "description": "Lose [gold][Potion][/gold]. Obtain an [gold]Upgraded[/gold] [gold][Rarity] [Type][/gold].",
+        "description": "Lose [gold]a Potion[/gold]. Obtain an [gold]Upgraded[/gold] [gold][Rarity] [Type][/gold].",
         "title_zh": "放入[Rarity]药水",
-        "description_zh": "失去[gold][Potion][/gold]。获得一张[gold]升级过[/gold]的[gold][Rarity][Type]牌[/gold]。"
+        "description_zh": "失去[gold]a Potion[/gold]。获得一张[gold]升级过[/gold]的[gold][Rarity][Type]牌[/gold]。"
       }
     ],
     "pages": [
@@ -5792,9 +5784,9 @@
           {
             "id": "POTION",
             "title": "Insert [Rarity] Potion",
-            "description": "Lose [gold][Potion][/gold]. Obtain an [gold]Upgraded[/gold] [gold][Rarity] [Type][/gold].",
+            "description": "Lose [gold]a Potion[/gold]. Obtain an [gold]Upgraded[/gold] [gold][Rarity] [Type][/gold].",
             "title_zh": "放入[Rarity]药水",
-            "description_zh": "失去[gold][Potion][/gold]。获得一张[gold]升级过[/gold]的[gold][Rarity][Type]牌[/gold]。"
+            "description_zh": "失去[gold]a Potion[/gold]。获得一张[gold]升级过[/gold]的[gold][Rarity][Type]牌[/gold]。"
           }
         ]
       }
@@ -7014,9 +7006,9 @@
       {
         "id": "FEATURED_ITEM",
         "title": "Wongo's Featured Item",
-        "description": "Pay [red]200[/red] [gold]Gold[/gold]. Obtain [gold][Random Relic][/gold].",
+        "description": "Pay [red]200[/red] [gold]Gold[/gold]. Obtain [gold]a random Relic[/gold].",
         "title_zh": "旺购的特选商品",
-        "description_zh": "支付[red]200[/red][gold]金币[/gold]。获得[gold][Random Relic][/gold]。"
+        "description_zh": "支付[red]200[/red][gold]金币[/gold]。获得[gold]a random Relic[/gold]。"
       },
       {
         "id": "FEATURED_ITEM_LOCKED",
@@ -7085,9 +7077,9 @@
           {
             "id": "FEATURED_ITEM",
             "title": "Wongo's Featured Item",
-            "description": "Pay [red]200[/red] [gold]Gold[/gold]. Obtain [gold][Random Relic][/gold].",
+            "description": "Pay [red]200[/red] [gold]Gold[/gold]. Obtain [gold]a random Relic[/gold].",
             "title_zh": "旺购的特选商品",
-            "description_zh": "支付[red]200[/red][gold]金币[/gold]。获得[gold][Random Relic][/gold]。"
+            "description_zh": "支付[red]200[/red][gold]金币[/gold]。获得[gold]a random Relic[/gold]。"
           },
           {
             "id": "FEATURED_ITEM_LOCKED",

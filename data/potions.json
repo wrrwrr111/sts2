@@ -8,7 +8,8 @@
     "description_raw": "[gold]Exhaust[/gold] any number of cards in your [gold]Hand[/gold].",
     "description_raw_zh": "[gold]消耗[/gold]你[gold]手牌[/gold]中的任意张牌。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/ashwater.png"
+    "image_url": "/images/potions/ashwater.png",
+    "pool": "ironclad"
   },
   {
     "id": "ATTACK_POTION",
@@ -19,7 +20,8 @@
     "description_raw": "Choose [blue]1[/blue] of [blue]3[/blue] random Attack cards to add into your [gold]Hand[/gold]. It's free to play this turn.",
     "description_raw_zh": "从[blue]3[/blue]张随机攻击牌中选择[blue]1[/blue]张加入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。",
     "rarity": "Common",
-    "image_url": "/images/potions/attack_potion.png"
+    "image_url": "/images/potions/attack_potion.png",
+    "pool": "shared"
   },
   {
     "id": "BEETLE_JUICE",
@@ -30,7 +32,8 @@
     "description_raw": "Enemy's attacks deal [blue]{DamageDecrease}%[/blue] less damage {Repeat:plural:next turn|for the next [blue]{}[/blue] turns}.",
     "description_raw_zh": "敌人的攻击在下[blue]{Repeat}[/blue]个回合中造成的伤害减少[blue]{DamageDecrease}%[/blue]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/beetle_juice.png"
+    "image_url": "/images/potions/beetle_juice.png",
+    "pool": "shared"
   },
   {
     "id": "BLESSING_OF_THE_FORGE",
@@ -41,7 +44,8 @@
     "description_raw": "[gold]Upgrade[/gold] all cards in your [gold]Hand[/gold] for the rest of combat.",
     "description_raw_zh": "在本场战斗中[gold]升级[/gold]你[gold]手牌[/gold]中的所有牌。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/blessing_of_the_forge.png"
+    "image_url": "/images/potions/blessing_of_the_forge.png",
+    "pool": "shared"
   },
   {
     "id": "BLOCK_POTION",
@@ -52,7 +56,8 @@
     "description_raw": "Gain [blue]{Block}[/blue] [gold]Block[/gold].",
     "description_raw_zh": "获得[blue]{Block}[/blue]点[gold]格挡[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/block_potion.png"
+    "image_url": "/images/potions/block_potion.png",
+    "pool": "shared"
   },
   {
     "id": "BLOOD_POTION",
@@ -63,7 +68,8 @@
     "description_raw": "Heal for [green]{HealPercent}%[/green] of your Max HP.",
     "description_raw_zh": "回复你最大生命值的[green]{HealPercent}%[/green]。",
     "rarity": "Common",
-    "image_url": "/images/potions/blood_potion.png"
+    "image_url": "/images/potions/blood_potion.png",
+    "pool": "ironclad"
   },
   {
     "id": "BONE_BREW",
@@ -74,7 +80,8 @@
     "description_raw": "[gold]Summon[/gold] [blue]{Summon}[/blue].",
     "description_raw_zh": "[gold]召唤[/gold][blue]{Summon}[/blue]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/bone_brew.png"
+    "image_url": "/images/potions/bone_brew.png",
+    "pool": "necrobinder"
   },
   {
     "id": "BOTTLED_POTENTIAL",
@@ -85,7 +92,8 @@
     "description_raw": "Shuffle ALL your cards into your [gold]Draw Pile[/gold]. Draw [blue]{Cards}[/blue] {Cards:plural:card|cards}.",
     "description_raw_zh": "将你的所有牌洗入你的[gold]抽牌堆[/gold]。抽[blue]{Cards}[/blue]张牌。",
     "rarity": "Rare",
-    "image_url": "/images/potions/bottled_potential.png"
+    "image_url": "/images/potions/bottled_potential.png",
+    "pool": "shared"
   },
   {
     "id": "CLARITY",
@@ -96,7 +104,8 @@
     "description_raw": "Draw [blue]{Cards}[/blue] {Cards:plural:card|cards}. At the start of your next {ClarityPower:plural:turn|[blue]{}[/blue] turns}, draw [blue]1[/blue] additional card.",
     "description_raw_zh": "抽[blue]{Cards}[/blue]张牌。在你的下[blue]{ClarityPower}[/blue]个回合开始时，额外[blue]1[/blue]张牌。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/clarity.png"
+    "image_url": "/images/potions/clarity.png",
+    "pool": "shared"
   },
   {
     "id": "COLORLESS_POTION",
@@ -107,7 +116,8 @@
     "description_raw": "Choose [blue]1[/blue] of [blue]3[/blue] random Colorless cards to add into your [gold]Hand[/gold]. It's free to play this turn.",
     "description_raw_zh": "从[blue]3[/blue]张随机无色牌中选择[blue]1[/blue]张加入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。",
     "rarity": "Common",
-    "image_url": "/images/potions/colorless_potion.png"
+    "image_url": "/images/potions/colorless_potion.png",
+    "pool": "shared"
   },
   {
     "id": "COSMIC_CONCOCTION",
@@ -118,7 +128,8 @@
     "description_raw": "Add [blue]{Cards}[/blue] [gold]Upgraded[/gold] Colorless {Cards:plural:card|cards} into your [gold]Hand[/gold].",
     "description_raw_zh": "将[blue]{Cards}[/blue]张[gold]升级[/gold]的无色牌加入你的[gold]手牌[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/cosmic_concoction.png"
+    "image_url": "/images/potions/cosmic_concoction.png",
+    "pool": "regent"
   },
   {
     "id": "CUNNING_POTION",
@@ -129,7 +140,8 @@
     "description_raw": "Add [blue]{Cards}[/blue] [gold]Upgraded {Cards:plural:Shiv|Shivs}[/gold] into your [gold]Hand[/gold].",
     "description_raw_zh": "将[blue]{Cards}[/blue]张[gold]小刀+[/gold]加入你的[gold]手牌[/gold]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/cunning_potion.png"
+    "image_url": "/images/potions/cunning_potion.png",
+    "pool": "silent"
   },
   {
     "id": "CURE_ALL",
@@ -140,7 +152,8 @@
     "description_raw": "Gain {Energy:energyIcons()}. Draw [blue]{Cards}[/blue] {Cards:plural:card|cards}.",
     "description_raw_zh": "获得{Energy:energyIcons()}。抽[blue]{Cards}[/blue]张牌。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/cure_all.png"
+    "image_url": "/images/potions/cure_all.png",
+    "pool": "shared"
   },
   {
     "id": "DEXTERITY_POTION",
@@ -151,7 +164,8 @@
     "description_raw": "Gain [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
     "description_raw_zh": "获得[blue]{DexterityPower}[/blue]点[gold]敏捷[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/dexterity_potion.png"
+    "image_url": "/images/potions/dexterity_potion.png",
+    "pool": "shared"
   },
   {
     "id": "DISTILLED_CHAOS",
@@ -162,7 +176,8 @@
     "description_raw": "Play the top [blue]{Repeat}[/blue] cards of your [gold]Draw Pile[/gold].",
     "description_raw_zh": "打出你[gold]抽牌堆[/gold]顶部的[blue]{Repeat}[/blue]张牌。",
     "rarity": "Rare",
-    "image_url": "/images/potions/distilled_chaos.png"
+    "image_url": "/images/potions/distilled_chaos.png",
+    "pool": "shared"
   },
   {
     "id": "DROPLET_OF_PRECOGNITION",
@@ -173,7 +188,8 @@
     "description_raw": "Choose a card in your [gold]Draw Pile[/gold] and add it into your [gold]Hand[/gold].",
     "description_raw_zh": "选择你[gold]抽牌堆[/gold]中的一张牌加入你的[gold]手牌[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/droplet_of_precognition.png"
+    "image_url": "/images/potions/droplet_of_precognition.png",
+    "pool": "shared"
   },
   {
     "id": "DUPLICATOR",
@@ -184,7 +200,8 @@
     "description_raw": "This turn, your next card is played an extra time.",
     "description_raw_zh": "本回合，你打出的下一张牌会额外打出一次。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/duplicator.png"
+    "image_url": "/images/potions/duplicator.png",
+    "pool": "shared"
   },
   {
     "id": "ENERGY_POTION",
@@ -195,7 +212,8 @@
     "description_raw": "Gain {Energy:energyIcons()}.",
     "description_raw_zh": "获得{Energy:energyIcons()}。",
     "rarity": "Common",
-    "image_url": "/images/potions/energy_potion.png"
+    "image_url": "/images/potions/energy_potion.png",
+    "pool": "shared"
   },
   {
     "id": "ENTROPIC_BREW",
@@ -206,7 +224,8 @@
     "description_raw": "Fill all your empty potion slots with random potions.",
     "description_raw_zh": "在所有空药水栏位中获得随机药水。",
     "rarity": "Rare",
-    "image_url": "/images/potions/entropic_brew.png"
+    "image_url": "/images/potions/entropic_brew.png",
+    "pool": "shared"
   },
   {
     "id": "ESSENCE_OF_DARKNESS",
@@ -217,7 +236,8 @@
     "description_raw": "[gold]Channel[/gold] a [gold]Dark[/gold] for each of your [gold]Orb Slots[/gold].",
     "description_raw_zh": "[gold]生成[/gold]你[gold]充能球栏位[/gold]数量个[gold]黑暗[/gold]充能球。",
     "rarity": "Rare",
-    "image_url": "/images/potions/essence_of_darkness.png"
+    "image_url": "/images/potions/essence_of_darkness.png",
+    "pool": "defect"
   },
   {
     "id": "EXPLOSIVE_AMPOULE",
@@ -228,7 +248,8 @@
     "description_raw": "Deal [blue]{Damage}[/blue] damage to ALL enemies.",
     "description_raw_zh": "对所有敌人造成[blue]{Damage}[/blue]点伤害。",
     "rarity": "Common",
-    "image_url": "/images/potions/explosive_ampoule.png"
+    "image_url": "/images/potions/explosive_ampoule.png",
+    "pool": "shared"
   },
   {
     "id": "FAIRY_IN_A_BOTTLE",
@@ -239,7 +260,8 @@
     "description_raw": "When you would die, instead this potion is discarded and you heal to [blue]30%[/blue] of your Max HP.",
     "description_raw_zh": "当你将要死亡时，改为丢弃这瓶药水，然后将你回复到你最大生命值的[blue]30%[/blue]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/fairy_in_a_bottle.png"
+    "image_url": "/images/potions/fairy_in_a_bottle.png",
+    "pool": "shared"
   },
   {
     "id": "FIRE_POTION",
@@ -250,7 +272,8 @@
     "description_raw": "Deal [blue]{Damage}[/blue] damage.",
     "description_raw_zh": "造成[blue]{Damage}[/blue]点伤害。",
     "rarity": "Common",
-    "image_url": "/images/potions/fire_potion.png"
+    "image_url": "/images/potions/fire_potion.png",
+    "pool": "shared"
   },
   {
     "id": "FLEX_POTION",
@@ -261,7 +284,8 @@
     "description_raw": "Gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold]. At the end of your turn, lose [blue]{StrengthPower}[/blue] [gold]Strength[/gold].",
     "description_raw_zh": "获得[blue]{StrengthPower}[/blue]点[gold]力量[/gold]。在你的这个回合结束时，失去[blue]{StrengthPower}[/blue]点[gold]力量[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/flex_potion.png"
+    "image_url": "/images/potions/flex_potion.png",
+    "pool": "shared"
   },
   {
     "id": "FOCUS_POTION",
@@ -272,7 +296,8 @@
     "description_raw": "Gain [blue]{FocusPower}[/blue] [gold]Focus[/gold].",
     "description_raw_zh": "获得[blue]{FocusPower}[/blue]点[gold]集中[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/focus_potion.png"
+    "image_url": "/images/potions/focus_potion.png",
+    "pool": "defect"
   },
   {
     "id": "FORTIFIER",
@@ -283,7 +308,8 @@
     "description_raw": "Triple your [gold]Block[/gold].",
     "description_raw_zh": "将你的[gold]格挡[/gold]变为三倍。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/fortifier.png"
+    "image_url": "/images/potions/fortifier.png",
+    "pool": "shared"
   },
   {
     "id": "FOUL_POTION",
@@ -294,7 +320,8 @@
     "description_raw": "Deal [blue]{Damage}[/blue] damage to EVERYONE.\nCan be thrown at the [gold]Merchant[/gold] for [blue]{Gold}[/blue] [gold]Gold[/gold] instead.",
     "description_raw_zh": "对所有人造成[blue]{Damage}[/blue]点伤害。\n也可以投掷给[gold]商人[/gold]换取[blue]{Gold}[/blue][gold]金币[/gold]。",
     "rarity": "Event",
-    "image_url": "/images/potions/foul_potion.png"
+    "image_url": "/images/potions/foul_potion.png",
+    "pool": "event"
   },
   {
     "id": "FRUIT_JUICE",
@@ -305,7 +332,8 @@
     "description_raw": "Gain [blue]{MaxHp}[/blue] Max HP.",
     "description_raw_zh": "获得[blue]{MaxHp}[/blue]点最大生命值。",
     "rarity": "Rare",
-    "image_url": "/images/potions/fruit_juice.png"
+    "image_url": "/images/potions/fruit_juice.png",
+    "pool": "shared"
   },
   {
     "id": "FYSH_OIL",
@@ -316,7 +344,8 @@
     "description_raw": "Gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] and [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
     "description_raw_zh": "获得[blue]{StrengthPower}[/blue]点[gold]力量[/gold]和[blue]{DexterityPower}[/blue]点[gold]敏捷[/gold]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/fysh_oil.png"
+    "image_url": "/images/potions/fysh_oil.png",
+    "pool": "shared"
   },
   {
     "id": "GAMBLERS_BREW",
@@ -327,7 +356,8 @@
     "description_raw": "Discard any number of cards, then draw that many.",
     "description_raw_zh": "丢弃任意张牌，然后抽相同数量的牌。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/gamblers_brew.png"
+    "image_url": "/images/potions/gamblers_brew.png",
+    "pool": "shared"
   },
   {
     "id": "GHOST_IN_A_JAR",
@@ -338,7 +368,8 @@
     "description_raw": "Gain [blue]1[/blue] [gold]Intangible[/gold].",
     "description_raw_zh": "获得[blue]1[/blue]层[gold]无实体[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/ghost_in_a_jar.png"
+    "image_url": "/images/potions/ghost_in_a_jar.png",
+    "pool": "silent"
   },
   {
     "id": "GIGANTIFICATION_POTION",
@@ -349,7 +380,8 @@
     "description_raw": "The next Attack you play deals triple damage.",
     "description_raw_zh": "你打出的下一张攻击牌将会造成三倍伤害。",
     "rarity": "Rare",
-    "image_url": "/images/potions/gigantification_potion.png"
+    "image_url": "/images/potions/gigantification_potion.png",
+    "pool": "shared"
   },
   {
     "id": "GLOWWATER_POTION",
@@ -360,7 +392,8 @@
     "description_raw": "[gold]Exhaust[/gold] your [gold]Hand[/gold]. Draw [blue]{Cards}[/blue] cards.",
     "description_raw_zh": "[gold]消耗[/gold]你的[gold]手牌[/gold]。抽[blue]{Cards}[/blue]张牌。",
     "rarity": "Event",
-    "image_url": "/images/potions/glowwater_potion.png"
+    "image_url": "/images/potions/glowwater_potion.png",
+    "pool": "event"
   },
   {
     "id": "HEART_OF_IRON",
@@ -371,7 +404,8 @@
     "description_raw": "Gain [blue]{PlatingPower}[/blue] [gold]Plating[/gold].",
     "description_raw_zh": "获得[blue]{PlatingPower}[/blue]层[gold]覆甲[/gold]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/heart_of_iron.png"
+    "image_url": "/images/potions/heart_of_iron.png",
+    "pool": "shared"
   },
   {
     "id": "KINGS_COURAGE",
@@ -382,7 +416,8 @@
     "description_raw": "[gold]Forge[/gold] [blue]{Forge}[/blue].",
     "description_raw_zh": "[gold]铸造[/gold][blue]{Forge}[/blue]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/kings_courage.png"
+    "image_url": "/images/potions/kings_courage.png",
+    "pool": "regent"
   },
   {
     "id": "LIQUID_BRONZE",
@@ -393,7 +428,8 @@
     "description_raw": "Gain [blue]{ThornsPower}[/blue] [gold]Thorns[/gold].",
     "description_raw_zh": "获得[blue]{ThornsPower}[/blue]点[gold]荆棘[/gold]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/liquid_bronze.png"
+    "image_url": "/images/potions/liquid_bronze.png",
+    "pool": "shared"
   },
   {
     "id": "LIQUID_MEMORIES",
@@ -404,7 +440,8 @@
     "description_raw": "Put a card from your [gold]Discard Pile[/gold] into your [gold]Hand[/gold]. It costs [blue]0[/blue] {energyPrefix:energyIcons(1)} this turn.",
     "description_raw_zh": "将你[gold]弃牌堆[/gold]中的一张牌放入你的[gold]手牌[/gold]。这张牌在本回合的{energyPrefix:energyIcons(1)}费用为[blue]0[/blue]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/liquid_memories.png"
+    "image_url": "/images/potions/liquid_memories.png",
+    "pool": "shared"
   },
   {
     "id": "LUCKY_TONIC",
@@ -415,7 +452,8 @@
     "description_raw": "Gain [blue]{BufferPower}[/blue] [gold]Buffer[/gold].",
     "description_raw_zh": "获得[blue]{BufferPower}[/blue]层[gold]缓冲[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/lucky_tonic.png"
+    "image_url": "/images/potions/lucky_tonic.png",
+    "pool": "shared"
   },
   {
     "id": "MAZALETHS_GIFT",
@@ -426,7 +464,8 @@
     "description_raw": "Gain [blue]{RitualPower}[/blue] [gold]Ritual[/gold].",
     "description_raw_zh": "获得[blue]{RitualPower}[/blue]层[gold]仪式[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/mazaleths_gift.png"
+    "image_url": "/images/potions/mazaleths_gift.png",
+    "pool": "shared"
   },
   {
     "id": "OROBIC_ACID",
@@ -437,7 +476,8 @@
     "description_raw": "Add a random Attack, Skill, and Power into your [gold]Hand[/gold]. They're free to play this turn.",
     "description_raw_zh": "往你的[gold]手牌[/gold]中加入一张随机攻击牌、一张随机技能牌和一张随机能力牌。这些牌在本回合免费。",
     "rarity": "Rare",
-    "image_url": "/images/potions/orobic_acid.png"
+    "image_url": "/images/potions/orobic_acid.png",
+    "pool": "shared"
   },
   {
     "id": "POISON_POTION",
@@ -448,7 +488,8 @@
     "description_raw": "Apply [blue]{PoisonPower}[/blue] [gold]Poison[/gold].",
     "description_raw_zh": "给予[blue]{PoisonPower}[/blue]层[gold]中毒[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/poison_potion.png"
+    "image_url": "/images/potions/poison_potion.png",
+    "pool": "silent"
   },
   {
     "id": "POT_OF_GHOULS",
@@ -459,7 +500,8 @@
     "description_raw": "Add [blue]{Cards}[/blue] [gold]{Cards:plural:Soul|Souls}[/gold] into your [gold]Hand[/gold].",
     "description_raw_zh": "将[blue]{Cards}[/blue]张[gold]灵魂[/gold]加入你的[gold]手牌[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/pot_of_ghouls.png"
+    "image_url": "/images/potions/pot_of_ghouls.png",
+    "pool": "necrobinder"
   },
   {
     "id": "POTION_OF_BINDING",
@@ -470,7 +512,8 @@
     "description_raw": "Apply [blue]{WeakPower:diff()}[/blue] [gold]Weak[/gold] and [blue]{VulnerablePower:diff()}[/blue] [gold]Vulnerable[/gold] to ALL enemies.",
     "description_raw_zh": "给予所有敌人[blue]{WeakPower:diff()}[/blue]层[gold]虚弱[/gold]和[blue]{VulnerablePower:diff()}[/blue]层[gold]易伤[/gold]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/potion_of_binding.png"
+    "image_url": "/images/potions/potion_of_binding.png",
+    "pool": "shared"
   },
   {
     "id": "POTION_OF_CAPACITY",
@@ -481,7 +524,8 @@
     "description_raw": "Gain [blue]{Repeat}[/blue] [gold]Orb {Repeat:plural:Slot|Slots}[/gold].",
     "description_raw_zh": "获得[blue]{Repeat}[/blue]个[gold]充能球栏位[/gold]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/potion_of_capacity.png"
+    "image_url": "/images/potions/potion_of_capacity.png",
+    "pool": "defect"
   },
   {
     "id": "POTION_OF_DOOM",
@@ -492,7 +536,8 @@
     "description_raw": "Apply [blue]{DoomPower}[/blue] [gold]Doom[/gold].",
     "description_raw_zh": "给予[blue]{DoomPower}[/blue]层[gold]灾厄[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/potion_of_doom.png"
+    "image_url": "/images/potions/potion_of_doom.png",
+    "pool": "necrobinder"
   },
   {
     "id": "POTION_SHAPED_ROCK",
@@ -503,7 +548,8 @@
     "description_raw": "Deal [blue]{Damage}[/blue] damage.",
     "description_raw_zh": "造成[blue]{Damage}[/blue]点伤害。",
     "rarity": "Token",
-    "image_url": "/images/potions/potion_shaped_rock.png"
+    "image_url": "/images/potions/potion_shaped_rock.png",
+    "pool": "shared"
   },
   {
     "id": "POWDERED_DEMISE",
@@ -514,7 +560,8 @@
     "description_raw": "Enemy loses [blue]{Demise}[/blue] HP at the end of each of its turns.",
     "description_raw_zh": "敌人在自身的每个回合结束时，失去[blue]{Demise}[/blue]点生命。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/powdered_demise.png"
+    "image_url": "/images/potions/powdered_demise.png",
+    "pool": "shared"
   },
   {
     "id": "POWER_POTION",
@@ -525,7 +572,8 @@
     "description_raw": "Choose [blue]1[/blue] of [blue]3[/blue] random Power cards to add into your [gold]Hand[/gold]. It's free to play this turn.",
     "description_raw_zh": "从[blue]3[/blue]张随机能力牌中选择[blue]1[/blue]张加入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。",
     "rarity": "Common",
-    "image_url": "/images/potions/power_potion.png"
+    "image_url": "/images/potions/power_potion.png",
+    "pool": "shared"
   },
   {
     "id": "RADIANT_TINCTURE",
@@ -536,7 +584,8 @@
     "description_raw": "Gain {Energy:energyIcons()}. Gain an additional {energyPrefix:energyIcons(1)} at the start of your next [blue]{RadiancePower}[/blue] {RadiancePower:plural:turn|turns}.",
     "description_raw_zh": "获得{Energy:energyIcons()}。在你的下[blue]{RadiancePower}[/blue]个回合开始时，额外获得{energyPrefix:energyIcons(1)}。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/radiant_tincture.png"
+    "image_url": "/images/potions/radiant_tincture.png",
+    "pool": "shared"
   },
   {
     "id": "REGEN_POTION",
@@ -547,7 +596,8 @@
     "description_raw": "Gain [green]{RegenPower}[/green] [gold]Regen[/gold].",
     "description_raw_zh": "获得[green]{RegenPower}[/green]层[gold]再生[/gold]。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/regen_potion.png"
+    "image_url": "/images/potions/regen_potion.png",
+    "pool": "shared"
   },
   {
     "id": "SHACKLING_POTION",
@@ -558,7 +608,8 @@
     "description_raw": "ALL enemies lose [blue]{StrengthPower}[/blue] [gold]Strength[/gold] this turn.",
     "description_raw_zh": "所有敌人在这个回合失去[blue]{StrengthPower}[/blue]点[gold]力量[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/shackling_potion.png"
+    "image_url": "/images/potions/shackling_potion.png",
+    "pool": "shared"
   },
   {
     "id": "SHIP_IN_A_BOTTLE",
@@ -569,7 +620,8 @@
     "description_raw": "Gain [blue]{Block:diff()}[/blue] [gold]Block[/gold]. Next turn, gain [blue]{Block:diff()}[/blue] [gold]Block[/gold].",
     "description_raw_zh": "获得[blue]{Block:diff()}[/blue]点[gold]格挡[/gold]。在下个回合开始时获得[blue]{Block:diff()}[/blue]点[gold]格挡[/gold]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/ship_in_a_bottle.png"
+    "image_url": "/images/potions/ship_in_a_bottle.png",
+    "pool": "shared"
   },
   {
     "id": "SKILL_POTION",
@@ -580,7 +632,8 @@
     "description_raw": "Choose [blue]1[/blue] of [blue]3[/blue] random Skill cards to add into your [gold]Hand[/gold]. It's free to play this turn.",
     "description_raw_zh": "从[blue]3[/blue]张随机技能牌中选择[blue]1[/blue]张加入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。",
     "rarity": "Common",
-    "image_url": "/images/potions/skill_potion.png"
+    "image_url": "/images/potions/skill_potion.png",
+    "pool": "shared"
   },
   {
     "id": "SNECKO_OIL",
@@ -591,7 +644,8 @@
     "description_raw": "Draw [blue]{Cards}[/blue] cards. Randomize the cost of cards in your [gold]Hand[/gold] this turn.",
     "description_raw_zh": "抽[blue]{Cards}[/blue]张牌。在本回合随机化你[gold]手牌[/gold]中所有牌的耗能。",
     "rarity": "Rare",
-    "image_url": "/images/potions/snecko_oil.png"
+    "image_url": "/images/potions/snecko_oil.png",
+    "pool": "shared"
   },
   {
     "id": "SOLDIERS_STEW",
@@ -602,7 +656,8 @@
     "description_raw": "All cards containing [gold]Strike[/gold] gain [blue]1[/blue] [gold]Replay[/gold] this combat.",
     "description_raw_zh": "在本场战斗中，所有名字中有“[gold]打击[/gold]”的牌获得[gold]重放[/gold]：[blue]1[/blue]。",
     "rarity": "Rare",
-    "image_url": "/images/potions/soldiers_stew.png"
+    "image_url": "/images/potions/soldiers_stew.png",
+    "pool": "ironclad"
   },
   {
     "id": "SPEED_POTION",
@@ -613,7 +668,8 @@
     "description_raw": "Gain [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold]. At the end of your turn, lose [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
     "description_raw_zh": "获得[blue]{DexterityPower}[/blue]点[gold]敏捷[/gold]。在你的这个回合结束时，失去[blue]{DexterityPower}[/blue]点[gold]敏捷[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/speed_potion.png"
+    "image_url": "/images/potions/speed_potion.png",
+    "pool": "shared"
   },
   {
     "id": "STABLE_SERUM",
@@ -624,7 +680,8 @@
     "description_raw": "[gold]Retain[/gold] your [gold]Hand[/gold] for [blue]{Repeat}[/blue] {Repeat:plural:turn|turns}.",
     "description_raw_zh": "[gold]保留[/gold]你的[gold]手牌[/gold][blue]{Repeat}[/blue]回合。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/stable_serum.png"
+    "image_url": "/images/potions/stable_serum.png",
+    "pool": "shared"
   },
   {
     "id": "STAR_POTION",
@@ -635,7 +692,8 @@
     "description_raw": "Gain {Stars:starIcons()}.",
     "description_raw_zh": "获得{Stars:starIcons()}。",
     "rarity": "Common",
-    "image_url": "/images/potions/star_potion.png"
+    "image_url": "/images/potions/star_potion.png",
+    "pool": "regent"
   },
   {
     "id": "STRENGTH_POTION",
@@ -646,7 +704,8 @@
     "description_raw": "Gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold].",
     "description_raw_zh": "获得[blue]{StrengthPower}[/blue]点[gold]力量[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/strength_potion.png"
+    "image_url": "/images/potions/strength_potion.png",
+    "pool": "shared"
   },
   {
     "id": "SWIFT_POTION",
@@ -657,7 +716,8 @@
     "description_raw": "Draw [blue]{Cards}[/blue] {Cards:plural:card|cards}.",
     "description_raw_zh": "抽[blue]{Cards}[/blue]张牌。",
     "rarity": "Common",
-    "image_url": "/images/potions/swift_potion.png"
+    "image_url": "/images/potions/swift_potion.png",
+    "pool": "shared"
   },
   {
     "id": "TOUCH_OF_INSANITY",
@@ -668,7 +728,8 @@
     "description_raw": "Choose a card in your [gold]Hand[/gold]. It is free to play this combat.",
     "description_raw_zh": "选择你[gold]手牌[/gold]中的一张牌，使其在本场战斗可以免费打出。",
     "rarity": "Uncommon",
-    "image_url": "/images/potions/touch_of_insanity.png"
+    "image_url": "/images/potions/touch_of_insanity.png",
+    "pool": "shared"
   },
   {
     "id": "VULNERABLE_POTION",
@@ -679,7 +740,8 @@
     "description_raw": "Apply [blue]{VulnerablePower}[/blue] [gold]Vulnerable[/gold].",
     "description_raw_zh": "给予[blue]{VulnerablePower}[/blue]层[gold]易伤[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/vulnerable_potion.png"
+    "image_url": "/images/potions/vulnerable_potion.png",
+    "pool": "shared"
   },
   {
     "id": "WEAK_POTION",
@@ -690,6 +752,7 @@
     "description_raw": "Apply [blue]{WeakPower}[/blue] [gold]Weak[/gold].",
     "description_raw_zh": "给予[blue]{WeakPower}[/blue]层[gold]虚弱[/gold]。",
     "rarity": "Common",
-    "image_url": "/images/potions/weak_potion.png"
+    "image_url": "/images/potions/weak_potion.png",
+    "pool": "shared"
   }
 ]
