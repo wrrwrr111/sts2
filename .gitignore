@@ -8,3 +8,4 @@ dist/
 .DS_Store
 .astro
 __pycache__/
+tools/.cache/
