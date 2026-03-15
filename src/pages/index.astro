@@ -45,7 +45,7 @@ const t = {
   character: isEn ? "Character" : "角色",
   cost: isEn ? "Cost" : "费用",
   search: isEn ? "Search" : "搜索",
-  all: isEn ? "All" : "全部",
+  selectAll: isEn ? "All" : "全选",
   noColor: isEn ? "Colorless" : "无色",
   status: isEn ? "Status" : "状态",
   curse: isEn ? "Curse" : "诅咒",
@@ -55,6 +55,9 @@ const t = {
   reset: isEn ? "Reset" : "重置",
   showUpgrade: isEn ? "Show Upgrade" : "显示升级",
   showBase: isEn ? "Show Base" : "显示基础",
+  filters: isEn ? "Filters" : "筛选",
+  expand: isEn ? "Expand" : "展开",
+  collapse: isEn ? "Collapse" : "收起",
   searchPlaceholder: isEn
     ? "Name / Description / Keyword"
     : "名称 / 描述 / 关键字",
@@ -96,9 +99,9 @@ const rarityOptions = [
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
   <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
       <header>
-        <div class="flex flex-wrap items-end justify-between gap-6">
+        <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
           <div>
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
               {t.navLabel}
@@ -113,102 +116,150 @@ const rarityOptions = [
       </header>
 
       <section
-        class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]"
+        class="flex flex-col gap-2 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-3 py-3 sm:gap-3 sm:px-[18px] sm:py-[14px]"
         aria-label="Card filters"
       >
-        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
-          <span>{t.type}</span>
-          <select
-            id="filter-type"
-            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
+        <div class="mb-1 flex items-center justify-between sm:hidden">
+          <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">{t.filters}</div>
+          <button
+            type="button"
+            id="card-filter-toggle"
+            data-label-expand={t.expand}
+            data-label-collapse={t.collapse}
+            class="h-8 rounded-[10px] border border-white/20 bg-white/10 px-3 text-[12px] text-[#f7f1df] transition hover:bg-white/20"
+            aria-expanded="true"
           >
-            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+            {t.collapse}
+          </button>
+        </div>
+
+        <div id="card-filter-body" class="flex flex-col gap-3">
+        <div class="flex flex-col gap-1.5 text-[13px] text-[#b6bbcc] sm:flex-row sm:items-start sm:gap-3">
+          <span class="shrink-0 pt-1 text-[12px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:w-[74px]">{t.type}</span>
+          <div class="flex flex-wrap gap-2 sm:flex-1" data-filter-group="type">
+            <button
+              type="button"
+              data-filter-all
+              class="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[12px] text-[#fdf0d8] transition"
+              aria-pressed="true"
+            >
+              {t.selectAll}
+            </button>
             {typeOptions.map((opt) => (
-              <option value={opt.value} class="bg-[#1a1c24] text-[#f4f4f1]">
+              <button
+                type="button"
+                data-filter-value={opt.value}
+                class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10"
+                aria-pressed="false"
+              >
                 {opt.label}
-              </option>
+              </button>
             ))}
-          </select>
-        </label>
+          </div>
+        </div>
 
-        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
-          <span>{t.rarity}</span>
-          <select
-            id="filter-rarity"
-            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
-          >
-            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+        <div class="flex flex-col gap-1.5 text-[13px] text-[#b6bbcc] sm:flex-row sm:items-start sm:gap-3">
+          <span class="shrink-0 pt-1 text-[12px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:w-[74px]">{t.rarity}</span>
+          <div class="flex flex-wrap gap-2 sm:flex-1" data-filter-group="rarity">
+            <button
+              type="button"
+              data-filter-all
+              class="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[12px] text-[#fdf0d8] transition"
+              aria-pressed="true"
+            >
+              {t.selectAll}
+            </button>
             {rarityOptions.map((opt) => (
-              <option value={opt.value} class="bg-[#1a1c24] text-[#f4f4f1]">
+              <button
+                type="button"
+                data-filter-value={opt.value}
+                class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10"
+                aria-pressed="false"
+              >
                 {opt.label}
-              </option>
+              </button>
             ))}
-          </select>
-        </label>
+          </div>
+        </div>
 
-        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
-          <span>{t.character}</span>
-          <select
-            id="filter-color"
-            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
-          >
-            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+        <div class="flex flex-col gap-1.5 text-[13px] text-[#b6bbcc] sm:flex-row sm:items-start sm:gap-3">
+          <span class="shrink-0 pt-1 text-[12px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:w-[74px]">{t.character}</span>
+          <div class="flex flex-wrap gap-2 sm:flex-1" data-filter-group="color">
+            <button
+              type="button"
+              data-filter-all
+              class="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[12px] text-[#fdf0d8] transition"
+              aria-pressed="true"
+            >
+              {t.selectAll}
+            </button>
             {characterOptions.map((opt) => (
-              <option value={opt.value} class="bg-[#1a1c24] text-[#f4f4f1]">
+              <button
+                type="button"
+                data-filter-value={opt.value}
+                class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10"
+                aria-pressed="false"
+              >
                 {opt.label}
-              </option>
+              </button>
             ))}
-            <option value="colorless" class="bg-[#1a1c24] text-[#f4f4f1]">{t.noColor}</option>
-            <option value="status" class="bg-[#1a1c24] text-[#f4f4f1]">{t.status}</option>
-            <option value="curse" class="bg-[#1a1c24] text-[#f4f4f1]">{t.curse}</option>
-            <option value="event" class="bg-[#1a1c24] text-[#f4f4f1]">{t.event}</option>
-            <option value="token" class="bg-[#1a1c24] text-[#f4f4f1]">{t.token}</option>
-            <option value="quest" class="bg-[#1a1c24] text-[#f4f4f1]">{t.quest}</option>
-          </select>
-        </label>
+            <button type="button" data-filter-value="colorless" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">{t.noColor}</button>
+            <button type="button" data-filter-value="status" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">{t.status}</button>
+            <button type="button" data-filter-value="curse" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">{t.curse}</button>
+            <button type="button" data-filter-value="event" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">{t.event}</button>
+            <button type="button" data-filter-value="token" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">{t.token}</button>
+            <button type="button" data-filter-value="quest" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">{t.quest}</button>
+          </div>
+        </div>
 
-        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
-          <span>{t.cost}</span>
-          <select
-            id="filter-cost"
-            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
-          >
-            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
-            <option value="0" class="bg-[#1a1c24] text-[#f4f4f1]">0</option>
-            <option value="1" class="bg-[#1a1c24] text-[#f4f4f1]">1</option>
-            <option value="2" class="bg-[#1a1c24] text-[#f4f4f1]">2</option>
-            <option value="3" class="bg-[#1a1c24] text-[#f4f4f1]">3</option>
-            <option value="4+" class="bg-[#1a1c24] text-[#f4f4f1]">4+</option>
-            <option value="X" class="bg-[#1a1c24] text-[#f4f4f1]">X</option>
-          </select>
-        </label>
+        <div class="flex flex-col gap-1.5 text-[13px] text-[#b6bbcc] sm:flex-row sm:items-start sm:gap-3">
+          <span class="shrink-0 pt-1 text-[12px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:w-[74px]">{t.cost}</span>
+          <div class="flex flex-wrap gap-2 sm:flex-1" data-filter-group="cost">
+            <button
+              type="button"
+              data-filter-all
+              class="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[12px] text-[#fdf0d8] transition"
+              aria-pressed="true"
+            >
+              {t.selectAll}
+            </button>
+            <button type="button" data-filter-value="0" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">0</button>
+            <button type="button" data-filter-value="1" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">1</button>
+            <button type="button" data-filter-value="2" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">2</button>
+            <button type="button" data-filter-value="3" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">3</button>
+            <button type="button" data-filter-value="4+" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">4+</button>
+            <button type="button" data-filter-value="X" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10" aria-pressed="false">X</button>
+          </div>
+        </div>
 
-        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
-          <span>{t.search}</span>
-          <input
-            id="filter-search"
-            type="search"
-            placeholder={t.searchPlaceholder}
-            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20"
-          />
+        <label class="flex flex-col gap-1.5 text-[13px] text-[#b6bbcc] sm:flex-row sm:items-center sm:gap-3">
+          <span class="shrink-0 text-[12px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:w-[74px]">{t.search}</span>
+          <div class="flex flex-col gap-2 sm:flex-1 sm:flex-row">
+            <input
+              id="filter-search"
+              type="search"
+              placeholder={t.searchPlaceholder}
+              class="h-9 rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-0 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20 sm:flex-1"
+            />
+            <button
+              type="button"
+              id="filter-reset"
+              class="h-9 rounded-[10px] border border-white/20 bg-white/15 px-3 text-[#f7f1df] hover:bg-white/20 transition-colors"
+            >
+              {t.reset}
+            </button>
+            <button
+              type="button"
+              id="toggle-upgrade"
+              data-label-upgrade={t.showUpgrade}
+              data-label-base={t.showBase}
+              class="h-9 rounded-[10px] border border-white/20 bg-white/15 px-3 text-[#f7f1df] hover:bg-white/20 transition-colors"
+            >
+              {t.showUpgrade}
+            </button>
+          </div>
         </label>
-
-        <button
-          type="button"
-          id="filter-reset"
-          class="rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors"
-        >
-          {t.reset}
-        </button>
-        <button
-          type="button"
-          id="toggle-upgrade"
-          data-label-upgrade={t.showUpgrade}
-          data-label-base={t.showBase}
-          class="rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors"
-        >
-          {t.showUpgrade}
-        </button>
+        </div>
       </section>
 
       <section
@@ -218,11 +269,9 @@ const rarityOptions = [
         {
           cards.map((card) => {
             return (
-              <div class="card-tile mx-auto h-[253px] w-[180px]">
-                <a class="block" href={withLang(`${base}/card/${card.id}`, lang)}>
-                  <CardView card={card} lang={lang} />
-                </a>
-              </div>
+              <a class="block card-tile" href={withLang(`${base}/card/${card.id}`, lang)}>
+                <CardView card={card} lang={lang} />
+              </a>
             );
           })
         }
@@ -234,18 +283,104 @@ const rarityOptions = [
 <script>
   const byId = (id: string): HTMLElement | null =>
     document.getElementById(id);
-  const typeEl = byId("filter-type") as HTMLSelectElement | null;
-  const rarityEl = byId("filter-rarity") as HTMLSelectElement | null;
-  const colorEl = byId("filter-color") as HTMLSelectElement | null;
-  const costEl = byId("filter-cost") as HTMLSelectElement | null;
+  const filterToggleEl = byId("card-filter-toggle") as HTMLButtonElement | null;
+  const filterBodyEl = byId("card-filter-body") as HTMLElement | null;
   const searchEl = byId("filter-search") as HTMLInputElement | null;
   const resetEl = byId("filter-reset") as HTMLButtonElement | null;
+  const groups = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-filter-group]"),
+  ).map((el) => ({
+    el,
+    name: el.dataset.filterGroup ?? "",
+    values: Array.from(
+      el.querySelectorAll<HTMLButtonElement>("[data-filter-value]"),
+    )
+      .map((btn) => btn.dataset.filterValue ?? "")
+      .filter(Boolean),
+    selected: new Set<string>(["all"]),
+  }));
+  const groupMap = new Map(groups.map((group) => [group.name, group]));
+
+  const setupFilterCollapse = (
+    toggleEl: HTMLButtonElement | null,
+    bodyEl: HTMLElement | null,
+  ) => {
+    if (!toggleEl || !bodyEl) return;
+    const mobileMq = window.matchMedia("(max-width: 639px)");
+    let collapsed = mobileMq.matches;
+
+    const render = () => {
+      const shouldHide = mobileMq.matches && collapsed;
+      bodyEl.classList.toggle("hidden", shouldHide);
+      const expandLabel = toggleEl.dataset.labelExpand ?? "展开";
+      const collapseLabel = toggleEl.dataset.labelCollapse ?? "收起";
+      toggleEl.textContent = shouldHide ? expandLabel : collapseLabel;
+      toggleEl.setAttribute("aria-expanded", shouldHide ? "false" : "true");
+    };
+
+    render();
+    toggleEl.addEventListener("click", () => {
+      collapsed = !collapsed;
+      render();
+    });
+    const onMediaChange = () => {
+      collapsed = mobileMq.matches;
+      render();
+    };
+    if ("addEventListener" in mobileMq) {
+      mobileMq.addEventListener("change", onMediaChange);
+    } else {
+      mobileMq.addListener(onMediaChange);
+    }
+  };
+
+  setupFilterCollapse(filterToggleEl, filterBodyEl);
+
+  const setBtnActive = (btn: HTMLButtonElement, active: boolean) => {
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+    btn.classList.toggle("border-white/40", active);
+    btn.classList.toggle("bg-white/20", active);
+    btn.classList.toggle("text-[#fdf0d8]", active);
+    btn.classList.toggle("border-white/10", !active);
+    btn.classList.toggle("bg-white/5", !active);
+    btn.classList.toggle("text-[#cdd2e3]", !active);
+  };
+
+  const syncGroup = (group: (typeof groups)[number]) => {
+    const isAll = group.selected.has("all");
+    const allBtn = group.el.querySelector<HTMLButtonElement>("[data-filter-all]");
+    if (allBtn) setBtnActive(allBtn, isAll);
+    group.el
+      .querySelectorAll<HTMLButtonElement>("[data-filter-value]")
+      .forEach((btn) => {
+        const val = btn.dataset.filterValue ?? "";
+        setBtnActive(btn, !isAll && group.selected.has(val));
+      });
+  };
+
+  const setGroupAll = (group: (typeof groups)[number]) => {
+    group.selected = new Set(["all"]);
+    syncGroup(group);
+  };
+
+  const toggleGroupValue = (group: (typeof groups)[number], value: string) => {
+    if (group.selected.has("all")) group.selected.clear();
+    if (group.selected.has(value)) group.selected.delete(value);
+    else group.selected.add(value);
+    if (group.selected.size === 0 || group.selected.size === group.values.length) {
+      setGroupAll(group);
+      return;
+    }
+    syncGroup(group);
+  };
+
+  const matchesGroup = (name: string, value: string) => {
+    const group = groupMap.get(name);
+    if (!group) return true;
+    return group.selected.has("all") || group.selected.has(value);
+  };
 
   const applyFilters = () => {
-    const type = typeEl?.value ?? "all";
-    const rarity = rarityEl?.value ?? "all";
-    const color = colorEl?.value ?? "all";
-    const cost = costEl?.value ?? "all";
     const query = (searchEl?.value ?? "").trim().toLowerCase();
 
     document
@@ -259,10 +394,10 @@ const rarityOptions = [
         const s = el.dataset.search || "";
 
         const match =
-          (type === "all" || t === type) &&
-          (rarity === "all" || r === rarity) &&
-          (color === "all" || c === color) &&
-          (cost === "all" || k === cost) &&
+          matchesGroup("type", t) &&
+          matchesGroup("rarity", r) &&
+          matchesGroup("color", c) &&
+          matchesGroup("cost", k) &&
           (!query || s.includes(query));
 
         const wrapper = el.closest(".card-tile") as HTMLElement | null;
@@ -272,8 +407,23 @@ const rarityOptions = [
       });
   };
 
-  [typeEl, rarityEl, colorEl, costEl].forEach((el) => {
-    el?.addEventListener("change", applyFilters);
+  groups.forEach((group) => {
+    const allBtn = group.el.querySelector<HTMLButtonElement>("[data-filter-all]");
+    allBtn?.addEventListener("click", () => {
+      setGroupAll(group);
+      applyFilters();
+    });
+    group.el
+      .querySelectorAll<HTMLButtonElement>("[data-filter-value]")
+      .forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const value = btn.dataset.filterValue ?? "";
+          if (!value) return;
+          toggleGroupValue(group, value);
+          applyFilters();
+        });
+      });
+    syncGroup(group);
   });
   searchEl?.addEventListener("input", applyFilters);
 
@@ -285,10 +435,7 @@ const rarityOptions = [
   }
 
   resetEl?.addEventListener("click", () => {
-    if (typeEl) typeEl.value = "all";
-    if (rarityEl) rarityEl.value = "all";
-    if (colorEl) colorEl.value = "all";
-    if (costEl) costEl.value = "all";
+    groups.forEach((group) => setGroupAll(group));
     if (searchEl) searchEl.value = "";
     applyFilters();
   });

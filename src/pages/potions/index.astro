@@ -61,8 +61,11 @@ const t = {
   count: isEn ? `${potions.length} potions` : `共 ${potions.length} 个药剂`,
   rarity: isEn ? "Rarity" : "稀有度",
   search: isEn ? "Search" : "搜索",
-  all: isEn ? "All" : "全部",
+  selectAll: isEn ? "All" : "全选",
   reset: isEn ? "Reset" : "重置",
+  filters: isEn ? "Filters" : "筛选",
+  expand: isEn ? "Expand" : "展开",
+  collapse: isEn ? "Collapse" : "收起",
   searchPlaceholder: isEn ? "Name / Description" : "名称 / 描述",
   unknown: isEn ? "Unknown" : "未知",
 };
@@ -81,8 +84,8 @@ const t = {
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
   <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-6">
-      <div class="flex flex-wrap items-end justify-between gap-6">
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
+      <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
         <div>
           <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
             {t.navLabel}
@@ -94,41 +97,67 @@ const t = {
       </div>
 
       <section
-        class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-end gap-3 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-[18px] py-[14px]"
+        class="flex flex-col gap-2 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-3 py-3 sm:gap-3 sm:px-[18px] sm:py-[14px]"
         aria-label="Potion filters"
       >
-        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
-          <span>{t.rarity}</span>
-          <select
-            id="potion-filter-rarity"
-            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] appearance-none cursor-pointer hover:bg-[#252833] focus:outline-none focus:ring-1 focus:ring-white/20"
+        <div class="mb-1 flex items-center justify-between sm:hidden">
+          <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">{t.filters}</div>
+          <button
+            type="button"
+            id="potion-filter-toggle"
+            data-label-expand={t.expand}
+            data-label-collapse={t.collapse}
+            class="h-8 rounded-[10px] border border-white/20 bg-white/10 px-3 text-[12px] text-[#f7f1df] transition hover:bg-white/20"
+            aria-expanded="true"
           >
-            <option value="all" class="bg-[#1a1c24] text-[#f4f4f1]">{t.all}</option>
+            {t.collapse}
+          </button>
+        </div>
+
+        <div id="potion-filter-body" class="flex flex-col gap-3">
+        <div class="flex flex-col gap-1.5 text-[13px] text-[#b6bbcc] sm:flex-row sm:items-start sm:gap-3">
+          <span class="shrink-0 pt-1 text-[12px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:w-[74px]">{t.rarity}</span>
+          <div class="flex flex-wrap gap-2 sm:flex-1" data-filter-group="rarity">
+            <button
+              type="button"
+              data-filter-all
+              class="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[12px] text-[#fdf0d8] transition"
+              aria-pressed="true"
+            >
+              {t.selectAll}
+            </button>
             {rarities.map((r) => (
-              <option value={r} class="bg-[#1a1c24] text-[#f4f4f1]">
+              <button
+                type="button"
+                data-filter-value={r}
+                class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[12px] text-[#cdd2e3] transition hover:border-white/25 hover:bg-white/10"
+                aria-pressed="false"
+              >
                 {rarityLabel[r] ?? r}
-              </option>
+              </button>
             ))}
-          </select>
-        </label>
+          </div>
+        </div>
 
-        <label class="grid gap-1.5 text-[13px] text-[#b6bbcc]">
-          <span>{t.search}</span>
-          <input
-            id="potion-filter-search"
-            type="search"
-            placeholder={t.searchPlaceholder}
-            class="rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-2 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20"
-          />
-        </label>
-
-        <button
-          type="button"
-          id="potion-filter-reset"
-          class="rounded-xl border border-white/20 bg-white/15 px-3.5 py-2.5 text-[#f7f1df] hover:bg-white/20 transition-colors"
-        >
-          {t.reset}
-        </button>
+        <div class="flex flex-col gap-1.5 text-[13px] text-[#b6bbcc] sm:flex-row sm:items-center sm:gap-3">
+          <span class="shrink-0 text-[12px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:w-[74px]">{t.search}</span>
+          <div class="flex flex-col gap-2 sm:flex-1 sm:flex-row">
+            <input
+              id="potion-filter-search"
+              type="search"
+              placeholder={t.searchPlaceholder}
+              class="h-9 rounded-[10px] border border-white/10 bg-[#1a1c24] px-2.5 py-0 text-[#f4f4f1] placeholder:text-[#6f7486] appearance-none focus:outline-none focus:ring-1 focus:ring-white/20 sm:flex-1"
+            />
+            <button
+              type="button"
+              id="potion-filter-reset"
+              class="h-9 rounded-[10px] border border-white/20 bg-white/15 px-3 text-[#f7f1df] hover:bg-white/20 transition-colors"
+            >
+              {t.reset}
+            </button>
+          </div>
+        </div>
+        </div>
       </section>
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -177,12 +206,78 @@ const t = {
 
 <script>
   const byId = (id: string): HTMLElement | null => document.getElementById(id);
-  const rarityEl = byId("potion-filter-rarity") as HTMLSelectElement | null;
+  const filterToggleEl = byId("potion-filter-toggle") as HTMLButtonElement | null;
+  const filterBodyEl = byId("potion-filter-body") as HTMLElement | null;
   const searchEl = byId("potion-filter-search") as HTMLInputElement | null;
   const resetEl = byId("potion-filter-reset") as HTMLButtonElement | null;
+  const rarityGroup = document.querySelector<HTMLElement>(
+    '[data-filter-group="rarity"]',
+  );
+  const rarityValues = Array.from(
+    rarityGroup?.querySelectorAll<HTMLButtonElement>("[data-filter-value]") ?? [],
+  ).map((btn) => btn.dataset.filterValue ?? "");
+  let selectedRarities = new Set<string>(["all"]);
+
+  const setupFilterCollapse = (
+    toggleEl: HTMLButtonElement | null,
+    bodyEl: HTMLElement | null,
+  ) => {
+    if (!toggleEl || !bodyEl) return;
+    const mobileMq = window.matchMedia("(max-width: 639px)");
+    let collapsed = mobileMq.matches;
+    const render = () => {
+      const shouldHide = mobileMq.matches && collapsed;
+      bodyEl.classList.toggle("hidden", shouldHide);
+      const expandLabel = toggleEl.dataset.labelExpand ?? "展开";
+      const collapseLabel = toggleEl.dataset.labelCollapse ?? "收起";
+      toggleEl.textContent = shouldHide ? expandLabel : collapseLabel;
+      toggleEl.setAttribute("aria-expanded", shouldHide ? "false" : "true");
+    };
+    render();
+    toggleEl.addEventListener("click", () => {
+      collapsed = !collapsed;
+      render();
+    });
+    const onMediaChange = () => {
+      collapsed = mobileMq.matches;
+      render();
+    };
+    if ("addEventListener" in mobileMq) {
+      mobileMq.addEventListener("change", onMediaChange);
+    } else {
+      mobileMq.addListener(onMediaChange);
+    }
+  };
+
+  setupFilterCollapse(filterToggleEl, filterBodyEl);
+
+  const setBtnActive = (btn: HTMLButtonElement, active: boolean) => {
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+    btn.classList.toggle("border-white/40", active);
+    btn.classList.toggle("bg-white/20", active);
+    btn.classList.toggle("text-[#fdf0d8]", active);
+    btn.classList.toggle("border-white/10", !active);
+    btn.classList.toggle("bg-white/5", !active);
+    btn.classList.toggle("text-[#cdd2e3]", !active);
+  };
+
+  const syncRarityGroup = () => {
+    if (!rarityGroup) return;
+    const isAll = selectedRarities.has("all");
+    const allBtn = rarityGroup.querySelector<HTMLButtonElement>("[data-filter-all]");
+    if (allBtn) setBtnActive(allBtn, isAll);
+    rarityGroup.querySelectorAll<HTMLButtonElement>("[data-filter-value]").forEach((btn) => {
+      const val = btn.dataset.filterValue ?? "";
+      setBtnActive(btn, !isAll && selectedRarities.has(val));
+    });
+  };
+
+  const setAllRarity = () => {
+    selectedRarities = new Set(["all"]);
+    syncRarityGroup();
+  };
 
   const applyFilters = () => {
-    const rarity = rarityEl?.value ?? "all";
     const query = (searchEl?.value ?? "").trim().toLowerCase();
 
     document.querySelectorAll("[data-potion]").forEach((node) => {
@@ -191,17 +286,40 @@ const t = {
       const s = el.dataset.search || "";
 
       const match =
-        (rarity === "all" || r === rarity) &&
+        (selectedRarities.has("all") || selectedRarities.has(r)) &&
         (!query || s.includes(query));
 
       el.style.display = match ? "" : "none";
     });
   };
 
-  rarityEl?.addEventListener("change", applyFilters);
+  if (rarityGroup) {
+    const allBtn = rarityGroup.querySelector<HTMLButtonElement>("[data-filter-all]");
+    allBtn?.addEventListener("click", () => {
+      setAllRarity();
+      applyFilters();
+    });
+    rarityGroup.querySelectorAll<HTMLButtonElement>("[data-filter-value]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const value = btn.dataset.filterValue ?? "";
+        if (!value) return;
+        if (selectedRarities.has("all")) selectedRarities.clear();
+        if (selectedRarities.has(value)) selectedRarities.delete(value);
+        else selectedRarities.add(value);
+        if (selectedRarities.size === 0 || selectedRarities.size === rarityValues.length) {
+          setAllRarity();
+        } else {
+          syncRarityGroup();
+        }
+        applyFilters();
+      });
+    });
+    syncRarityGroup();
+  }
+
   searchEl?.addEventListener("input", applyFilters);
   resetEl?.addEventListener("click", () => {
-    if (rarityEl) rarityEl.value = "all";
+    setAllRarity();
     if (searchEl) searchEl.value = "";
     applyFilters();
   });

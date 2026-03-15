@@ -125,22 +125,56 @@ const siteJsonLd = {
 				}
 			})();
 		</script>
-		<div class="fixed right-3 top-3 z-[999] flex items-center overflow-hidden rounded-full border border-white/15 bg-black/45 text-[11px] backdrop-blur-sm">
+		<div
+			id="lang-switcher"
+			class="fixed right-2 top-2 z-[999] flex items-center overflow-hidden rounded-full border border-white/15 bg-black/45 text-[10px] backdrop-blur-sm transition-opacity duration-200 sm:right-3 sm:top-3 sm:text-[11px]"
+		>
 			<a
 				href={zhHref}
 				aria-current={currentLang === "zh" ? "true" : undefined}
-				class={`px-2.5 py-1 transition ${currentLang === "zh" ? "bg-white/20 text-white" : "text-white/70 hover:text-white"}`}
+				class={`px-2 py-0.5 transition sm:px-2.5 sm:py-1 ${currentLang === "zh" ? "bg-white/20 text-white" : "text-white/70 hover:text-white"}`}
 			>
 				中
 			</a>
 			<a
 				href={enHref}
 				aria-current={currentLang === "en" ? "true" : undefined}
-				class={`border-l border-white/10 px-2.5 py-1 transition ${currentLang === "en" ? "bg-white/20 text-white" : "text-white/70 hover:text-white"}`}
+				class={`border-l border-white/10 px-2 py-0.5 transition sm:px-2.5 sm:py-1 ${currentLang === "en" ? "bg-white/20 text-white" : "text-white/70 hover:text-white"}`}
 			>
 				EN
 			</a>
 		</div>
+		<button
+			type="button"
+			id="back-to-top"
+			aria-label={isEn ? "Back to top" : "回到顶部"}
+			class="fixed bottom-4 right-2 z-[998] hidden h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/45 text-[12px] text-white/85 backdrop-blur-sm transition hover:bg-white/20 sm:bottom-5 sm:right-3"
+		>
+			↑
+		</button>
+		<script is:inline>
+			(() => {
+				const btn = document.getElementById("back-to-top");
+				const langSwitcher = document.getElementById("lang-switcher");
+				if (!btn) return;
+				const update = () => {
+					const scrollY = window.scrollY;
+					const showBackToTop = scrollY > 260;
+					btn.classList.toggle("hidden", !showBackToTop);
+					btn.classList.toggle("flex", showBackToTop);
+					if (langSwitcher) {
+						const hideLang = scrollY > 180;
+						langSwitcher.classList.toggle("opacity-0", hideLang);
+						langSwitcher.classList.toggle("pointer-events-none", hideLang);
+					}
+				};
+				window.addEventListener("scroll", update, { passive: true });
+				btn.addEventListener("click", () => {
+					window.scrollTo({ top: 0, behavior: "smooth" });
+				});
+				update();
+			})();
+		</script>
 		<div class="min-h-screen flex flex-col">
 			<main class="flex-1">
 				<slot />
