@@ -27,7 +27,7 @@ const origin =
   Astro.site?.toString().replace(/\/$/, "") ??
   new URL(Astro.request.url).origin;
 const canonical = new URL(`${base}/`, origin).toString();
-const pageTitle = "卡牌图鉴 | 杀戮尖塔2 中文数据库";
+const pageTitle = "卡牌库 | 杀戮尖塔2 中文资料库";
 const pageDescription = `收录杀戮尖塔2全部卡牌，共 ${cards.length} 张。支持类型、稀有度、角色、费用筛选与搜索。`;
 ---
 
