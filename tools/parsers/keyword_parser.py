@@ -12,6 +12,7 @@ ORBS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Orbs"
 AFFLICTIONS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Afflictions"
 MODIFIERS_DIR = DECOMPILED / "MegaCrit.Sts2.Core.Models.Modifiers"
 OUTPUT = BASE / "data"
+ORB_IMAGES = BASE / "public" / "images" / "orbs"
 
 
 def class_name_to_id(name: str) -> str:
@@ -105,6 +106,56 @@ def parse_orbs() -> list[dict]:
     if not loc:
         return []
 
+    def _parse_number(raw: str):
+        val = float(raw)
+        return int(val) if val.is_integer() else val
+
+    def _resolve_expr(expr: str, fields: dict[str, int | float], known: dict[str, int | float]):
+        expr = expr.strip()
+
+        m = re.fullmatch(r'([0-9]+(?:\.[0-9]+)?)m?', expr)
+        if m:
+            return _parse_number(m.group(1))
+
+        m = re.fullmatch(r'ModifyOrbValue\(([^)]+)\)', expr)
+        if m:
+            return _resolve_expr(m.group(1), fields, known)
+
+        m = re.fullmatch(r'([A-Za-z_]\w*)', expr)
+        if m:
+            token = m.group(1)
+            return fields.get(token) or known.get(token)
+
+        m = re.fullmatch(r'([A-Za-z_]\w*)\s*\*\s*([0-9]+(?:\.[0-9]+)?)m?', expr)
+        if m:
+            left = fields.get(m.group(1)) or known.get(m.group(1))
+            if left is None:
+                return None
+            return _parse_number(str(left)) * _parse_number(m.group(2))
+
+        m = re.fullmatch(r'([0-9]+(?:\.[0-9]+)?)m?\s*\*\s*([A-Za-z_]\w*)', expr)
+        if m:
+            right = fields.get(m.group(2)) or known.get(m.group(2))
+            if right is None:
+                return None
+            return _parse_number(m.group(1)) * _parse_number(str(right))
+
+        m = re.fullmatch(r'([A-Za-z_]\w*)\s*\+\s*([0-9]+(?:\.[0-9]+)?)m?', expr)
+        if m:
+            left = fields.get(m.group(1)) or known.get(m.group(1))
+            if left is None:
+                return None
+            return _parse_number(str(left)) + _parse_number(m.group(2))
+
+        m = re.fullmatch(r'([A-Za-z_]\w*)\s*-\s*([0-9]+(?:\.[0-9]+)?)m?', expr)
+        if m:
+            left = fields.get(m.group(1)) or known.get(m.group(1))
+            if left is None:
+                return None
+            return _parse_number(str(left)) - _parse_number(m.group(2))
+
+        return None
+
     orbs = []
     seen = set()
     for key in loc:
@@ -119,17 +170,38 @@ def parse_orbs() -> list[dict]:
 
         # Try to get vars from C# source
         all_vars: dict[str, int] = {}
-        # Map localization ID back to class name
-        orb_class = orb_id.replace("_", "").title().replace(" ", "") + "Orb"
+        passive_val = None
+        evoke_val = None
         # Try common names
         for cs_file in ORBS_DIR.glob("*.cs"):
-            if cs_file.stem.upper().replace("ORB", "").replace("_", "") == orb_id.replace("_", ""):
+            if class_name_to_id(cs_file.stem) == orb_id:
                 content = cs_file.read_text(encoding="utf-8")
                 all_vars = extract_vars_from_source(content)
-                # Also extract PassiveVal/EvokeVal
-                for m in re.finditer(r'(\w+)Val\s*(?:=>|=)\s*(\d+)', content):
-                    var_name = m.group(1)
-                    all_vars[var_name] = int(m.group(2))
+                # Also extract Passive/Evoke values from properties and fields
+                fields: dict[str, int | float] = {}
+                for m in re.finditer(r'private\s+decimal\s+(_\w+)\s*=\s*([0-9]+(?:\.[0-9]+)?)m?', content):
+                    fields[m.group(1)] = _parse_number(m.group(2))
+
+                prop_exprs: dict[str, str] = {}
+                for m in re.finditer(r'public\s+override\s+decimal\s+(\w+)Val\s*=>\s*([^;]+);', content):
+                    prop_exprs[m.group(1)] = m.group(2).strip()
+
+                passive_expr = prop_exprs.get("Passive")
+                if passive_expr:
+                    passive_val = _resolve_expr(passive_expr, fields, {})
+
+                evoke_expr = prop_exprs.get("Evoke")
+                if evoke_expr:
+                    known = {}
+                    if passive_val is not None:
+                        known["PassiveVal"] = passive_val
+                        known["Passive"] = passive_val
+                    evoke_val = _resolve_expr(evoke_expr, fields, known)
+
+                if passive_val is not None:
+                    all_vars["Passive"] = int(passive_val) if isinstance(passive_val, float) and passive_val.is_integer() else passive_val
+                if evoke_val is not None:
+                    all_vars["Evoke"] = int(evoke_val) if isinstance(evoke_val, float) and evoke_val.is_integer() else evoke_val
                 break
 
         desc_raw = loc.get(f"{orb_id}.smartDescription", "")
@@ -144,7 +216,10 @@ def parse_orbs() -> list[dict]:
         desc_resolved_zh = resolve_description(desc_raw_zh, all_vars) if desc_raw_zh else ""
         desc_clean_zh = clean_description(desc_resolved_zh)
 
-        orbs.append({
+        image_name = f"{orb_id.lower()}.png"
+        image_url = f"/images/orbs/{image_name}" if (ORB_IMAGES / image_name).exists() else None
+
+        orb_entry = {
             "id": orb_id,
             "name": title,
             "description": desc_clean,
@@ -152,7 +227,13 @@ def parse_orbs() -> list[dict]:
             "name_zh": title_zh if title_zh != title else None,
             "description_zh": desc_clean_zh if desc_clean_zh != desc_clean else None,
             "description_raw_zh": desc_raw_zh if desc_raw_zh != desc_raw else None,
-        })
+            "image_url": image_url,
+        }
+        if passive_val is not None:
+            orb_entry["passive"] = int(passive_val) if isinstance(passive_val, float) and passive_val.is_integer() else passive_val
+        if evoke_val is not None:
+            orb_entry["evoke"] = int(evoke_val) if isinstance(evoke_val, float) and evoke_val.is_integer() else evoke_val
+        orbs.append(orb_entry)
     return orbs
 
 
