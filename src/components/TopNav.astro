@@ -29,7 +29,7 @@ const items = [
 ] as const;
 ---
 
-<nav class='flex flex-wrap items-center justify-center gap-2 text-[11px] uppercase tracking-[0.2em] sm:text-[12px] sm:tracking-[0.25em]'>
+<nav class='order-first flex w-full flex-wrap items-center justify-center gap-2 text-[11px] uppercase tracking-[0.2em] sm:order-none sm:w-auto sm:text-[12px] sm:tracking-[0.25em]'>
   {items.map((item) => (
     <a
       class={

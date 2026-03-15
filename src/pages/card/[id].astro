@@ -1,17 +1,20 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import cardsData from "../../../data/cards.json";
+import keywordsData from "../../../data/keywords.json";
 import CardView from "../../components/CardView.astro";
-import type { Card } from "../../lib/cardModels";
+import type { Card, Keyword } from "../../lib/cardModels";
 import { TYPE_ZH } from "../../lib/cardModels";
 import TopNav from "../../components/TopNav.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
+import { formatRelicText } from "../../lib/relicText";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const lang = getLangFromUrl(Astro.url);
 const isEn = lang === "en";
 
 const cards = cardsData as Card[];
+const keywords = keywordsData as Keyword[];
 export const getStaticPaths = () =>
   (cardsData as Card[]).map((card) => ({
     params: { id: card.id },
@@ -71,7 +74,27 @@ const cardImagePath =
   normalizeImageUrl(card.beta_image_url) ??
   `/images/cards/${card.id.toLowerCase()}.png`;
 const ogImage = new URL(`${base}${cardImagePath}`, origin).toString();
-const hasUpgrade = Boolean(card.upgrade);
+const resolveIfUpgradedText = (raw: string | null, upgraded: boolean) => {
+  if (!raw) return "";
+  let text = raw;
+  for (let i = 0; i < 4; i++) {
+    const next = text.replace(
+      /\{IfUpgraded:show:([^{}|]*)\|([^{}]*)\}/g,
+      (_, upText, baseText) => (upgraded ? upText : baseText),
+    );
+    if (next === text) break;
+    text = next;
+  }
+  return text;
+};
+const rawTemplate = pickText(lang, card.description_raw_zh, card.description_raw, "");
+const hasImplicitUpgrade =
+  resolveIfUpgradedText(rawTemplate, true).trim() !==
+  resolveIfUpgradedText(rawTemplate, false).trim();
+const hasUpgrade =
+  Boolean(card.upgrade) ||
+  Boolean(card.description_upgraded || card.description_upgraded_zh) ||
+  hasImplicitUpgrade;
 const subtitle = [
   typeLabel && `${isEn ? "Type" : "类型"}: ${typeLabel}`,
   rarityLabel && `${isEn ? "Rarity" : "稀有度"}: ${rarityLabel}`,
@@ -79,10 +102,40 @@ const subtitle = [
   .filter(Boolean)
   .join(" · ");
 
+const normalizeId = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
+const cardMap = new Map(cards.map((item) => [item.id.toLowerCase(), item]));
+const cardLooseMap = new Map(cards.map((item) => [normalizeId(item.id), item]));
+const findCard = (cardId: string) =>
+  cardMap.get(cardId.toLowerCase()) ?? cardLooseMap.get(normalizeId(cardId)) ?? null;
+const spawnedCards = (card.spawns_cards ?? [])
+  .map((spawnId) => findCard(spawnId))
+  .filter((spawn): spawn is Card => Boolean(spawn));
+const hasSpawnedCards = spawnedCards.length > 0;
+const upgradedSpawnedCards = hasUpgrade ? spawnedCards : [];
+const keywordMap = new Map<string, Keyword>();
+for (const keyword of keywords) {
+  keywordMap.set(keyword.name.toLowerCase(), keyword);
+  if (keyword.name_zh) keywordMap.set(keyword.name_zh.toLowerCase(), keyword);
+}
+const keywordDetails = (card.keywords ?? [])
+  .map((kw) => {
+    const hit = keywordMap.get(kw.toLowerCase());
+    const label = hit
+      ? pickText(lang, hit.name_zh, hit.name, kw)
+      : kw;
+    const desc = hit
+      ? pickText(lang, hit.description_zh, hit.description)
+      : null;
+    return { key: kw.toLowerCase(), label, desc };
+  })
+  .filter((item, idx, arr) => arr.findIndex((x) => x.key === item.key) === idx);
+
 const t = {
   back: isEn ? "Back to Cards" : "返回卡牌",
   base: isEn ? "Base" : "普通",
   upgrade: isEn ? "Upgrade" : "升级",
+  spawns: isEn ? "Spawns" : "生成卡牌",
+  keywordTips: isEn ? "Keyword Notes" : "关键词补充说明",
 };
 ---
 
@@ -138,6 +191,85 @@ const t = {
         <div class="flex items-start">
           <CardView card={card} lang={lang} />
         </div>
+      )}
+
+      {hasSpawnedCards && (
+        <section>
+          <h2 class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+            {t.spawns}
+          </h2>
+          {hasUpgrade ? (
+            <div class="mt-2 grid gap-6">
+              {upgradedSpawnedCards.map((spawn) => (
+                <div class="flex flex-wrap items-start gap-6">
+                  <div class="flex flex-col items-center gap-2">
+                    <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+                      {t.base}
+                    </div>
+                    <a
+                      class="block transition hover:opacity-90"
+                      href={withLang(`${base}/card/${spawn.id}`, lang)}
+                      aria-label={pickText(lang, spawn.name_zh, spawn.name, spawn.id)}
+                    >
+                      <CardView card={spawn} variant="base" lang={lang} />
+                    </a>
+                  </div>
+                  <div class="flex flex-col items-center gap-2">
+                    <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+                      {t.upgrade}
+                    </div>
+                    <a
+                      class="block transition hover:opacity-90"
+                      href={withLang(`${base}/card/${spawn.id}`, lang)}
+                      aria-label={pickText(lang, spawn.name_zh, spawn.name, spawn.id)}
+                    >
+                      <CardView
+                        card={spawn}
+                        variant={spawn.upgrade ? "upgrade" : "base"}
+                        lang={lang}
+                      />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div class="mt-2 flex flex-wrap items-start gap-6">
+              {spawnedCards.map((spawn) => (
+                <a
+                  class="block transition hover:opacity-90"
+                  href={withLang(`${base}/card/${spawn.id}`, lang)}
+                  aria-label={pickText(lang, spawn.name_zh, spawn.name, spawn.id)}
+                >
+                  <CardView card={spawn} variant="base" lang={lang} />
+                </a>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {keywordDetails.length > 0 && (
+        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+          <h2 class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+            {t.keywordTips}
+          </h2>
+          <div class="mt-2 grid gap-2 sm:grid-cols-2">
+            {keywordDetails.map((keyword) => (
+              <div class="rounded-[10px] border border-white/10 bg-black/20 p-3">
+                <div class="text-[12px] font-semibold text-[#fdf0d8]">
+                  {keyword.label}
+                </div>
+                {keyword.desc && (
+                  <div
+                    class="mt-1 text-[12px] leading-[1.45] text-[#f2e5cd]"
+                    set:html={formatRelicText(keyword.desc, base)}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
       )}
     </div>
   </main>

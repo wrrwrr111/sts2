@@ -194,6 +194,8 @@ const getEventOptionDesc = (option: EventOption) =>
   pickText(lang, option.description_zh, option.description);
 const getAncientIcon = (dialogue: AncientDialogueWithEvent) =>
   normalizeImageUrl(dialogue.event?.image_url ?? null);
+const stripHtml = (text: string | null | undefined) =>
+  (text ?? "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 
 const getDeckCounts = (deck: string[] | null | undefined) => {
   const counts = new Map<string, number>();
@@ -752,6 +754,9 @@ const deckCountLabel = isEn
                                     const relic = findRelic(relicId);
                                     const relicName = getRelicName(relicId);
                                     const relicImage = getRelicImage(relic);
+                                    const relicDescHtml = relic
+                                      ? formatRelicText(getRelicDesc(relic), base)
+                                      : "";
                                     const popoverId = `offering-${idx}-${relicIdx}`;
                                     return (
                                       <div class="relative">
@@ -761,6 +766,7 @@ const deckCountLabel = isEn
                                           data-offering-trigger
                                           data-popover-id={popoverId}
                                           aria-expanded="false"
+                                          title={stripHtml(relicDescHtml) || relicName}
                                         >
                                           {relicName}
                                         </button>
@@ -788,7 +794,7 @@ const deckCountLabel = isEn
                                                 {relic ? (
                                                   <div
                                                     class="mt-1 text-[11px] leading-[1.35] text-[#f2e5cd]"
-                                                    set:html={formatRelicText(getRelicDesc(relic), base)}
+                                                    set:html={relicDescHtml}
                                                   />
                                                 ) : (
                                                   <div class="mt-1 text-[11px] text-[#9ea2b3]">
@@ -939,12 +945,22 @@ const deckCountLabel = isEn
     };
 
     const updatePosition = async (trigger: HTMLButtonElement) => {
-      const { x, y } = await computePosition(trigger, offeringPopover, {
-        placement: "top",
-        middleware: [offset(10), flip({ padding: 8 }), shift({ padding: 8 })],
-      });
-      offeringPopover.style.left = `${x}px`;
-      offeringPopover.style.top = `${y}px`;
+      try {
+        const { x, y } = await computePosition(trigger, offeringPopover, {
+          strategy: "fixed",
+          placement: "top",
+          middleware: [offset(10), flip({ padding: 8 }), shift({ padding: 8 })],
+        });
+        if (!Number.isFinite(x) || !Number.isFinite(y)) {
+          throw new Error("Invalid floating position");
+        }
+        offeringPopover.style.left = `${x}px`;
+        offeringPopover.style.top = `${y}px`;
+      } catch {
+        const rect = trigger.getBoundingClientRect();
+        offeringPopover.style.left = `${Math.max(8, rect.left)}px`;
+        offeringPopover.style.top = `${Math.max(8, rect.bottom + 8)}px`;
+      }
     };
 
     const openPopover = (trigger: HTMLButtonElement, pin: boolean) => {
@@ -965,6 +981,9 @@ const deckCountLabel = isEn
       offeringPopover.classList.remove("hidden");
       offeringPopover.style.pointerEvents = "auto";
       setTriggerExpanded(trigger, true);
+      const rect = trigger.getBoundingClientRect();
+      offeringPopover.style.left = `${rect.left}px`;
+      offeringPopover.style.top = `${rect.bottom + 8}px`;
 
       cleanupAutoUpdate?.();
       cleanupAutoUpdate = autoUpdate(trigger, offeringPopover, () => {
@@ -979,7 +998,7 @@ const deckCountLabel = isEn
       closeTimer = window.setTimeout(() => {
         if (pinned || pointerInsidePopover) return;
         closePopover();
-      }, 120);
+      }, 240);
     };
 
     for (const trigger of offeringTriggers) {
