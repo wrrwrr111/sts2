@@ -19,9 +19,9 @@ const characters = charactersData as Array<{
   color?: string | null;
 }>;
 const characterOptions = characters
-  .filter((character) => character.color)
+  .filter((character) => character.id)
   .map((character) => ({
-    value: character.color as string,
+    value: character.id.toLowerCase() as string,
     label: pickText(lang, character.name_zh, character.name, character.id),
   }));
 
