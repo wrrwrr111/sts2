@@ -1,0 +1,14 @@
+name = "sts2-votes-api"
+main = "src/index.ts"
+compatibility_date = "2026-03-17"
+workers_dev = true
+
+[vars]
+THROTTLE_SECONDS = "8"
+CORS_ORIGIN = "*"
+LOG_LEVEL = "warn"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sts2_votes"
+database_id = "d6ea94c5-9980-4c7c-8e52-9163e750b61e"

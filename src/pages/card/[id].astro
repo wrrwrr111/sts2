@@ -6,6 +6,7 @@ import CardView from "../../components/CardView.astro";
 import type { Card, Keyword } from "../../lib/cardModels";
 import { TYPE_ZH } from "../../lib/cardModels";
 import TopNav from "../../components/TopNav.astro";
+import VotePanel from "../../components/VotePanel.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 import { formatRelicText } from "../../lib/relicText";
 
@@ -165,9 +166,12 @@ const t = {
           >
             {t.back}
           </a>
-          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
-            {displayName}
-          </h1>
+          <div class="mt-2 flex flex-wrap items-center gap-3">
+            <h1 class="text-[26px] font-semibold text-[#fdf0d8]">
+              {displayName}
+            </h1>
+            <VotePanel entityType="card" entityId={card.id} lang={lang} />
+          </div>
           {subtitle && <p class="mt-1 text-[#c4c7d6]">{subtitle}</p>}
         </div>
         <TopNav current="cards" basePath={base} lang={lang} />

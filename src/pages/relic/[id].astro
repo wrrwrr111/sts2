@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import relicsData from "../../../data/relics.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
+import VotePanel from "../../components/VotePanel.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type Relic = {
@@ -116,9 +117,12 @@ const t = {
           >
             {t.back}
           </a>
-          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
-            {displayName}
-          </h1>
+          <div class="mt-2 flex flex-wrap items-center gap-3">
+            <h1 class="text-[26px] font-semibold text-[#fdf0d8]">
+              {displayName}
+            </h1>
+            <VotePanel entityType="relic" entityId={relic.id} lang={lang} />
+          </div>
           <p class="mt-1 text-[#c4c7d6]">
             {rarityLabel} · {poolLabel}
           </p>

@@ -7,5 +7,6 @@ node_modules/
 dist/
 .DS_Store
 .astro
+.env
 __pycache__/
 tools/.cache/

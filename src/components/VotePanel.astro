@@ -1,0 +1,263 @@
+---
+interface Props {
+  entityType: string;
+  entityId: string;
+  lang?: string;
+  class?: string;
+}
+
+const {
+  entityType,
+  entityId,
+  lang = "zh",
+  class: className = "",
+} = Astro.props as Props;
+
+const isEn = lang === "en";
+const apiBase = (import.meta.env.PUBLIC_VOTE_API_BASE ?? "/api").replace(/\/$/, "");
+
+const labels = {
+  likeAction: isEn ? "Like" : "点赞",
+  dislikeAction: isEn ? "Dislike" : "点踩",
+  submitFail: isEn ? "Request failed. Try again." : "请求失败，请稍后重试",
+  rateLimited: isEn
+    ? "Too fast. Try again in {seconds}s."
+    : "操作太快，请 {seconds} 秒后再试",
+};
+---
+
+<section
+  class:list={[
+    "flex items-center gap-2 text-[12px] text-[#c4c7d6]",
+    className,
+  ]}
+  data-vote-panel
+  data-api-base={apiBase}
+  data-entity-type={entityType}
+  data-entity-id={entityId}
+  data-labels={JSON.stringify(labels)}
+>
+  <button
+    type="button"
+    class="rounded-[8px] border border-[#4b8d69]/60 bg-[#112a1f] px-2 py-1 text-[11px] font-semibold text-[#9be8b6] transition hover:border-[#65b984] disabled:cursor-not-allowed disabled:opacity-60"
+    data-vote-action="like"
+  >
+    {labels.likeAction}
+  </button>
+  <span class="min-w-[1.8em] text-center text-[12px] font-semibold text-[#fdf0d8]" data-vote-like-count>
+    0
+  </span>
+  <button
+    type="button"
+    class="rounded-[8px] border border-[#8d4b55]/60 bg-[#2a1117] px-2 py-1 text-[11px] font-semibold text-[#ffb7bf] transition hover:border-[#be6573] disabled:cursor-not-allowed disabled:opacity-60"
+    data-vote-action="dislike"
+  >
+    {labels.dislikeAction}
+  </button>
+  <span class="min-w-[1.8em] text-center text-[12px] font-semibold text-[#fdf0d8]" data-vote-dislike-count>
+    0
+  </span>
+  <span class="truncate text-[11px] text-[#c4c7d6]" data-vote-status></span>
+</section>
+
+<script is:inline>
+  const toInt = (value) => {
+    const n = Number(value);
+    return Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0;
+  };
+
+  const parseLabels = (value) => {
+    if (!value) return {};
+    try {
+      return JSON.parse(value);
+    } catch {
+      return {};
+    }
+  };
+
+  const fillTemplate = (template, seconds) =>
+    String(template || "").replace("{seconds}", String(Math.max(1, seconds)));
+
+  const parseResponse = async (response) => {
+    try {
+      return await response.json();
+    } catch {
+      return null;
+    }
+  };
+
+  const getCounts = (payload) => {
+    const source = payload?.data ?? payload ?? {};
+    return {
+      likeCount: toInt(source.likeCount),
+      dislikeCount: toInt(source.dislikeCount),
+    };
+  };
+
+  const normalizeBase = (base) => String(base || "/api").replace(/\/$/, "");
+
+  const buildGetUrl = (base, entityType, entityId) => {
+    const q = new URLSearchParams({ entityType, entityId });
+    return `${normalizeBase(base)}/votes?${q.toString()}`;
+  };
+
+  const buildPostUrl = (base) => `${normalizeBase(base)}/votes`;
+  const CLIENT_DEBOUNCE_MS = 240;
+  const CLIENT_THROTTLE_MS = 800;
+
+  const panels = document.querySelectorAll("[data-vote-panel]");
+
+  for (const panel of panels) {
+    const apiBase = panel.getAttribute("data-api-base") || "/api";
+    const entityType = panel.getAttribute("data-entity-type") || "";
+    const entityId = panel.getAttribute("data-entity-id") || "";
+    const labels = parseLabels(panel.getAttribute("data-labels"));
+
+    const likeEl = panel.querySelector("[data-vote-like-count]");
+    const dislikeEl = panel.querySelector("[data-vote-dislike-count]");
+    const statusEl = panel.querySelector("[data-vote-status]");
+    const buttons = panel.querySelectorAll("button[data-vote-action]");
+
+    if (!likeEl || !dislikeEl || !statusEl || !entityType || !entityId) {
+      continue;
+    }
+
+    let likeCount = 0;
+    let dislikeCount = 0;
+    let isBusy = false;
+    let queuedAction = null;
+    let debounceTimer = null;
+    let throttleTimer = null;
+    let lastSubmitAt = 0;
+
+    const setStatus = (text) => {
+      statusEl.textContent = text || "";
+    };
+
+    const render = () => {
+      likeEl.textContent = String(likeCount);
+      dislikeEl.textContent = String(dislikeCount);
+      buttons.forEach((btn) => {
+        btn.disabled = isBusy;
+      });
+    };
+
+    const refreshCounts = async () => {
+      isBusy = true;
+      setStatus("");
+      render();
+
+      try {
+        const response = await fetch(buildGetUrl(apiBase, entityType, entityId), {
+          headers: { Accept: "application/json" },
+        });
+        const payload = await parseResponse(response);
+        if (!response.ok) {
+          throw new Error("fetch counts failed");
+        }
+        const next = getCounts(payload);
+        likeCount = next.likeCount;
+        dislikeCount = next.dislikeCount;
+        setStatus("");
+      } catch {
+        setStatus(labels.submitFail || "");
+      } finally {
+        isBusy = false;
+        render();
+      }
+    };
+
+    const submitVote = async (action) => {
+      if (isBusy) return;
+      isBusy = true;
+      setStatus("");
+      render();
+
+      try {
+        const response = await fetch(buildPostUrl(apiBase), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            entityType,
+            entityId,
+            action,
+          }),
+        });
+
+        const payload = await parseResponse(response);
+
+        if (response.status === 429) {
+          const retrySeconds = toInt(payload?.error?.retryAfterSeconds) || 1;
+          setStatus(fillTemplate(labels.rateLimited, retrySeconds));
+          return;
+        }
+
+        if (!response.ok) {
+          setStatus(labels.submitFail || "");
+          return;
+        }
+
+        const next = getCounts(payload);
+        likeCount = next.likeCount;
+        dislikeCount = next.dislikeCount;
+        setStatus("");
+      } catch {
+        setStatus(labels.submitFail || "");
+      } finally {
+        isBusy = false;
+        render();
+        if (queuedAction) {
+          void flushQueuedVote();
+        }
+      }
+    };
+
+    const clearTimer = (timer) => {
+      if (timer) clearTimeout(timer);
+      return null;
+    };
+
+    const flushQueuedVote = async () => {
+      if (isBusy || !queuedAction) return;
+
+      const now = Date.now();
+      const remaining = lastSubmitAt + CLIENT_THROTTLE_MS - now;
+      if (remaining > 0) {
+        throttleTimer = clearTimer(throttleTimer);
+        throttleTimer = setTimeout(() => {
+          throttleTimer = null;
+          void flushQueuedVote();
+        }, remaining);
+        return;
+      }
+
+      const action = queuedAction;
+      queuedAction = null;
+      lastSubmitAt = Date.now();
+      await submitVote(action);
+    };
+
+    const queueVote = (action) => {
+      queuedAction = action;
+      debounceTimer = clearTimer(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        debounceTimer = null;
+        void flushQueuedVote();
+      }, CLIENT_DEBOUNCE_MS);
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const action = btn.getAttribute("data-vote-action");
+        if (action === "like" || action === "dislike") {
+          queueVote(action);
+        }
+      });
+    });
+
+    void refreshCounts();
+  }
+</script>
