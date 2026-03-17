@@ -227,8 +227,8 @@ const t = {
 </Layout>
 
 <script>
-  const wrap = document.querySelector("[data-sprite-wrap]");
-  const frameEl = document.querySelector("[data-sprite-frame]");
+  const wrap = document.querySelector<HTMLElement>("[data-sprite-wrap]");
+  const frameEl = document.querySelector<HTMLElement>("[data-sprite-frame]");
   if (wrap && frameEl) {
     const metaUrl = wrap.getAttribute("data-sprite-meta") || "";
     const imgUrl = wrap.getAttribute("data-sprite-src") || "";
@@ -256,7 +256,7 @@ const t = {
           frameEl.style.backgroundSize = `${sheetWidth}px ${sheetHeight}px`;
 
           const start = performance.now();
-          const tick = (now) => {
+          const tick = (now: number) => {
             const elapsed = (now - start) / 1000;
             const frameIndex = Math.floor(
               elapsed * (meta.fps || 30),

@@ -719,7 +719,7 @@ const deckCountLabel = isEn
                             {getEventDescription(dialogue.event) && (
                               <div
                                 class="mt-2 text-[12px] leading-[1.45] text-[#f2e5cd]"
-                                set:html={formatRelicText(getEventDescription(dialogue.event), base)}
+                                set:html={formatRelicText(getEventDescription(dialogue.event) ?? "", base)}
                               />
                             )}
                             {(dialogue.event.options?.length ?? 0) > 0 && (

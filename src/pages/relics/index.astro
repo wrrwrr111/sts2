@@ -58,13 +58,17 @@ const poolLabel: Record<string, string> = {
   shared: isEn ? "Shared" : "共享",
 };
 for (const character of characters) {
-  if (!character.color) continue;
-  poolLabel[character.color] = pickText(
+  const localizedName = pickText(
     lang,
     character.name_zh,
     character.name,
     character.id,
   );
+  const idKey = character.id?.toLowerCase();
+  if (idKey) poolLabel[idKey] = localizedName;
+  // Backward-compatible key for old pool values that may use color names.
+  const colorKey = character.color?.toLowerCase();
+  if (colorKey) poolLabel[colorKey] = localizedName;
 }
 
 const rarities = Array.from(
@@ -83,14 +87,14 @@ const pageTitle = isEn
   : "遗物库 | 杀戮尖塔2 中文资料库";
 const pageDescription = isEn
   ? `All Slay the Spire 2 relics (${relics.length} total), with rarity/pool filters and search.`
-  : `收录杀戮尖塔2全部遗物，共 ${relics.length} 个。支持稀有度、来源筛选与搜索。`;
+  : `收录杀戮尖塔2全部遗物，共 ${relics.length} 个。支持稀有度、遗物池筛选与搜索。`;
 
 const t = {
   navLabel: isEn ? "Relics" : "遗物",
   title: isEn ? "Relic Compendium" : "遗物图鉴",
   count: isEn ? `${relics.length} relics` : `共 ${relics.length} 个遗物`,
   rarity: isEn ? "Rarity" : "稀有度",
-  pool: isEn ? "Pool" : "来源",
+  pool: isEn ? "Pool" : "遗物池",
   search: isEn ? "Search" : "搜索",
   selectAll: isEn ? "All" : "全选",
   reset: isEn ? "Reset" : "重置",
@@ -306,11 +310,7 @@ const t = {
       collapsed = mobileMq.matches;
       render();
     };
-    if ("addEventListener" in mobileMq) {
-      mobileMq.addEventListener("change", onMediaChange);
-    } else {
-      mobileMq.addListener(onMediaChange);
-    }
+    mobileMq.addEventListener("change", onMediaChange);
   };
 
   setupFilterCollapse(filterToggleEl, filterBodyEl);

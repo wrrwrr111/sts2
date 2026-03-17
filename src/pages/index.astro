@@ -327,11 +327,7 @@ const rarityOptions = [
       collapsed = mobileMq.matches;
       render();
     };
-    if ("addEventListener" in mobileMq) {
-      mobileMq.addEventListener("change", onMediaChange);
-    } else {
-      mobileMq.addListener(onMediaChange);
-    }
+    mobileMq.addEventListener("change", onMediaChange);
   };
 
   setupFilterCollapse(filterToggleEl, filterBodyEl);

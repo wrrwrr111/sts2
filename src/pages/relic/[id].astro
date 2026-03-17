@@ -45,7 +45,7 @@ const rawDesc = pickText(lang, relic.description_zh, relic.description)
 const cardDescription = [
   rawDesc,
   relic.rarity && `${isEn ? "Rarity" : "稀有度"}: ${relic.rarity}`,
-  relic.pool && `${isEn ? "Pool" : "来源"}: ${relic.pool}`,
+  relic.pool && `${isEn ? "Pool" : "遗物池"}: ${relic.pool}`,
 ]
   .filter(Boolean)
   .join(" · ")

@@ -269,11 +269,7 @@ const t = {
       collapsed = mobileMq.matches;
       render();
     };
-    if ("addEventListener" in mobileMq) {
-      mobileMq.addEventListener("change", onMediaChange);
-    } else {
-      mobileMq.addListener(onMediaChange);
-    }
+    mobileMq.addEventListener("change", onMediaChange);
   };
 
   setupFilterCollapse(filterToggleEl, filterBodyEl);
@@ -353,9 +349,9 @@ const t = {
   });
 
   const spriteTargets = Array.from(
-    document.querySelectorAll("[data-monster-sprite]"),
+    document.querySelectorAll<HTMLElement>("[data-monster-sprite]"),
   );
-  const initSprite = async (el) => {
+  const initSprite = async (el: HTMLElement) => {
     const metaUrl = el.getAttribute("data-sprite-meta") || "";
     const imgUrl = el.getAttribute("data-sprite-src") || "";
     if (!metaUrl || !imgUrl) return;
