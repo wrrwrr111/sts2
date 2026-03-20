@@ -13,7 +13,7 @@ from PIL import Image
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 DEFAULT_CACHE_FILE = Path("tools/.cache/compress_images_md5.json")
 DEFAULT_BASELINE_FILE = Path("tools/.cache/source_images_md5.json")
-SKIP_RELATIVE_PREFIXES = ("monsters/sprites/",)
+SKIP_RELATIVE_PREFIXES = ("monsters/sprites/", "card_overlays/", "characters/", "misc/ancients/", "misc/bosses/", "orbs/")
 
 
 def iter_images(root: Path) -> Iterable[Path]:
