@@ -375,7 +375,7 @@
       {
         "id": "SHARE_KNOWLEDGE",
         "description": "[purple][sine]“HOW OSTENTATIOUSLY SCHOLASTIC OF A LABYRINTHINE MIND!\nA VERITABLE CORNUCOPIA OF CEREBRAL SUSTENANCE TO DIGEST!”[/sine][/purple].\n\nSatisfied, the creature pops off and crawls away.\nYou are [blue]flabbergasted[/blue].",
-        "description_zh": "[purple][sine]“何其浮华博大，迷宫般的头脑！\n这简直是取之不尽的智识珍馐，当真让人大快朵颐啊！”[/sine][/purple]\n\n脑蛭心满意足地弹开了，随后爬向远方。\n你[blue]大受震撼[/blue]。"
+        "description_zh": "[purple][sine][b]“何其浮华博大，迷宫般的头脑！\n这简直是取之不尽的智识珍馐，当真让人大快朵颐啊！”[/b][/sine][/purple]\n\n脑蛭心满意足地弹开了，随后爬向远方。\n你[blue]大受震撼[/blue]。"
       }
     ]
   },
@@ -2405,7 +2405,7 @@
         {
           "order": "2-1",
           "speaker": "ancient",
-          "text": "[sine]... [red]工程师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
+          "text": "[sine]... [red]建筑师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
         }
       ],
       "Regent": [
@@ -3436,7 +3436,7 @@
         {
           "order": "2-1",
           "speaker": "ancient",
-          "text": "既然我有大量的血肉时，为什么不送呢？"
+          "text": "既然我有大量的血肉，为什么不送呢？"
         },
         {
           "order": "2-2",
@@ -3778,7 +3778,7 @@
     "type": "Shared",
     "act": null,
     "description": "You turn a corner and suddenly, a shadowy figure is just standing there. He pivots to face you.\n\n“Welcome! What're ya trading?”\nThe figure inquires as he flares open his cloak to reveal a slew of [sine][purple]suspicious wares[/purple][/sine].",
-    "description_zh": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！想做点什么买卖？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。",
+    "description_zh": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！你想换点什么吶？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。",
     "options": [
       {
         "id": "BOTTOM",
@@ -3811,7 +3811,7 @@
       {
         "id": "INITIAL",
         "description": "You turn a corner and suddenly, a shadowy figure is just standing there. He pivots to face you.\n\n“Welcome! What're ya trading?”\nThe figure inquires as he flares open his cloak to reveal a slew of [sine][purple]suspicious wares[/purple][/sine].",
-        "description_zh": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！想做点什么买卖？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。",
+        "description_zh": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！你想换点什么吶？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。",
         "options": [
           {
             "id": "BOTTOM",
@@ -4001,7 +4001,7 @@
       {
         "id": "EAT",
         "description": "You ingest the [aqua]Sapphire Seed[/aqua] and within moments your [blue]limbs feel more agile[/blue], [gold]colors sharpen[/gold], and you [purple][sine]sense the souls of nearby foes[/sine][/purple].\n\nGood thing you didn't step on it.",
-        "description_zh": "你吃下了[aqua]蓝宝石种子[/aqua]，几乎一瞬间你就感觉到自己都[blue]四肢变得更加灵活[/blue]、[gold]眼中的色彩变得更加鲜艳[/gold]、而且你还能够[purple][sine]感知到附近敌人的灵魂[/sine][/purple]。\n\n幸亏你没踩到它呢。"
+        "description_zh": "你吃下了[aqua]蓝宝石种子[/aqua]，几乎一瞬间你就感觉到自己的[blue]四肢变得更加灵活[/blue]、[gold]眼中的色彩变得更加鲜艳[/gold]、而且你还能够[purple][sine]感知到附近敌人的灵魂[/sine][/purple]。\n\n幸亏你没踩到它呢。"
       },
       {
         "id": "INITIAL",
@@ -5303,7 +5303,7 @@
       {
         "id": "DONE",
         "description": "The [blue]tea master[/blue] acknowledges your request and begins.\n\n[gold]1.[/gold] Water from a charcoal-filled carafe is ladled into a kettle.\n[gold]2.[/gold] The kettle is heated using a gentle [purple]violet flame[/purple].\n[gold]3.[/gold] A scoop of tea goes into the kettle before it boils.\n[gold]4.[/gold] Off the heat, and a series of rhythmic claps track the time.\n[gold]5.[/gold] The kettle is hoisted high and precisely poured into a tiny cup.\n\n[green][sine]“Tea is served.”[/sine][/green]",
-        "description_zh": "[blue]茶艺大师[/blue]认可了你的请求，开始了他的行动。\n\n[gold]1.[/gold] 用勺子将一个装满木炭的玻璃瓶中的水舀到一个水壶里。\n[gold]2.[/gold] 水壶用[purple]紫罗兰色的文火[/purple]慢慢熬煮。\n[gold]3.[/gold] 在水开之前，往壶中放入一勺茶叶。\n[gold]4.[/gold] 将壶从火源上拿下，用有节奏的敲击来计算时间。\n[gold]5.[/gold] 将水壶高高举起，精准地将茶叶倒入下方极小的茶杯中。\n\n[green][sine]“请用茶。”[/sine][/green]"
+        "description_zh": "[blue]茶艺大师[/blue]认可了你的请求，开始了他的行动。\n\n[gold]1.[/gold] 用勺子将一个装满木炭的玻璃瓶中的水舀到一个水壶里。\n[gold]2.[/gold] 水壶用[purple]紫罗兰色的文火[/purple]慢慢熬煮。\n[gold]3.[/gold] 在水开之前，往壶中放入一勺茶叶。\n[gold]4.[/gold] 将壶从火源上拿下，用有节奏的敲击来计算时间。\n[gold]5.[/gold] 将水壶高高举起，精准地将茶倒入下方极小的茶杯中。\n\n[green][sine]“请用茶。”[/sine][/green]"
       },
       {
         "id": "INITIAL",
@@ -6297,14 +6297,14 @@
             "title": "DECIDE: Guilty",
             "description": "Add [red]Doubt[/red] to your [gold]Deck[/gold]. Gain [blue]2[/blue] card rewards.",
             "title_zh": "判决：有罪",
-            "description_zh": "将一张[red]怀疑[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]次卡牌奖励。"
+            "description_zh": "将一张[red]疑虑[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]组卡牌奖励。"
           },
           {
             "id": "INNOCENT",
             "title": "DECIDE: Innocent",
             "description": "Add [red]Doubt[/red] to your [gold]Deck[/gold]. [gold]Transform[/gold] [blue]2[/blue] cards.",
             "title_zh": "判决：无罪",
-            "description_zh": "将一张[red]怀疑[/red]加入你的[gold]牌组[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
+            "description_zh": "将一张[red]疑虑[/red]加入你的[gold]牌组[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
           }
         ]
       },
@@ -6871,7 +6871,7 @@
       {
         "id": "UNLOCK_CHEST",
         "description": "“Not going to free the scholar, [green]Repy[/green]? Based on classic philosophy, you would be considered a [red]moral failure[/red]. That's right, maybe consider the [purple][jitter]LIVING PERSON[/jitter][/purple] that is locked up next time! It is not as if there is a valuable member of society in a [purple][jitter]DIRE PREDICAMENT[/jitter][/purple] or anything!!”\n\n“Look, okay, see how small this cage is!? Why am I complaining? You've already made your unscholarly decision... oh, what's inside there? Some [gold]potions[/gold] and [gold]relics[/gold]? Isn't that just great. [sine]Just great. Really great for you...[/sine]”\n\n[green]Repy's[/green] eyes follow you with disdain as you walk away.",
-        "description_zh": "“选择不解放学者[green]付袭[/green]是吗？根据古典哲学理论，你该被称为是[red]道德败坏[/red]。没错，下次你最好想一想，是不是应该先考虑下被锁起来的[purple][jitter][b]活人[/b][/jitter][/purple]才对啊！你是觉得这里没有一位对社会有价值的成员正处于[purple][jitter]][b]危难之中[/b][/jitter][/purple]吗！！”\n\n“你看看这笼子有多小好不好！？唉我还在抱怨什么呢？你已经作出了你那缺乏学识的决定……嚯，看看那里面有什么？一些[gold]药水[/gold]和[gold]遗物[/gold]是吗？那可真好啊，[sine]真的好，对你来说真是太好了……[/sine]”\n\n[green]付袭[/green]的眼睛鄙夷地盯着你从这里离开。"
+        "description_zh": "“选择不解放学者[green]付袭[/green]是吗？根据古典哲学理论，你该被称为是[red]道德败坏[/red]。没错，下次你最好想一想，是不是应该先考虑下被锁起来的[purple][jitter][b]活人[/b][/jitter][/purple]才对啊！你是觉得这里没有一位对社会有价值的成员正处于[purple][jitter][b]危难之中[/b][/jitter][/purple]吗！！”\n\n“你看看这笼子有多小好不好！？唉我还在抱怨什么呢？你已经作出了你那缺乏学识的决定……嚯，看看那里面有什么？一些[gold]药水[/gold]和[gold]遗物[/gold]是吗？那可真好啊，[sine]真的好，对你来说真是太好了……[/sine]”\n\n[green]付袭[/green]的眼睛鄙夷地盯着你从这里离开。"
       }
     ]
   },
@@ -7132,7 +7132,7 @@
         "title": "Bathe",
         "description": "Remove [blue]1[/blue] card from your [gold]Deck[/gold]. Add [blue]1[/blue] [red]Guilty[/red] to your [gold]Deck[/gold].",
         "title_zh": "沐浴",
-        "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]内疚[/red]添加到你的[gold]牌组[/gold]。"
+        "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]愧疚[/red]添加到你的[gold]牌组[/gold]。"
       },
       {
         "id": "BOTTLE",
@@ -7163,7 +7163,7 @@
             "title": "Bathe",
             "description": "Remove [blue]1[/blue] card from your [gold]Deck[/gold]. Add [blue]1[/blue] [red]Guilty[/red] to your [gold]Deck[/gold].",
             "title_zh": "沐浴",
-            "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]内疚[/red]添加到你的[gold]牌组[/gold]。"
+            "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]愧疚[/red]添加到你的[gold]牌组[/gold]。"
           },
           {
             "id": "BOTTLE",

@@ -2277,7 +2277,7 @@
           {
             "order": 1,
             "speaker": "ancient",
-            "text": "[sine]... [red]工程师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
+            "text": "[sine]... [red]建筑师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
           }
         ]
       },
@@ -3411,7 +3411,7 @@
           {
             "order": 1,
             "speaker": "ancient",
-            "text": "[thinky_dots]既然我有大量的血肉时，为什么不送呢？[/thinky_dots]"
+            "text": "[thinky_dots]既然我有大量的血肉，为什么不送呢？[/thinky_dots]"
           },
           {
             "order": 2,

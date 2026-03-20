@@ -100,9 +100,9 @@
     "name": "Clarity Extract",
     "name_zh": "明晰提取物",
     "description": "Draw [blue]1[/blue] card. At the start of your next [blue]3[/blue] turns, draw [blue]1[/blue] additional card.",
-    "description_zh": "抽[blue]1[/blue]张牌。在你的下[blue]3[/blue]个回合开始时，额外[blue]1[/blue]张牌。",
+    "description_zh": "抽[blue]1[/blue]张牌。在你的下[blue]3[/blue]个回合开始时，额外抽[blue]1[/blue]张牌。",
     "description_raw": "Draw [blue]{Cards}[/blue] {Cards:plural:card|cards}. At the start of your next {ClarityPower:plural:turn|[blue]{}[/blue] turns}, draw [blue]1[/blue] additional card.",
-    "description_raw_zh": "抽[blue]{Cards}[/blue]张牌。在你的下[blue]{ClarityPower}[/blue]个回合开始时，额外[blue]1[/blue]张牌。",
+    "description_raw_zh": "抽[blue]{Cards}[/blue]张牌。在你的下[blue]{ClarityPower}[/blue]个回合开始时，额外抽[blue]1[/blue]张牌。",
     "rarity": "Uncommon",
     "image_url": "/images/potions/clarity.png",
     "pool": "shared"

@@ -1,0 +1,4082 @@
+{
+  "created_at": "2026-03-20T14:24:19",
+  "from_ref": "HEAD",
+  "to_ref": "current",
+  "game_version": "0.99.1",
+  "game_version_source": "local_release_info",
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "changed": 47
+  },
+  "categories": [
+    {
+      "id": "cards",
+      "name": "Cards",
+      "old_count": 576,
+      "new_count": 576,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "BEAT_INTO_SHAPE",
+          "name": "Beat into Shape",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "造成7点伤害。\n[gold]铸造[/gold]X。\n本回合此前你击中过该敌人几次，就额外[gold]铸造[/gold]7。",
+              "new": "造成7点伤害。\n[gold]铸造[/gold]X。\n本回合此前你每击中过该敌人一次，[gold]铸造[/gold]值就上升7。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "造成{Damage:diff()}点伤害。\n[gold]铸造[/gold]{CalculatedForge:diff()}。\n本回合此前你击中过该敌人几次，就额外[gold]铸造[/gold]{CalculationExtra:diff()}。",
+              "new": "造成{Damage:diff()}点伤害。\n[gold]铸造[/gold]{CalculatedForge:diff()}。\n本回合此前你每击中过该敌人一次，[gold]铸造[/gold]值就上升{CalculationExtra:diff()}。"
+            },
+            {
+              "field": "description_zh",
+              "old": "造成5点伤害。\n[gold]铸造[/gold]X。\n本回合此前你击中过该敌人几次，就额外[gold]铸造[/gold]5。",
+              "new": "造成5点伤害。\n[gold]铸造[/gold]X。\n本回合此前你每击中过该敌人一次，[gold]铸造[/gold]值就上升5。"
+            }
+          ]
+        },
+        {
+          "id": "BLACK_HOLE",
+          "name": "Black Hole",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "每当你使用或获得[star:1]时, 对所有敌人造成4点伤害。",
+              "new": "每当你花费或获得[star:1]时，对所有敌人造成4点伤害。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "每当你使用或获得{singleStarIcon}时, 对所有敌人造成{BlackHolePower:diff()}点伤害。",
+              "new": "每当你花费或获得{singleStarIcon}时，对所有敌人造成{BlackHolePower:diff()}点伤害。"
+            },
+            {
+              "field": "description_zh",
+              "old": "每当你使用或获得[star:1]时, 对所有敌人造成3点伤害。",
+              "new": "每当你花费或获得[star:1]时，对所有敌人造成3点伤害。"
+            }
+          ]
+        },
+        {
+          "id": "BOOST_AWAY",
+          "name": "Boost Away",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "获得9点[gold]格挡[/gold]。\n将一张[gold]眩晕[/gold]添加到你的[gold]弃牌堆[/gold]中。",
+              "new": "获得9点[gold]格挡[/gold]。\n将一张[gold]晕眩[/gold]添加到你的[gold]弃牌堆[/gold]中。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "获得{Block:diff()}点[gold]格挡[/gold]。\n将一张[gold]眩晕[/gold]添加到你的[gold]弃牌堆[/gold]中。",
+              "new": "获得{Block:diff()}点[gold]格挡[/gold]。\n将一张[gold]晕眩[/gold]添加到你的[gold]弃牌堆[/gold]中。"
+            },
+            {
+              "field": "description_zh",
+              "old": "获得6点[gold]格挡[/gold]。\n将一张[gold]眩晕[/gold]添加到你的[gold]弃牌堆[/gold]中。",
+              "new": "获得6点[gold]格挡[/gold]。\n将一张[gold]晕眩[/gold]添加到你的[gold]弃牌堆[/gold]中。"
+            }
+          ]
+        },
+        {
+          "id": "BURST",
+          "name": "Burst",
+          "changes": [
+            {
+              "field": "description_raw",
+              "old": "This turn, your next{IfUpgraded:show: 2} {Skills:plural:Skill is|Skills are} played an extra time.",
+              "new": "This turn, your next {Skills:plural:Skill is|{:diff()} Skills are} played an extra time."
+            },
+            {
+              "field": "description_upgraded_zh",
+              "old": "在这个回合，你打出的下2张技能牌会被额外打出一次。",
+              "new": "在这个回合，你打出的下2}张技能牌会被额外打出一次。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "在这个回合，你打出的下{IfUpgraded:show:2}{Skills:plural:|}张技能牌会被额外打出一次。",
+              "new": "在这个回合，你打出的下{Skills:choose(1):一|{:diff()}}张技能牌会被额外打出一次。"
+            },
+            {
+              "field": "description_zh",
+              "old": "在这个回合，你打出的下张技能牌会被额外打出一次。",
+              "new": "在这个回合，你打出的下1}张技能牌会被额外打出一次。"
+            },
+            {
+              "field": "description_upgraded",
+              "old": "This turn, your next 2 Skills are played an extra time.",
+              "new": "This turn, your next [] Skills are played an extra time."
+            }
+          ]
+        },
+        {
+          "id": "CLEANSE",
+          "name": "Cleanse",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "[gold]召唤[/gold]5。\n从你的[gold]抽牌堆[/gold]中选一张牌[gold]消耗[/gold]。",
+              "new": "[gold]召唤[/gold]5。\n从你的[gold]抽牌堆[/gold]中选择一张牌将其[gold]消耗[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "[gold]召唤[/gold]{Summon:diff()}。\n从你的[gold]抽牌堆[/gold]中选一张牌[gold]消耗[/gold]。",
+              "new": "[gold]召唤[/gold]{Summon:diff()}。\n从你的[gold]抽牌堆[/gold]中选择一张牌将其[gold]消耗[/gold]。"
+            },
+            {
+              "field": "description_zh",
+              "old": "[gold]召唤[/gold]3。\n从你的[gold]抽牌堆[/gold]中选一张牌[gold]消耗[/gold]。",
+              "new": "[gold]召唤[/gold]3。\n从你的[gold]抽牌堆[/gold]中选择一张牌将其[gold]消耗[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "EIDOLON",
+          "name": "Eidolon",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌通过这个方法被[gold]消耗[/gold]了，则获得1层[gold]无实体[/gold]。",
+              "new": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌被通过这个方法[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌通过这个方法被[gold]消耗[/gold]了，则获得1层[gold]无实体[/gold]。",
+              "new": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌被通过这个方法[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。"
+            },
+            {
+              "field": "description_zh",
+              "old": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌通过这个方法被[gold]消耗[/gold]了，则获得1层[gold]无实体[/gold]。",
+              "new": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌被通过这个方法[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "END_OF_DAYS",
+          "name": "End of Days",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "给予所有敌人29层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于自身生命值的敌人。",
+              "new": "给予所有敌人29层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于当前生命值的敌人。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "给予所有敌人{DoomPower:diff()}层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于自身生命值的敌人。",
+              "new": "给予所有敌人{DoomPower:diff()}层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于当前生命值的敌人。"
+            },
+            {
+              "field": "description_zh",
+              "old": "给予所有敌人29层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于自身生命值的敌人。",
+              "new": "给予所有敌人29层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于当前生命值的敌人。"
+            }
+          ]
+        },
+        {
+          "id": "EVIL_EYE",
+          "name": "Evil Eye",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "获得11点[gold]格挡[/gold]。\n如果你在本回合获得[gold]消耗过[/gold]卡牌，则额外获得11点[gold]格挡[/gold]。",
+              "new": "获得11点[gold]格挡[/gold]。\n如果你在本回合[gold]消耗[/gold]过卡牌，则额外获得11点[gold]格挡[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "获得{Block:diff()}点[gold]格挡[/gold]。\n如果你在本回合获得[gold]消耗过[/gold]卡牌，则额外获得{Block:diff()}点[gold]格挡[/gold]。",
+              "new": "获得{Block:diff()}点[gold]格挡[/gold]。\n如果你在本回合[gold]消耗[/gold]过卡牌，则额外获得{Block:diff()}点[gold]格挡[/gold]。"
+            },
+            {
+              "field": "description_zh",
+              "old": "获得8点[gold]格挡[/gold]。\n如果你在本回合获得[gold]消耗过[/gold]卡牌，则额外获得8点[gold]格挡[/gold]。",
+              "new": "获得8点[gold]格挡[/gold]。\n如果你在本回合[gold]消耗[/gold]过卡牌，则额外获得8点[gold]格挡[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "EXPERTISE",
+          "name": "Expertise",
+          "changes": [
+            {
+              "field": "name_zh",
+              "old": "独门绝技",
+              "new": "独门技术"
+            }
+          ]
+        },
+        {
+          "id": "FERAL",
+          "name": "Feral",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "The first time you play a\n0[energy:1] Attack each turn,\nreturn it to your [gold]Hand[/gold].",
+              "new": "你每回合打出的1\n耗能为0[energy:1]的攻击牌，\n会放回你的[gold]手牌[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": null,
+              "new": "你每回合打出的{FeralPower:choose(1):第一张|前{FeralPower:diff()}张}\n耗能为0{energyPrefix:energyIcons(1)}的攻击牌，\n会放回你的[gold]手牌[/gold]。"
+            },
+            {
+              "field": "description_zh",
+              "old": null,
+              "new": "你每回合打出的1\n耗能为0[energy:1]的攻击牌，\n会放回你的[gold]手牌[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "GANG_UP",
+          "name": "Gang Up",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "造成X点伤害。\n本回合其他玩家攻击该敌人时，该牌就造成7点伤害。",
+              "new": "造成X点伤害。\n本回合其他玩家每攻击过一次该敌人，该牌造成的伤害就额外增加7点。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "造成{CalculatedDamage:diff()}点伤害。\n本回合其他玩家攻击该敌人时，该牌就造成{ExtraDamage:diff()}点伤害。",
+              "new": "造成{CalculatedDamage:diff()}点伤害。\n本回合其他玩家每攻击过一次该敌人，该牌造成的伤害就额外增加{ExtraDamage:diff()}点。"
+            },
+            {
+              "field": "description_zh",
+              "old": "造成X点伤害。\n本回合其他玩家攻击该敌人时，该牌就造成5点伤害。",
+              "new": "造成X点伤害。\n本回合其他玩家每攻击过一次该敌人，该牌造成的伤害就额外增加5点。"
+            }
+          ]
+        },
+        {
+          "id": "HIGH_FIVE",
+          "name": "High Five",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "[gold]奥斯提[/gold]造成13点伤害\n并且给予所有敌人\n2层[gold]易伤[/gold]。",
+              "new": "[gold]奥斯提[/gold]对所有敌人\n造成13点伤害并给予它们\n2层[gold]易伤[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "[gold]奥斯提[/gold]造成{OstyDamage:diff()}点伤害\n并且给予所有敌人\n{VulnerablePower:diff()}层[gold]易伤[/gold]。",
+              "new": "[gold]奥斯提[/gold]对所有敌人\n造成{OstyDamage:diff()}点伤害并给予它们\n{VulnerablePower:diff()}层[gold]易伤[/gold]。"
+            },
+            {
+              "field": "description_zh",
+              "old": "[gold]奥斯提[/gold]造成11点伤害\n并且给予所有敌人\n2层[gold]易伤[/gold]。",
+              "new": "[gold]奥斯提[/gold]对所有敌人\n造成11点伤害并给予它们\n2层[gold]易伤[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "SCULPTING_STRIKE",
+          "name": "Sculpting Strike",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "造成11点伤害。\n将[gold]虚无[/gold]添加至一张[gold]手牌[/gold]。",
+              "new": "造成11点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "造成{Damage:diff()}点伤害。\n将[gold]虚无[/gold]添加至一张[gold]手牌[/gold]。",
+              "new": "造成{Damage:diff()}点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。"
+            },
+            {
+              "field": "description_zh",
+              "old": "造成8点伤害。\n将[gold]虚无[/gold]添加至一张[gold]手牌[/gold]。",
+              "new": "造成8点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "SNAP",
+          "name": "Snap",
+          "changes": [
+            {
+              "field": "name_zh",
+              "old": "抓取",
+              "new": "响指"
+            }
+          ]
+        },
+        {
+          "id": "TRACKING",
+          "name": "Tracking",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "有[gold]虚弱[/gold]状态的敌人，所受的攻击伤害翻倍。",
+              "new": "对[gold]虚弱[/gold]状态的敌人，造成的攻击伤害翻倍。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "有[gold]虚弱[/gold]状态的敌人，所受的攻击伤害翻倍。",
+              "new": "对[gold]虚弱[/gold]状态的敌人，造成的攻击伤害翻倍。"
+            },
+            {
+              "field": "description_zh",
+              "old": "有[gold]虚弱[/gold]状态的敌人，所受的攻击伤害翻倍。",
+              "new": "对[gold]虚弱[/gold]状态的敌人，造成的攻击伤害翻倍。"
+            }
+          ]
+        },
+        {
+          "id": "WHISTLE",
+          "name": "Whistle",
+          "changes": [
+            {
+              "field": "description_upgraded_zh",
+              "old": "造成44点伤害。\n[gold]眩晕[/gold]该敌人",
+              "new": "造成44点伤害。\n[gold]击晕[/gold]该敌人。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "造成{Damage:diff()}点伤害。\n[gold]眩晕[/gold]该敌人",
+              "new": "造成{Damage:diff()}点伤害。\n[gold]击晕[/gold]该敌人。"
+            },
+            {
+              "field": "description_zh",
+              "old": "造成33点伤害。\n[gold]眩晕[/gold]该敌人",
+              "new": "造成33点伤害。\n[gold]击晕[/gold]该敌人。"
+            }
+          ]
+        },
+        {
+          "id": "WHITE_NOISE",
+          "name": "White Noise",
+          "changes": [
+            {
+              "field": "name_zh",
+              "old": "白噪音",
+              "new": "白噪声"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "characters",
+      "name": "Characters",
+      "old_count": 5,
+      "new_count": 5,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "NECROBINDER",
+          "name": "The Necrobinder",
+          "changes": [
+            {
+              "field": "dialogues_zh",
+              "old": [
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "看得出来你比较严肃，能为你做点什么吗女士？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "任何能帮我杀死一个最可恶的人的东西。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "这样啊……那你看看吧！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "还在征战不休吶？我不拦着你哈！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "这本书看起来和你联系很紧密嘛，它可比你存在的时间长多了。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你是怎么拿到它的？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[sine]可怕[/sine]的东西总会兜兜转转来到我的收藏中。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[sine]...我们的.... 目标... ..是... ..一样的....[/sine]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "[jitter]他杀死了我爱的一切！！[/jitter]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[sine]...我的力量..... 是你的了...[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[sine]他... 依旧.. ....生存...[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "[sine]那... 真的.. ...可能... 吗...？[/sine]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[sine]... [red]工程师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "你的护卫已经死了。传闻说，你会赐福给想要杀死建筑师的人。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "我喜欢有能力的人，所以我会把自己的力量分给你一部分。\n下一次，可别再杀我的护卫了。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "法师若要战斗，自然需要上好的衣装和饰物。过来吧，亡灵契约师。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "建筑师见到你的[sine]宠物[/sine]，一定不会高兴的。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你是指奥斯提么？我会让他来完成最后一击的。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "死了？！没死！为何当傀儡？好大的手！！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我不是傀儡。有个人我必须要杀。\n你能帮我点什么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "杀人不好！！带上这个吧！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "不死者！有好礼物给你！！暴力不好。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "不要暴力！拿点亮闪闪的吧……亮闪闪！！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "只有当建筑师不复存在，我的使命才会结束。\n暴力不可避免。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "建筑师不坏！或许聊聊？聊聊很好！！非常好！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]有如此的恶意涂满了你的心。[/thinky_dots]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "如果你知道我的遭遇，你的心也会被涂成相同的颜色。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]你的道路上没有安宁。\n拿走我的一部分吧，让它减轻你的重负……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]带着手的人回来了。\n痛苦的回忆。拿走我的力量然后离开吧……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]杀死[red]父亲[/red]不会带来安宁。[/thinky_dots]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你说那个[jitter]东西[/jitter]是你的父亲！？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]我们无法选择自己的家人……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]多么强大的巨镰！[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "是的，它是为复仇而特别打造的。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]那只手，是否需要武器！？[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]奥斯提，与我一战！！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]亡灵契约师，与我一战！！[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "[i][font_size=22]亡灵契约师与奥斯提和坦克斯战作一团。[/font_size][/i]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]了不起的团队合作！！收下一把武器吧！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "嗯，一具骷髅来到这个地方是要做什么呢？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我的目标很单纯，我要为我的家人们复仇。\n我会前往塔顶，让他付出代价。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[jitter][b]真是太棒了[/b][/jitter]！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "进来吧，进来！我们来让你的火焰燃烧得更[jitter][b]明亮[/b][/jitter]。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "你周身的这些火焰，倒是让我想起了一样禁忌的东西。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你知道些什么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "我认得写[jitter][b]那本书[/b][/jitter]的家伙。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的[b]生命[/b]！……所以现在，我要杀死[b]你[/b]！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "复仇是么？敬谢不敏。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的——"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "你无法用愤怒改变过去。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的[b]生命[/b]——"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "我只是为了维持秩序，做了我必须做的事情。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的——"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "生命"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "哈……？！死吧，怪物！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我们都在寻求[sine]复仇[/sine]。当然，收获总要有代价。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我接受任何代价，只要能换来他的死亡。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我知道你的[sine]那只手[/sine]是从哪里来的。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我们两个，都被建筑师伤得很痛。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "别多费唇舌了，恶魔。把你的契约给我看吧。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "开门见山吗，很好……"
+                    }
+                  ]
+                }
+              ],
+              "new": [
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "看得出来你比较严肃，能为你做点什么吗女士？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "任何能帮我杀死一个最可恶的人的东西。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "这样啊……那你看看吧！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "还在征战不休吶？我不拦着你哈！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "这本书看起来和你联系很紧密嘛，它可比你存在的时间长多了。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你是怎么拿到它的？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[sine]可怕[/sine]的东西总会兜兜转转来到我的收藏中。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[sine]...我们的.... 目标... ..是... ..一样的....[/sine]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "[jitter]他杀死了我爱的一切！！[/jitter]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[sine]...我的力量..... 是你的了...[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[sine]他... 依旧.. ....生存...[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "[sine]那... 真的.. ...可能... 吗...？[/sine]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[sine]... [red]建筑师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "你的护卫已经死了。传闻说，你会赐福给想要杀死建筑师的人。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "我喜欢有能力的人，所以我会把自己的力量分给你一部分。\n下一次，可别再杀我的护卫了。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "法师若要战斗，自然需要上好的衣装和饰物。过来吧，亡灵契约师。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "建筑师见到你的[sine]宠物[/sine]，一定不会高兴的。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你是指奥斯提么？我会让他来完成最后一击的。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "死了？！没死！为何当傀儡？好大的手！！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我不是傀儡。有个人我必须要杀。\n你能帮我点什么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "杀人不好！！带上这个吧！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "不死者！有好礼物给你！！暴力不好。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "不要暴力！拿点亮闪闪的吧……亮闪闪！！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "只有当建筑师不复存在，我的使命才会结束。\n暴力不可避免。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "建筑师不坏！或许聊聊？聊聊很好！！非常好！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]有如此的恶意涂满了你的心。[/thinky_dots]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "如果你知道我的遭遇，你的心也会被涂成相同的颜色。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]你的道路上没有安宁。\n拿走我的一部分吧，让它减轻你的重负……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]带着手的人回来了。\n痛苦的回忆。拿走我的力量然后离开吧……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]杀死[red]父亲[/red]不会带来安宁。[/thinky_dots]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你说那个[jitter]东西[/jitter]是你的父亲！？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]我们无法选择自己的家人……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]多么强大的巨镰！[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "是的，它是为复仇而特别打造的。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]那只手，是否需要武器！？[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]奥斯提，与我一战！！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]亡灵契约师，与我一战！！[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "[i][font_size=22]亡灵契约师与奥斯提和坦克斯战作一团。[/font_size][/i]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]了不起的团队合作！！收下一把武器吧！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "嗯，一具骷髅来到这个地方是要做什么呢？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我的目标很单纯，我要为我的家人们复仇。\n我会前往塔顶，让他付出代价。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[jitter][b]真是太棒了[/b][/jitter]！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "进来吧，进来！我们来让你的火焰燃烧得更[jitter][b]明亮[/b][/jitter]。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "你周身的这些火焰，倒是让我想起了一样禁忌的东西。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你知道些什么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "我认得写[jitter][b]那本书[/b][/jitter]的家伙。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的[b]生命[/b]！……所以现在，我要杀死[b]你[/b]！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "复仇是么？敬谢不敏。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的——"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "你无法用愤怒改变过去。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的[b]生命[/b]——"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "我只是为了维持秩序，做了我必须做的事情。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "建筑师！你杀死了我的父母，你杀死了我的朋友，你杀死了我的——"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "生命"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "哈……？！死吧，怪物！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我们都在寻求[sine]复仇[/sine]。当然，收获总要有代价。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我接受任何代价，只要能换来他的死亡。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我知道你的[sine]那只手[/sine]是从哪里来的。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我们两个，都被建筑师伤得很痛。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "别多费唇舌了，恶魔。把你的契约给我看吧。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "开门见山吗，很好……"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "REGENT",
+          "name": "The Regent",
+          "changes": [
+            {
+              "field": "dialogues_zh",
+              "old": [
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "你这样的人怎么会来这儿呀？想不想来看看我的收藏呀？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我确实喜欢赏鉴高品质的东西……"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "好耶！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "又来看更多吗，殿下？！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我的新朋友，我可有好东西给你呀！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我在听！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "我很想给你，但东西已经被建筑师抢走了！！\n那你帮我这个好伙计一个忙呗！怎么样？"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "巨大蓝色生物，我可是未来的[orange]王[/orange]！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[sine]..可爱...\n...你... 会再次.. ..见到... ...我的....[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[sine]...又一次..？[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "[jitter]为什么我赢不了？！[/jitter]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[sine]...收下.. 这份... ..赐福...[/sine]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "……好的，谢谢你，涅奥。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我要来见诺奴佩普！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "你从遥远的地方带来了这么华美的袍子么！\n来，让你的仆从们把你带过来一点，我会给你赐福的。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "王室的访客，该有王室的赐福。\n仆人们！为我们倒点茶来。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "建筑师发了疯！只有一位高贵的勇士能拯救我们于此危难了……"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "无需担心！我，储君，将会终止这场疯狂！\n但是首先，喝茶！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "旅行者！太空来的！？太空哪里？\n怎么从太空来？脑袋尖尖！还有小小伙伴！！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "[i][font_size=22]储君独自说了几个小时。[/font_size][/i]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "真有趣！真厉害！！再说说！再说说！！！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "更多故事！给你找了这些东西！\n所以快来说更多故事！！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我的头号粉丝！欧洛巴斯，好朋友！\n看到你还活着真是不错！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "故事？！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "当然当然……不过你有给我找到更多饰品么？"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "你好！我是储君。\n你好？？[jitter]你好！？[/jitter]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]安静点吧。\n拿走我的一部分，然后上路吧……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我回来了！啊，你当然在睡觉。\n让我看看这里……"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "你为什么要把自己的肉体送给别人？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]既然我有大量的血肉时，为什么不送呢？[/thinky_dots]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]当你再次归来时，我也会焕然一新。\n那就是睡眠的作用……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]橙色！？这个存在为何会是橙色！？？[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "众所周知，橙色是最符合帝王的颜色！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]了不起！真是强大！！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]橙色的！！选一把强大的武器吧！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]储君，与我一战！！[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "不要！上次我来这里我们已经战斗过了！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]再来与我战斗啊！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "啊呀呀，真是位[sine]稀奇[/sine]的访客！你是哪位呀，亲爱的？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我不是什么亲爱的！对我说话得尊重一点，巨大的……东西人类！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "那我真是礼数不周啦？\n[i][font_size=22]特兹卡塔拉高兴地咯咯笑。[/font_size][/i]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "你和你的伙伴们又回来啦？\n我给你们做了好些[jitter][b]点心[/b][/jitter]哦！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "欢迎回来，王室男孩！看起来你在外头表现得[jitter][b]很棒[/b][/jitter]呢。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "那当然了！只是在上层遇到了一些小小挫折……比如死掉。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "所有人都是从错误中吸取经验的吶。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我终于到达了！喂，那边的平民！这里就是塔顶么？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "我需要安静……"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "看来我需要教你一点礼数！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我又到这里了！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "聒噪的愚者又来了么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "我既不聒噪，也不是愚者！你快来面对着我！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我已经受够了你的无礼了！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "这一点，我们倒是意见一致。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "来起舞吧！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "居然是一个星间来客？在这被诅咒的墙内？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你知道我么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "是啊，我觉得我们可以互相帮助。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "只需付出小小代价，你就可以拥有我的更多力量。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我觉得这些条件都不怎么样，我感觉很不好。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "你有好好完整地阅读过契约吧？\n你是在完全知情、主动、而且愿意接受所有相关责任的条件下签下的名字对吧？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "你不打算完成交易里自己的那一半么？\n那再来一份契约怎么样？是不是更好一些？"
+                    }
+                  ]
+                }
+              ],
+              "new": [
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "你这样的人怎么会来这儿呀？想不想来看看我的收藏呀？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我确实喜欢赏鉴高品质的东西……"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "好耶！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "又来看更多吗，殿下？！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "DARV",
+                  "ancient_name": "Darv",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "我的新朋友，我可有好东西给你呀！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我在听！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "我很想给你，但东西已经被建筑师抢走了！！\n那你帮我这个好伙计一个忙呗！怎么样？"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "巨大蓝色生物，我可是未来的[orange]王[/orange]！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[sine]..可爱...\n...你... 会再次.. ..见到... ...我的....[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[sine]...又一次..？[/sine]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NEOW",
+                  "ancient_name": "Neow",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "[jitter]为什么我赢不了？！[/jitter]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[sine]...收下.. 这份... ..赐福...[/sine]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "……好的，谢谢你，涅奥。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我要来见诺奴佩普！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "你从遥远的地方带来了这么华美的袍子么！\n来，让你的仆从们把你带过来一点，我会给你赐福的。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "王室的访客，该有王室的赐福。\n仆人们！为我们倒点茶来。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "NONUPEIPE",
+                  "ancient_name": "Nonupeipe",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "建筑师发了疯！只有一位高贵的勇士能拯救我们于此危难了……"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "无需担心！我，储君，将会终止这场疯狂！\n但是首先，喝茶！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "旅行者！太空来的！？太空哪里？\n怎么从太空来？脑袋尖尖！还有小小伙伴！！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "[i][font_size=22]储君独自说了几个小时。[/font_size][/i]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "真有趣！真厉害！！再说说！再说说！！！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "更多故事！给你找了这些东西！\n所以快来说更多故事！！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "OROBAS",
+                  "ancient_name": "Orobas",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我的头号粉丝！欧洛巴斯，好朋友！\n看到你还活着真是不错！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "故事？！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "当然当然……不过你有给我找到更多饰品么？"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "你好！我是储君。\n你好？？[jitter]你好！？[/jitter]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]安静点吧。\n拿走我的一部分，然后上路吧……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我回来了！啊，你当然在睡觉。\n让我看看这里……"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "PAEL",
+                  "ancient_name": "Pael",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "你为什么要把自己的肉体送给别人？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]既然我有大量的血肉，为什么不送呢？[/thinky_dots]"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[thinky_dots]当你再次归来时，我也会焕然一新。\n那就是睡眠的作用……[/thinky_dots]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]橙色！？这个存在为何会是橙色！？？[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "众所周知，橙色是最符合帝王的颜色！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]了不起！真是强大！！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]橙色的！！选一把强大的武器吧！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TANX",
+                  "ancient_name": "Tanx",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "[b]储君，与我一战！！[/b]"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "不要！上次我来这里我们已经战斗过了！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "[b]再来与我战斗啊！[/b]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "啊呀呀，真是位[sine]稀奇[/sine]的访客！你是哪位呀，亲爱的？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "我不是什么亲爱的！对我说话得尊重一点，巨大的……东西人类！"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "那我真是礼数不周啦？\n[i][font_size=22]特兹卡塔拉高兴地咯咯笑。[/font_size][/i]"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "你和你的伙伴们又回来啦？\n我给你们做了好些[jitter][b]点心[/b][/jitter]哦！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "TEZCATARA",
+                  "ancient_name": "Tezcatara",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "欢迎回来，王室男孩！看起来你在外头表现得[jitter][b]很棒[/b][/jitter]呢。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "那当然了！只是在上层遇到了一些小小挫折……比如死掉。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "所有人都是从错误中吸取经验的吶。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我终于到达了！喂，那边的平民！这里就是塔顶么？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "我需要安静……"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "看来我需要教你一点礼数！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我又到这里了！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "聒噪的愚者又来了么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "我既不聒噪，也不是愚者！你快来面对着我！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "THE_ARCHITECT",
+                  "ancient_name": "The Architect",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我已经受够了你的无礼了！"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "这一点，我们倒是意见一致。"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "char",
+                      "text": "来起舞吧！"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "居然是一个星间来客？在这被诅咒的墙内？"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "char",
+                      "text": "你知道我么？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "是啊，我觉得我们可以互相帮助。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "ancient",
+                      "text": "只需付出小小代价，你就可以拥有我的更多力量。"
+                    }
+                  ]
+                },
+                {
+                  "ancient": "VAKUU",
+                  "ancient_name": "Vakuu",
+                  "lines": [
+                    {
+                      "order": 0,
+                      "speaker": "char",
+                      "text": "我觉得这些条件都不怎么样，我感觉很不好。"
+                    },
+                    {
+                      "order": 1,
+                      "speaker": "ancient",
+                      "text": "你有好好完整地阅读过契约吧？\n你是在完全知情、主动、而且愿意接受所有相关责任的条件下签下的名字对吧？"
+                    },
+                    {
+                      "order": 2,
+                      "speaker": "ancient",
+                      "text": "你不打算完成交易里自己的那一半么？\n那再来一份契约怎么样？是不是更好一些？"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "relics",
+      "name": "Relics",
+      "old_count": 289,
+      "new_count": 289,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "BING_BONG",
+          "name": "Bing Bong",
+          "changes": [
+            {
+              "field": "name_zh",
+              "old": "冰梆",
+              "new": "宾邦"
+            }
+          ]
+        },
+        {
+          "id": "BOOKMARK",
+          "name": "Bookmark",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "在每个回合结束时，将随机一张[gold]被保留[/gold]的牌，直到被打出前耗能减少[blue]1[/blue]。",
+              "new": "每回合结束时，随机一张被[gold]保留[/gold]的牌在被打出前的耗能减少[blue]1[/blue]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "在每个回合结束时，将随机一张[gold]被保留[/gold]的牌，直到被打出前耗能减少[blue]1[/blue]。",
+              "new": "每回合结束时，随机一张被[gold]保留[/gold]的牌在被打出前的耗能减少[blue]1[/blue]。"
+            }
+          ]
+        },
+        {
+          "id": "CHOICES_PARADOX",
+          "name": "Choices Paradox",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "在每场战斗开始时，你可以从[blue]5[/blue]张随机牌中选择[blue]1[/blue]张放入你的[gold]手牌[/gold]。然后被选定的那张牌获得[gold]保留[/gold]。",
+              "new": "在每场战斗开始时，从[blue]5[/blue]张随机牌中选择[blue]1[/blue]张放入你的[gold]手牌[/gold]。被选中的牌获得[gold]保留[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "在每场战斗开始时，你可以从[blue]{Cards}[/blue]张随机牌中选择[blue]1[/blue]张放入你的[gold]手牌[/gold]。然后被选定的那张牌获得[gold]保留[/gold]。",
+              "new": "在每场战斗开始时，从[blue]{Cards}[/blue]张随机牌中选择[blue]1[/blue]张放入你的[gold]手牌[/gold]。被选中的牌获得[gold]保留[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "EMPTY_CAGE",
+          "name": "Empty Cage",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": null,
+              "new": "拾起时，选择移除[gold]牌组[/gold]中的[blue]2[/blue]张牌。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": null,
+              "new": "拾起时，选择移除[gold]牌组[/gold]中的[blue]{Cards}[/blue]张牌。"
+            }
+          ]
+        },
+        {
+          "id": "GLITTER",
+          "name": "Glitter",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "为所有的卡牌奖励[gold]附魔[/gold]：[purple]华彩[/purple]。",
+              "new": "为之后的所有卡牌奖励[gold]附魔[/gold]：[purple]华彩[/purple]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "为所有的卡牌奖励[gold]附魔[/gold]：[purple]华彩[/purple]。",
+              "new": "为之后的所有卡牌奖励[gold]附魔[/gold]：[purple]华彩[/purple]。"
+            }
+          ]
+        },
+        {
+          "id": "MASSIVE_SCROLL",
+          "name": "Massive Scroll",
+          "changes": [
+            {
+              "field": "description_raw",
+              "old": "Upon pickup, choose [blue]1[/blue] of [blue]3[/blue] [gold]Multiplayer Colorless Cards[/gold] to add to your [gold]Deck[/gold].",
+              "new": "Upon pickup, choose [blue]1[/blue] of [blue]3[/blue] [gold]Multiplayer Cards[/gold] to add to your [gold]Deck[/gold]."
+            },
+            {
+              "field": "description",
+              "old": "Upon pickup, choose [blue]1[/blue] of [blue]3[/blue] [gold]Multiplayer Colorless Cards[/gold] to add to your [gold]Deck[/gold].",
+              "new": "Upon pickup, choose [blue]1[/blue] of [blue]3[/blue] [gold]Multiplayer Cards[/gold] to add to your [gold]Deck[/gold]."
+            },
+            {
+              "field": "description_zh",
+              "old": "拾起时，从[blue]3[/blue]张[gold]多人游戏无色牌[/gold]中选择[blue]1[/blue]张加入你的[gold]牌组[/gold]。",
+              "new": "拾起时，从[blue]3[/blue]张[gold]多人游戏牌[/gold]中选择[blue]1[/blue]张加入你的[gold]牌组[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "拾起时，从[blue]3[/blue]张[gold]多人游戏无色牌[/gold]中选择[blue]1[/blue]张加入你的[gold]牌组[/gold]。",
+              "new": "拾起时，从[blue]3[/blue]张[gold]多人游戏牌[/gold]中选择[blue]1[/blue]张加入你的[gold]牌组[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "MR_STRUGGLES",
+          "name": "Mr. Struggles",
+          "changes": [
+            {
+              "field": "name_zh",
+              "old": "挣扎先生",
+              "new": "抱抱先生"
+            }
+          ]
+        },
+        {
+          "id": "NINJA_SCROLL",
+          "name": "Ninja Scroll",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": null,
+              "new": "每场战斗开始时，将[blue]3[/blue]张[gold]小刀[/gold]加入你的[gold]手牌[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": null,
+              "new": "每场战斗开始时，将[blue]{Shivs}[/blue]张[gold]小刀[/gold]加入你的[gold]手牌[/gold]。"
+            }
+          ]
+        },
+        {
+          "id": "TEA_OF_DISCOURTESY",
+          "name": "Tea of Discourtesy",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "在下一场战斗开始时，将[blue]2[/blue]张[gold]眩晕[/gold]放入你的[gold]抽牌堆[/gold]。",
+              "new": "在下一场战斗开始时，将[blue]2[/blue]张[gold]晕眩[/gold]放入你的[gold]抽牌堆[/gold]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "在下一场战斗开始时，将[blue]{DazedCount}[/blue]张[gold]眩晕[/gold]放入你的[gold]抽牌堆[/gold]。",
+              "new": "在下一场战斗开始时，将[blue]{DazedCount}[/blue]张[gold]晕眩[/gold]放入你的[gold]抽牌堆[/gold]。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "potions",
+      "name": "Potions",
+      "old_count": 63,
+      "new_count": 63,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "CLARITY",
+          "name": "Clarity Extract",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "抽[blue]1[/blue]张牌。在你的下[blue]3[/blue]个回合开始时，额外[blue]1[/blue]张牌。",
+              "new": "抽[blue]1[/blue]张牌。在你的下[blue]3[/blue]个回合开始时，额外抽[blue]1[/blue]张牌。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "抽[blue]{Cards}[/blue]张牌。在你的下[blue]{ClarityPower}[/blue]个回合开始时，额外[blue]1[/blue]张牌。",
+              "new": "抽[blue]{Cards}[/blue]张牌。在你的下[blue]{ClarityPower}[/blue]个回合开始时，额外抽[blue]1[/blue]张牌。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enchantments",
+      "name": "Enchantments",
+      "old_count": 22,
+      "new_count": 22,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "ROYALLY_APPROVED",
+          "name": "Royally Approved",
+          "changes": [
+            {
+              "field": "name_zh",
+              "old": "皇室认证",
+              "new": "王室认证"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "events",
+      "name": "Events",
+      "old_count": 66,
+      "new_count": 66,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "BRAIN_LEECH",
+          "name": "Brain Leech",
+          "changes": [
+            {
+              "field": "pages",
+              "old": [
+                {
+                  "id": "INITIAL",
+                  "description": "[jitter]*thunk*[/jitter]\n\nA sharp pain is felt atop your head and a thought stabs into your mind.\n\n[purple][sine]“SHARE KNOWLEDGE???”[/sine][/purple]\n\nYou are unsure how to proceed...",
+                  "description_zh": "[jitter]咚！[/jitter]\n\n你的头顶传来一阵刺痛，一个念头刺入了你的脑海。\n\n[purple][sine][b]“分享知识吗？？？”[/b][/sine][/purple]\n\n你不知如何是好…",
+                  "options": [
+                    {
+                      "id": "RIP",
+                      "title": "Rip the Leech Off",
+                      "description": "Lose [red]5[/red] HP. Gain a Colorless card reward.",
+                      "title_zh": "把它扯下来",
+                      "description_zh": "失去[red]5[/red]点生命值。获得一组无色卡牌奖励。"
+                    },
+                    {
+                      "id": "SHARE_KNOWLEDGE",
+                      "title": "Share Knowledge",
+                      "description": "Choose [blue]1[/blue] of [blue]5[/blue] random cards to add to your [gold]Deck[/gold].",
+                      "title_zh": "分享知识",
+                      "description_zh": "从[blue]5[/blue]张随机牌中选择[blue]1[/blue]张加入你的[gold]牌组[/gold]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "RIP",
+                  "description": "You violently [jitter]rip the leech off your head[/jitter] and chuck it far far away!\n\nThere's a voice in your head:\n[purple][sine]“NOOOOOOoOoooooOOOOoooo....”",
+                  "description_zh": "你暴力地将[jitter]它从头上扯了下来[/jitter]，并狠狠地把它丢得远远的！\n\n你的脑海中响起一个声音：\n[purple][sine]“不~~~~~~~~~~~~…”"
+                },
+                {
+                  "id": "SHARE_KNOWLEDGE",
+                  "description": "[purple][sine]“HOW OSTENTATIOUSLY SCHOLASTIC OF A LABYRINTHINE MIND!\nA VERITABLE CORNUCOPIA OF CEREBRAL SUSTENANCE TO DIGEST!”[/sine][/purple].\n\nSatisfied, the creature pops off and crawls away.\nYou are [blue]flabbergasted[/blue].",
+                  "description_zh": "[purple][sine]“何其浮华博大，迷宫般的头脑！\n这简直是取之不尽的智识珍馐，当真让人大快朵颐啊！”[/sine][/purple]\n\n脑蛭心满意足地弹开了，随后爬向远方。\n你[blue]大受震撼[/blue]。"
+                }
+              ],
+              "new": [
+                {
+                  "id": "INITIAL",
+                  "description": "[jitter]*thunk*[/jitter]\n\nA sharp pain is felt atop your head and a thought stabs into your mind.\n\n[purple][sine]“SHARE KNOWLEDGE???”[/sine][/purple]\n\nYou are unsure how to proceed...",
+                  "description_zh": "[jitter]咚！[/jitter]\n\n你的头顶传来一阵刺痛，一个念头刺入了你的脑海。\n\n[purple][sine][b]“分享知识吗？？？”[/b][/sine][/purple]\n\n你不知如何是好…",
+                  "options": [
+                    {
+                      "id": "RIP",
+                      "title": "Rip the Leech Off",
+                      "description": "Lose [red]5[/red] HP. Gain a Colorless card reward.",
+                      "title_zh": "把它扯下来",
+                      "description_zh": "失去[red]5[/red]点生命值。获得一组无色卡牌奖励。"
+                    },
+                    {
+                      "id": "SHARE_KNOWLEDGE",
+                      "title": "Share Knowledge",
+                      "description": "Choose [blue]1[/blue] of [blue]5[/blue] random cards to add to your [gold]Deck[/gold].",
+                      "title_zh": "分享知识",
+                      "description_zh": "从[blue]5[/blue]张随机牌中选择[blue]1[/blue]张加入你的[gold]牌组[/gold]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "RIP",
+                  "description": "You violently [jitter]rip the leech off your head[/jitter] and chuck it far far away!\n\nThere's a voice in your head:\n[purple][sine]“NOOOOOOoOoooooOOOOoooo....”",
+                  "description_zh": "你暴力地将[jitter]它从头上扯了下来[/jitter]，并狠狠地把它丢得远远的！\n\n你的脑海中响起一个声音：\n[purple][sine]“不~~~~~~~~~~~~…”"
+                },
+                {
+                  "id": "SHARE_KNOWLEDGE",
+                  "description": "[purple][sine]“HOW OSTENTATIOUSLY SCHOLASTIC OF A LABYRINTHINE MIND!\nA VERITABLE CORNUCOPIA OF CEREBRAL SUSTENANCE TO DIGEST!”[/sine][/purple].\n\nSatisfied, the creature pops off and crawls away.\nYou are [blue]flabbergasted[/blue].",
+                  "description_zh": "[purple][sine][b]“何其浮华博大，迷宫般的头脑！\n这简直是取之不尽的智识珍馐，当真让人大快朵颐啊！”[/b][/sine][/purple]\n\n脑蛭心满意足地弹开了，随后爬向远方。\n你[blue]大受震撼[/blue]。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "NEOW",
+          "name": "Neow",
+          "changes": [
+            {
+              "field": "dialogue_zh",
+              "old": {
+                "Returning": [
+                  {
+                    "order": "0-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...再次... ..问好.....[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...醒来...\n..醒来....[/sine]"
+                  },
+                  {
+                    "order": "2-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]..收下....这份....\n..祝福.. ...去吧......[/sine]"
+                  },
+                  {
+                    "order": "3-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]..我把你... ..带回... ..来了...[/sine]"
+                  },
+                  {
+                    "order": "4-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...杀.. 死... [red][jitter]建筑师[/jitter][/red][/sine]"
+                  }
+                ],
+                "Defect": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...构装体.. 你...\n....变成.. 什么了...？[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...他.. 可以...\n....修好.. 你.. ...和一切....[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...我.. 不能... ..让...\n...你.. 忘记....[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "character",
+                    "text": "<坚决的嘀嘀声>"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "[sine]...很好....[/sine]"
+                  }
+                ],
+                "Ironclad": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]..起来吧.. 我的.. 战士...\n..是时候... 继续...战斗了...[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]..依旧.. 深陷.. 狂怒么.. 很好...[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "[sine]..记起.. 你.. 第一..次\n...来到 ..我面前...的时候..[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "[sine]..那么..愤怒...[/sine]"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "[sine]...那么..有用...[/sine]"
+                  }
+                ],
+                "Necrobinder": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...我们的.... 目标... ..是... ..一样的....[/sine]"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "character",
+                    "text": "[jitter]他杀死了我爱的一切！！[/jitter]"
+                  },
+                  {
+                    "order": "0-2",
+                    "speaker": "ancient",
+                    "text": "[sine]...我的力量..... 是你的了...[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]他... 依旧.. ....生存...[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "character",
+                    "text": "[sine]那... 真的.. ...可能... 吗...？[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "[sine]... [red]工程师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
+                  }
+                ],
+                "Regent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "character",
+                    "text": "巨大蓝色生物，我可是未来的[orange]王[/orange]！"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "ancient",
+                    "text": "[sine]..可爱...\n...你... 会再次.. ..见到... ...我的....[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...又一次..？[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "character",
+                    "text": "[jitter]为什么我赢不了？！[/jitter]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "[sine]...收下.. 这份... ..赐福...[/sine]"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "character",
+                    "text": "……好的，谢谢你，涅奥。"
+                  }
+                ],
+                "Silent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...从.. 外面... 回来了么？\n..我知道... 你会... 回来...[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...你的..\n ...猎物.. 在等待...[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "[sine]..两个...都知道..家族..的..痛苦...[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "character",
+                    "text": "……"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "[sine]..还在...寻找..认同...？\n...[jitter]愚蠢[/jitter]...[/sine]"
+                  }
+                ],
+                "First Visit": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]我又... 重铸了你....\n...上... ..去吧.....[/sine]"
+                  }
+                ]
+              },
+              "new": {
+                "Returning": [
+                  {
+                    "order": "0-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...再次... ..问好.....[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...醒来...\n..醒来....[/sine]"
+                  },
+                  {
+                    "order": "2-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]..收下....这份....\n..祝福.. ...去吧......[/sine]"
+                  },
+                  {
+                    "order": "3-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]..我把你... ..带回... ..来了...[/sine]"
+                  },
+                  {
+                    "order": "4-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...杀.. 死... [red][jitter]建筑师[/jitter][/red][/sine]"
+                  }
+                ],
+                "Defect": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...构装体.. 你...\n....变成.. 什么了...？[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...他.. 可以...\n....修好.. 你.. ...和一切....[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...我.. 不能... ..让...\n...你.. 忘记....[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "character",
+                    "text": "<坚决的嘀嘀声>"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "[sine]...很好....[/sine]"
+                  }
+                ],
+                "Ironclad": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]..起来吧.. 我的.. 战士...\n..是时候... 继续...战斗了...[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]..依旧.. 深陷.. 狂怒么.. 很好...[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "[sine]..记起.. 你.. 第一..次\n...来到 ..我面前...的时候..[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "[sine]..那么..愤怒...[/sine]"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "[sine]...那么..有用...[/sine]"
+                  }
+                ],
+                "Necrobinder": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...我们的.... 目标... ..是... ..一样的....[/sine]"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "character",
+                    "text": "[jitter]他杀死了我爱的一切！！[/jitter]"
+                  },
+                  {
+                    "order": "0-2",
+                    "speaker": "ancient",
+                    "text": "[sine]...我的力量..... 是你的了...[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]他... 依旧.. ....生存...[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "character",
+                    "text": "[sine]那... 真的.. ...可能... 吗...？[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "[sine]... [red]建筑师[/red].... ..逐渐虚弱....\n..我们.... 变强...[/sine]"
+                  }
+                ],
+                "Regent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "character",
+                    "text": "巨大蓝色生物，我可是未来的[orange]王[/orange]！"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "ancient",
+                    "text": "[sine]..可爱...\n...你... 会再次.. ..见到... ...我的....[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...又一次..？[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "character",
+                    "text": "[jitter]为什么我赢不了？！[/jitter]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "[sine]...收下.. 这份... ..赐福...[/sine]"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "character",
+                    "text": "……好的，谢谢你，涅奥。"
+                  }
+                ],
+                "Silent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]...从.. 外面... 回来了么？\n..我知道... 你会... 回来...[/sine]"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "[sine]...你的..\n ...猎物.. 在等待...[/sine]"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "[sine]..两个...都知道..家族..的..痛苦...[/sine]"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "character",
+                    "text": "……"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "[sine]..还在...寻找..认同...？\n...[jitter]愚蠢[/jitter]...[/sine]"
+                  }
+                ],
+                "First Visit": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "[sine]我又... 重铸了你....\n...上... ..去吧.....[/sine]"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "PAEL",
+          "name": "Pael",
+          "changes": [
+            {
+              "field": "dialogue_zh",
+              "old": {
+                "Returning": [
+                  {
+                    "order": "0-0r",
+                    "speaker": "ancient",
+                    "text": "欢迎回来，朋友。让我的血肉帮助你吧……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "佩尔正在沉睡，它的鼾声让整个房间不停震动着。"
+                  }
+                ],
+                "Defect": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "困扰的自动机械，在找你的朋友吗？\n让我来帮忙……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "构装体会做梦吗？\n看着我，模仿我……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "我梦见了你的朋友……\n父亲可以将[aqua]缺陷[/aqua]复原……"
+                  }
+                ],
+                "Ironclad": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "你心中有着如此多的愤怒。学习我吧，找到一些平静……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "你还记得做梦的感觉吗？\n睡觉是件好事……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "你必须平息你的火焰。\n父亲可以让你获得自由……"
+                  }
+                ],
+                "Necrobinder": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "有如此的恶意涂满了你的心。"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "character",
+                    "text": "如果你知道我的遭遇，你的心也会被涂成相同的颜色。"
+                  },
+                  {
+                    "order": "0-2",
+                    "speaker": "ancient",
+                    "text": "你的道路上没有安宁。\n拿走我的一部分吧，让它减轻你的重负……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "带着手的人回来了。\n痛苦的回忆。拿走我的力量然后离开吧……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "杀死[red]父亲[/red]不会带来安宁。"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "character",
+                    "text": "你说那个[jitter]东西[/jitter]是你的父亲！？"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "我们无法选择自己的家人……"
+                  }
+                ],
+                "Regent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "character",
+                    "text": "你好！我是储君。\n你好？？[jitter]你好！？[/jitter]"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "ancient",
+                    "text": "安静点吧。\n拿走我的一部分，然后上路吧……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "character",
+                    "text": "我回来了！啊，你当然在睡觉。\n让我看看这里……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "character",
+                    "text": "你为什么要把自己的肉体送给别人？"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "既然我有大量的血肉时，为什么不送呢？"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "当你再次归来时，我也会焕然一新。\n那就是睡眠的作用……"
+                  }
+                ],
+                "Silent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "杀戮的生物，这里不需要暴力。\n拿走我的一部分，寻找安宁吧……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "猎取战利品？当然，拿走我的一部分吧……\n只有你安心就好……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "你给我下了毒……？\n那能有什么作用呢……？zZZzz……"
+                  }
+                ],
+                "First Visit": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "有傀儡来了？\n能帮我去看看父亲的状况么？我太累了……"
+                  }
+                ]
+              },
+              "new": {
+                "Returning": [
+                  {
+                    "order": "0-0r",
+                    "speaker": "ancient",
+                    "text": "欢迎回来，朋友。让我的血肉帮助你吧……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "佩尔正在沉睡，它的鼾声让整个房间不停震动着。"
+                  }
+                ],
+                "Defect": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "困扰的自动机械，在找你的朋友吗？\n让我来帮忙……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "构装体会做梦吗？\n看着我，模仿我……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "我梦见了你的朋友……\n父亲可以将[aqua]缺陷[/aqua]复原……"
+                  }
+                ],
+                "Ironclad": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "你心中有着如此多的愤怒。学习我吧，找到一些平静……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "你还记得做梦的感觉吗？\n睡觉是件好事……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "你必须平息你的火焰。\n父亲可以让你获得自由……"
+                  }
+                ],
+                "Necrobinder": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "有如此的恶意涂满了你的心。"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "character",
+                    "text": "如果你知道我的遭遇，你的心也会被涂成相同的颜色。"
+                  },
+                  {
+                    "order": "0-2",
+                    "speaker": "ancient",
+                    "text": "你的道路上没有安宁。\n拿走我的一部分吧，让它减轻你的重负……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "带着手的人回来了。\n痛苦的回忆。拿走我的力量然后离开吧……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "杀死[red]父亲[/red]不会带来安宁。"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "character",
+                    "text": "你说那个[jitter]东西[/jitter]是你的父亲！？"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "我们无法选择自己的家人……"
+                  }
+                ],
+                "Regent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "character",
+                    "text": "你好！我是储君。\n你好？？[jitter]你好！？[/jitter]"
+                  },
+                  {
+                    "order": "0-1",
+                    "speaker": "ancient",
+                    "text": "安静点吧。\n拿走我的一部分，然后上路吧……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "character",
+                    "text": "我回来了！啊，你当然在睡觉。\n让我看看这里……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "character",
+                    "text": "你为什么要把自己的肉体送给别人？"
+                  },
+                  {
+                    "order": "2-1",
+                    "speaker": "ancient",
+                    "text": "既然我有大量的血肉，为什么不送呢？"
+                  },
+                  {
+                    "order": "2-2",
+                    "speaker": "ancient",
+                    "text": "当你再次归来时，我也会焕然一新。\n那就是睡眠的作用……"
+                  }
+                ],
+                "Silent": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "杀戮的生物，这里不需要暴力。\n拿走我的一部分，寻找安宁吧……"
+                  },
+                  {
+                    "order": "1-0r",
+                    "speaker": "ancient",
+                    "text": "猎取战利品？当然，拿走我的一部分吧……\n只有你安心就好……"
+                  },
+                  {
+                    "order": "2-0",
+                    "speaker": "ancient",
+                    "text": "你给我下了毒……？\n那能有什么作用呢……？zZZzz……"
+                  }
+                ],
+                "First Visit": [
+                  {
+                    "order": "0-0",
+                    "speaker": "ancient",
+                    "text": "有傀儡来了？\n能帮我去看看父亲的状况么？我太累了……"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "RELIC_TRADER",
+          "name": "Relic Trader",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！想做点什么买卖？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。",
+              "new": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！你想换点什么吶？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。"
+            },
+            {
+              "field": "pages",
+              "old": [
+                {
+                  "id": "DONE",
+                  "description": "“Hehehe Heh... Thank you!”",
+                  "description_zh": "“嘿嘿嘿……多谢啦！”"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You turn a corner and suddenly, a shadowy figure is just standing there. He pivots to face you.\n\n“Welcome! What're ya trading?”\nThe figure inquires as he flares open his cloak to reveal a slew of [sine][purple]suspicious wares[/purple][/sine].",
+                  "description_zh": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！想做点什么买卖？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。",
+                  "options": [
+                    {
+                      "id": "BOTTOM",
+                      "title": "Take the Bottom One",
+                      "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
+                      "title_zh": "拿下面那件",
+                      "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
+                    },
+                    {
+                      "id": "MIDDLE",
+                      "title": "Take the Middle One",
+                      "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
+                      "title_zh": "拿中间这件",
+                      "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
+                    },
+                    {
+                      "id": "TOP",
+                      "title": "Take the Top One",
+                      "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
+                      "title_zh": "拿上面那件",
+                      "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
+                    }
+                  ]
+                }
+              ],
+              "new": [
+                {
+                  "id": "DONE",
+                  "description": "“Hehehe Heh... Thank you!”",
+                  "description_zh": "“嘿嘿嘿……多谢啦！”"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You turn a corner and suddenly, a shadowy figure is just standing there. He pivots to face you.\n\n“Welcome! What're ya trading?”\nThe figure inquires as he flares open his cloak to reveal a slew of [sine][purple]suspicious wares[/purple][/sine].",
+                  "description_zh": "你走过一个拐角，一个黑影突然矗立在前方。他转过身来，正对着你。\n\n“欢迎！你想换点什么吶？”\n他开口询问，同时猛地掀开斗篷，露出一大堆[sine][purple]可疑货物[/purple][/sine]。",
+                  "options": [
+                    {
+                      "id": "BOTTOM",
+                      "title": "Take the Bottom One",
+                      "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
+                      "title_zh": "拿下面那件",
+                      "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
+                    },
+                    {
+                      "id": "MIDDLE",
+                      "title": "Take the Middle One",
+                      "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
+                      "title_zh": "拿中间这件",
+                      "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
+                    },
+                    {
+                      "id": "TOP",
+                      "title": "Take the Top One",
+                      "description": "Trade [gold]one of your Relics[/gold] for [gold]a random Relic[/gold].",
+                      "title_zh": "拿上面那件",
+                      "description_zh": "用[gold]one of your Relics[/gold]换[gold]a random Relic[/gold]。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SAPPHIRE_SEED",
+          "name": "Sapphire Seed",
+          "changes": [
+            {
+              "field": "pages",
+              "old": [
+                {
+                  "id": "EAT",
+                  "description": "You ingest the [aqua]Sapphire Seed[/aqua] and within moments your [blue]limbs feel more agile[/blue], [gold]colors sharpen[/gold], and you [purple][sine]sense the souls of nearby foes[/sine][/purple].\n\nGood thing you didn't step on it.",
+                  "description_zh": "你吃下了[aqua]蓝宝石种子[/aqua]，几乎一瞬间你就感觉到自己都[blue]四肢变得更加灵活[/blue]、[gold]眼中的色彩变得更加鲜艳[/gold]、而且你还能够[purple][sine]感知到附近敌人的灵魂[/sine][/purple]。\n\n幸亏你没踩到它呢。"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You narrowly avoid stepping on a bright, sharp... seed? Its unmistakable color gives away that it's a [aqua]Sapphire Seed[/aqua]! Weren't these incredible seeds supposed to be extinct!?\n\nLegends say that consuming one can greatly [gold]amplify your endurance[/gold], but what if you plant and nourish it instead?",
+                  "description_zh": "你走路时差点踩上了一块发光的尖锐……种子？它的颜色非常明确地表明了这是一枚[aqua]蓝宝石种子[/aqua]！这些稀有种子不是应该已经灭绝了吗！？\n\n传说里，只要吃下一粒这个种子，就能大幅[gold]强化你的体能[/gold]，但如果你把它种下然后好好养育它，又会怎么样呢？",
+                  "options": [
+                    {
+                      "id": "EAT",
+                      "title": "Consume",
+                      "description": "Heal [green]9[/green] HP. [gold]Upgrade[/gold] a card in your [gold]Deck[/gold].",
+                      "title_zh": "吃下",
+                      "description_zh": "回复[green]9[/green]生命。[gold]升级[/gold]你[gold]牌组[/gold]中的一张牌。"
+                    },
+                    {
+                      "id": "PLANT",
+                      "title": "Plant and Nourish",
+                      "description": "[gold]Enchant[/gold] a card with [purple]Sown[/purple].",
+                      "title_zh": "种植培育",
+                      "description_zh": "给一张牌[gold]附魔[/gold]：[purple]播种[/purple]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "PLANT",
+                  "description": "You scour the [green]Overgrowth[/green] and find a pot with [blue]good aeration[/blue]. Then, you trek around, searching for an untouched spot where [orange]light peeks through a cracked wall[/orange]. Carefully, you reinforce the pot with bark and vine to [green]camouflage[/green] it, fill it with loamy, nutrient-rich soil, and nestle the [aqua]seed[/aqua] just beneath the surface.\n\nFinally, you gather dew from nearby plants and pour it over the soil.\n\n[sine]Grow big, little seed...[/sine]\nUnknowingly, the [aqua]Sapphire Seed[/aqua] attaches to you spiritually.\nThankful of your hard work.",
+                  "description_zh": "你在[green]密林[/green]一番寻觅，总算找到了一个[blue]通风良好[/blue]的花盆。然后你四处跋涉，寻找一个无人侵扰的地点，能让[orange]阳光从墙上的裂缝中倾泻下来[/orange]。你小心翼翼地用树皮和藤蔓将花盆加固，为它提供一些[green]迷彩遮掩[/green]，然后往里面放入了一些肥沃高营养的土壤，接着把[aqua]种子[/aqua]埋了进去。\n\n最后，你从附近的植物上采集到了一些露水，洒在了土上。\n\n[sine]小种子，快长大…[/sine]\n你甚至没有察觉，[aqua]蓝宝石种子[/aqua]已经依附到了你的精神上。\n感谢你的辛勤努力。"
+                }
+              ],
+              "new": [
+                {
+                  "id": "EAT",
+                  "description": "You ingest the [aqua]Sapphire Seed[/aqua] and within moments your [blue]limbs feel more agile[/blue], [gold]colors sharpen[/gold], and you [purple][sine]sense the souls of nearby foes[/sine][/purple].\n\nGood thing you didn't step on it.",
+                  "description_zh": "你吃下了[aqua]蓝宝石种子[/aqua]，几乎一瞬间你就感觉到自己的[blue]四肢变得更加灵活[/blue]、[gold]眼中的色彩变得更加鲜艳[/gold]、而且你还能够[purple][sine]感知到附近敌人的灵魂[/sine][/purple]。\n\n幸亏你没踩到它呢。"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You narrowly avoid stepping on a bright, sharp... seed? Its unmistakable color gives away that it's a [aqua]Sapphire Seed[/aqua]! Weren't these incredible seeds supposed to be extinct!?\n\nLegends say that consuming one can greatly [gold]amplify your endurance[/gold], but what if you plant and nourish it instead?",
+                  "description_zh": "你走路时差点踩上了一块发光的尖锐……种子？它的颜色非常明确地表明了这是一枚[aqua]蓝宝石种子[/aqua]！这些稀有种子不是应该已经灭绝了吗！？\n\n传说里，只要吃下一粒这个种子，就能大幅[gold]强化你的体能[/gold]，但如果你把它种下然后好好养育它，又会怎么样呢？",
+                  "options": [
+                    {
+                      "id": "EAT",
+                      "title": "Consume",
+                      "description": "Heal [green]9[/green] HP. [gold]Upgrade[/gold] a card in your [gold]Deck[/gold].",
+                      "title_zh": "吃下",
+                      "description_zh": "回复[green]9[/green]生命。[gold]升级[/gold]你[gold]牌组[/gold]中的一张牌。"
+                    },
+                    {
+                      "id": "PLANT",
+                      "title": "Plant and Nourish",
+                      "description": "[gold]Enchant[/gold] a card with [purple]Sown[/purple].",
+                      "title_zh": "种植培育",
+                      "description_zh": "给一张牌[gold]附魔[/gold]：[purple]播种[/purple]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "PLANT",
+                  "description": "You scour the [green]Overgrowth[/green] and find a pot with [blue]good aeration[/blue]. Then, you trek around, searching for an untouched spot where [orange]light peeks through a cracked wall[/orange]. Carefully, you reinforce the pot with bark and vine to [green]camouflage[/green] it, fill it with loamy, nutrient-rich soil, and nestle the [aqua]seed[/aqua] just beneath the surface.\n\nFinally, you gather dew from nearby plants and pour it over the soil.\n\n[sine]Grow big, little seed...[/sine]\nUnknowingly, the [aqua]Sapphire Seed[/aqua] attaches to you spiritually.\nThankful of your hard work.",
+                  "description_zh": "你在[green]密林[/green]一番寻觅，总算找到了一个[blue]通风良好[/blue]的花盆。然后你四处跋涉，寻找一个无人侵扰的地点，能让[orange]阳光从墙上的裂缝中倾泻下来[/orange]。你小心翼翼地用树皮和藤蔓将花盆加固，为它提供一些[green]迷彩遮掩[/green]，然后往里面放入了一些肥沃高营养的土壤，接着把[aqua]种子[/aqua]埋了进去。\n\n最后，你从附近的植物上采集到了一些露水，洒在了土上。\n\n[sine]小种子，快长大…[/sine]\n你甚至没有察觉，[aqua]蓝宝石种子[/aqua]已经依附到了你的精神上。\n感谢你的辛勤努力。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TEA_MASTER",
+          "name": "Tea Master",
+          "changes": [
+            {
+              "field": "pages",
+              "old": [
+                {
+                  "id": "DONE",
+                  "description": "The [blue]tea master[/blue] acknowledges your request and begins.\n\n[gold]1.[/gold] Water from a charcoal-filled carafe is ladled into a kettle.\n[gold]2.[/gold] The kettle is heated using a gentle [purple]violet flame[/purple].\n[gold]3.[/gold] A scoop of tea goes into the kettle before it boils.\n[gold]4.[/gold] Off the heat, and a series of rhythmic claps track the time.\n[gold]5.[/gold] The kettle is hoisted high and precisely poured into a tiny cup.\n\n[green][sine]“Tea is served.”[/sine][/green]",
+                  "description_zh": "[blue]茶艺大师[/blue]认可了你的请求，开始了他的行动。\n\n[gold]1.[/gold] 用勺子将一个装满木炭的玻璃瓶中的水舀到一个水壶里。\n[gold]2.[/gold] 水壶用[purple]紫罗兰色的文火[/purple]慢慢熬煮。\n[gold]3.[/gold] 在水开之前，往壶中放入一勺茶叶。\n[gold]4.[/gold] 将壶从火源上拿下，用有节奏的敲击来计算时间。\n[gold]5.[/gold] 将水壶高高举起，精准地将茶叶倒入下方极小的茶杯中。\n\n[green][sine]“请用茶。”[/sine][/green]"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You stumble into a dimly lit shack and find yourself immersed in a very peaceful space containing an obsessive variety of tea.\n\nThe man inside gestures to a selection of [green]teas[/green], each neatly labeled with a [gold]premium price[/gold].",
+                  "description_zh": "你不知怎么晃进了一个灯光昏暗的小棚屋，发现里面的空间感觉非常和平，四周摆满了种类繁多的茶叶。\n\n屋子里面的男人做出手势，让你去看一批[green]茶叶[/green]，每一种都有雅致的标签告知你茶叶的[gold]高昂价格[/gold]。",
+                  "options": [
+                    {
+                      "id": "BONE_TEA",
+                      "title": "Bone Tea",
+                      "description": "Pay [red]50[/red] [gold]Gold[/gold]. [Bone Tea Description]",
+                      "title_zh": "骨茶",
+                      "description_zh": "支付[red]50[/red][gold]金币[/gold]。[Bone Tea Description]"
+                    },
+                    {
+                      "id": "BONE_TEA_LOCKED",
+                      "title": "Locked",
+                      "description": "Requires [blue]50[/blue] [gold]Gold[/gold].",
+                      "title_zh": "锁定",
+                      "description_zh": "需要[blue]50[/blue][gold]金币[/gold]。"
+                    },
+                    {
+                      "id": "EMBER_TEA",
+                      "title": "Ember Tea",
+                      "description": "Pay [red]150[/red] [gold]Gold[/gold]. [Ember Tea Description]",
+                      "title_zh": "余烬茶",
+                      "description_zh": "支付[red]150[/red][gold]金币[/gold]。[Ember Tea Description]"
+                    },
+                    {
+                      "id": "EMBER_TEA_LOCKED",
+                      "title": "Locked",
+                      "description": "Requires [blue]150[/blue] [gold]Gold[/gold].",
+                      "title_zh": "锁定",
+                      "description_zh": "需要[blue]150[/blue][gold]金币[/gold]。"
+                    },
+                    {
+                      "id": "TEA_OF_DISCOURTESY",
+                      "title": "Tea of Discourtesy",
+                      "description": "[Tea Of Discourtesy Description]",
+                      "title_zh": "无礼之茶",
+                      "description_zh": null
+                    }
+                  ]
+                },
+                {
+                  "id": "TEA_OF_DISCOURTESY",
+                  "description": "You politely decline the tea and—\n\n[jitter][red]*SLAM*[/red][/jitter]\n\nThe door behind you slams shut. The [blue]tea master[/blue] stares at you for a moment, then presents an ugly cup.\nOh, this tea is for the discourteous...",
+                  "description_zh": "你礼貌地拒绝了点茶，然后——\n\n[jitter][red]*砰咚*[/red][/jitter]\n\n你身后的门狠狠地关上了。[blue]茶艺大师[/blue]盯着你看了一会儿，然后拿出了一个很丑的杯子。\n啊，这是专门给无礼之人准备的茶……"
+                }
+              ],
+              "new": [
+                {
+                  "id": "DONE",
+                  "description": "The [blue]tea master[/blue] acknowledges your request and begins.\n\n[gold]1.[/gold] Water from a charcoal-filled carafe is ladled into a kettle.\n[gold]2.[/gold] The kettle is heated using a gentle [purple]violet flame[/purple].\n[gold]3.[/gold] A scoop of tea goes into the kettle before it boils.\n[gold]4.[/gold] Off the heat, and a series of rhythmic claps track the time.\n[gold]5.[/gold] The kettle is hoisted high and precisely poured into a tiny cup.\n\n[green][sine]“Tea is served.”[/sine][/green]",
+                  "description_zh": "[blue]茶艺大师[/blue]认可了你的请求，开始了他的行动。\n\n[gold]1.[/gold] 用勺子将一个装满木炭的玻璃瓶中的水舀到一个水壶里。\n[gold]2.[/gold] 水壶用[purple]紫罗兰色的文火[/purple]慢慢熬煮。\n[gold]3.[/gold] 在水开之前，往壶中放入一勺茶叶。\n[gold]4.[/gold] 将壶从火源上拿下，用有节奏的敲击来计算时间。\n[gold]5.[/gold] 将水壶高高举起，精准地将茶倒入下方极小的茶杯中。\n\n[green][sine]“请用茶。”[/sine][/green]"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You stumble into a dimly lit shack and find yourself immersed in a very peaceful space containing an obsessive variety of tea.\n\nThe man inside gestures to a selection of [green]teas[/green], each neatly labeled with a [gold]premium price[/gold].",
+                  "description_zh": "你不知怎么晃进了一个灯光昏暗的小棚屋，发现里面的空间感觉非常和平，四周摆满了种类繁多的茶叶。\n\n屋子里面的男人做出手势，让你去看一批[green]茶叶[/green]，每一种都有雅致的标签告知你茶叶的[gold]高昂价格[/gold]。",
+                  "options": [
+                    {
+                      "id": "BONE_TEA",
+                      "title": "Bone Tea",
+                      "description": "Pay [red]50[/red] [gold]Gold[/gold]. [Bone Tea Description]",
+                      "title_zh": "骨茶",
+                      "description_zh": "支付[red]50[/red][gold]金币[/gold]。[Bone Tea Description]"
+                    },
+                    {
+                      "id": "BONE_TEA_LOCKED",
+                      "title": "Locked",
+                      "description": "Requires [blue]50[/blue] [gold]Gold[/gold].",
+                      "title_zh": "锁定",
+                      "description_zh": "需要[blue]50[/blue][gold]金币[/gold]。"
+                    },
+                    {
+                      "id": "EMBER_TEA",
+                      "title": "Ember Tea",
+                      "description": "Pay [red]150[/red] [gold]Gold[/gold]. [Ember Tea Description]",
+                      "title_zh": "余烬茶",
+                      "description_zh": "支付[red]150[/red][gold]金币[/gold]。[Ember Tea Description]"
+                    },
+                    {
+                      "id": "EMBER_TEA_LOCKED",
+                      "title": "Locked",
+                      "description": "Requires [blue]150[/blue] [gold]Gold[/gold].",
+                      "title_zh": "锁定",
+                      "description_zh": "需要[blue]150[/blue][gold]金币[/gold]。"
+                    },
+                    {
+                      "id": "TEA_OF_DISCOURTESY",
+                      "title": "Tea of Discourtesy",
+                      "description": "[Tea Of Discourtesy Description]",
+                      "title_zh": "无礼之茶",
+                      "description_zh": null
+                    }
+                  ]
+                },
+                {
+                  "id": "TEA_OF_DISCOURTESY",
+                  "description": "You politely decline the tea and—\n\n[jitter][red]*SLAM*[/red][/jitter]\n\nThe door behind you slams shut. The [blue]tea master[/blue] stares at you for a moment, then presents an ugly cup.\nOh, this tea is for the discourteous...",
+                  "description_zh": "你礼貌地拒绝了点茶，然后——\n\n[jitter][red]*砰咚*[/red][/jitter]\n\n你身后的门狠狠地关上了。[blue]茶艺大师[/blue]盯着你看了一会儿，然后拿出了一个很丑的杯子。\n啊，这是专门给无礼之人准备的茶……"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TRIAL",
+          "name": "The Trial",
+          "changes": [
+            {
+              "field": "pages",
+              "old": [
+                {
+                  "id": "INITIAL",
+                  "description": "You join a line of people entering a massive building.\n\nAs you pass under a [gold]golden archway[/gold], horns blare, [jitter]confetti explodes[/jitter], and [sine]streamers glide[/sine] down from the ceiling!\n\n“Entrant [blue][Entrant Number][/blue], you are the [green]DECIDER[/green] for today's [gold]Trial[/gold].”",
+                  "description_zh": "你排起队，和众人一起进入一栋巨大的建筑物。\n\n当你通过一道[gold]金色的拱门[/gold]时，突然号角响起、[jitter]彩纸爆裂飞散[/jitter]、天花板上还飞出了众多[sine]彩条[/sine]！\n\n“[blue][Entrant Number][/blue]号进入者，你将成为今天[gold]审判[/gold]的[green]判决者[/green]。”",
+                  "options": [
+                    {
+                      "id": "ACCEPT",
+                      "title": "Accept",
+                      "description": "Serve as today's Decider.",
+                      "title_zh": "接受",
+                      "description_zh": "担当今天的判决者"
+                    },
+                    {
+                      "id": "REJECT",
+                      "title": "Reject",
+                      "description": "[red]You are not allowed to Reject.[/red]",
+                      "title_zh": "拒绝",
+                      "description_zh": "[red]拒绝是不被允许的。[/red]"
+                    }
+                  ]
+                },
+                {
+                  "id": "MERCHANT",
+                  "description": "A [green]wealthy-looking merchant[/green], presents his case. He is accused of [red]murder[/red] by one of his rivals. The evidence is thin, and you have a feeling that the man is innocent, but the onlookers seem out for blood.",
+                  "description_zh": "一个[green]看起来很有钱的商人[/green]诉说了自己的案件：他被一个对手指控[red]谋杀[/red]。证据相当稀少，你感觉他很可能是无辜的，但是周围的看客们似乎都想要见到鲜血。",
+                  "options": [
+                    {
+                      "id": "GUILTY",
+                      "title": "DECIDE: Guilty",
+                      "description": "Add [red]Regret[/red] to your [gold]Deck[/gold]. Obtain [blue]2[/blue] random [gold]Relics[/gold].",
+                      "title_zh": "判决：有罪",
+                      "description_zh": "将一张[red]悔恨[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]件随机[gold]遗物[/gold]。"
+                    },
+                    {
+                      "id": "INNOCENT",
+                      "title": "DECIDE: Innocent",
+                      "description": "Add [red]Shame[/red] to your [gold]Deck[/gold]. [gold]Upgrade[/gold] [blue]2[/blue] cards.",
+                      "title_zh": "判决：无罪",
+                      "description_zh": "将一张[red]羞耻[/red]加入你的[gold]牌组[/gold]。[gold]升级[/gold][blue]2[/blue]张牌。"
+                    }
+                  ]
+                },
+                {
+                  "id": "MERCHANT_GUILTY",
+                  "description": "You rule that all of the man's possessions are to be taken and given as processing fees for the court.\nThe crowd howls in glee!",
+                  "description_zh": "你判定这个人的所有财产都要被充公，作为今日法庭的审讯费用。\n人群愉悦地高呼起来。"
+                },
+                {
+                  "id": "MERCHANT_INNOCENT",
+                  "description": "You go with your conscience and rule that the man is innocent.\nDespite the boos and accusations of being a [sine][purple]“paid-off judge”[/purple][/sine] you feel like you did the right thing.",
+                  "description_zh": "你听从了自己的良知，宣判此人无罪。\n尽管周围嘘声不断，还有人骂你是个[sine][purple]“被收买的法官”[/purple][/sine]，你依旧觉得自己做出了正确的选择。"
+                },
+                {
+                  "id": "NOBLE",
+                  "description": "A [gold]powerful noble[/gold] steps forward. You find a note in your pocket indicating that if you decide innocence you will be handsomely rewarded. The [gold]noble[/gold] barely argues against the [purple]corruption charges[/purple] and gives you a knowing smirk.\nYou can't stop corruption but you can pocket some [gold]gold...[/gold]",
+                  "description_zh": "一个[gold]权势很大的贵族[/gold]走上前来。你发现自己的口袋里被塞了一张字条，说只要宣判他无罪就会得到巨额回报。[gold]贵族[/gold]对于[purple]贪污腐败的指控[/purple]几乎没有做任何反驳，只是特意向你露出一个得意的笑容。\n你无法阻止贪污腐败，但你可以借此机会捞一些[gold]金币……[/gold]",
+                  "options": [
+                    {
+                      "id": "GUILTY",
+                      "title": "DECIDE: Guilty",
+                      "description": "Heal [green]10[/green] HP.",
+                      "title_zh": "判决：有罪",
+                      "description_zh": "回复[green]10[/green]点生命。"
+                    },
+                    {
+                      "id": "INNOCENT",
+                      "title": "DECIDE: Innocent",
+                      "description": "Add [red]Regret[/red] to your [gold]Deck[/gold]. Obtain [blue]300[/blue] [gold]Gold[/gold].",
+                      "title_zh": "判决：无罪",
+                      "description_zh": "将一张[red]悔恨[/red]加入你的[gold]牌组[/gold]。获得[blue]300[/blue][gold]金币[/gold]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "NOBLE_GUILTY",
+                  "description": "The [gold]powerful noble[/gold] was [red]beheaded[/red].\nOne less [purple]corrupt noble[/purple].",
+                  "description_zh": "[gold]大贵族[/gold]被[red]斩首处死[/red]。\n世界上又少了一个[purple]腐败的贵族[/purple]。"
+                },
+                {
+                  "id": "NOBLE_INNOCENT",
+                  "description": "You don't [sine][purple]really[/purple][/sine] know that he's guilty... Yeah, that's it!\nThe [gold]bribe[/gold] has nothing to do with the outcome here. Nope.",
+                  "description_zh": "你[sine][purple]其实[/purple][/sine]不是特别清楚他有没有罪……对，就是这样！\n这笔[gold]贿赂[/gold]和判决的结果没有任何关系。完全没有。"
+                },
+                {
+                  "id": "NONDESCRIPT",
+                  "description": "A [orange]nondescript woman with a hard-to-read face[/orange] steps forward. She is charged with the crime of [red]theft[/red] and [purple]con-artistry[/purple]. When the woman speaks, you believe her, but ample witnesses attest to her misdeeds.\nBoth sides of the story are compelling!",
+                  "description_zh": "一个[orange]表情难以阅读的平凡女子[/orange]走上前来。她被指控犯下了[red]盗窃[/red]与[purple]诈骗[/purple]的罪行。这名女子开口时，你觉得她非常可信。但是有众多证人都作证说她做出过许多坏事。\n两边的说法都很有说服力！",
+                  "options": [
+                    {
+                      "id": "GUILTY",
+                      "title": "DECIDE: Guilty",
+                      "description": "Add [red]Doubt[/red] to your [gold]Deck[/gold]. Gain [blue]2[/blue] card rewards.",
+                      "title_zh": "判决：有罪",
+                      "description_zh": "将一张[red]怀疑[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]次卡牌奖励。"
+                    },
+                    {
+                      "id": "INNOCENT",
+                      "title": "DECIDE: Innocent",
+                      "description": "Add [red]Doubt[/red] to your [gold]Deck[/gold]. [gold]Transform[/gold] [blue]2[/blue] cards.",
+                      "title_zh": "判决：无罪",
+                      "description_zh": "将一张[red]怀疑[/red]加入你的[gold]牌组[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
+                    }
+                  ]
+                },
+                {
+                  "id": "NONDESCRIPT_GUILTY",
+                  "description": "You aren't totally sure, but making the hard choice, you think the evidence is adequate.\nDid you really make the right call?",
+                  "description_zh": "你并不是很确定真相如何，但艰难的决定总要有人做出，你觉得证据已经算是足够。\n你是否真的做出了正确的判决呢？"
+                },
+                {
+                  "id": "NONDESCRIPT_INNOCENT",
+                  "description": "You aren't totally sure, but you have a reasonable doubt.\nYou don't know if you made the right call, but innocence seems like the better choice.",
+                  "description_zh": "你并不是很确定真相如何，但你有着合理的怀疑。\n你不知道自己的判决是否正确，只是觉得无罪应该是更好的选择。"
+                },
+                {
+                  "id": "REJECT",
+                  "description": "[jitter]“YOU CANNOT REFUSE!!”[/jitter]\n\nShouts the [gold]Grand Arbiter of the Courts[/gold].\n\n[jitter]“Those who reject this privilege are penalized with [red]DEATH[/red]. Do you still defy!?”[/jitter]",
+                  "description_zh": "[jitter]“[b]你不能拒绝！！[/b]”[/jitter]\n\n[gold]法院总仲裁官[/gold]大声喊道。\n\n[jitter]“回绝此项特权者，将被判处[red][b]死刑[/b][/red]。你是否还要抗命！？”[/jitter]",
+                  "options": [
+                    {
+                      "id": "ACCEPT",
+                      "title": "Accept",
+                      "description": "Give in. Serve as today's Decider.",
+                      "title_zh": "接受",
+                      "description_zh": "放弃。担当今天的判决者。"
+                    },
+                    {
+                      "id": "DOUBLE_DOWN",
+                      "title": "Double Down",
+                      "description": "[red]Face lethal repercussions.[/red]",
+                      "title_zh": "坚持到底",
+                      "description_zh": "[red]直面致命的后果。[/red]"
+                    }
+                  ]
+                }
+              ],
+              "new": [
+                {
+                  "id": "INITIAL",
+                  "description": "You join a line of people entering a massive building.\n\nAs you pass under a [gold]golden archway[/gold], horns blare, [jitter]confetti explodes[/jitter], and [sine]streamers glide[/sine] down from the ceiling!\n\n“Entrant [blue][Entrant Number][/blue], you are the [green]DECIDER[/green] for today's [gold]Trial[/gold].”",
+                  "description_zh": "你排起队，和众人一起进入一栋巨大的建筑物。\n\n当你通过一道[gold]金色的拱门[/gold]时，突然号角响起、[jitter]彩纸爆裂飞散[/jitter]、天花板上还飞出了众多[sine]彩条[/sine]！\n\n“[blue][Entrant Number][/blue]号进入者，你将成为今天[gold]审判[/gold]的[green]判决者[/green]。”",
+                  "options": [
+                    {
+                      "id": "ACCEPT",
+                      "title": "Accept",
+                      "description": "Serve as today's Decider.",
+                      "title_zh": "接受",
+                      "description_zh": "担当今天的判决者"
+                    },
+                    {
+                      "id": "REJECT",
+                      "title": "Reject",
+                      "description": "[red]You are not allowed to Reject.[/red]",
+                      "title_zh": "拒绝",
+                      "description_zh": "[red]拒绝是不被允许的。[/red]"
+                    }
+                  ]
+                },
+                {
+                  "id": "MERCHANT",
+                  "description": "A [green]wealthy-looking merchant[/green], presents his case. He is accused of [red]murder[/red] by one of his rivals. The evidence is thin, and you have a feeling that the man is innocent, but the onlookers seem out for blood.",
+                  "description_zh": "一个[green]看起来很有钱的商人[/green]诉说了自己的案件：他被一个对手指控[red]谋杀[/red]。证据相当稀少，你感觉他很可能是无辜的，但是周围的看客们似乎都想要见到鲜血。",
+                  "options": [
+                    {
+                      "id": "GUILTY",
+                      "title": "DECIDE: Guilty",
+                      "description": "Add [red]Regret[/red] to your [gold]Deck[/gold]. Obtain [blue]2[/blue] random [gold]Relics[/gold].",
+                      "title_zh": "判决：有罪",
+                      "description_zh": "将一张[red]悔恨[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]件随机[gold]遗物[/gold]。"
+                    },
+                    {
+                      "id": "INNOCENT",
+                      "title": "DECIDE: Innocent",
+                      "description": "Add [red]Shame[/red] to your [gold]Deck[/gold]. [gold]Upgrade[/gold] [blue]2[/blue] cards.",
+                      "title_zh": "判决：无罪",
+                      "description_zh": "将一张[red]羞耻[/red]加入你的[gold]牌组[/gold]。[gold]升级[/gold][blue]2[/blue]张牌。"
+                    }
+                  ]
+                },
+                {
+                  "id": "MERCHANT_GUILTY",
+                  "description": "You rule that all of the man's possessions are to be taken and given as processing fees for the court.\nThe crowd howls in glee!",
+                  "description_zh": "你判定这个人的所有财产都要被充公，作为今日法庭的审讯费用。\n人群愉悦地高呼起来。"
+                },
+                {
+                  "id": "MERCHANT_INNOCENT",
+                  "description": "You go with your conscience and rule that the man is innocent.\nDespite the boos and accusations of being a [sine][purple]“paid-off judge”[/purple][/sine] you feel like you did the right thing.",
+                  "description_zh": "你听从了自己的良知，宣判此人无罪。\n尽管周围嘘声不断，还有人骂你是个[sine][purple]“被收买的法官”[/purple][/sine]，你依旧觉得自己做出了正确的选择。"
+                },
+                {
+                  "id": "NOBLE",
+                  "description": "A [gold]powerful noble[/gold] steps forward. You find a note in your pocket indicating that if you decide innocence you will be handsomely rewarded. The [gold]noble[/gold] barely argues against the [purple]corruption charges[/purple] and gives you a knowing smirk.\nYou can't stop corruption but you can pocket some [gold]gold...[/gold]",
+                  "description_zh": "一个[gold]权势很大的贵族[/gold]走上前来。你发现自己的口袋里被塞了一张字条，说只要宣判他无罪就会得到巨额回报。[gold]贵族[/gold]对于[purple]贪污腐败的指控[/purple]几乎没有做任何反驳，只是特意向你露出一个得意的笑容。\n你无法阻止贪污腐败，但你可以借此机会捞一些[gold]金币……[/gold]",
+                  "options": [
+                    {
+                      "id": "GUILTY",
+                      "title": "DECIDE: Guilty",
+                      "description": "Heal [green]10[/green] HP.",
+                      "title_zh": "判决：有罪",
+                      "description_zh": "回复[green]10[/green]点生命。"
+                    },
+                    {
+                      "id": "INNOCENT",
+                      "title": "DECIDE: Innocent",
+                      "description": "Add [red]Regret[/red] to your [gold]Deck[/gold]. Obtain [blue]300[/blue] [gold]Gold[/gold].",
+                      "title_zh": "判决：无罪",
+                      "description_zh": "将一张[red]悔恨[/red]加入你的[gold]牌组[/gold]。获得[blue]300[/blue][gold]金币[/gold]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "NOBLE_GUILTY",
+                  "description": "The [gold]powerful noble[/gold] was [red]beheaded[/red].\nOne less [purple]corrupt noble[/purple].",
+                  "description_zh": "[gold]大贵族[/gold]被[red]斩首处死[/red]。\n世界上又少了一个[purple]腐败的贵族[/purple]。"
+                },
+                {
+                  "id": "NOBLE_INNOCENT",
+                  "description": "You don't [sine][purple]really[/purple][/sine] know that he's guilty... Yeah, that's it!\nThe [gold]bribe[/gold] has nothing to do with the outcome here. Nope.",
+                  "description_zh": "你[sine][purple]其实[/purple][/sine]不是特别清楚他有没有罪……对，就是这样！\n这笔[gold]贿赂[/gold]和判决的结果没有任何关系。完全没有。"
+                },
+                {
+                  "id": "NONDESCRIPT",
+                  "description": "A [orange]nondescript woman with a hard-to-read face[/orange] steps forward. She is charged with the crime of [red]theft[/red] and [purple]con-artistry[/purple]. When the woman speaks, you believe her, but ample witnesses attest to her misdeeds.\nBoth sides of the story are compelling!",
+                  "description_zh": "一个[orange]表情难以阅读的平凡女子[/orange]走上前来。她被指控犯下了[red]盗窃[/red]与[purple]诈骗[/purple]的罪行。这名女子开口时，你觉得她非常可信。但是有众多证人都作证说她做出过许多坏事。\n两边的说法都很有说服力！",
+                  "options": [
+                    {
+                      "id": "GUILTY",
+                      "title": "DECIDE: Guilty",
+                      "description": "Add [red]Doubt[/red] to your [gold]Deck[/gold]. Gain [blue]2[/blue] card rewards.",
+                      "title_zh": "判决：有罪",
+                      "description_zh": "将一张[red]疑虑[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]组卡牌奖励。"
+                    },
+                    {
+                      "id": "INNOCENT",
+                      "title": "DECIDE: Innocent",
+                      "description": "Add [red]Doubt[/red] to your [gold]Deck[/gold]. [gold]Transform[/gold] [blue]2[/blue] cards.",
+                      "title_zh": "判决：无罪",
+                      "description_zh": "将一张[red]疑虑[/red]加入你的[gold]牌组[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
+                    }
+                  ]
+                },
+                {
+                  "id": "NONDESCRIPT_GUILTY",
+                  "description": "You aren't totally sure, but making the hard choice, you think the evidence is adequate.\nDid you really make the right call?",
+                  "description_zh": "你并不是很确定真相如何，但艰难的决定总要有人做出，你觉得证据已经算是足够。\n你是否真的做出了正确的判决呢？"
+                },
+                {
+                  "id": "NONDESCRIPT_INNOCENT",
+                  "description": "You aren't totally sure, but you have a reasonable doubt.\nYou don't know if you made the right call, but innocence seems like the better choice.",
+                  "description_zh": "你并不是很确定真相如何，但你有着合理的怀疑。\n你不知道自己的判决是否正确，只是觉得无罪应该是更好的选择。"
+                },
+                {
+                  "id": "REJECT",
+                  "description": "[jitter]“YOU CANNOT REFUSE!!”[/jitter]\n\nShouts the [gold]Grand Arbiter of the Courts[/gold].\n\n[jitter]“Those who reject this privilege are penalized with [red]DEATH[/red]. Do you still defy!?”[/jitter]",
+                  "description_zh": "[jitter]“[b]你不能拒绝！！[/b]”[/jitter]\n\n[gold]法院总仲裁官[/gold]大声喊道。\n\n[jitter]“回绝此项特权者，将被判处[red][b]死刑[/b][/red]。你是否还要抗命！？”[/jitter]",
+                  "options": [
+                    {
+                      "id": "ACCEPT",
+                      "title": "Accept",
+                      "description": "Give in. Serve as today's Decider.",
+                      "title_zh": "接受",
+                      "description_zh": "放弃。担当今天的判决者。"
+                    },
+                    {
+                      "id": "DOUBLE_DOWN",
+                      "title": "Double Down",
+                      "description": "[red]Face lethal repercussions.[/red]",
+                      "title_zh": "坚持到底",
+                      "description_zh": "[red]直面致命的后果。[/red]"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "WAR_HISTORIAN_REPY",
+          "name": "War Historian, Repy",
+          "changes": [
+            {
+              "field": "pages",
+              "old": [
+                {
+                  "id": "INITIAL",
+                  "description": "An academic is trapped in a [purple]hanging cage[/purple] next to a [gold]treasure chest[/gold].\n\nThe academic is muttering about [sine][orange]“One-Time-Use Keys”[/orange][/sine] while furiously writing something.\n\nLooks like you can unlock the [purple]cage[/purple] or the [gold]chest[/gold].",
+                  "description_zh": "你看到一个学者被关在一个[purple]吊在空中的笼子[/purple]里，而旁边有一个[gold]大宝箱[/gold]。\n\n那个学者一边咕哝着什么[sine][orange]“一次性的钥匙”[/orange][/sine]，一边拼命地在写着些什么。\n\n看起来你可以二选一，要么打开[purple]笼子[/purple]，要么打开[gold]宝箱[/gold]。",
+                  "options": [
+                    {
+                      "id": "UNLOCK_CAGE",
+                      "title": "Unlock the Cage",
+                      "description": "Lose [gold]Lantern Key[/gold]. Obtain [gold]History Course[/gold].",
+                      "title_zh": "打开笼子",
+                      "description_zh": "失去[gold]灯火钥匙[/gold]。获得[gold]历史课[/gold]。"
+                    },
+                    {
+                      "id": "UNLOCK_CHEST",
+                      "title": "Unlock the Chest",
+                      "description": "Lose [gold]Lantern Key[/gold]. Procure [blue]2[/blue] random [gold]Potions[/gold]. Obtain [blue]2[/blue] random [gold]Relics[/gold].",
+                      "title_zh": "打开宝箱",
+                      "description_zh": "失去[gold]灯火钥匙[/gold]。获得[blue]2[/blue]瓶随机[gold]药水[/gold]和[blue]2[/blue]件随机[gold]遗物[/gold]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "UNLOCK_CAGE",
+                  "description": "[green]Repy[/green] bows in appreciation as you open the cage. He hands you a [gold]thick leather tome[/gold].\n\n“Those who know not of history are doomed to repeat it. But you seem to know a thing or two about repeats don't you?”",
+                  "description_zh": "你打开了笼子，[green]付袭[/green]向你鞠躬表达谢意。他递给你一本[gold]厚厚的硬皮书[/gold]。\n\n“不懂得历史的人注定要重蹈覆辙。不过看起来你对‘重复’这件事还是略知一二的，对不对？”"
+                },
+                {
+                  "id": "UNLOCK_CHEST",
+                  "description": "“Not going to free the scholar, [green]Repy[/green]? Based on classic philosophy, you would be considered a [red]moral failure[/red]. That's right, maybe consider the [purple][jitter]LIVING PERSON[/jitter][/purple] that is locked up next time! It is not as if there is a valuable member of society in a [purple][jitter]DIRE PREDICAMENT[/jitter][/purple] or anything!!”\n\n“Look, okay, see how small this cage is!? Why am I complaining? You've already made your unscholarly decision... oh, what's inside there? Some [gold]potions[/gold] and [gold]relics[/gold]? Isn't that just great. [sine]Just great. Really great for you...[/sine]”\n\n[green]Repy's[/green] eyes follow you with disdain as you walk away.",
+                  "description_zh": "“选择不解放学者[green]付袭[/green]是吗？根据古典哲学理论，你该被称为是[red]道德败坏[/red]。没错，下次你最好想一想，是不是应该先考虑下被锁起来的[purple][jitter][b]活人[/b][/jitter][/purple]才对啊！你是觉得这里没有一位对社会有价值的成员正处于[purple][jitter]][b]危难之中[/b][/jitter][/purple]吗！！”\n\n“你看看这笼子有多小好不好！？唉我还在抱怨什么呢？你已经作出了你那缺乏学识的决定……嚯，看看那里面有什么？一些[gold]药水[/gold]和[gold]遗物[/gold]是吗？那可真好啊，[sine]真的好，对你来说真是太好了……[/sine]”\n\n[green]付袭[/green]的眼睛鄙夷地盯着你从这里离开。"
+                }
+              ],
+              "new": [
+                {
+                  "id": "INITIAL",
+                  "description": "An academic is trapped in a [purple]hanging cage[/purple] next to a [gold]treasure chest[/gold].\n\nThe academic is muttering about [sine][orange]“One-Time-Use Keys”[/orange][/sine] while furiously writing something.\n\nLooks like you can unlock the [purple]cage[/purple] or the [gold]chest[/gold].",
+                  "description_zh": "你看到一个学者被关在一个[purple]吊在空中的笼子[/purple]里，而旁边有一个[gold]大宝箱[/gold]。\n\n那个学者一边咕哝着什么[sine][orange]“一次性的钥匙”[/orange][/sine]，一边拼命地在写着些什么。\n\n看起来你可以二选一，要么打开[purple]笼子[/purple]，要么打开[gold]宝箱[/gold]。",
+                  "options": [
+                    {
+                      "id": "UNLOCK_CAGE",
+                      "title": "Unlock the Cage",
+                      "description": "Lose [gold]Lantern Key[/gold]. Obtain [gold]History Course[/gold].",
+                      "title_zh": "打开笼子",
+                      "description_zh": "失去[gold]灯火钥匙[/gold]。获得[gold]历史课[/gold]。"
+                    },
+                    {
+                      "id": "UNLOCK_CHEST",
+                      "title": "Unlock the Chest",
+                      "description": "Lose [gold]Lantern Key[/gold]. Procure [blue]2[/blue] random [gold]Potions[/gold]. Obtain [blue]2[/blue] random [gold]Relics[/gold].",
+                      "title_zh": "打开宝箱",
+                      "description_zh": "失去[gold]灯火钥匙[/gold]。获得[blue]2[/blue]瓶随机[gold]药水[/gold]和[blue]2[/blue]件随机[gold]遗物[/gold]。"
+                    }
+                  ]
+                },
+                {
+                  "id": "UNLOCK_CAGE",
+                  "description": "[green]Repy[/green] bows in appreciation as you open the cage. He hands you a [gold]thick leather tome[/gold].\n\n“Those who know not of history are doomed to repeat it. But you seem to know a thing or two about repeats don't you?”",
+                  "description_zh": "你打开了笼子，[green]付袭[/green]向你鞠躬表达谢意。他递给你一本[gold]厚厚的硬皮书[/gold]。\n\n“不懂得历史的人注定要重蹈覆辙。不过看起来你对‘重复’这件事还是略知一二的，对不对？”"
+                },
+                {
+                  "id": "UNLOCK_CHEST",
+                  "description": "“Not going to free the scholar, [green]Repy[/green]? Based on classic philosophy, you would be considered a [red]moral failure[/red]. That's right, maybe consider the [purple][jitter]LIVING PERSON[/jitter][/purple] that is locked up next time! It is not as if there is a valuable member of society in a [purple][jitter]DIRE PREDICAMENT[/jitter][/purple] or anything!!”\n\n“Look, okay, see how small this cage is!? Why am I complaining? You've already made your unscholarly decision... oh, what's inside there? Some [gold]potions[/gold] and [gold]relics[/gold]? Isn't that just great. [sine]Just great. Really great for you...[/sine]”\n\n[green]Repy's[/green] eyes follow you with disdain as you walk away.",
+                  "description_zh": "“选择不解放学者[green]付袭[/green]是吗？根据古典哲学理论，你该被称为是[red]道德败坏[/red]。没错，下次你最好想一想，是不是应该先考虑下被锁起来的[purple][jitter][b]活人[/b][/jitter][/purple]才对啊！你是觉得这里没有一位对社会有价值的成员正处于[purple][jitter][b]危难之中[/b][/jitter][/purple]吗！！”\n\n“你看看这笼子有多小好不好！？唉我还在抱怨什么呢？你已经作出了你那缺乏学识的决定……嚯，看看那里面有什么？一些[gold]药水[/gold]和[gold]遗物[/gold]是吗？那可真好啊，[sine]真的好，对你来说真是太好了……[/sine]”\n\n[green]付袭[/green]的眼睛鄙夷地盯着你从这里离开。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "WELLSPRING",
+          "name": "Wellspring",
+          "changes": [
+            {
+              "field": "pages",
+              "old": [
+                {
+                  "id": "BATHE",
+                  "description": "You emerge from the pool with a slight [red][sine]feeling of unease[/sine][/red].\n\nHowever, you feel surprisingly refreshed.",
+                  "description_zh": "你从池水中出来时，有一股轻微的[red][sine]不安感[/sine][/red]。\n\n不过意外的是，你的精神恢复得相当不错。"
+                },
+                {
+                  "id": "BOTTLE",
+                  "description": "Bathing in the [sine][aqua]beautiful water[/aqua][/sine] seems suspicious... you decide to bottle some up instead.\n\nThis will come in handy.",
+                  "description_zh": "在[sine][aqua]如此美丽的池水[/aqua][/sine]中洗澡听起来有点可疑……你决定还是拿瓶子装点水就好。\n\n这应该会派的上用场。"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You trace a [jitter]low rumble[/jitter] to its source and find yourself captivated by a tranquil wellspring. The water is an [sine][aqua]emerald green[/aqua][/sine] with clusters of [sine][gold]glowing motes[/gold][/sine].\n\nIt looks inviting. What can possibly go wrong?",
+                  "description_zh": "你跟着一阵[jitter]低沉的轰鸣声[/jitter]找到了源头：居然是一处平静的泉水，让你心生向往。泉水[sine][aqua]绿如碧玉[/aqua][/sine]，你还能从中看见一些[sine][gold]发光的尘埃[/gold][/sine]。\n\n看起来十分诱人，这不可能出什么差错的吧？",
+                  "options": [
+                    {
+                      "id": "BATHE",
+                      "title": "Bathe",
+                      "description": "Remove [blue]1[/blue] card from your [gold]Deck[/gold]. Add [blue]1[/blue] [red]Guilty[/red] to your [gold]Deck[/gold].",
+                      "title_zh": "沐浴",
+                      "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]内疚[/red]添加到你的[gold]牌组[/gold]。"
+                    },
+                    {
+                      "id": "BOTTLE",
+                      "title": "Bottle",
+                      "description": "Procure [blue]1[/blue] random [gold]Potion[/gold].",
+                      "title_zh": "装瓶",
+                      "description_zh": "获得[blue]1[/blue]瓶随机[gold]药水[/gold]。"
+                    }
+                  ]
+                }
+              ],
+              "new": [
+                {
+                  "id": "BATHE",
+                  "description": "You emerge from the pool with a slight [red][sine]feeling of unease[/sine][/red].\n\nHowever, you feel surprisingly refreshed.",
+                  "description_zh": "你从池水中出来时，有一股轻微的[red][sine]不安感[/sine][/red]。\n\n不过意外的是，你的精神恢复得相当不错。"
+                },
+                {
+                  "id": "BOTTLE",
+                  "description": "Bathing in the [sine][aqua]beautiful water[/aqua][/sine] seems suspicious... you decide to bottle some up instead.\n\nThis will come in handy.",
+                  "description_zh": "在[sine][aqua]如此美丽的池水[/aqua][/sine]中洗澡听起来有点可疑……你决定还是拿瓶子装点水就好。\n\n这应该会派的上用场。"
+                },
+                {
+                  "id": "INITIAL",
+                  "description": "You trace a [jitter]low rumble[/jitter] to its source and find yourself captivated by a tranquil wellspring. The water is an [sine][aqua]emerald green[/aqua][/sine] with clusters of [sine][gold]glowing motes[/gold][/sine].\n\nIt looks inviting. What can possibly go wrong?",
+                  "description_zh": "你跟着一阵[jitter]低沉的轰鸣声[/jitter]找到了源头：居然是一处平静的泉水，让你心生向往。泉水[sine][aqua]绿如碧玉[/aqua][/sine]，你还能从中看见一些[sine][gold]发光的尘埃[/gold][/sine]。\n\n看起来十分诱人，这不可能出什么差错的吧？",
+                  "options": [
+                    {
+                      "id": "BATHE",
+                      "title": "Bathe",
+                      "description": "Remove [blue]1[/blue] card from your [gold]Deck[/gold]. Add [blue]1[/blue] [red]Guilty[/red] to your [gold]Deck[/gold].",
+                      "title_zh": "沐浴",
+                      "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]愧疚[/red]添加到你的[gold]牌组[/gold]。"
+                    },
+                    {
+                      "id": "BOTTLE",
+                      "title": "Bottle",
+                      "description": "Procure [blue]1[/blue] random [gold]Potion[/gold].",
+                      "title_zh": "装瓶",
+                      "description_zh": "获得[blue]1[/blue]瓶随机[gold]药水[/gold]。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "field": "options",
+              "old": [
+                {
+                  "id": "BATHE",
+                  "title": "Bathe",
+                  "description": "Remove [blue]1[/blue] card from your [gold]Deck[/gold]. Add [blue]1[/blue] [red]Guilty[/red] to your [gold]Deck[/gold].",
+                  "title_zh": "沐浴",
+                  "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]内疚[/red]添加到你的[gold]牌组[/gold]。"
+                },
+                {
+                  "id": "BOTTLE",
+                  "title": "Bottle",
+                  "description": "Procure [blue]1[/blue] random [gold]Potion[/gold].",
+                  "title_zh": "装瓶",
+                  "description_zh": "获得[blue]1[/blue]瓶随机[gold]药水[/gold]。"
+                }
+              ],
+              "new": [
+                {
+                  "id": "BATHE",
+                  "title": "Bathe",
+                  "description": "Remove [blue]1[/blue] card from your [gold]Deck[/gold]. Add [blue]1[/blue] [red]Guilty[/red] to your [gold]Deck[/gold].",
+                  "title_zh": "沐浴",
+                  "description_zh": "从你的[gold]牌组[/gold]中移除[blue]1[/blue]张牌。将[blue]1[/blue]张[red]愧疚[/red]添加到你的[gold]牌组[/gold]。"
+                },
+                {
+                  "id": "BOTTLE",
+                  "title": "Bottle",
+                  "description": "Procure [blue]1[/blue] random [gold]Potion[/gold].",
+                  "title_zh": "装瓶",
+                  "description_zh": "获得[blue]1[/blue]瓶随机[gold]药水[/gold]。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "powers",
+      "name": "Powers",
+      "old_count": 260,
+      "new_count": 260,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "POISON",
+          "name": "Poison",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "中毒的生物还在自身回合开始时失去生命。中毒层数每回合减少[blue]1[/blue]。",
+              "new": "中毒的生物会在自身回合开始时失去生命。中毒层数每回合减少[blue]1[/blue]。"
+            },
+            {
+              "field": "description_raw_zh",
+              "old": "中毒的生物还在自身回合开始时失去生命。中毒层数每回合减少[blue]1[/blue]。",
+              "new": "中毒的生物会在自身回合开始时失去生命。中毒层数每回合减少[blue]1[/blue]。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "epochs",
+      "name": "Epochs",
+      "old_count": 57,
+      "new_count": 57,
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "DAILY_RUN_EPOCH",
+          "name": "The Daily",
+          "changes": [
+            {
+              "field": "unlock_info_zh",
+              "old": "用所有角色通关[blue]第三[/blue][gold]阶段[/gold]来揭示这个历史节点。",
+              "new": "用所有角色游玩一次游戏、通关[blue]第三[/blue][gold]阶段[/gold]来揭示这个历史节点。"
+            }
+          ]
+        },
+        {
+          "id": "DEFECT7_EPOCH",
+          "name": "Ooh Shiny!",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "[blue]故障机器人[/blue]进入了一个房间，里面胡乱摆放着众多[gold]财宝[/gold]、[green]饰品[/green]、[red]武器[/red]、[blue]珍稀动物[/blue]、[orange]艺术品[/orange]、[purple]书籍[/purple]以及各种各样[sine]垃圾与小物件[/rainbow][/sine]，挤得满满当当。\n\n如此大量的信息与无序规模让[blue]故障机器人[/blue]可怜的处理核心一时有些无法承受。\n\n[jitter]“别挡道哈！”[/jitter]一个骑着一条威胁等级9级爬行动物的巨大人形生物高声呼喊着，但它随即停下坐骑，露出[sine]奇怪的微笑[/sine]看向了[blue]故障机器人[/blue]。\n\n“我有东西给你哦！”",
+              "new": "[blue]故障机器人[/blue]进入了一个房间，里面胡乱摆放着众多[gold]财宝[/gold]、[green]饰品[/green]、[red]武器[/red]、[blue]珍稀动物[/blue]、[orange]艺术品[/orange]、[purple]书籍[/purple]以及各种各样[sine]垃圾与小物件[/rainbow][/sine]，挤得满满当当。\n\n如此大量的信息与无序规模让[blue]故障机器人[/blue]可怜的处理核心一时有些无法承受。\n\n[jitter]“别挡道哈！”[/jitter]一个骑着一条威胁等级9级的爬行动物的巨大人形生物高声呼喊着，但它随即停下坐骑，露出[sine]奇怪的微笑[/sine]看向了[blue]故障机器人[/blue]。\n\n“我有东西给你哦！”"
+            }
+          ]
+        },
+        {
+          "id": "NECROBINDER1_EPOCH",
+          "name": "Life and Death",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "一个[pink]年轻的探险者[/pink]解开了[purple]禁忌魔典[/purple]的封扣……来自别个时间与地点的魔法瞬间从书中迸发出来，无数黑色轻烟笼罩了那位好奇的年轻人。\n\n她获得了[sine][purple]对生与死的理解[/purple][/sine]——但同时也付出了代价。她的皮肤、头发与器官迅速地腐烂衰朽，而她的灵魂被强行绑缚在了她口袋中的吊坠盒上。\n\n魔典轻声低语着：[sine][red]“若我死了，你也会死。”[/red][/sine]",
+              "new": "一个[pink]年轻的探险者[/pink]解开了[purple]禁忌魔典[/purple]的封扣……来自不同时间与地点的魔法瞬间从书中迸发出来，无数黑色轻烟笼罩了那位好奇的年轻人。\n\n她获得了[sine][purple]对生与死的理解[/purple][/sine]——但同时也付出了代价。她的皮肤、头发与器官迅速地腐烂衰朽，而她的灵魂被强行绑缚在了她口袋中的吊坠盒上。\n\n魔典轻声低语着：[sine][red]“若我死了，你也会死。”[/red][/sine]"
+            }
+          ]
+        },
+        {
+          "id": "NECROBINDER7_EPOCH",
+          "name": "To Kill",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "[pink]亡灵契约师[/pink]来到[red]建筑师[/red]面前，要求他复原[green]巨人[/green]、她的父母和她的人性。她[jitter]因为复仇而愤怒[/jitter]，可是却一次又一次地被消灭。\n\n在一次攀登的途中，她发现了一条巨大的龙，[gold]佩尔[/gold]。巨龙散发出与[green]相同[/green]的温柔气息，他开口说……\n\n“这能帮助你引起他的注意……”",
+              "new": "[pink]亡灵契约师[/pink]来到[red]建筑师[/red]面前，要求他复原[green]巨人[/green]、她的父母和她的人性。她[jitter]因为复仇而愤怒[/jitter]，可是却一次又一次地被消灭。\n\n在一次攀登的途中，她发现了一条巨大的龙，[gold]佩尔[/gold]。巨龙散发出与[green]巨人[/green]相同的温柔气息，他开口说……\n\n“这能帮助你引起他的注意……”"
+            }
+          ]
+        },
+        {
+          "id": "REGENT3_EPOCH",
+          "name": "We Need a Hero!",
+          "changes": [
+            {
+              "field": "description_zh",
+              "old": "自从大门开启，致命的怪物们就开始从[gold]高塔[/gold]中不断加速涌出……\n\n许多英勇的战士、探险者和雇佣兵们被派进高塔，却鲜有人都有所进展。\n能活着回来的人只会更少。\n\n[orange]储君[/orange]得知了这一现状，立即决定自己就应该成为先子星最需要的英雄！\n“我进塔！！”",
+              "new": "自从大门开启，致命的怪物们就开始从[gold]高塔[/gold]中不断加速涌出……\n\n许多英勇的战士、探险者和雇佣兵们被派进高塔，却鲜少有人有所进展。\n能活着回来的人只会更少。\n\n[orange]储君[/orange]得知了这一现状，立即决定自己就应该成为先子星最需要的英雄！\n“我进塔！！”"
+            }
+          ]
+        },
+        {
+          "id": "REGENT7_EPOCH",
+          "name": "Little King",
+          "changes": [
+            {
+              "field": "unlock_info_zh",
+              "old": "通关[red]进阶[/red][blue]1[/blue][orange]储君[/orange]来揭示这个历史节点。",
+              "new": "以[orange]储君[/orange]通关[red]进阶[/red][blue]1[/blue]来揭示这个历史节点。"
+            }
+          ]
+        },
+        {
+          "id": "UNDERDOCKS_EPOCH",
+          "name": "Underdocks",
+          "changes": [
+            {
+              "field": "unlock_info_zh",
+              "old": "击杀[green]密林[/green]的全部[blue]3[/blue]个Boss来揭示这个历史节点。",
+              "new": "通过积累分数来解锁。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
