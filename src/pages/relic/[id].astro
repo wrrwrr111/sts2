@@ -4,6 +4,7 @@ import relicsData from "../../../data/relics.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
 import VotePanel from "../../components/VotePanel.astro";
+import UpdateHistory from "../../components/UpdateHistory.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type Relic = {
@@ -160,6 +161,7 @@ const t = {
           />
         )}
         </section>
+        <UpdateHistory categoryId="relics" entityId={relic.id} lang={lang} basePath={base} />
       </div>
     </div>
   </main>

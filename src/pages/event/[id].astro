@@ -8,6 +8,7 @@ import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
 import CardView from "../../components/CardView.astro";
+import UpdateHistory from "../../components/UpdateHistory.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 import {
   createMentionResolver,
@@ -560,6 +561,8 @@ const t = {
             </div>
           </section>
         )}
+
+        <UpdateHistory categoryId="events" entityId={event.id} lang={lang} basePath={base} />
       </div>
     </div>
   </main>

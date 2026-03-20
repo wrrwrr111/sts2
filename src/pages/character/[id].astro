@@ -7,6 +7,7 @@ import orbsData from "../../../data/orbs.json";
 import eventsData from "../../../data/events.json";
 import TopNav from "../../components/TopNav.astro";
 import CardView from "../../components/CardView.astro";
+import UpdateHistory from "../../components/UpdateHistory.astro";
 import type { Card } from "../../lib/cardModels";
 import { formatRelicText } from "../../lib/relicText";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
@@ -830,6 +831,8 @@ const deckCountLabel = isEn
           </div>
         </div>
       </section>
+
+      <UpdateHistory categoryId="characters" entityId={character.id} lang={lang} basePath={base} />
     </div>
   </main>
   <div

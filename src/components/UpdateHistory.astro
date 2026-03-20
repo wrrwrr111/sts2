@@ -1,0 +1,121 @@
+---
+import type { Lang } from "../lib/i18n";
+import { formatRelicText } from "../lib/relicText";
+import {
+  getEntityUpdateHistory,
+  getUpdateHistoryFieldLabel,
+} from "../lib/updateHistory";
+
+type Props = {
+  categoryId: string;
+  entityId: string;
+  lang: Lang;
+  basePath: string;
+};
+
+const {
+  categoryId,
+  entityId,
+  lang,
+  basePath,
+} = Astro.props as Props;
+
+const isEn = lang === "en";
+const entries = getEntityUpdateHistory(categoryId, entityId);
+
+const t = {
+  title: isEn ? "Update History" : "更新历史",
+  oldValue: isEn ? "Before" : "更新前",
+  newValue: isEn ? "After" : "更新后",
+  reportLabel: isEn ? "Update" : "更新",
+  versionPrefix: isEn ? "Version" : "版本",
+};
+
+const formatDateLabel = (value: string | null) => {
+  if (!value) return null;
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return value;
+  return new Intl.DateTimeFormat(isEn ? "en-US" : "zh-CN", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(parsed);
+};
+
+const getEntryLabel = (createdAt: string | null, gameVersion: string | null) => {
+  const parts = [];
+  if (gameVersion) parts.push(`${t.versionPrefix} ${gameVersion}`);
+  const dateLabel = formatDateLabel(createdAt);
+  if (dateLabel) parts.push(dateLabel);
+  return parts.join(" · ");
+};
+
+const getRefLabel = (fromRef: string | null, toRef: string | null) => {
+  if (!fromRef && !toRef) return null;
+  return `${fromRef ?? "?"} → ${toRef ?? "?"}`;
+};
+
+const getDisplayValue = (value: string) => {
+  const normalized = value.trim();
+  return normalized ? normalized : "—";
+};
+---
+
+{entries.length > 0 && (
+  <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+    <h2 class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+      {t.title}
+    </h2>
+    <div class="mt-3 grid gap-4">
+      {entries.map((entry, entryIndex) => (
+        <article class="rounded-[14px] border border-white/10 bg-black/20 p-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+              {t.reportLabel} {entryIndex + 1}
+            </div>
+            {getEntryLabel(entry.createdAt, entry.gameVersion) && (
+              <div class="text-[12px] text-[#c4c7d6]">
+                {getEntryLabel(entry.createdAt, entry.gameVersion)}
+              </div>
+            )}
+            {getRefLabel(entry.fromRef, entry.toRef) && (
+              <div class="text-[11px] text-[#8f96ad]">
+                {getRefLabel(entry.fromRef, entry.toRef)}
+              </div>
+            )}
+          </div>
+
+          <div class="mt-3 grid gap-3">
+            {entry.changes.map((change) => (
+              <div class="rounded-[12px] border border-white/10 bg-white/5 p-3">
+                <div class="text-[11px] uppercase tracking-[0.2em] text-[#fdf0d8]">
+                  {getUpdateHistoryFieldLabel(change.field, lang)}
+                </div>
+                <div class="mt-3 grid gap-3 lg:grid-cols-2">
+                  <div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                      {t.oldValue}
+                    </div>
+                    <div
+                      class="mt-1 text-[12px] leading-[1.5] text-[#d8dbea] [&_img]:inline-block"
+                      set:html={formatRelicText(getDisplayValue(change.oldValue), basePath)}
+                    />
+                  </div>
+                  <div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                      {t.newValue}
+                    </div>
+                    <div
+                      class="mt-1 text-[12px] leading-[1.5] text-[#f2e5cd] [&_img]:inline-block"
+                      set:html={formatRelicText(getDisplayValue(change.newValue), basePath)}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+)}

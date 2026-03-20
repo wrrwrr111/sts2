@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
 import TopNav from "../../components/TopNav.astro";
+import UpdateHistory from "../../components/UpdateHistory.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
 type Potion = {
@@ -138,6 +139,7 @@ const t = {
           set:html={formatRelicText(pickText(lang, potion.description_zh, potion.description), base)}
         />
         </section>
+        <UpdateHistory categoryId="potions" entityId={potion.id} lang={lang} basePath={base} />
       </div>
     </div>
   </main>

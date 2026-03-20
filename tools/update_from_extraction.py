@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shlex
 import subprocess
 import sys
@@ -14,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE_INFO = ROOT / "extraction" / "raw" / "release_info.json"
 STATE_FILE = ROOT / "tools" / ".cache" / "update_state.json"
+VERSION_PATTERN = re.compile(r"v?\d+\.\d+\.\d+(?:[-._][A-Za-z0-9]+)?")
 
 
 def run_step(cmd: list[str]) -> None:
@@ -57,15 +59,35 @@ def read_version_from_file(path: Path) -> str:
 
 
 def read_version_from_ref(ref: str) -> str:
-    result = subprocess.run(
-        ["git", "show", f"{ref}:extraction/raw/release_info.json"],
-        capture_output=True,
-        text=True,
-        cwd=ROOT,
-    )
-    if result.returncode != 0:
+    match = VERSION_PATTERN.search(ref.strip())
+    if not match:
         return ""
-    return parse_version_text(result.stdout)
+    return normalize_version(match.group(0))
+
+
+def read_version_from_latest_report(out_dir: Path) -> str:
+    if not out_dir.exists():
+        return ""
+    report_files: list[tuple[float, Path]] = []
+    for path in out_dir.glob("*.json"):
+        try:
+            mtime = path.stat().st_mtime
+        except OSError:
+            continue
+        report_files.append((mtime, path))
+    report_files.sort(key=lambda item: item[0], reverse=True)
+
+    for _, report_file in report_files:
+        try:
+            payload = json.loads(report_file.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(payload, dict):
+            continue
+        version = payload.get("game_version")
+        if isinstance(version, str) and version.strip():
+            return normalize_version(version)
+    return ""
 
 
 def load_state(path: Path) -> dict:
@@ -95,7 +117,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--game-version",
         default="",
-        help="Override game version for diff output (otherwise auto-detect from extraction/raw/release_info.json).",
+        help="Override game version for diff output (otherwise detect from local release_info, state, or latest diff report).",
     )
     parser.add_argument(
         "--report-name",
@@ -157,21 +179,34 @@ def main() -> None:
         "Place fresh extracted raw files under extraction/raw.",
     )
 
-    current_version = args.game_version.strip() or read_version_from_file(RELEASE_INFO)
+    current_version = normalize_version(args.game_version.strip()) if args.game_version.strip() else ""
+    if not current_version:
+        current_version = read_version_from_file(RELEASE_INFO)
+
+    old_ref = args.old_ref or "HEAD"
+    report_dir = Path(args.out_dir).expanduser().resolve()
+
     state = load_state(STATE_FILE)
     last_processed_version = ""
     if isinstance(state.get("last_processed_game_version"), str):
-        last_processed_version = state["last_processed_game_version"].strip()
-    head_version = read_version_from_ref("HEAD")
+        last_processed_version = normalize_version(state["last_processed_game_version"])
+
+    latest_report_version = read_version_from_latest_report(report_dir)
+    old_ref_version = read_version_from_ref(old_ref)
+    if old_ref.upper() == "HEAD":
+        old_ref_version = old_ref_version or last_processed_version or latest_report_version
+
+    baseline_version = last_processed_version or latest_report_version or old_ref_version
 
     print("== STS2 Update Check ==")
     print(f"Current extraction version: {current_version or 'unknown'}")
     print(f"Last processed version:     {last_processed_version or 'unknown'}")
-    print(f"HEAD extraction version:    {head_version or 'unknown'}")
+    print(f"Latest report version:      {latest_report_version or 'unknown'}")
+    print(f"{old_ref} inferred version:      {old_ref_version or 'unknown'}")
     if (
         current_version
-        and last_processed_version
-        and current_version == last_processed_version
+        and baseline_version
+        and current_version == baseline_version
         and not args.force
     ):
         print("\n[skip] No game version update detected. Use --force to run anyway.")
@@ -201,7 +236,6 @@ def main() -> None:
         )
 
     if not args.no_diff:
-        old_ref = args.old_ref or "HEAD"
         diff_cmd = [
             "python3",
             "tools/diff_data.py",
@@ -210,8 +244,8 @@ def main() -> None:
             "--out-dir",
             args.out_dir,
         ]
-        if args.game_version:
-            diff_cmd.extend(["--game-version", args.game_version])
+        if current_version:
+            diff_cmd.extend(["--game-version", current_version])
         if args.report_name:
             diff_cmd.extend(["--report-name", args.report_name])
         print(f"\nAuto old ref: {old_ref}")
