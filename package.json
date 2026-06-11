@@ -6,14 +6,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "install:tools": "npm --prefix tools/spine-renderer install"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",
-    "@pixi/spine-pixi": "^2.1.1",
-    "astro": "^5.17.1",
-    "pixi-spine": "^4.0.6",
-    "pixi.js": "^8.17.0"
+    "astro": "^5.17.1"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",

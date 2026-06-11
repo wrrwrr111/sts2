@@ -1,0 +1,22 @@
+{
+  "name": "杀戮尖塔2 中文资料库",
+  "short_name": "STS2",
+  "description": "Slay the Spire 2 database for cards, characters, relics, potions, events, and monsters.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#10121a",
+  "theme_color": "#10121a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

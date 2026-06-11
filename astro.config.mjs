@@ -42,7 +42,7 @@ const voteApiProxyTarget = (
 // https://astro.build/config
 export default defineConfig({
 	integrations: [tailwind()],
-	site: 'https://wrrwrr111.github.io',
+	site: 'https://sts2.urarawin.com',
 	base: '/',
 	vite: {
 		server: {

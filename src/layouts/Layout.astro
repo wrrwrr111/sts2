@@ -14,11 +14,8 @@ const siteTitle = isEn
 const siteDescription = isEn
 	? 'A Slay the Spire 2 database for cards, characters, relics, potions, events, and monsters with filters and search.'
 	: '杀戮尖塔2（Slay the Spire 2）中文资料库，收录卡牌、角色、遗物、药剂、事件与怪物信息，支持筛选与搜索。';
-const siteKeywords = isEn
-	? 'Slay the Spire 2,STS2,database,cards,characters,relics,potions,events,monsters'
-	: '杀戮尖塔2,Slay the Spire 2,中文资料库,卡牌,角色,遗物,药剂,事件,怪物,中文翻译';
 const siteAuthor = 'Baze';
-const siteUrl = 'https://sts2.urarawin.com';
+const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? 'https://sts2.urarawin.com';
 const siteImage = ''; // 如果有社交媒体分享图片的话
 const currentNoLangQuery = new URLSearchParams(currentParams);
 currentNoLangQuery.delete("lang");
@@ -49,57 +46,31 @@ const siteJsonLd = {
 <!doctype html>
 <html lang={isEn ? "en" : "zh-CN"}>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		
-		<!-- 基础SEO标签 -->
-		<title>{siteTitle}</title>
-		<meta name="description" content={siteDescription} />
-		<meta name="keywords" content={siteKeywords} />
-		<meta name="author" content={siteAuthor} />
-		<meta name="generator" content={Astro.generator} />
-		
-		<!-- 搜索引擎抓取 -->
-		<meta name="robots" content="index, follow" />
-		<meta name="googlebot" content="index, follow" />
-		
-		<!-- 规范链接 (避免重复内容) -->
-		<link rel="canonical" href={siteUrl} />
-		
-		<!-- Open Graph / Facebook 分享卡片 -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={siteUrl} />
-		<meta property="og:title" content={siteTitle} />
-		<meta property="og:description" content={siteDescription} />
-		<meta property="og:site_name" content={isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"} />
-		<meta property="og:locale" content={isEn ? "en_US" : "zh_CN"} />
-		{siteImage && <meta property="og:image" content={siteImage} />}
-		{siteImage && <meta property="og:image:alt" content={isEn ? "Slay the Spire 2 Database preview" : "杀戮尖塔2 中文资料库预览"} />}
-		
-		<!-- Twitter 分享卡片 -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:url" content={siteUrl} />
-		<meta name="twitter:title" content={siteTitle} />
-		<meta name="twitter:description" content={siteDescription} />
-		{siteImage && <meta name="twitter:image" content={siteImage} />}
-		{siteImage && <meta name="twitter:image:alt" content={isEn ? "Slay the Spire 2 Database preview" : "杀戮尖塔2 中文资料库预览"} />}
-		
-		<!-- 图标 -->
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" sizes="any" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-		<link rel="manifest" href="/site.webmanifest" />
-		
-		<!-- 主题颜色 -->
-		<meta name="theme-color" content="#10121a" />
-		<meta name="msapplication-TileColor" content="#10121a" />
-		
-		<!-- 额外的SEO优化标签 -->
-		<meta name="application-name" content={isEn ? "STS2 Database" : "STS2 中文资料库"} />
-		<meta name="category" content={isEn ? "Game Database" : "游戏数据库"} />
-		
-		<!-- 结构化数据 (JSON-LD) 帮助搜索引擎理解网站内容 -->
-		<script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)}></script>
+			<meta charset="UTF-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="author" content={siteAuthor} />
+			<meta name="generator" content={Astro.generator} />
+			<meta name="robots" content="index, follow" />
+			<meta name="googlebot" content="index, follow" />
+			<meta property="og:site_name" content={isEn ? "Slay the Spire 2 Database" : "杀戮尖塔2 中文资料库"} />
+			<meta property="og:locale" content={isEn ? "en_US" : "zh_CN"} />
+			{siteImage && <meta property="og:image" content={siteImage} />}
+			{siteImage && <meta property="og:image:alt" content={isEn ? "Slay the Spire 2 Database preview" : "杀戮尖塔2 中文资料库预览"} />}
+			
+			<meta name="twitter:card" content="summary_large_image" />
+			{siteImage && <meta name="twitter:image" content={siteImage} />}
+			{siteImage && <meta name="twitter:image:alt" content={isEn ? "Slay the Spire 2 Database preview" : "杀戮尖塔2 中文资料库预览"} />}
+			
+			<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+			<link rel="icon" href="/favicon.ico" sizes="any" />
+			<link rel="manifest" href="/site.webmanifest" />
+			
+			<meta name="theme-color" content="#10121a" />
+			<meta name="msapplication-TileColor" content="#10121a" />
+			<meta name="application-name" content={isEn ? "STS2 Database" : "STS2 中文资料库"} />
+			<meta name="category" content={isEn ? "Game Database" : "游戏数据库"} />
+			
+			<script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)}></script>
 		<slot name="head" />
 	</head>
 	<body

@@ -21,6 +21,7 @@
 | `npm run build` | 生产构建（输出到 `dist/`） |
 | `npm run preview` | 本地预览构建产物 |
 | `npm run astro` | 透传 Astro CLI |
+| `npm run install:tools` | 安装 `tools/spine-renderer` 的独立工具依赖 |
 
 ---
 
@@ -141,6 +142,12 @@
 
 目录：`tools/spine-renderer/`
 
+这组脚本使用独立的 `tools/spine-renderer/package.json` 与 `package-lock.json`，不放进根目录站点依赖。首次使用前执行：
+
+```bash
+npm run install:tools
+```
+
 | 脚本 | 作用 |
 | --- | --- |
 | `node tools/spine-renderer/render_sprites.mjs` | 把怪物 Spine 动画渲染为精灵图与元数据（输出到 `public/images/monsters/sprites`） |
@@ -148,4 +155,3 @@
 | `node tools/spine-renderer/render_all.mjs` | 扫描 `extraction/raw/animations` 下所有 `.skel` 并渲染 |
 
 说明：这组脚本主要用于资源补全/调试，不属于日常站点启动必需步骤。
-

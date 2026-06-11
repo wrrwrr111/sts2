@@ -40,6 +40,12 @@
 npm install
 ```
 
+Spine 渲染工具有独立依赖，只在需要重新生成怪物精灵图等资源时安装：
+
+```bash
+npm run install:tools
+```
+
 ### 2) 启动开发环境
 
 ```bash
