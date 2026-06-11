@@ -147,7 +147,7 @@
     "is_x_star_cost": null,
     "star_cost": null,
     "type": "Skill",
-    "rarity": "Common",
+    "rarity": "Uncommon",
     "target": "Self",
     "color": "silent",
     "damage": null,
@@ -415,7 +415,7 @@
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
-    "star_cost": 2,
+    "star_cost": 3,
     "type": "Skill",
     "rarity": "Uncommon",
     "target": "Self",
@@ -432,7 +432,7 @@
     "spawns_cards": null,
     "vars": {
       "Energy": 2,
-      "StarCost": 2
+      "StarCost": 3
     },
     "upgrade": {
       "energy": "+1"
@@ -555,12 +555,12 @@
     "id": "ANTICIPATE",
     "name": "Anticipate",
     "name_zh": "预判",
-    "description": "Gain 3 [gold]Dexterity[/gold] this turn.",
-    "description_zh": "在本回合获得3点[gold]敏捷[/gold]。",
+    "description": "Gain 2 [gold]Dexterity[/gold] this turn.",
+    "description_zh": "在本回合获得2点[gold]敏捷[/gold]。",
     "description_raw": "Gain {DexterityPower:diff()} [gold]Dexterity[/gold] this turn.",
     "description_raw_zh": "在本回合获得{DexterityPower:diff()}点[gold]敏捷[/gold]。",
-    "description_upgraded": "Gain 3 [gold]Dexterity[/gold] this turn.",
-    "description_upgraded_zh": "在本回合获得3点[gold]敏捷[/gold]。",
+    "description_upgraded": "Gain 2 [gold]Dexterity[/gold] this turn.",
+    "description_upgraded_zh": "在本回合获得2点[gold]敏捷[/gold]。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -575,7 +575,7 @@
     "powers_applied": [
       {
         "power": "Dexterity",
-        "amount": 3
+        "amount": 2
       }
     ],
     "cards_draw": null,
@@ -585,11 +585,11 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "DexterityPower": 3,
-      "Dexterity": 3
+      "DexterityPower": 2,
+      "Dexterity": 2
     },
     "upgrade": {
-      "dexterity": "+2"
+      "dexterity": "+1"
     },
     "image_url": "/images/cards/anticipate.png",
     "beta_image_url": null
@@ -717,12 +717,12 @@
     "id": "ARSENAL",
     "name": "Arsenal",
     "name_zh": "武器库",
-    "description": "Whenever you play a Colorless card, gain 1 [gold]Strength[/gold].",
-    "description_zh": "你每打出一张无色牌，都获得1点[gold]力量[/gold]。",
-    "description_raw": "Whenever you play a Colorless card, gain {ArsenalPower:diff()} [gold]Strength[/gold].",
-    "description_raw_zh": "你每打出一张无色牌，都获得{ArsenalPower:diff()}点[gold]力量[/gold]。",
-    "description_upgraded": "Whenever you play a Colorless card, gain 2 [gold]Strength[/gold].",
-    "description_upgraded_zh": "你每打出一张无色牌，都获得2点[gold]力量[/gold]。",
+    "description": "Whenever you create a card, gain 1 [gold]Strength[/gold].",
+    "description_zh": "每当你生成一张牌，就获得1点[gold]力量[/gold]。",
+    "description_raw": "Whenever you create a card, gain {ArsenalPower:diff()} [gold]Strength[/gold].",
+    "description_raw_zh": "每当你生成一张牌，就获得{ArsenalPower:diff()}点[gold]力量[/gold]。",
+    "description_upgraded": "Whenever you create a card, gain 1 [gold]Strength[/gold].",
+    "description_upgraded_zh": "每当你生成一张牌，就获得1点[gold]力量[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -751,7 +751,7 @@
       "Arsenal": 1
     },
     "upgrade": {
-      "arsenalpower": "+1"
+      "add_innate": true
     },
     "image_url": "/images/cards/arsenal.png",
     "beta_image_url": "/images/cards/beta/arsenal.png"
@@ -1111,12 +1111,12 @@
     "name": "Banshee's Cry",
     "name_zh": "女妖之嚎",
     "description": "Deal 33 damage to ALL enemies.\nCosts [energy:2] less for each [gold]Ethereal[/gold] card played this combat.",
-    "description_zh": "对所有敌人造成33点伤害。\n本场战斗中每打出过一张[gold]虚无[/gold]牌，此牌费用就减少[energy:2]。",
+    "description_zh": "对所有敌人造成33点伤害。\n本场战斗中每打出过一张[gold]虚无[/gold]牌，此牌的耗能就减少[energy:2]。",
     "description_raw": "Deal {Damage:diff()} damage to ALL enemies.\nCosts {Energy:energyIcons()} less for each [gold]Ethereal[/gold] card played this combat.",
-    "description_raw_zh": "对所有敌人造成{Damage:diff()}点伤害。\n本场战斗中每打出过一张[gold]虚无[/gold]牌，此牌费用就减少{Energy:energyIcons()}。",
-    "description_upgraded": "Deal 39 damage to ALL enemies.\nCosts [energy:2] less for each [gold]Ethereal[/gold] card played this combat.",
-    "description_upgraded_zh": "对所有敌人造成39点伤害。\n本场战斗中每打出过一张[gold]虚无[/gold]牌，此牌费用就减少[energy:2]。",
-    "cost": 6,
+    "description_raw_zh": "对所有敌人造成{Damage:diff()}点伤害。\n本场战斗中每打出过一张[gold]虚无[/gold]牌，此牌的耗能就减少{Energy:energyIcons()}。",
+    "description_upgraded": "Deal 33 damage to ALL enemies.\nCosts [energy:2] less for each [gold]Ethereal[/gold] card played this combat.",
+    "description_upgraded_zh": "对所有敌人造成33点伤害。\n本场战斗中每打出过一张[gold]虚无[/gold]牌，此牌的耗能就减少[energy:2]。",
+    "cost": 9,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
@@ -1139,7 +1139,7 @@
       "Energy": 2
     },
     "upgrade": {
-      "damage": "+6"
+      "cost": 7
     },
     "image_url": "/images/cards/banshees_cry.png",
     "beta_image_url": "/images/cards/beta/banshees_cry.png"
@@ -1497,21 +1497,21 @@
     "id": "BEGONE",
     "name": "BEGONE!",
     "name_zh": "下去！",
-    "description": "Deal 4 damage.\nChoose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into [gold]Minion Dive Bomb[/gold].",
-    "description_zh": "造成4点伤害。\n选择你[gold]手牌[/gold]中的一张牌，将其[gold]变化[/gold]为[gold]仆从俯冲[/gold]。",
-    "description_raw": "Deal {Damage:diff()} damage.\nChoose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into [gold]{IfUpgraded:show:Minion Dive Bomb+|Minion Dive Bomb}[/gold].",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n选择你[gold]手牌[/gold]中的一张牌，将其[gold]变化[/gold]为[gold]{IfUpgraded:show:仆从俯冲+|仆从俯冲}[/gold]。",
-    "description_upgraded": "Deal 5 damage.\nChoose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into [gold]Minion Dive Bomb+[/gold].",
-    "description_upgraded_zh": "造成5点伤害。\n选择你[gold]手牌[/gold]中的一张牌，将其[gold]变化[/gold]为[gold]仆从俯冲+[/gold]。",
+    "description": "Choose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into [gold]Minion Strike[/gold].",
+    "description_zh": "选择你[gold]手牌[/gold]中的一张牌，将其[gold]变化[/gold]为[gold]仆从打击[/gold]。",
+    "description_raw": "Choose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into [gold]{IfUpgraded:show:Minion Strike+|Minion Strike}[/gold].",
+    "description_raw_zh": "选择你[gold]手牌[/gold]中的一张牌，将其[gold]变化[/gold]为[gold]{IfUpgraded:show:仆从打击+|仆从打击}[/gold]。",
+    "description_upgraded": null,
+    "description_upgraded_zh": null,
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
-    "type": "Attack",
+    "type": "Skill",
     "rarity": "Common",
-    "target": "AnyEnemy",
+    "target": "Self",
     "color": "regent",
-    "damage": 4,
+    "damage": null,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -1521,14 +1521,10 @@
     "keywords": null,
     "tags": null,
     "spawns_cards": [
-      "MINION_DIVE_BOMB"
+      "MINION_STRIKE"
     ],
-    "vars": {
-      "Damage": 4
-    },
-    "upgrade": {
-      "damage": "+1"
-    },
+    "vars": null,
+    "upgrade": null,
     "image_url": "/images/cards/begone.png",
     "beta_image_url": "/images/cards/beta/begone.png"
   },
@@ -1536,12 +1532,12 @@
     "id": "BELIEVE_IN_YOU",
     "name": "Believe in You",
     "name_zh": "相信着你",
-    "description": "Another player gains [energy:3].",
-    "description_zh": "另一名玩家获得[energy:3]。",
+    "description": "Another player gains [energy:2].",
+    "description_zh": "另一名玩家获得[energy:2]。",
     "description_raw": "Another player gains {Energy:energyIcons()}.",
     "description_raw_zh": "另一名玩家获得{Energy:energyIcons()}。",
-    "description_upgraded": "Another player gains [energy:4].",
-    "description_upgraded_zh": "另一名玩家获得[energy:4]。",
+    "description_upgraded": "Another player gains [energy:3].",
+    "description_upgraded_zh": "另一名玩家获得[energy:3]。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -1555,13 +1551,13 @@
     "hit_count": null,
     "powers_applied": null,
     "cards_draw": null,
-    "energy_gain": 3,
+    "energy_gain": 2,
     "hp_loss": null,
     "keywords": null,
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Energy": 3
+      "Energy": 2
     },
     "upgrade": {
       "energy": "+1"
@@ -1748,12 +1744,12 @@
     "id": "BLADE_OF_INK",
     "name": "Blade of Ink",
     "name_zh": "墨之刃",
-    "description": "This turn, whenever you play an Attack, gain 2 [gold]Strength[/gold] this turn.",
-    "description_zh": "每当你在本回合打出一张攻击牌时，本回合获得2点[gold]力量[/gold]。",
-    "description_raw": "This turn, whenever you play an Attack, gain {StrengthPower:diff()} [gold]Strength[/gold] this turn.",
-    "description_raw_zh": "每当你在本回合打出一张攻击牌时，本回合获得{StrengthPower:diff()}点[gold]力量[/gold]。",
-    "description_upgraded": "This turn, whenever you play an Attack, gain 2 [gold]Strength[/gold] this turn.",
-    "description_upgraded_zh": "每当你在本回合打出一张攻击牌时，本回合获得2点[gold]力量[/gold]。",
+    "description": "Add 2 [purple]Inky[/purple] [gold]Shivs[/gold] into your [gold]Hand[/gold].",
+    "description_zh": "添加2张[purple]墨影[/purple][gold]小刀[/gold]到你的[gold]手牌[/gold]。",
+    "description_raw": "Add {Cards:diff()} [purple]Inky[/purple] [gold]{Cards:plural:Shiv|Shivs}[/gold] into your [gold]Hand[/gold].",
+    "description_raw_zh": "添加{Cards:diff()}张[purple]墨影[/purple][gold]小刀[/gold]到你的[gold]手牌[/gold]。",
+    "description_upgraded": "Add 3 [purple]Inky[/purple] [gold]Shivs[/gold] into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "添加3张[purple]墨影[/purple][gold]小刀[/gold]到你的[gold]手牌[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -1765,24 +1761,20 @@
     "damage": null,
     "block": null,
     "hit_count": null,
-    "powers_applied": [
-      {
-        "power": "Strength",
-        "amount": 2
-      }
-    ],
-    "cards_draw": null,
+    "powers_applied": null,
+    "cards_draw": 2,
     "energy_gain": null,
     "hp_loss": null,
     "keywords": null,
     "tags": null,
-    "spawns_cards": null,
+    "spawns_cards": [
+      "SHIV"
+    ],
     "vars": {
-      "StrengthPower": 2,
-      "Strength": 2
+      "Cards": 2
     },
     "upgrade": {
-      "strength": "+1"
+      "cards": "+1"
     },
     "image_url": "/images/cards/blade_of_ink.png",
     "beta_image_url": "/images/cards/beta/blade_of_ink.png"
@@ -2093,12 +2085,12 @@
     "id": "BOMBARDMENT",
     "name": "Bombardment",
     "name_zh": "轰击",
-    "description": "Deal 18 damage.\nAt the start of your turn, plays from the [gold]Exhaust Pile[/gold].",
-    "description_zh": "造成18点伤害。\n在你的回合开始时，从[gold]消耗牌堆[/gold]打出这张牌。",
-    "description_raw": "Deal {Damage:diff()} damage.\nAt the start of your turn, plays from the [gold]Exhaust Pile[/gold].",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n在你的回合开始时，从[gold]消耗牌堆[/gold]打出这张牌。",
-    "description_upgraded": "Deal 24 damage.\nAt the start of your turn, plays from the [gold]Exhaust Pile[/gold].",
-    "description_upgraded_zh": "造成24点伤害。\n在你的回合开始时，从[gold]消耗牌堆[/gold]打出这张牌。",
+    "description": "Deal 18 damage.\nAt the start of your turn, if this is in your [gold]Exhaust Pile[/gold], play it.",
+    "description_zh": "造成18点伤害。\n你的回合开始时，如果这张牌在你的[gold]消耗牌堆[/gold]中，则将其打出。",
+    "description_raw": "Deal {Damage:diff()} damage.\nAt the start of your turn, if this is in your [gold]Exhaust Pile[/gold], play it.",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n你的回合开始时，如果这张牌在你的[gold]消耗牌堆[/gold]中，则将其打出。",
+    "description_upgraded": "Deal 24 damage.\nAt the start of your turn, if this is in your [gold]Exhaust Pile[/gold], play it.",
+    "description_upgraded_zh": "造成24点伤害。\n你的回合开始时，如果这张牌在你的[gold]消耗牌堆[/gold]中，则将其打出。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -2254,13 +2246,13 @@
     "id": "BORROWED_TIME",
     "name": "Borrowed Time",
     "name_zh": "预借时间",
-    "description": "Apply 3 [gold]Doom[/gold] to yourself.\nGain [energy:1].",
-    "description_zh": "给予自身3层[gold]灾厄[/gold]。\n获得[energy:1]。",
-    "description_raw": "Apply {DoomPower:diff()} [gold]Doom[/gold] to yourself.\nGain {Energy:energyIcons()}.",
-    "description_raw_zh": "给予自身{DoomPower:diff()}层[gold]灾厄[/gold]。\n获得{Energy:energyIcons()}。",
-    "description_upgraded": "Apply 3 [gold]Doom[/gold] to yourself.\nGain [energy:2].",
-    "description_upgraded_zh": "给予自身3层[gold]灾厄[/gold]。\n获得[energy:2]。",
-    "cost": 0,
+    "description": "Gain [energy:4].\nCards cost an additional [energy:1] this turn.",
+    "description_zh": "获得[energy:4]。\n卡牌在本回合耗能增加[energy:1]。",
+    "description_raw": "Gain {Energy:energyIcons()}.\nCards cost an additional {ExtraCost:energyIcons()} this turn.",
+    "description_raw_zh": "获得{Energy:energyIcons()}。\n卡牌在本回合耗能增加{ExtraCost:energyIcons()}。",
+    "description_upgraded": "Gain [energy:6].\nCards cost an additional [energy:1] this turn.",
+    "description_upgraded_zh": "获得[energy:6]。\n卡牌在本回合耗能增加[energy:1]。",
+    "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
@@ -2271,25 +2263,19 @@
     "damage": null,
     "block": null,
     "hit_count": null,
-    "powers_applied": [
-      {
-        "power": "Doom",
-        "amount": 3
-      }
-    ],
+    "powers_applied": null,
     "cards_draw": null,
-    "energy_gain": 1,
+    "energy_gain": 4,
     "hp_loss": null,
     "keywords": null,
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Energy": 1,
-      "DoomPower": 3,
-      "Doom": 3
+      "ExtraCost": 1,
+      "Energy": 4
     },
     "upgrade": {
-      "energy": "+1"
+      "energy": "+2"
     },
     "image_url": "/images/cards/borrowed_time.png",
     "beta_image_url": null
@@ -2390,9 +2376,9 @@
     "description_zh": "造成20点伤害。\n给予5层[gold]易伤[/gold]。",
     "description_raw": "Deal {Damage:diff()} damage.\nApply {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n给予{VulnerablePower:diff()}层[gold]易伤[/gold]。",
-    "description_upgraded": "Deal 25 damage.\nApply 5 [gold]Vulnerable[/gold].",
-    "description_upgraded_zh": "造成25点伤害。\n给予5层[gold]易伤[/gold]。",
-    "cost": 2,
+    "description_upgraded": "Deal 30 damage.\nApply 5 [gold]Vulnerable[/gold].",
+    "description_upgraded_zh": "造成30点伤害。\n给予5层[gold]易伤[/gold]。",
+    "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
@@ -2421,7 +2407,7 @@
       "Vulnerable": 5
     },
     "upgrade": {
-      "damage": "+5",
+      "damage": "+10",
       "vulnerable": "+2"
     },
     "image_url": "/images/cards/break.png",
@@ -2763,7 +2749,7 @@
     "description_raw_zh": "将{Cards:diff()}张随机无色牌添加到你的[gold]手牌[/gold]。",
     "description_upgraded": "Add 4 random Colorless cards into your [gold]Hand[/gold].",
     "description_upgraded_zh": "将4张随机无色牌添加到你的[gold]手牌[/gold]。",
-    "cost": 2,
+    "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
@@ -3363,8 +3349,8 @@
     "description_zh": "造成6点伤害3次。",
     "description_raw": "Deal {Damage:diff()} damage {Repeat:diff()} {Repeat:plural:time|times}.",
     "description_raw_zh": "造成{Damage:diff()}点伤害{Repeat:diff()}次。",
-    "description_upgraded": "Deal 8 damage 3 times.",
-    "description_upgraded_zh": "造成8点伤害3次。",
+    "description_upgraded": "Deal 6 damage 4 times.",
+    "description_upgraded_zh": "造成6点伤害4次。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -3388,7 +3374,7 @@
       "Repeat": 3
     },
     "upgrade": {
-      "damage": "+2"
+      "repeat": "+1"
     },
     "image_url": "/images/cards/celestial_might.png",
     "beta_image_url": null
@@ -3434,10 +3420,10 @@
     "id": "CHARGE",
     "name": "CHARGE!!",
     "name_zh": "冲锋！！",
-    "description": "Choose 2 cards in your [gold]Draw Pile[/gold] to [gold]Transform[/gold] into\n[gold]Minion Strikes[/gold].",
-    "description_zh": "选择你[gold]抽牌堆[/gold]中的2张 牌，将其[gold]变化[/gold]为\n[gold]仆从打击[/gold]。",
-    "description_raw": "Choose {Cards:diff()} {Cards:plural:card|cards} in your [gold]Draw Pile[/gold] to [gold]Transform[/gold] into\n[gold]{Cards:plural:{IfUpgraded:show:Minion Strike+|Minion Strike}[/gold]|{IfUpgraded:show:Minion Strikes+|Minion Strikes}[/gold]}.",
-    "description_raw_zh": "选择你[gold]抽牌堆[/gold]中的{Cards:diff()}张 牌，将其[gold]变化[/gold]为\n[gold]{IfUpgraded:show:仆从打击+|仆从打击}[/gold]。",
+    "description": "Choose 2 cards in your [gold]Draw Pile[/gold] to [gold]Transform[/gold] into\n[gold]Minion Dive Bombs[/gold].",
+    "description_zh": "选择你[gold]抽牌堆[/gold]中的2张牌，将其[gold]变化[/gold]为\n[gold]仆从俯冲[/gold]。",
+    "description_raw": "Choose {Cards:diff()} {Cards:plural:card|cards} in your [gold]Draw Pile[/gold] to [gold]Transform[/gold] into\n[gold]{Cards:plural:{IfUpgraded:show:Minion Dive Bomb+|Minion Dive Bomb}[/gold]|{IfUpgraded:show:Minion Dive Bombs+|Minion Dive Bombs}[/gold]}.",
+    "description_raw_zh": "选择你[gold]抽牌堆[/gold]中的{Cards:diff()}张牌，将其[gold]变化[/gold]为\n[gold]{IfUpgraded:show:仆从俯冲+|仆从俯冲}[/gold]。",
     "description_upgraded": null,
     "description_upgraded_zh": null,
     "cost": 1,
@@ -3458,7 +3444,7 @@
     "keywords": null,
     "tags": null,
     "spawns_cards": [
-      "MINION_STRIKE"
+      "MINION_DIVE_BOMB"
     ],
     "vars": {
       "Cards": 2
@@ -3583,12 +3569,12 @@
     "id": "CINDER",
     "name": "Cinder",
     "name_zh": "余烬",
-    "description": "Deal 17 damage.\n[gold]Exhaust[/gold] the top card of your [gold]Draw Pile[/gold].",
-    "description_zh": "造成17点伤害。\n[gold]消耗[/gold]你的[gold]抽牌堆[/gold]顶部的牌。",
-    "description_raw": "Deal {Damage:diff()} damage.\n[gold]Exhaust[/gold] the top card of your [gold]Draw Pile[/gold].",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n[gold]消耗[/gold]你的[gold]抽牌堆[/gold]顶部的牌。",
-    "description_upgraded": "Deal 22 damage.\n[gold]Exhaust[/gold] the top card of your [gold]Draw Pile[/gold].",
-    "description_upgraded_zh": "造成22点伤害。\n[gold]消耗[/gold]你的[gold]抽牌堆[/gold]顶部的牌。",
+    "description": "Deal 18 damage.\n[gold]Exhaust[/gold] 1 card at random.",
+    "description_zh": "造成18点伤害。\n随机[gold]消耗[/gold]1张牌。",
+    "description_raw": "Deal {Damage:diff()} damage.\n[gold]Exhaust[/gold] 1 card at random.",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n随机[gold]消耗[/gold]1张牌。",
+    "description_upgraded": "Deal 24 damage.\n[gold]Exhaust[/gold] 1 card at random.",
+    "description_upgraded_zh": "造成24点伤害。\n随机[gold]消耗[/gold]1张牌。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -3597,7 +3583,7 @@
     "rarity": "Common",
     "target": "AnyEnemy",
     "color": "ironclad",
-    "damage": 17,
+    "damage": 18,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -3608,11 +3594,10 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "CardsToExhaust": 1,
-      "Damage": 17
+      "Damage": 18
     },
     "upgrade": {
-      "damage": "+5"
+      "damage": "+6"
     },
     "image_url": "/images/cards/cinder.png",
     "beta_image_url": null
@@ -3885,12 +3870,12 @@
     "id": "COLLISION_COURSE",
     "name": "Collision Course",
     "name_zh": "碰撞轨迹",
-    "description": "Deal 9 damage.\nAdd a [gold]Debris[/gold] into your [gold]Hand[/gold].",
-    "description_zh": "造成9点伤害。\n将一张[gold]碎屑[/gold]添加至你的[gold]手牌[/gold]。",
+    "description": "Deal 11 damage.\nAdd a [gold]Debris[/gold] into your [gold]Hand[/gold].",
+    "description_zh": "造成11点伤害。\n将一张[gold]碎屑[/gold]添加至你的[gold]手牌[/gold]。",
     "description_raw": "Deal {Damage:diff()} damage.\nAdd a [gold]Debris[/gold] into your [gold]Hand[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n将一张[gold]碎屑[/gold]添加至你的[gold]手牌[/gold]。",
-    "description_upgraded": "Deal 12 damage.\nAdd a [gold]Debris[/gold] into your [gold]Hand[/gold].",
-    "description_upgraded_zh": "造成12点伤害。\n将一张[gold]碎屑[/gold]添加至你的[gold]手牌[/gold]。",
+    "description_upgraded": "Deal 15 damage.\nAdd a [gold]Debris[/gold] into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "造成15点伤害。\n将一张[gold]碎屑[/gold]添加至你的[gold]手牌[/gold]。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -3899,7 +3884,7 @@
     "rarity": "Common",
     "target": "AnyEnemy",
     "color": "regent",
-    "damage": 9,
+    "damage": 11,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -3912,10 +3897,10 @@
       "DEBRIS"
     ],
     "vars": {
-      "Damage": 9
+      "Damage": 11
     },
     "upgrade": {
-      "damage": "+3"
+      "damage": "+4"
     },
     "image_url": "/images/cards/collision_course.png",
     "beta_image_url": "/images/cards/beta/collision_course.png"
@@ -3935,7 +3920,7 @@
     "is_x_star_cost": null,
     "star_cost": null,
     "type": "Skill",
-    "rarity": "Rare",
+    "rarity": "Uncommon",
     "target": "Self",
     "color": "ironclad",
     "damage": null,
@@ -4373,12 +4358,12 @@
     "id": "CORROSIVE_WAVE",
     "name": "Corrosive Wave",
     "name_zh": "腐蚀波",
-    "description": "Whenever you draw a card this turn, apply 3 [gold]Poison[/gold] to ALL enemies.",
-    "description_zh": "打出此牌后，你在本回合每抽到一张牌，就给予所有敌人3层[gold]中毒[/gold]。",
+    "description": "Whenever you draw a card this turn, apply 2 [gold]Poison[/gold] to ALL enemies.",
+    "description_zh": "打出此牌后，你在本回合每抽到一张牌，就给予所有敌人2层[gold]中毒[/gold]。",
     "description_raw": "Whenever you draw a card this turn, apply {CorrosiveWave:diff()} [gold]Poison[/gold] to ALL enemies.",
     "description_raw_zh": "打出此牌后，你在本回合每抽到一张牌，就给予所有敌人{CorrosiveWave:diff()}层[gold]中毒[/gold]。",
-    "description_upgraded": "Whenever you draw a card this turn, apply 4 [gold]Poison[/gold] to ALL enemies.",
-    "description_upgraded_zh": "打出此牌后，你在本回合每抽到一张牌，就给予所有敌人4层[gold]中毒[/gold]。",
+    "description_upgraded": "Whenever you draw a card this turn, apply 3 [gold]Poison[/gold] to ALL enemies.",
+    "description_upgraded_zh": "打出此牌后，你在本回合每抽到一张牌，就给予所有敌人3层[gold]中毒[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -4398,7 +4383,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "CorrosiveWave": 3
+      "CorrosiveWave": 2
     },
     "upgrade": {
       "corrosivewave": "+1"
@@ -4485,11 +4470,11 @@
     "name": "Countdown",
     "name_zh": "倒数计时",
     "description": "At the start of your turn, apply 6 [gold]Doom[/gold] to a random enemy.",
-    "description_zh": "在你的回合开始时，给予随机敌人6点[gold]灾厄[/gold]。",
+    "description_zh": "在你的回合开始时，给予随机敌人6层[gold]灾厄[/gold]。",
     "description_raw": "At the start of your turn, apply {CountdownPower:diff()} [gold]Doom[/gold] to a random enemy.",
-    "description_raw_zh": "在你的回合开始时，给予随机敌人{CountdownPower:diff()}点[gold]灾厄[/gold]。",
+    "description_raw_zh": "在你的回合开始时，给予随机敌人{CountdownPower:diff()}层[gold]灾厄[/gold]。",
     "description_upgraded": "At the start of your turn, apply 9 [gold]Doom[/gold] to a random enemy.",
-    "description_upgraded_zh": "在你的回合开始时，给予随机敌人9点[gold]灾厄[/gold]。",
+    "description_upgraded_zh": "在你的回合开始时，给予随机敌人9层[gold]灾厄[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -4878,12 +4863,12 @@
     "id": "DANSE_MACABRE",
     "name": "Danse Macabre",
     "name_zh": "死亡之舞",
-    "description": "Whenever you play a card that costs [energy:2] or more, gain 3 [gold]Block[/gold].",
-    "description_zh": "每当你打出一张耗能大于等于[energy:2]的牌时，获得3点[gold]格挡[/gold]。",
+    "description": "Whenever you play a card that costs [energy:2] or more, gain 4 [gold]Block[/gold].",
+    "description_zh": "每当你打出一张耗能大于等于[energy:2]的牌时，获得4点[gold]格挡[/gold]。",
     "description_raw": "Whenever you play a card that costs {Energy:energyIcons()} or more, gain {DanseMacabrePower:diff()} [gold]Block[/gold].",
     "description_raw_zh": "每当你打出一张耗能大于等于{Energy:energyIcons()}的牌时，获得{DanseMacabrePower:diff()}点[gold]格挡[/gold]。",
-    "description_upgraded": "Whenever you play a card that costs [energy:2] or more, gain 4 [gold]Block[/gold].",
-    "description_upgraded_zh": "每当你打出一张耗能大于等于[energy:2]的牌时，获得4点[gold]格挡[/gold]。",
+    "description_upgraded": "Whenever you play a card that costs [energy:2] or more, gain 6 [gold]Block[/gold].",
+    "description_upgraded_zh": "每当你打出一张耗能大于等于[energy:2]的牌时，获得6点[gold]格挡[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -4898,7 +4883,7 @@
     "powers_applied": [
       {
         "power": "DanseMacabre",
-        "amount": 3
+        "amount": 4
       }
     ],
     "cards_draw": null,
@@ -4909,11 +4894,11 @@
     "spawns_cards": null,
     "vars": {
       "Energy": 2,
-      "DanseMacabrePower": 3,
-      "DanseMacabre": 3
+      "DanseMacabrePower": 4,
+      "DanseMacabre": 4
     },
     "upgrade": {
-      "dansemacabrepower": "+1"
+      "dansemacabrepower": "+2"
     },
     "image_url": "/images/cards/danse_macabre.png",
     "beta_image_url": "/images/cards/beta/danse_macabre.png"
@@ -5274,12 +5259,12 @@
     "id": "DEBILITATE",
     "name": "Debilitate",
     "name_zh": "摧残",
-    "description": "Deal 7 damage.\n[gold]Vulnerable[/gold] and [gold]Weak[/gold] are twice as effective against the enemy for the next 3 turns.",
-    "description_zh": "造成7点伤害。\n在接下来的3回合内，该敌人身上的[gold]易伤[/gold]与[gold]虚弱[/gold]效率翻倍。",
+    "description": "Deal 10 damage.\n[gold]Vulnerable[/gold] and [gold]Weak[/gold] are twice as effective against the enemy for the next 3 turns.",
+    "description_zh": "造成10点伤害。\n在接下来的3回合内，该敌人身上的[gold]易伤[/gold]与[gold]虚弱[/gold]效果翻倍。",
     "description_raw": "Deal {Damage:diff()} damage.\n[gold]Vulnerable[/gold] and [gold]Weak[/gold] are twice as effective against the enemy for the next {DebilitatePower:diff()} {DebilitatePower:plural:turn|turns}.",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n在接下来的{DebilitatePower:diff()}回合内，该敌人身上的[gold]易伤[/gold]与[gold]虚弱[/gold]效率翻倍。",
-    "description_upgraded": "Deal 9 damage.\n[gold]Vulnerable[/gold] and [gold]Weak[/gold] are twice as effective against the enemy for the next 4 turns.",
-    "description_upgraded_zh": "造成9点伤害。\n在接下来的4回合内，该敌人身上的[gold]易伤[/gold]与[gold]虚弱[/gold]效率翻倍。",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n在接下来的{DebilitatePower:diff()}回合内，该敌人身上的[gold]易伤[/gold]与[gold]虚弱[/gold]效果翻倍。",
+    "description_upgraded": "Deal 12 damage.\n[gold]Vulnerable[/gold] and [gold]Weak[/gold] are twice as effective against the enemy for the next 4 turns.",
+    "description_upgraded_zh": "造成12点伤害。\n在接下来的4回合内，该敌人身上的[gold]易伤[/gold]与[gold]虚弱[/gold]效果翻倍。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -5288,7 +5273,7 @@
     "rarity": "Uncommon",
     "target": "AnyEnemy",
     "color": "necrobinder",
-    "damage": 7,
+    "damage": 10,
     "block": null,
     "hit_count": null,
     "powers_applied": [
@@ -5304,7 +5289,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 7,
+      "Damage": 10,
       "DebilitatePower": 3,
       "Debilitate": 3
     },
@@ -5787,8 +5772,8 @@
     "description_zh": "获得6点[gold]格挡[/gold]。\n给予1层[gold]虚弱[/gold]。",
     "description_raw": "Gain {Block:diff()} [gold]Block[/gold].\nApply {WeakPower:diff()} [gold]Weak[/gold].",
     "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。\n给予{WeakPower:diff()}层[gold]虚弱[/gold]。",
-    "description_upgraded": "Gain 7 [gold]Block[/gold].\nApply 1 [gold]Weak[/gold].",
-    "description_upgraded_zh": "获得7点[gold]格挡[/gold]。\n给予1层[gold]虚弱[/gold]。",
+    "description_upgraded": "Gain 9 [gold]Block[/gold].\nApply 1 [gold]Weak[/gold].",
+    "description_upgraded_zh": "获得9点[gold]格挡[/gold]。\n给予1层[gold]虚弱[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -5820,8 +5805,7 @@
       "Weak": 1
     },
     "upgrade": {
-      "block": "+1",
-      "weak": "+1"
+      "block": "+3"
     },
     "image_url": "/images/cards/defy.png",
     "beta_image_url": null
@@ -6097,7 +6081,9 @@
     "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
-    "keywords": null,
+    "keywords": [
+      "Exhaust"
+    ],
     "tags": null,
     "spawns_cards": [
       "SOUL"
@@ -6115,12 +6101,12 @@
     "id": "DISCOVERY",
     "name": "Discovery",
     "name_zh": "发现",
-    "description": "Choose 1 of 3 random cards to add into your [gold]Hand[/gold]. It costs 0 [energy:1] this turn.",
-    "description_zh": "从3张随机牌中选择1张加入你的[gold]手牌[/gold]。这张牌在本回合的耗能为0[energy:1]。",
-    "description_raw": "Choose 1 of 3 random cards to add into your [gold]Hand[/gold]. It costs 0 {energyPrefix:energyIcons(1)} this turn.",
-    "description_raw_zh": "从3张随机牌中选择1张加入你的[gold]手牌[/gold]。这张牌在本回合的耗能为0{energyPrefix:energyIcons(1)}。",
-    "description_upgraded": "Choose 1 of 3 random cards to add into your [gold]Hand[/gold]. It costs 0 [energy:1] this turn.",
-    "description_upgraded_zh": "从3张随机牌中选择1张加入你的[gold]手牌[/gold]。这张牌在本回合的耗能为0[energy:1]。",
+    "description": "Choose 1 of 3 random cards to add into your [gold]Hand[/gold]. It's free to play this turn.",
+    "description_zh": "从3张随机牌中选择1张加入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。",
+    "description_raw": "Choose 1 of 3 random cards to add into your [gold]Hand[/gold]. It's free to play this turn.",
+    "description_raw_zh": "从3张随机牌中选择1张加入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。",
+    "description_upgraded": "Choose 1 of 3 random cards to add into your [gold]Hand[/gold]. It's free to play this turn.",
+    "description_upgraded_zh": "从3张随机牌中选择1张加入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -6304,12 +6290,12 @@
     "id": "DOMINATE",
     "name": "Dominate",
     "name_zh": "主宰",
-    "description": "Gain 1 [gold]Strength[/gold] for each [gold]Vulnerable[/gold] on the enemy.",
-    "description_zh": "敌人身上每有一层[gold]易伤[/gold]，就获得1点[gold]力量[/gold]。",
-    "description_raw": "Gain {StrengthPerVulnerable:diff()} [gold]Strength[/gold] for each [gold]Vulnerable[/gold] on the enemy.",
-    "description_raw_zh": "敌人身上每有一层[gold]易伤[/gold]，就获得{StrengthPerVulnerable:diff()}点[gold]力量[/gold]。",
-    "description_upgraded": "Gain 1 [gold]Strength[/gold] for each [gold]Vulnerable[/gold] on the enemy.",
-    "description_upgraded_zh": "敌人身上每有一层[gold]易伤[/gold]，就获得1点[gold]力量[/gold]。",
+    "description": "Apply 1 [gold]Vulnerable[/gold].\nGain 1 [gold]Strength[/gold] for each [gold]Vulnerable[/gold] on the enemy.",
+    "description_zh": "给予1层[gold]易伤[/gold]。\n敌人身上每有一层[gold]易伤[/gold]，就获得1点[gold]力量[/gold]。",
+    "description_raw": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\nGain {StrengthPerVulnerable:diff()} [gold]Strength[/gold] for each [gold]Vulnerable[/gold] on the enemy.",
+    "description_raw_zh": "给予{VulnerablePower:diff()}层[gold]易伤[/gold]。\n敌人身上每有一层[gold]易伤[/gold]，就获得{StrengthPerVulnerable:diff()}点[gold]力量[/gold]。",
+    "description_upgraded": "Apply 2 [gold]Vulnerable[/gold].\nGain 1 [gold]Strength[/gold] for each [gold]Vulnerable[/gold] on the enemy.",
+    "description_upgraded_zh": "给予2层[gold]易伤[/gold]。\n敌人身上每有一层[gold]易伤[/gold]，就获得1点[gold]力量[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -6321,7 +6307,12 @@
     "damage": null,
     "block": null,
     "hit_count": null,
-    "powers_applied": null,
+    "powers_applied": [
+      {
+        "power": "Vulnerable",
+        "amount": 1
+      }
+    ],
     "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
@@ -6331,10 +6322,12 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "StrengthPerVulnerable": 1
+      "StrengthPerVulnerable": 1,
+      "VulnerablePower": 1,
+      "Vulnerable": 1
     },
     "upgrade": {
-      "remove_exhaust": true
+      "vulnerablepower": "+1"
     },
     "image_url": "/images/cards/dominate.png",
     "beta_image_url": null
@@ -6776,11 +6769,11 @@
     "name": "Eidolon",
     "name_zh": "幻景",
     "description": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nIf 9 cards were [gold]Exhausted[/gold] this way, gain 1 [gold]Intangible[/gold].",
-    "description_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌被通过这个方法[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。",
+    "description_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有9张牌被[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。",
     "description_raw": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nIf 9 cards were [gold]Exhausted[/gold] this way, gain 1 [gold]Intangible[/gold].",
-    "description_raw_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌被通过这个方法[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。",
+    "description_raw_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有9张牌被[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。",
     "description_upgraded": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nIf 9 cards were [gold]Exhausted[/gold] this way, gain 1 [gold]Intangible[/gold].",
-    "description_upgraded_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有至少9张牌被通过这个方法[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。",
+    "description_upgraded_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有9张牌被[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7232,12 +7225,12 @@
     "id": "ETERNAL_ARMOR",
     "name": "Eternal Armor",
     "name_zh": "永恒铠甲",
-    "description": "Gain 7 [gold]Plating[/gold].",
-    "description_zh": "获得7层[gold]覆甲[/gold]。",
+    "description": "Gain 9 [gold]Plating[/gold].",
+    "description_zh": "获得9层[gold]覆甲[/gold]。",
     "description_raw": "Gain {PlatingPower:diff()} [gold]Plating[/gold].",
     "description_raw_zh": "获得{PlatingPower:diff()}层[gold]覆甲[/gold]。",
-    "description_upgraded": "Gain 9 [gold]Plating[/gold].",
-    "description_upgraded_zh": "获得9层[gold]覆甲[/gold]。",
+    "description_upgraded": "Gain 12 [gold]Plating[/gold].",
+    "description_upgraded_zh": "获得12层[gold]覆甲[/gold]。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7252,7 +7245,7 @@
     "powers_applied": [
       {
         "power": "Plating",
-        "amount": 7
+        "amount": 9
       }
     ],
     "cards_draw": null,
@@ -7262,11 +7255,11 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "PlatingPower": 7,
-      "Plating": 7
+      "PlatingPower": 9,
+      "Plating": 9
     },
     "upgrade": {
-      "platingpower": "+2"
+      "platingpower": "+3"
     },
     "image_url": "/images/cards/eternal_armor.png",
     "beta_image_url": null
@@ -7312,12 +7305,12 @@
     "id": "EXPECT_A_FIGHT",
     "name": "Expect a Fight",
     "name_zh": "跃跃欲试",
-    "description": "Gain [energy:1] for each Attack in your [gold]Hand[/gold].[In Combat]",
-    "description_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就会获得[energy:1]。[In Combat]",
-    "description_raw": "Gain {energyPrefix:energyIcons(1)} for each Attack in your [gold]Hand[/gold].{InCombat:\n(Gain {CalculatedEnergy:energyIcons()}.)|}",
-    "description_raw_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就会获得{energyPrefix:energyIcons(1)}。{InCombat:\n（获得{CalculatedEnergy:energyIcons()}。）|}",
-    "description_upgraded": "Gain [energy:1] for each Attack in your [gold]Hand[/gold].[In Combat]",
-    "description_upgraded_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就会获得[energy:1]。[In Combat]",
+    "description": "Gain [energy:1] for each Attack in your [gold]Hand[/gold].\nYou cannot gain\nadditional [energy:1] this turn.[In Combat]",
+    "description_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就获得[energy:1]。\n你在本回合内\n不能再获得[energy:1]。[In Combat]",
+    "description_raw": "Gain {energyPrefix:energyIcons(1)} for each Attack in your [gold]Hand[/gold].\nYou cannot gain\nadditional {energyPrefix:energyIcons(1)} this turn.{InCombat:\n(Gain {CalculatedEnergy:energyIcons()})|}",
+    "description_raw_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就获得{energyPrefix:energyIcons(1)}。\n你在本回合内\n不能再获得{energyPrefix:energyIcons(1)}。{InCombat:\n（获得{CalculatedEnergy:energyIcons()}）|}",
+    "description_upgraded": "Gain [energy:1] for each Attack in your [gold]Hand[/gold].\nYou cannot gain\nadditional [energy:1] this turn.[In Combat]",
+    "description_upgraded_zh": "你的[gold]手牌[/gold]中每有一张攻击牌，就获得[energy:1]。\n你在本回合内\n不能再获得[energy:1]。[In Combat]",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7465,12 +7458,12 @@
     "id": "FALLING_STAR",
     "name": "Falling Star",
     "name_zh": "陨星",
-    "description": "Deal 7 damage.\nApply 1 [gold]Weak[/gold].\nApply 1 [gold]Vulnerable[/gold].",
-    "description_zh": "造成7点伤害。\n给予1层[gold]虚弱[/gold]。\n给予1层[gold]易伤[/gold]。",
+    "description": "Deal 8 damage.\nApply 1 [gold]Weak[/gold].\nApply 1 [gold]Vulnerable[/gold].",
+    "description_zh": "造成8点伤害。\n给予1层[gold]虚弱[/gold]。\n给予1层[gold]易伤[/gold]。",
     "description_raw": "Deal {Damage:diff()} damage.\nApply {WeakPower:diff()} [gold]Weak[/gold].\nApply {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n给予{WeakPower:diff()}层[gold]虚弱[/gold]。\n给予{VulnerablePower:diff()}层[gold]易伤[/gold]。",
-    "description_upgraded": "Deal 11 damage.\nApply 1 [gold]Weak[/gold].\nApply 1 [gold]Vulnerable[/gold].",
-    "description_upgraded_zh": "造成11点伤害。\n给予1层[gold]虚弱[/gold]。\n给予1层[gold]易伤[/gold]。",
+    "description_upgraded": "Deal 12 damage.\nApply 1 [gold]Weak[/gold].\nApply 1 [gold]Vulnerable[/gold].",
+    "description_upgraded_zh": "造成12点伤害。\n给予1层[gold]虚弱[/gold]。\n给予1层[gold]易伤[/gold]。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7479,7 +7472,7 @@
     "rarity": "Basic",
     "target": "AnyEnemy",
     "color": "regent",
-    "damage": 7,
+    "damage": 8,
     "block": null,
     "hit_count": null,
     "powers_applied": [
@@ -7499,7 +7492,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 7,
+      "Damage": 8,
       "VulnerablePower": 1,
       "Vulnerable": 1,
       "WeakPower": 1,
@@ -7718,7 +7711,7 @@
     "upgrade": {
       "strength": "+2"
     },
-    "image_url": null,
+    "image_url": "/images/cards/feeding_frenzy.png",
     "beta_image_url": "/images/cards/beta/feeding_frenzy.png"
   },
   {
@@ -7886,12 +7879,12 @@
     "id": "FIGHT_ME",
     "name": "Fight Me!",
     "name_zh": "与我一战！",
-    "description": "Deal 5 damage twice.\nGain 2 [gold]Strength[/gold].\nThe enemy gains 1 [gold]Strength[/gold].",
-    "description_zh": "造成5点伤害两次。\n获得2点[gold]力量[/gold]。\n该敌人获得1点[gold]力量[/gold]。",
+    "description": "Deal 5 damage twice.\nGain 3 [gold]Strength[/gold].\nThe enemy gains 1 [gold]Strength[/gold].",
+    "description_zh": "造成5点伤害两次。\n获得3点[gold]力量[/gold]。\n该敌人获得1点[gold]力量[/gold]。",
     "description_raw": "Deal {Damage:diff()} damage twice.\nGain {StrengthPower:diff()} [gold]Strength[/gold].\nThe enemy gains {EnemyStrength:diff()} [gold]Strength[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害两次。\n获得{StrengthPower:diff()}点[gold]力量[/gold]。\n该敌人获得{EnemyStrength:diff()}点[gold]力量[/gold]。",
-    "description_upgraded": "Deal 6 damage twice.\nGain 2 [gold]Strength[/gold].\nThe enemy gains 1 [gold]Strength[/gold].",
-    "description_upgraded_zh": "造成6点伤害两次。\n获得2点[gold]力量[/gold]。\n该敌人获得1点[gold]力量[/gold]。",
+    "description_upgraded": "Deal 6 damage twice.\nGain 3 [gold]Strength[/gold].\nThe enemy gains 1 [gold]Strength[/gold].",
+    "description_upgraded_zh": "造成6点伤害两次。\n获得3点[gold]力量[/gold]。\n该敌人获得1点[gold]力量[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -7906,7 +7899,7 @@
     "powers_applied": [
       {
         "power": "Strength",
-        "amount": 2
+        "amount": 3
       }
     ],
     "cards_draw": null,
@@ -7919,8 +7912,8 @@
       "EnemyStrength": 1,
       "Damage": 5,
       "Repeat": 2,
-      "StrengthPower": 2,
-      "Strength": 2
+      "StrengthPower": 3,
+      "Strength": 3
     },
     "upgrade": {
       "damage": "+1",
@@ -8086,12 +8079,12 @@
     "id": "FLAK_CANNON",
     "name": "Flak Cannon",
     "name_zh": "散射炮",
-    "description": "[gold]Exhaust[/gold] ALL your [gold]Status[/gold] cards.\nDeal 8 damage to a random enemy for each card [gold]Exhausted[/gold].[In Combat]",
-    "description_zh": "[gold]消耗[/gold]你所有的[gold]状态[/gold]牌。\n每有一张被[gold]消耗[/gold]的牌，就随机对敌人造成8点伤害。[In Combat]",
-    "description_raw": "[gold]Exhaust[/gold] ALL your [gold]Status[/gold] cards.\nDeal {Damage:diff()} damage to a random enemy for each card [gold]Exhausted[/gold].{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
-    "description_raw_zh": "[gold]消耗[/gold]你所有的[gold]状态[/gold]牌。\n每有一张被[gold]消耗[/gold]的牌，就随机对敌人造成{Damage:diff()}点伤害。{InCombat:\n（攻击{CalculatedHits:diff()}次）|}",
-    "description_upgraded": "[gold]Exhaust[/gold] ALL your [gold]Status[/gold] cards.\nDeal 11 damage to a random enemy for each card [gold]Exhausted[/gold].[In Combat]",
-    "description_upgraded_zh": "[gold]消耗[/gold]你所有的[gold]状态[/gold]牌。\n每有一张被[gold]消耗[/gold]的牌，就随机对敌人造成11点伤害。[In Combat]",
+    "description": "[gold]Exhaust[/gold] ALL your Status cards.\nDeal 8 damage to a random enemy for each card [gold]Exhausted[/gold].[In Combat]",
+    "description_zh": "[gold]消耗[/gold]你所有的状态牌。\n每有一张被[gold]消耗[/gold]的牌，就随机对敌人造成8点伤害。[In Combat]",
+    "description_raw": "[gold]Exhaust[/gold] ALL your Status cards.\nDeal {Damage:diff()} damage to a random enemy for each card [gold]Exhausted[/gold].{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
+    "description_raw_zh": "[gold]消耗[/gold]你所有的状态牌。\n每有一张被[gold]消耗[/gold]的牌，就随机对敌人造成{Damage:diff()}点伤害。{InCombat:\n（攻击{CalculatedHits:diff()}次）|}",
+    "description_upgraded": "[gold]Exhaust[/gold] ALL your Status cards.\nDeal 11 damage to a random enemy for each card [gold]Exhausted[/gold].[In Combat]",
+    "description_upgraded_zh": "[gold]消耗[/gold]你所有的状态牌。\n每有一张被[gold]消耗[/gold]的牌，就随机对敌人造成11点伤害。[In Combat]",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -8164,12 +8157,12 @@
     "id": "FLANKING",
     "name": "Flanking",
     "name_zh": "夹击",
-    "description": "The enemy takes double damage from other players this turn.",
-    "description_zh": "一名敌人在本回合受到的来自其他玩家的伤害翻倍。",
-    "description_raw": "The enemy takes double damage from other players this turn.",
-    "description_raw_zh": "一名敌人在本回合受到的来自其他玩家的伤害翻倍。",
-    "description_upgraded": "The enemy takes double damage from other players this turn.",
-    "description_upgraded_zh": "一名敌人在本回合受到的来自其他玩家的伤害翻倍。",
+    "description": "The enemy takes double attack damage from other players this turn.",
+    "description_zh": "一名敌人在本回合受到的来自其他玩家的攻击伤害翻倍。",
+    "description_raw": "The enemy takes double attack damage from other players this turn.",
+    "description_raw_zh": "一名敌人在本回合受到的来自其他玩家的攻击伤害翻倍。",
+    "description_upgraded": "The enemy takes double attack damage from other players this turn.",
+    "description_upgraded_zh": "一名敌人在本回合受到的来自其他玩家的攻击伤害翻倍。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -8238,11 +8231,11 @@
     "name": "Flatten",
     "name_zh": "重压",
     "description": "[gold]Osty[/gold] deals 12 damage.\nThis card costs 0 [energy:1] if [gold]Osty[/gold] has attacked this turn.",
-    "description_zh": "[gold]奥斯提[/gold]造成12点伤害。\n如果[gold]奥斯提[/gold]本回合攻击过，则这张牌的费用变为0[energy:1]。",
+    "description_zh": "[gold]奥斯提[/gold]造成12点伤害。\n如果[gold]奥斯提[/gold]本回合攻击过，则这张牌的耗能变为0[energy:1]。",
     "description_raw": "[gold]Osty[/gold] deals {OstyDamage:diff()} damage.\nThis card costs 0 {energyPrefix:energyIcons(1)} if [gold]Osty[/gold] has attacked this turn.",
-    "description_raw_zh": "[gold]奥斯提[/gold]造成{OstyDamage:diff()}点伤害。\n如果[gold]奥斯提[/gold]本回合攻击过，则这张牌的费用变为0{energyPrefix:energyIcons(1)}。",
+    "description_raw_zh": "[gold]奥斯提[/gold]造成{OstyDamage:diff()}点伤害。\n如果[gold]奥斯提[/gold]本回合攻击过，则这张牌的耗能变为0{energyPrefix:energyIcons(1)}。",
     "description_upgraded": "[gold]Osty[/gold] deals 16 damage.\nThis card costs 0 [energy:1] if [gold]Osty[/gold] has attacked this turn.",
-    "description_upgraded_zh": "[gold]奥斯提[/gold]造成16点伤害。\n如果[gold]奥斯提[/gold]本回合攻击过，则这张牌的费用变为0[energy:1]。",
+    "description_upgraded_zh": "[gold]奥斯提[/gold]造成16点伤害。\n如果[gold]奥斯提[/gold]本回合攻击过，则这张牌的耗能变为0[energy:1]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -8317,12 +8310,12 @@
     "id": "FLICK_FLACK",
     "name": "Flick-Flack",
     "name_zh": "翻越撑击",
-    "description": "Deal 7 damage to ALL enemies.",
-    "description_zh": "对所有敌人造成7点伤害。",
+    "description": "Deal 6 damage to ALL enemies.",
+    "description_zh": "对所有敌人造成6点伤害。",
     "description_raw": "Deal {Damage:diff()} damage to ALL enemies.",
     "description_raw_zh": "对所有敌人造成{Damage:diff()}点伤害。",
-    "description_upgraded": "Deal 9 damage to ALL enemies.",
-    "description_upgraded_zh": "对所有敌人造成9点伤害。",
+    "description_upgraded": "Deal 8 damage to ALL enemies.",
+    "description_upgraded_zh": "对所有敌人造成8点伤害。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -8331,7 +8324,7 @@
     "rarity": "Common",
     "target": "AllEnemies",
     "color": "silent",
-    "damage": 7,
+    "damage": 6,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -8344,7 +8337,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 7
+      "Damage": 6
     },
     "upgrade": {
       "damage": "+2"
@@ -8403,29 +8396,24 @@
     "id": "FOLLOW_THROUGH",
     "name": "Follow Through",
     "name_zh": "跟进",
-    "description": "Deal 6 damage to ALL enemies.\nIf the last card you played this turn was a Skill, apply 1 [gold]Weak[/gold] to ALL enemies.",
-    "description_zh": "对所有敌人造成6点伤害。\n如果在本回合，你打出的上一张牌是技能牌，则给予所有敌人1层[gold]虚弱[/gold]。",
-    "description_raw": "Deal {Damage:diff()} damage to ALL enemies.\nIf the last card you played this turn was a Skill, apply {WeakPower:diff()} [gold]Weak[/gold] to ALL enemies.",
-    "description_raw_zh": "对所有敌人造成{Damage:diff()}点伤害。\n如果在本回合，你打出的上一张牌是技能牌，则给予所有敌人{WeakPower:diff()}层[gold]虚弱[/gold]。",
-    "description_upgraded": "Deal 8 damage to ALL enemies.\nIf the last card you played this turn was a Skill, apply 1 [gold]Weak[/gold] to ALL enemies.",
-    "description_upgraded_zh": "对所有敌人造成8点伤害。\n如果在本回合，你打出的上一张牌是技能牌，则给予所有敌人1层[gold]虚弱[/gold]。",
+    "description": "Deal 7 damage.\nIf you have 5 or more other cards in your [gold]Hand[/gold], hits an additional time.",
+    "description_zh": "造成7点伤害。\n如果你的[gold]手牌[/gold]中还有至少5张其他牌，则额外命中一次。",
+    "description_raw": "Deal {Damage:diff()} damage.\nIf you have {CardCount} or more other {CardCount:plural:card|cards} in your [gold]Hand[/gold], hits an additional time.",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n如果你的[gold]手牌[/gold]中还有至少{CardCount}张其他{CardCount:plural:牌|牌}，则额外命中一次。",
+    "description_upgraded": "Deal 9 damage.\nIf you have 5 or more other cards in your [gold]Hand[/gold], hits an additional time.",
+    "description_upgraded_zh": "造成9点伤害。\n如果你的[gold]手牌[/gold]中还有至少5张其他牌，则额外命中一次。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
     "type": "Attack",
-    "rarity": "Uncommon",
-    "target": "AllEnemies",
+    "rarity": "Common",
+    "target": "AnyEnemy",
     "color": "silent",
-    "damage": 6,
+    "damage": 7,
     "block": null,
     "hit_count": null,
-    "powers_applied": [
-      {
-        "power": "Weak",
-        "amount": 1
-      }
-    ],
+    "powers_applied": null,
     "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
@@ -8433,13 +8421,11 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 6,
-      "WeakPower": 1,
-      "Weak": 1
+      "CardCount": 5,
+      "Damage": 7
     },
     "upgrade": {
-      "damage": "+2",
-      "weak": "+1"
+      "damage": "+2"
     },
     "image_url": "/images/cards/follow_through.png",
     "beta_image_url": null
@@ -8619,7 +8605,9 @@
     "cards_draw": null,
     "energy_gain": 3,
     "hp_loss": null,
-    "keywords": null,
+    "keywords": [
+      "Exhaust"
+    ],
     "tags": null,
     "spawns_cards": null,
     "vars": {
@@ -8954,12 +8942,12 @@
     "id": "GATHER_LIGHT",
     "name": "Gather Light",
     "name_zh": "收集光辉",
-    "description": "Gain 7 [gold]Block[/gold].\nGain [star:1].",
-    "description_zh": "获得7点[gold]格挡[/gold]。\n获得[star:1]。",
+    "description": "Gain 8 [gold]Block[/gold].\nGain [star:1].",
+    "description_zh": "获得8点[gold]格挡[/gold]。\n获得[star:1]。",
     "description_raw": "Gain {Block:diff()} [gold]Block[/gold].\nGain {Stars:starIcons()}.",
     "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。\n获得{Stars:starIcons()}。",
-    "description_upgraded": "Gain 10 [gold]Block[/gold].\nGain [star:1].",
-    "description_upgraded_zh": "获得10点[gold]格挡[/gold]。\n获得[star:1]。",
+    "description_upgraded": "Gain 11 [gold]Block[/gold].\nGain [star:1].",
+    "description_upgraded_zh": "获得11点[gold]格挡[/gold]。\n获得[star:1]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -8969,7 +8957,7 @@
     "target": "Self",
     "color": "regent",
     "damage": null,
-    "block": 7,
+    "block": 8,
     "hit_count": null,
     "powers_applied": null,
     "cards_draw": null,
@@ -8979,7 +8967,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Block": 7,
+      "Block": 8,
       "Stars": 1
     },
     "upgrade": {
@@ -9258,12 +9246,12 @@
     "id": "GLITTERSTREAM",
     "name": "Glitterstream",
     "name_zh": "流光溢彩",
-    "description": "Gain 11 [gold]Block[/gold].\nNext turn, gain 4 [gold]Block[/gold].",
-    "description_zh": "获得11点[gold]格挡[/gold]。\n在下一回合获得4点[gold]格挡[/gold]。",
+    "description": "Gain 11 [gold]Block[/gold].\nNext turn, gain 5 [gold]Block[/gold].",
+    "description_zh": "获得11点[gold]格挡[/gold]。\n在下一回合获得5点[gold]格挡[/gold]。",
     "description_raw": "Gain {Block:diff()} [gold]Block[/gold].\nNext turn, gain {BlockNextTurn:diff()} [gold]Block[/gold].",
     "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。\n在下一回合获得{BlockNextTurn:diff()}点[gold]格挡[/gold]。",
-    "description_upgraded": "Gain 13 [gold]Block[/gold].\nNext turn, gain 6 [gold]Block[/gold].",
-    "description_upgraded_zh": "获得13点[gold]格挡[/gold]。\n在下一回合获得6点[gold]格挡[/gold]。",
+    "description_upgraded": "Gain 13 [gold]Block[/gold].\nNext turn, gain 7 [gold]Block[/gold].",
+    "description_upgraded_zh": "获得13点[gold]格挡[/gold]。\n在下一回合获得7点[gold]格挡[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -9283,7 +9271,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "BlockNextTurn": 4,
+      "BlockNextTurn": 5,
       "Block": 11
     },
     "upgrade": {
@@ -9297,12 +9285,12 @@
     "id": "GLOW",
     "name": "Glow",
     "name_zh": "辉光",
-    "description": "Gain [star:1].\nDraw 2 cards.",
-    "description_zh": "获得[star:1]。\n抽2张牌。",
-    "description_raw": "Gain {Stars:starIcons()}.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
-    "description_raw_zh": "获得{Stars:starIcons()}。\n抽{Cards:diff()}张牌。",
-    "description_upgraded": "Gain [star:2].\nDraw 2 cards.",
-    "description_upgraded_zh": "获得[star:2]。\n抽2张牌。",
+    "description": "Gain [star:1].\nDraw 1 card.\nNext turn, draw 1 card.",
+    "description_zh": "获得[star:1]。\n抽1张牌。\n下一回合抽1张牌。",
+    "description_raw": "Gain {Stars:starIcons()}.\nDraw {Cards:diff()} {Cards:plural:card|cards}.\nNext turn, draw {Cards:diff()} {Cards:plural:card|cards}.",
+    "description_raw_zh": "获得{Stars:starIcons()}。\n抽{Cards:diff()}张牌。\n下一回合抽{Cards:diff()}张牌{Cards:plural:|}。",
+    "description_upgraded": "Gain [star:2].\nDraw 1 card.\nNext turn, draw 1 card.",
+    "description_upgraded_zh": "获得[star:2]。\n抽1张牌。\n下一回合抽1张牌。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -9315,7 +9303,7 @@
     "block": null,
     "hit_count": null,
     "powers_applied": null,
-    "cards_draw": 2,
+    "cards_draw": 1,
     "energy_gain": null,
     "hp_loss": null,
     "keywords": null,
@@ -9323,7 +9311,7 @@
     "spawns_cards": null,
     "vars": {
       "Stars": 1,
-      "Cards": 2
+      "Cards": 1
     },
     "upgrade": {
       "stars": "+1"
@@ -9418,12 +9406,12 @@
     "id": "GRAND_FINALE",
     "name": "Grand Finale",
     "name_zh": "华丽收场",
-    "description": "Can only be played if there are no cards in your [gold]Draw Pile[/gold]. Deal 50 damage to ALL enemies.",
-    "description_zh": "只有当你的[gold]抽牌堆[/gold]中没有牌时才能打出。对所有敌人造成50点伤害。",
+    "description": "Can only be played if there are no cards in your [gold]Draw Pile[/gold]. Deal 60 damage to ALL enemies.",
+    "description_zh": "只有当你的[gold]抽牌堆[/gold]中没有牌时才能打出。对所有敌人造成60点伤害。",
     "description_raw": "Can only be played if there are no cards in your [gold]Draw Pile[/gold]. Deal {Damage:diff()} damage to ALL enemies.",
     "description_raw_zh": "只有当你的[gold]抽牌堆[/gold]中没有牌时才能打出。对所有敌人造成{Damage:diff()}点伤害。",
-    "description_upgraded": "Can only be played if there are no cards in your [gold]Draw Pile[/gold]. Deal 60 damage to ALL enemies.",
-    "description_upgraded_zh": "只有当你的[gold]抽牌堆[/gold]中没有牌时才能打出。对所有敌人造成60点伤害。",
+    "description_upgraded": "Can only be played if there are no cards in your [gold]Draw Pile[/gold]. Deal 75 damage to ALL enemies.",
+    "description_upgraded_zh": "只有当你的[gold]抽牌堆[/gold]中没有牌时才能打出。对所有敌人造成75点伤害。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -9432,7 +9420,7 @@
     "rarity": "Rare",
     "target": "AllEnemies",
     "color": "silent",
-    "damage": 50,
+    "damage": 60,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -9443,57 +9431,12 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 50
+      "Damage": 60
     },
     "upgrade": {
-      "damage": "+10"
+      "damage": "+15"
     },
     "image_url": "/images/cards/grand_finale.png",
-    "beta_image_url": null
-  },
-  {
-    "id": "GRAPPLE",
-    "name": "Grapple",
-    "name_zh": "擒拿",
-    "description": "Deal 7 damage.\nWhenever you gain [gold]Block[/gold] this turn, deal 5 damage to the enemy.",
-    "description_zh": "造成7点伤害。\n当你在本回合获得[gold]格挡[/gold]时，对该敌人造成5点伤害。",
-    "description_raw": "Deal {Damage:diff()} damage.\nWhenever you gain [gold]Block[/gold] this turn, deal {GrapplePower:diff()} damage to the enemy.",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n当你在本回合获得[gold]格挡[/gold]时，对该敌人造成{GrapplePower:diff()}点伤害。",
-    "description_upgraded": "Deal 9 damage.\nWhenever you gain [gold]Block[/gold] this turn, deal 7 damage to the enemy.",
-    "description_upgraded_zh": "造成9点伤害。\n当你在本回合获得[gold]格挡[/gold]时，对该敌人造成7点伤害。",
-    "cost": 1,
-    "is_x_cost": null,
-    "is_x_star_cost": null,
-    "star_cost": null,
-    "type": "Attack",
-    "rarity": "Uncommon",
-    "target": "AnyEnemy",
-    "color": "ironclad",
-    "damage": 7,
-    "block": null,
-    "hit_count": null,
-    "powers_applied": [
-      {
-        "power": "Grapple",
-        "amount": 5
-      }
-    ],
-    "cards_draw": null,
-    "energy_gain": null,
-    "hp_loss": null,
-    "keywords": null,
-    "tags": null,
-    "spawns_cards": null,
-    "vars": {
-      "Damage": 7,
-      "GrapplePower": 5,
-      "Grapple": 5
-    },
-    "upgrade": {
-      "damage": "+2",
-      "grapplepower": "+2"
-    },
-    "image_url": "/images/cards/grapple.png",
     "beta_image_url": null
   },
   {
@@ -9502,10 +9445,10 @@
     "name_zh": "守墓人",
     "description": "Gain 8 [gold]Block[/gold].\nAdd a [gold]Soul[/gold] into your [gold]Draw Pile[/gold].",
     "description_zh": "获得8点[gold]格挡[/gold]。\n将一张[gold]灵魂[/gold]放入你的[gold]抽牌堆[/gold]中。",
-    "description_raw": "Gain {Block:diff()} [gold]Block[/gold].\nAdd a [gold]{IfUpgraded:show:Soul+|Soul}[/gold] into your [gold]Draw Pile[/gold].",
-    "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。\n将一张[gold]{IfUpgraded:show:灵魂+|灵魂}[/gold]放入你的[gold]抽牌堆[/gold]中。",
-    "description_upgraded": "Gain 10 [gold]Block[/gold].\nAdd a [gold]Soul+[/gold] into your [gold]Draw Pile[/gold].",
-    "description_upgraded_zh": "获得10点[gold]格挡[/gold]。\n将一张[gold]灵魂+[/gold]放入你的[gold]抽牌堆[/gold]中。",
+    "description_raw": "Gain {Block:diff()} [gold]Block[/gold].\nAdd a [gold]Soul[/gold] into your [gold]Draw Pile[/gold].",
+    "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。\n将一张[gold]灵魂[/gold]放入你的[gold]抽牌堆[/gold]中。",
+    "description_upgraded": "Gain 11 [gold]Block[/gold].\nAdd a [gold]Soul[/gold] into your [gold]Draw Pile[/gold].",
+    "description_upgraded_zh": "获得11点[gold]格挡[/gold]。\n将一张[gold]灵魂[/gold]放入你的[gold]抽牌堆[/gold]中。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -9531,7 +9474,7 @@
       "Cards": 1
     },
     "upgrade": {
-      "block": "+2"
+      "block": "+3"
     },
     "image_url": "/images/cards/grave_warden.png",
     "beta_image_url": null
@@ -9653,12 +9596,12 @@
     "id": "GUIDING_STAR",
     "name": "Guiding Star",
     "name_zh": "引导之星",
-    "description": "Deal 12 damage.\nNext turn, draw 2 cards.",
-    "description_zh": "造成12点伤害。\n在下一回合抽2张牌。",
-    "description_raw": "Deal {Damage:diff()} damage.\nNext turn, draw {Cards:diff()} {Cards:plural:card|cards}.",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n在下一回合抽{Cards:diff()}张牌。",
-    "description_upgraded": "Deal 13 damage.\nNext turn, draw 3 cards.",
-    "description_upgraded_zh": "造成13点伤害。\n在下一回合抽3张牌。",
+    "description": "Deal 12 damage.\nDraw 2 cards.",
+    "description_zh": "造成12点伤害。\n抽2张牌。",
+    "description_raw": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n抽{Cards:diff()}张牌。",
+    "description_upgraded": "Deal 13 damage.\nDraw 3 cards.",
+    "description_upgraded_zh": "造成13点伤害。\n抽3张牌。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10194,12 +10137,12 @@
     "id": "HEIRLOOM_HAMMER",
     "name": "Heirloom Hammer",
     "name_zh": "传承之锤",
-    "description": "Deal 17 damage.\nChoose a Colorless card in your [gold]Hand[/gold]. Add a copy of that card into your [gold]Hand[/gold].",
-    "description_zh": "造成17点伤害。\n选择你[gold]手牌[/gold]中的一张无色牌。将这张牌的一张复制品放入你的[gold]手牌[/gold]。",
+    "description": "Deal 20 damage.\nChoose a Colorless card in your [gold]Hand[/gold]. Add a copy of that card into your [gold]Hand[/gold].",
+    "description_zh": "造成20点伤害。\n选择你[gold]手牌[/gold]中的一张无色牌。将这张牌的一张复制品放入你的[gold]手牌[/gold]。",
     "description_raw": "Deal {Damage:diff()} damage.\nChoose a Colorless card in your [gold]Hand[/gold]. Add a copy of that card into your [gold]Hand[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n选择你[gold]手牌[/gold]中的一张无色牌。将这张牌的一张复制品放入你的[gold]手牌[/gold]。",
-    "description_upgraded": "Deal 22 damage.\nChoose a Colorless card in your [gold]Hand[/gold]. Add a copy of that card into your [gold]Hand[/gold].",
-    "description_upgraded_zh": "造成22点伤害。\n选择你[gold]手牌[/gold]中的一张无色牌。将这张牌的一张复制品放入你的[gold]手牌[/gold]。",
+    "description_upgraded": "Deal 25 damage.\nChoose a Colorless card in your [gold]Hand[/gold]. Add a copy of that card into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "造成25点伤害。\n选择你[gold]手牌[/gold]中的一张无色牌。将这张牌的一张复制品放入你的[gold]手牌[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10208,7 +10151,7 @@
     "rarity": "Rare",
     "target": "AnyEnemy",
     "color": "regent",
-    "damage": 17,
+    "damage": 20,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -10219,7 +10162,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 17,
+      "Damage": 20,
       "Repeat": 1
     },
     "upgrade": {
@@ -10341,12 +10284,12 @@
     "id": "HEMOKINESIS",
     "name": "Hemokinesis",
     "name_zh": "御血术",
-    "description": "Lose 2 HP.\nDeal 14 damage.",
-    "description_zh": "失去2点生命。\n造成14点伤害。",
+    "description": "Lose 2 HP.\nDeal 15 damage.",
+    "description_zh": "失去2点生命。\n造成15点伤害。",
     "description_raw": "Lose {HpLoss:diff()} HP.\nDeal {Damage:diff()} damage.",
     "description_raw_zh": "失去{HpLoss:diff()}点生命。\n造成{Damage:diff()}点伤害。",
-    "description_upgraded": "Lose 2 HP.\nDeal 19 damage.",
-    "description_upgraded_zh": "失去2点生命。\n造成19点伤害。",
+    "description_upgraded": "Lose 2 HP.\nDeal 20 damage.",
+    "description_upgraded_zh": "失去2点生命。\n造成20点伤害。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10355,7 +10298,7 @@
     "rarity": "Uncommon",
     "target": "AnyEnemy",
     "color": "ironclad",
-    "damage": 14,
+    "damage": 15,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -10367,7 +10310,7 @@
     "spawns_cards": null,
     "vars": {
       "HpLoss": 2,
-      "Damage": 14
+      "Damage": 15
     },
     "upgrade": {
       "damage": "+5"
@@ -10461,12 +10404,12 @@
     "id": "HIDDEN_GEM",
     "name": "Hidden Gem",
     "name_zh": "未掘宝石",
-    "description": "A random card in your [gold]Draw Pile[/gold] gains [gold]Replay[/gold] 2.",
-    "description_zh": "你[gold]抽牌堆[/gold]中的一张随机牌获得2层[gold]重放[/gold]。",
-    "description_raw": "A random card in your [gold]Draw Pile[/gold] gains [gold]Replay[/gold] {Replay:diff()}.",
-    "description_raw_zh": "你[gold]抽牌堆[/gold]中的一张随机牌获得{Replay:diff()}层[gold]重放[/gold]。",
-    "description_upgraded": "A random card in your [gold]Draw Pile[/gold] gains [gold]Replay[/gold] 3.",
-    "description_upgraded_zh": "你[gold]抽牌堆[/gold]中的一张随机牌获得3层[gold]重放[/gold]。",
+    "description": "A random card without [gold]Replay[/gold] in your [gold]Draw Pile[/gold] gains [gold]Replay[/gold] 2.",
+    "description_zh": "你[gold]抽牌堆[/gold]中的一张没有[gold]重放[/gold]的随机牌获得2层[gold]重放[/gold]。",
+    "description_raw": "A random card without [gold]Replay[/gold] in your [gold]Draw Pile[/gold] gains [gold]Replay[/gold] {Replay:diff()}.",
+    "description_raw_zh": "你[gold]抽牌堆[/gold]中的一张没有[gold]重放[/gold]的随机牌获得{Replay:diff()}层[gold]重放[/gold]。",
+    "description_upgraded": "A random card without [gold]Replay[/gold] in your [gold]Draw Pile[/gold] gains [gold]Replay[/gold] 3.",
+    "description_upgraded_zh": "你[gold]抽牌堆[/gold]中的一张没有[gold]重放[/gold]的随机牌获得3层[gold]重放[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10591,8 +10534,8 @@
     "description_zh": "在本回合获得2点[gold]集中[/gold]。",
     "description_raw": "Gain {FocusPower:diff()} [gold]Focus[/gold] this turn.",
     "description_raw_zh": "在本回合获得{FocusPower:diff()}点[gold]集中[/gold]。",
-    "description_upgraded": "Gain 3 [gold]Focus[/gold] this turn.",
-    "description_upgraded_zh": "在本回合获得3点[gold]集中[/gold]。",
+    "description_upgraded": "Gain 2 [gold]Focus[/gold] this turn.",
+    "description_upgraded_zh": "在本回合获得2点[gold]集中[/gold]。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10613,7 +10556,9 @@
     "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
-    "keywords": null,
+    "keywords": [
+      "Exhaust"
+    ],
     "tags": null,
     "spawns_cards": null,
     "vars": {
@@ -10621,7 +10566,7 @@
       "Focus": 2
     },
     "upgrade": {
-      "focuspower": "+1"
+      "remove_exhaust": true
     },
     "image_url": null,
     "beta_image_url": "/images/cards/beta/hotfix.png"
@@ -10630,12 +10575,12 @@
     "id": "HOWL_FROM_BEYOND",
     "name": "Howl from Beyond",
     "name_zh": "彼岸咆哮",
-    "description": "Deal 16 damage to ALL enemies.\nAt the start of your turn, plays from the [gold]Exhaust Pile[/gold].",
-    "description_zh": "对所有敌人造成16点伤害。\n在你的回合开始时，从[gold]消耗牌堆[/gold]将此牌打出。",
-    "description_raw": "Deal {Damage:diff()} damage to ALL enemies.\nAt the start of your turn, plays from the [gold]Exhaust Pile[/gold].",
-    "description_raw_zh": "对所有敌人造成{Damage:diff()}点伤害。\n在你的回合开始时，从[gold]消耗牌堆[/gold]将此牌打出。",
-    "description_upgraded": "Deal 21 damage to ALL enemies.\nAt the start of your turn, plays from the [gold]Exhaust Pile[/gold].",
-    "description_upgraded_zh": "对所有敌人造成21点伤害。\n在你的回合开始时，从[gold]消耗牌堆[/gold]将此牌打出。",
+    "description": "Deal 16 damage to ALL enemies.\nAt the start of your turn, if this is in your [gold]Exhaust Pile[/gold], play it.",
+    "description_zh": "对所有敌人造成16点伤害。\n在你的回合开始时，如果这张牌在你的[gold]消耗牌堆[/gold]中，则将其打出。",
+    "description_raw": "Deal {Damage:diff()} damage to ALL enemies.\nAt the start of your turn, if this is in your [gold]Exhaust Pile[/gold], play it.",
+    "description_raw_zh": "对所有敌人造成{Damage:diff()}点伤害。\n在你的回合开始时，如果这张牌在你的[gold]消耗牌堆[/gold]中，则将其打出。",
+    "description_upgraded": "Deal 21 damage to ALL enemies.\nAt the start of your turn, if this is in your [gold]Exhaust Pile[/gold], play it.",
+    "description_upgraded_zh": "对所有敌人造成21点伤害。\n在你的回合开始时，如果这张牌在你的[gold]消耗牌堆[/gold]中，则将其打出。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10667,11 +10612,11 @@
     "id": "HUDDLE_UP",
     "name": "Huddle Up",
     "name_zh": "抱团",
-    "description": "ALL allies draw 2 cards.",
+    "description": "ALL players draw 2 cards.",
     "description_zh": "所有玩家抽2张牌。",
-    "description_raw": "ALL allies draw {Cards:diff()} cards.",
+    "description_raw": "ALL players draw {Cards:diff()} cards.",
     "description_raw_zh": "所有玩家抽{Cards:diff()}张牌。",
-    "description_upgraded": "ALL allies draw 3 cards.",
+    "description_upgraded": "ALL players draw 3 cards.",
     "description_upgraded_zh": "所有玩家抽3张牌。",
     "cost": 1,
     "is_x_cost": null,
@@ -10688,7 +10633,9 @@
     "cards_draw": 2,
     "energy_gain": null,
     "hp_loss": null,
-    "keywords": null,
+    "keywords": [
+      "Exhaust"
+    ],
     "tags": null,
     "spawns_cards": null,
     "vars": {
@@ -10748,12 +10695,12 @@
     "id": "I_AM_INVINCIBLE",
     "name": "I Am Invincible",
     "name_zh": "所向无敌",
-    "description": "Gain 9 [gold]Block[/gold].\nAt the end of your turn, if this is on top of your [gold]Draw Pile[/gold], play it.",
-    "description_zh": "获得9点[gold]格挡[/gold]。\n在你的回合结束时，如果这张牌位于[gold]抽牌堆[/gold]顶部，则将其打出。",
+    "description": "Gain 10 [gold]Block[/gold].\nAt the end of your turn, if this is on top of your [gold]Draw Pile[/gold], play it.",
+    "description_zh": "获得10点[gold]格挡[/gold]。\n在你的回合结束时，如果这张牌位于[gold]抽牌堆[/gold]顶部，则将其打出。",
     "description_raw": "Gain {Block:diff()} [gold]Block[/gold].\nAt the end of your turn, if this is on top of your [gold]Draw Pile[/gold], play it.",
     "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。\n在你的回合结束时，如果这张牌位于[gold]抽牌堆[/gold]顶部，则将其打出。",
-    "description_upgraded": "Gain 12 [gold]Block[/gold].\nAt the end of your turn, if this is on top of your [gold]Draw Pile[/gold], play it.",
-    "description_upgraded_zh": "获得12点[gold]格挡[/gold]。\n在你的回合结束时，如果这张牌位于[gold]抽牌堆[/gold]顶部，则将其打出。",
+    "description_upgraded": "Gain 13 [gold]Block[/gold].\nAt the end of your turn, if this is on top of your [gold]Draw Pile[/gold], play it.",
+    "description_upgraded_zh": "获得13点[gold]格挡[/gold]。\n在你的回合结束时，如果这张牌位于[gold]抽牌堆[/gold]顶部，则将其打出。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -10763,7 +10710,7 @@
     "target": "Self",
     "color": "regent",
     "damage": null,
-    "block": 9,
+    "block": 10,
     "hit_count": null,
     "powers_applied": null,
     "cards_draw": null,
@@ -10773,7 +10720,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Block": 9
+      "Block": 10
     },
     "upgrade": {
       "block": "+3"
@@ -10974,11 +10921,11 @@
     "name": "Infernal Blade",
     "name_zh": "地狱之刃",
     "description": "Add a random Attack into your [gold]Hand[/gold]. It's free to play this turn.",
-    "description_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。这张牌在本回合内可以免费打出。",
+    "description_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。那张牌在本回合内可以免费打出。",
     "description_raw": "Add a random Attack into your [gold]Hand[/gold]. It's free to play this turn.",
-    "description_raw_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。这张牌在本回合内可以免费打出。",
+    "description_raw_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。那张牌在本回合内可以免费打出。",
     "description_upgraded": "Add a random Attack into your [gold]Hand[/gold]. It's free to play this turn.",
-    "description_upgraded_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。这张牌在本回合内可以免费打出。",
+    "description_upgraded_zh": "将一张随机攻击牌加入你的[gold]手牌[/gold]。那张牌在本回合内可以免费打出。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -11283,11 +11230,11 @@
     "id": "ITERATION",
     "name": "Iteration",
     "name_zh": "迭代",
-    "description": "The first time you draw a Status card each turn, draw 2 cards.",
+    "description": "The first time you draw a Status each turn, draw 2 cards.",
     "description_zh": "每回合你第一次抽到状态牌时，抽2张牌。",
-    "description_raw": "The first time you draw a Status card each turn, draw {IterationPower:diff()} {IterationPower:plural:card|cards}.",
+    "description_raw": "The first time you draw a Status each turn, draw {IterationPower:diff()} {IterationPower:plural:card|cards}.",
     "description_raw_zh": "每回合你第一次抽到状态牌时，抽{IterationPower:diff()}张牌。",
-    "description_upgraded": "The first time you draw a Status card each turn, draw 3 cards.",
+    "description_upgraded": "The first time you draw a Status each turn, draw 3 cards.",
     "description_upgraded_zh": "每回合你第一次抽到状态牌时，抽3张牌。",
     "cost": 1,
     "is_x_cost": null,
@@ -11481,12 +11428,12 @@
     "id": "KINGLY_KICK",
     "name": "Kingly Kick",
     "name_zh": "王者之踢",
-    "description": "Deal 24 damage.\nWhenever you draw this card, reduce its cost by 1.",
-    "description_zh": "造成24点伤害。\n每当你抽到这张牌时，这张牌的耗能减少1。",
+    "description": "Deal 27 damage.\nWhenever you draw this card, reduce its cost by 1.",
+    "description_zh": "造成27点伤害。\n每当你抽到这张牌时，这张牌的耗能减少1。",
     "description_raw": "Deal {Damage:diff()} damage.\nWhenever you draw this card, reduce its cost by 1.",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n每当你抽到这张牌时，这张牌的耗能减少1。",
-    "description_upgraded": "Deal 30 damage.\nWhenever you draw this card, reduce its cost by 1.",
-    "description_upgraded_zh": "造成30点伤害。\n每当你抽到这张牌时，这张牌的耗能减少1。",
+    "description_upgraded": "Deal 35 damage.\nWhenever you draw this card, reduce its cost by 1.",
+    "description_upgraded_zh": "造成35点伤害。\n每当你抽到这张牌时，这张牌的耗能减少1。",
     "cost": 4,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -11495,7 +11442,7 @@
     "rarity": "Uncommon",
     "target": "AnyEnemy",
     "color": "regent",
-    "damage": 24,
+    "damage": 27,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -11506,10 +11453,10 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 24
+      "Damage": 27
     },
     "upgrade": {
-      "damage": "+6"
+      "damage": "+8"
     },
     "image_url": "/images/cards/kingly_kick.png",
     "beta_image_url": null
@@ -11518,12 +11465,12 @@
     "id": "KINGLY_PUNCH",
     "name": "Kingly Punch",
     "name_zh": "王者之拳",
-    "description": "Deal 8 damage.\nWhenever you draw this card, increase its damage by 3 this combat.",
-    "description_zh": "造成8点伤害。\n每当你抽到这张牌时，在这场战斗中其伤害增加3。",
+    "description": "Deal 8 damage.\nWhenever you draw this card, increase its damage by 4 this combat.",
+    "description_zh": "造成8点伤害。\n每当你抽到这张牌时，在这场战斗中其伤害增加4。",
     "description_raw": "Deal {Damage:diff()} damage.\nWhenever you draw this card, increase its damage by {Increase:diff()} this combat.",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n每当你抽到这张牌时，在这场战斗中其伤害增加{Increase:diff()}。",
-    "description_upgraded": "Deal 8 damage.\nWhenever you draw this card, increase its damage by 5 this combat.",
-    "description_upgraded_zh": "造成8点伤害。\n每当你抽到这张牌时，在这场战斗中其伤害增加5。",
+    "description_upgraded": "Deal 10 damage.\nWhenever you draw this card, increase its damage by 6 this combat.",
+    "description_upgraded_zh": "造成10点伤害。\n每当你抽到这张牌时，在这场战斗中其伤害增加6。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -11543,10 +11490,11 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Increase": 3,
+      "Increase": 4,
       "Damage": 8
     },
     "upgrade": {
+      "damage": "+2",
       "increase": "+2"
     },
     "image_url": "/images/cards/kingly_punch.png",
@@ -11597,11 +11545,11 @@
     "name": "Knockdown",
     "name_zh": "击倒",
     "description": "Deal 10 damage.\nThe enemy takes double damage from other players this turn.",
-    "description_zh": "造成10点伤害。\n该敌人在本回合受到的来自其他玩家的伤害翻倍。",
+    "description_zh": "造成10点伤害。\n该敌人在本回合受到的来自其他玩家的伤害变为两倍。",
     "description_raw": "Deal {Damage:diff()} damage.\nThe enemy takes {IfUpgraded:show:triple|double} damage from other players this turn.",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n该敌人在本回合受到的来自其他玩家的伤害{IfUpgraded:show:翻三倍|翻倍}。",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n该敌人在本回合受到的来自其他玩家的伤害变为{IfUpgraded:show:三倍|两倍}。",
     "description_upgraded": "Deal 14 damage.\nThe enemy takes triple damage from other players this turn.",
-    "description_upgraded_zh": "造成14点伤害。\n该敌人在本回合受到的来自其他玩家的伤害翻三倍。",
+    "description_upgraded_zh": "造成14点伤害。\n该敌人在本回合受到的来自其他玩家的伤害变为三倍。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -11800,12 +11748,12 @@
     "id": "LEADING_STRIKE",
     "name": "Leading Strike",
     "name_zh": "先制打击",
-    "description": "Deal 7 damage.\nAdd 1 [gold]Shiv[/gold] into your [gold]Hand[/gold].",
-    "description_zh": "造成7点伤害。\n将1张[gold]小刀[/gold]加入你的[gold]手牌[/gold]。",
-    "description_raw": "Deal {Damage:diff()} damage.\nAdd {Shivs:diff()} [gold]Shiv[/gold] into your [gold]Hand[/gold].",
+    "description": "Deal 3 damage.\nAdd 2 [gold]Shivs[/gold] into your [gold]Hand[/gold].",
+    "description_zh": "造成3点伤害。\n将2张[gold]小刀[/gold]加入你的[gold]手牌[/gold]。",
+    "description_raw": "Deal {Damage:diff()} damage.\nAdd {Shivs:diff()} [gold]{Shivs:plural:Shiv|Shivs}[/gold] into your [gold]Hand[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n将{Shivs:diff()}张[gold]小刀[/gold]加入你的[gold]手牌[/gold]。",
-    "description_upgraded": "Deal 10 damage.\nAdd 1 [gold]Shiv[/gold] into your [gold]Hand[/gold].",
-    "description_upgraded_zh": "造成10点伤害。\n将1张[gold]小刀[/gold]加入你的[gold]手牌[/gold]。",
+    "description_upgraded": "Deal 6 damage.\nAdd 2 [gold]Shivs[/gold] into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "造成6点伤害。\n将2张[gold]小刀[/gold]加入你的[gold]手牌[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -11814,7 +11762,7 @@
     "rarity": "Common",
     "target": "AnyEnemy",
     "color": "silent",
-    "damage": 7,
+    "damage": 3,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -11829,8 +11777,8 @@
       "SHIV"
     ],
     "vars": {
-      "Shivs": 1,
-      "Damage": 7
+      "Shivs": 2,
+      "Damage": 3
     },
     "upgrade": {
       "damage": "+3"
@@ -12244,8 +12192,8 @@
     "name_zh": "疯狂科学",
     "description": "[Card Type].|Gain 8 [gold]Block[/gold].|}[Has Rider][Choking][Energized][Wisdom][Chaos][Expertise][Curious][Improvement]|[Card Type]}",
     "description_zh": "[Card Type]。|获得8点[gold]格挡[/gold]。|}[Has Rider][Choking][Energized][Wisdom][Chaos][Expertise][Curious][Improvement]|[Card Type]}",
-    "description_raw": "{CardType:choose(Attack|Skill|Power):Deal {Damage:diff()} damage{Violence: {ViolenceHits:diff()} times|}.|Gain {Block:diff()} [gold]Block[/gold].|}{HasRider:{Sapping:\nApply {SappingWeak:diff()} [gold]Weak[/gold].\nApply {SappingVulnerable:diff()} [gold]Vulnerable[/gold].|}{Choking:\nWhenever you play a card this turn, the enemy loses {ChokingDamage:diff()} HP.|}{Energized:\nGain {EnergizedEnergy:energyIcons()}.|}{Wisdom:\nDraw {WisdomCards:diff()} cards.|}{Chaos:\nAdd a random card into your [gold]Hand[/gold]. It costs 0 {energyPrefix:energyIcons(1)} this turn.|}{Expertise:Gain {ExpertiseStrength:diff()} [gold]Strength[/gold].\nGain {ExpertiseDexterity:diff()} [gold]Dexterity[/gold].|}{Curious:Powers cost {CuriousReduction:diff()} {energyPrefix:energyIcons(1)} less.|}{Improvement:At the end of combat, [gold]Upgrade[/gold] a random card.|}|{CardType:choose(Attack|Skill|Power):\n???|\n???|???}}",
-    "description_raw_zh": "{CardType:choose(Attack|Skill|Power):造成{Damage:diff()}点伤害{Violence:{ViolenceHits:diff()}次|}。|获得{Block:diff()}点[gold]格挡[/gold]。|}{HasRider:{Sapping:\n给予{SappingWeak:diff()}层[gold]虚弱[/gold]。\n给予{SappingVulnerable:diff()}层[gold]易伤[/gold]。|}{Choking:\n本回合，你每打出一张牌，该敌人失去{ChokingDamage:diff()}点生命。|}{Energized:\n获得{EnergizedEnergy:energyIcons()}。|}{Wisdom:\n抽{WisdomCards:diff()}张牌|}{Chaos:\n将一张随机牌放入你的[gold]手牌[/gold]，这张牌在本回合耗能变为0{energyPrefix:energyIcons(1)}。|}{Expertise:获得{ExpertiseStrength:diff()}点[gold]力量[/gold]。\n获得{ExpertiseDexterity:diff()}点[gold]敏捷[/gold]。|}{Curious:能力牌的耗能减少{CuriousReduction:diff()}{energyPrefix:energyIcons(1)}。|}{Improvement:在战斗结束时，[gold]升级[/gold]你牌组中的一张随机牌。|}|{CardType:choose(Attack|Skill|Power):\n？？？|\n？？？|？？？}}",
+    "description_raw": "{CardType:choose(Attack|Skill|Power):Deal {Damage:diff()} damage{Violence: {ViolenceHits:diff()} times|}.|Gain {Block:diff()} [gold]Block[/gold].|}{HasRider:{Sapping:\nApply {SappingWeak:diff()} [gold]Weak[/gold].\nApply {SappingVulnerable:diff()} [gold]Vulnerable[/gold].|}{Choking:\nWhenever you play a card this turn, the enemy loses {ChokingDamage:diff()} HP.|}{Energized:\nGain {EnergizedEnergy:energyIcons()}.|}{Wisdom:\nDraw {WisdomCards:diff()} cards.|}{Chaos:\nAdd a random card into your [gold]Hand[/gold]. It's free to play this turn.|}{Expertise:Gain {ExpertiseStrength:diff()} [gold]Strength[/gold].\nGain {ExpertiseDexterity:diff()} [gold]Dexterity[/gold].|}{Curious:Powers cost {CuriousReduction:diff()} {energyPrefix:energyIcons(1)} less.|}{Improvement:At the end of combat, [gold]Upgrade[/gold] a random card.|}|{CardType:choose(Attack|Skill|Power):\n???|\n???|???}}",
+    "description_raw_zh": "{CardType:choose(Attack|Skill|Power):造成{Damage:diff()}点伤害{Violence:{ViolenceHits:diff()}次|}。|获得{Block:diff()}点[gold]格挡[/gold]。|}{HasRider:{Sapping:\n给予{SappingWeak:diff()}层[gold]虚弱[/gold]。\n给予{SappingVulnerable:diff()}层[gold]易伤[/gold]。|}{Choking:\n本回合，你每打出一张牌，该敌人失去{ChokingDamage:diff()}点生命。|}{Energized:\n获得{EnergizedEnergy:energyIcons()}。|}{Wisdom:\n抽{WisdomCards:diff()}张牌|}{Chaos:\n将一张随机牌放入你的[gold]手牌[/gold]，这张牌在本回合可以免费打出。|}{Expertise:获得{ExpertiseStrength:diff()}点[gold]力量[/gold]。\n获得{ExpertiseDexterity:diff()}点[gold]敏捷[/gold]。|}{Curious:能力牌的耗能减少{CuriousReduction:diff()}{energyPrefix:energyIcons(1)}。|}{Improvement:在战斗结束时，[gold]升级[/gold]你牌组中的一张随机牌。|}|{CardType:choose(Attack|Skill|Power):\n？？？|\n？？？|？？？}}",
     "description_upgraded": "[Card Type].|Gain 8 [gold]Block[/gold].|}[Has Rider][Choking][Energized][Wisdom][Chaos][Expertise][Curious][Improvement]|[Card Type]}",
     "description_upgraded_zh": "[Card Type]。|获得8点[gold]格挡[/gold]。|}[Has Rider][Choking][Energized][Wisdom][Chaos][Expertise][Curious][Improvement]|[Card Type]}",
     "cost": 1,
@@ -12644,7 +12592,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "CalculationBase": 8,
+      "CalculationBase": 9,
       "ExtraDamage": 4
     },
     "upgrade": {
@@ -12915,7 +12863,7 @@
     "description_raw_zh": "造成{Damage:diff()}点伤害。",
     "description_upgraded": "Deal 16 damage.",
     "description_upgraded_zh": "造成16点伤害。",
-    "cost": 1,
+    "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
@@ -12991,12 +12939,12 @@
     "id": "MINION_STRIKE",
     "name": "Minion Strike",
     "name_zh": "仆从打击",
-    "description": "Deal 7 damage.\nDraw 1 card.",
-    "description_zh": "造成7点伤害。\n抽1张牌。",
+    "description": "Deal 6 damage.\nDraw 1 card.",
+    "description_zh": "造成6点伤害。\n抽1张牌。",
     "description_raw": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n抽{Cards:diff()}张牌。",
-    "description_upgraded": "Deal 10 damage.\nDraw 1 card.",
-    "description_upgraded_zh": "造成10点伤害。\n抽1张牌。",
+    "description_upgraded": "Deal 9 damage.\nDraw 1 card.",
+    "description_upgraded_zh": "造成9点伤害。\n抽1张牌。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -13005,7 +12953,7 @@
     "rarity": "Token",
     "target": "AnyEnemy",
     "color": "token",
-    "damage": 7,
+    "damage": 6,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -13021,7 +12969,7 @@
     ],
     "spawns_cards": null,
     "vars": {
-      "Damage": 7,
+      "Damage": 6,
       "Cards": 1
     },
     "upgrade": {
@@ -13460,7 +13408,7 @@
     "description_raw": "Deal {Damage:diff()} damage.\nPut {Cards:plural:a random card|{:diff()} random cards} from your [gold]Discard Pile[/gold] into your [gold]Hand[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n将你[gold]弃牌堆[/gold]中的{Cards:diff()}张随机牌放入你的[gold]手牌[/gold]。",
     "description_upgraded": "Deal 14 damage.\nPut [] random cards from your [gold]Discard Pile[/gold] into your [gold]Hand[/gold].",
-    "description_upgraded_zh": "造成14点伤害。\n将你[gold]弃牌堆[/gold]中的2张随机牌放入你的[gold]手牌[/gold]。",
+    "description_upgraded_zh": "造成14点伤害。\n将你[gold]弃牌堆[/gold]中的3张随机牌放入你的[gold]手牌[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -13486,7 +13434,8 @@
       "Cards": 2
     },
     "upgrade": {
-      "damage": "+4"
+      "damage": "+4",
+      "cards": "+1"
     },
     "image_url": "/images/cards/neows_fury.png",
     "beta_image_url": null
@@ -13775,6 +13724,45 @@
     "beta_image_url": "/images/cards/beta/nostalgia.png"
   },
   {
+    "id": "NOT_YET",
+    "name": "Not Yet",
+    "name_zh": "时候未到",
+    "description": "Heal 10 HP.",
+    "description_zh": "回复10点生命。",
+    "description_raw": "Heal {Heal:diff()} HP.",
+    "description_raw_zh": "回复{Heal:diff()}点生命。",
+    "description_upgraded": "Heal 13 HP.",
+    "description_upgraded_zh": "回复13点生命。",
+    "cost": 2,
+    "is_x_cost": null,
+    "is_x_star_cost": null,
+    "star_cost": null,
+    "type": "Skill",
+    "rarity": "Rare",
+    "target": "Self",
+    "color": "ironclad",
+    "damage": null,
+    "block": null,
+    "hit_count": null,
+    "powers_applied": null,
+    "cards_draw": null,
+    "energy_gain": null,
+    "hp_loss": null,
+    "keywords": [
+      "Exhaust"
+    ],
+    "tags": null,
+    "spawns_cards": null,
+    "vars": {
+      "Heal": 10
+    },
+    "upgrade": {
+      "heal": "+3"
+    },
+    "image_url": null,
+    "beta_image_url": null
+  },
+  {
     "id": "NOXIOUS_FUMES",
     "name": "Noxious Fumes",
     "name_zh": "毒雾",
@@ -13814,7 +13802,7 @@
   {
     "id": "NULL",
     "name": "Null",
-    "name_zh": "空无",
+    "name_zh": "空值",
     "description": "Deal 10 damage.\nApply 2 [gold]Weak[/gold].\n[gold]Channel[/gold] 1 [gold]Dark[/gold].",
     "description_zh": "造成10点伤害。\n给予2层[gold]虚弱[/gold]。\n[gold]生成[/gold]1个[gold]黑暗[/gold]充能球。",
     "description_raw": "Deal {Damage:diff()} damage.\nApply {WeakPower:diff()} [gold]Weak[/gold].\n[gold]Channel[/gold] 1 [gold]Dark[/gold].",
@@ -13861,11 +13849,11 @@
     "name": "Oblivion",
     "name_zh": "湮灭",
     "description": "Whenever you play a card this turn, apply 3 [gold]Doom[/gold] to the enemy.",
-    "description_zh": "你在本回合内每打出一张牌，就给予该敌人3层[gold]灾厄[/gold]。",
+    "description_zh": "打出此牌后，你在本回合内每打出一张牌，就给予该敌人3层[gold]灾厄[/gold]。",
     "description_raw": "Whenever you play a card this turn, apply {DoomPower:diff()} [gold]Doom[/gold] to the enemy.",
-    "description_raw_zh": "你在本回合内每打出一张牌，就给予该敌人{DoomPower:diff()}层[gold]灾厄[/gold]。",
+    "description_raw_zh": "打出此牌后，你在本回合内每打出一张牌，就给予该敌人{DoomPower:diff()}层[gold]灾厄[/gold]。",
     "description_upgraded": "Whenever you play a card this turn, apply 3 [gold]Doom[/gold] to the enemy.",
-    "description_upgraded_zh": "你在本回合内每打出一张牌，就给予该敌人3层[gold]灾厄[/gold]。",
+    "description_upgraded_zh": "打出此牌后，你在本回合内每打出一张牌，就给予该敌人3层[gold]灾厄[/gold]。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -14365,12 +14353,12 @@
     "id": "PARRY",
     "name": "Parry",
     "name_zh": "招架",
-    "description": "Whenever you play [gold]Sovereign Blade[/gold], gain 6 [gold]Block[/gold].",
-    "description_zh": "每当你打出[gold]君王之剑[/gold]时，获得6点[gold]格挡[/gold]。",
+    "description": "Whenever you play [gold]Sovereign Blade[/gold], gain 10 [gold]Block[/gold].",
+    "description_zh": "每当你打出[gold]君王之剑[/gold]时，获得10点[gold]格挡[/gold]。",
     "description_raw": "Whenever you play [gold]Sovereign Blade[/gold], gain {ParryPower:diff()} [gold]Block[/gold].",
     "description_raw_zh": "每当你打出[gold]君王之剑[/gold]时，获得{ParryPower:diff()}点[gold]格挡[/gold]。",
-    "description_upgraded": "Whenever you play [gold]Sovereign Blade[/gold], gain 9 [gold]Block[/gold].",
-    "description_upgraded_zh": "每当你打出[gold]君王之剑[/gold]时，获得9点[gold]格挡[/gold]。",
+    "description_upgraded": "Whenever you play [gold]Sovereign Blade[/gold], gain 14 [gold]Block[/gold].",
+    "description_upgraded_zh": "每当你打出[gold]君王之剑[/gold]时，获得14点[gold]格挡[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -14385,7 +14373,7 @@
     "powers_applied": [
       {
         "power": "Parry",
-        "amount": 6
+        "amount": 10
       }
     ],
     "cards_draw": null,
@@ -14397,11 +14385,11 @@
       "SOVEREIGN_BLADE"
     ],
     "vars": {
-      "ParryPower": 6,
-      "Parry": 6
+      "ParryPower": 10,
+      "Parry": 10
     },
     "upgrade": {
-      "parrypower": "+3"
+      "parrypower": "+4"
     },
     "image_url": "/images/cards/parry.png",
     "beta_image_url": "/images/cards/beta/parry.png"
@@ -14487,12 +14475,12 @@
     "id": "PATTER",
     "name": "Patter",
     "name_zh": "星星点点",
-    "description": "Gain 8 [gold]Block[/gold].\nGain 2 [gold]Vigor[/gold].",
-    "description_zh": "获得8点[gold]格挡[/gold]。\n获得2点[gold]活力[/gold]。",
+    "description": "Gain 9 [gold]Block[/gold].\nGain 2 [gold]Vigor[/gold].",
+    "description_zh": "获得9点[gold]格挡[/gold]。\n获得2点[gold]活力[/gold]。",
     "description_raw": "Gain {Block:diff()} [gold]Block[/gold].\nGain {VigorPower:diff()} [gold]Vigor[/gold].",
     "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。\n获得{VigorPower:diff()}点[gold]活力[/gold]。",
-    "description_upgraded": "Gain 10 [gold]Block[/gold].\nGain 3 [gold]Vigor[/gold].",
-    "description_upgraded_zh": "获得10点[gold]格挡[/gold]。\n获得3点[gold]活力[/gold]。",
+    "description_upgraded": "Gain 11 [gold]Block[/gold].\nGain 3 [gold]Vigor[/gold].",
+    "description_upgraded_zh": "获得11点[gold]格挡[/gold]。\n获得3点[gold]活力[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -14502,7 +14490,7 @@
     "target": "Self",
     "color": "regent",
     "damage": null,
-    "block": 8,
+    "block": 9,
     "hit_count": null,
     "powers_applied": [
       {
@@ -14517,7 +14505,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Block": 8,
+      "Block": 9,
       "VigorPower": 2,
       "Vigor": 2
     },
@@ -14809,12 +14797,12 @@
     "id": "PINPOINT",
     "name": "Pinpoint",
     "name_zh": "精密瞄准",
-    "description": "Deal 17 damage.\nCosts 1 less [energy:1] for each Skill played this turn.",
-    "description_zh": "造成17点伤害。\n你在本回合中每打出过一张技能牌，其耗能减少1[energy:1]。",
+    "description": "Deal 15 damage.\nCosts 1 less [energy:1] for each Skill played this turn.",
+    "description_zh": "造成15点伤害。\n你在本回合中每打出过一张技能牌，其耗能减少1[energy:1]。",
     "description_raw": "Deal {Damage:diff()} damage.\nCosts 1 less {energyPrefix:energyIcons(1)} for each Skill played this turn.",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n你在本回合中每打出过一张技能牌，其耗能减少1{energyPrefix:energyIcons(1)}。",
-    "description_upgraded": "Deal 22 damage.\nCosts 1 less [energy:1] for each Skill played this turn.",
-    "description_upgraded_zh": "造成22点伤害。\n你在本回合中每打出过一张技能牌，其耗能减少1[energy:1]。",
+    "description_upgraded": "Deal 19 damage.\nCosts 1 less [energy:1] for each Skill played this turn.",
+    "description_upgraded_zh": "造成19点伤害。\n你在本回合中每打出过一张技能牌，其耗能减少1[energy:1]。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -14823,7 +14811,7 @@
     "rarity": "Uncommon",
     "target": "AnyEnemy",
     "color": "silent",
-    "damage": 17,
+    "damage": 15,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -14834,10 +14822,10 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 17
+      "Damage": 15
     },
     "upgrade": {
-      "damage": "+5"
+      "damage": "+4"
     },
     "image_url": "/images/cards/pinpoint.png",
     "beta_image_url": null
@@ -15240,8 +15228,8 @@
     "description_zh": "获得[energy:2]。",
     "description_raw": "Gain {Energy:energyIcons()}.",
     "description_raw_zh": "获得{Energy:energyIcons()}。",
-    "description_upgraded": "Gain [energy:2].",
-    "description_upgraded_zh": "获得[energy:2]。",
+    "description_upgraded": "Gain [energy:3].",
+    "description_upgraded_zh": "获得[energy:3]。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -15266,7 +15254,7 @@
       "Energy": 2
     },
     "upgrade": {
-      "remove_exhaust": true
+      "energy": "+1"
     },
     "image_url": "/images/cards/production.png",
     "beta_image_url": "/images/cards/beta/production.png"
@@ -15707,11 +15695,11 @@
     "name": "Radiate",
     "name_zh": "辐射",
     "description": "Deal 3 damage to ALL enemies for each [star:1] gained this turn.[In Combat]",
-    "description_zh": "你在本回合每获得一点[star:1]，则此牌就所有敌人造成3点伤害一次。[In Combat]",
+    "description_zh": "你在本回合每获得一点[star:1]，此牌就对所有敌人造成3点伤害一次。[In Combat]",
     "description_raw": "Deal {Damage:diff()} damage to ALL enemies for each {Stars:starIcons()} gained this turn.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
-    "description_raw_zh": "你在本回合每获得一点{Stars:starIcons()}，则此牌就所有敌人造成{Damage:diff()}点伤害一次。{InCombat:\n（命中{CalculatedHits:diff()}次）|}",
+    "description_raw_zh": "你在本回合每获得一点{Stars:starIcons()}，此牌就对所有敌人造成{Damage:diff()}点伤害一次。{InCombat:\n（命中{CalculatedHits:diff()}次）|}",
     "description_upgraded": "Deal 4 damage to ALL enemies for each [star:1] gained this turn.[In Combat]",
-    "description_upgraded_zh": "你在本回合每获得一点[star:1]，则此牌就所有敌人造成4点伤害一次。[In Combat]",
+    "description_upgraded_zh": "你在本回合每获得一点[star:1]，此牌就对所有敌人造成4点伤害一次。[In Combat]",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -15896,11 +15884,11 @@
     "name": "Rattle",
     "name_zh": "猛晃",
     "description": "[gold]Osty[/gold] deals 7 damage.\nHits an additional time for each other time he has attacked this turn.[In Combat]",
-    "description_zh": "[gold]奥斯提[/gold]造成7点伤害。\n他在本回合每攻击过一次，此牌就额外造成一次伤害。[In Combat]",
+    "description_zh": "[gold]奥斯提[/gold]造成7点伤害。\n本回合每使用过一次奥斯提攻击牌，此牌就额外造成一次伤害。[In Combat]",
     "description_raw": "[gold]Osty[/gold] deals {OstyDamage:diff()} damage.\nHits an additional time for each other time he has attacked this turn.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
-    "description_raw_zh": "[gold]奥斯提[/gold]造成{OstyDamage:diff()}点伤害。\n他在本回合每攻击过一次，此牌就额外造成一次伤害。{InCombat:\n（命中{CalculatedHits:diff()}次）|}",
+    "description_raw_zh": "[gold]奥斯提[/gold]造成{OstyDamage:diff()}点伤害。\n本回合每使用过一次奥斯提攻击牌，此牌就额外造成一次伤害。{InCombat:\n（命中{CalculatedHits:diff()}次）|}",
     "description_upgraded": "[gold]Osty[/gold] deals 9 damage.\nHits an additional time for each other time he has attacked this turn.[In Combat]",
-    "description_upgraded_zh": "[gold]奥斯提[/gold]造成9点伤害。\n他在本回合每攻击过一次，此牌就额外造成一次伤害。[In Combat]",
+    "description_upgraded_zh": "[gold]奥斯提[/gold]造成9点伤害。\n本回合每使用过一次奥斯提攻击牌，此牌就额外造成一次伤害。[In Combat]",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16167,12 +16155,12 @@
     "id": "REFINE_BLADE",
     "name": "Refine Blade",
     "name_zh": "淬炼刀刃",
-    "description": "[gold]Forge[/gold] 6.\nNext turn, gain [energy:1].",
-    "description_zh": "[gold]铸造[/gold]6。\n在下个回合获得[energy:1]。",
+    "description": "[gold]Forge[/gold] 9.\nNext turn, gain [energy:1].",
+    "description_zh": "[gold]铸造[/gold]9。\n在下个回合获得[energy:1]。",
     "description_raw": "[gold]Forge[/gold] {Forge:diff()}.\nNext turn, gain {Energy:energyIcons()}.",
     "description_raw_zh": "[gold]铸造[/gold]{Forge:diff()}。\n在下个回合获得{Energy:energyIcons()}。",
-    "description_upgraded": "[gold]Forge[/gold] 10.\nNext turn, gain [energy:1].",
-    "description_upgraded_zh": "[gold]铸造[/gold]10。\n在下个回合获得[energy:1]。",
+    "description_upgraded": "[gold]Forge[/gold] 13.\nNext turn, gain [energy:1].",
+    "description_upgraded_zh": "[gold]铸造[/gold]13。\n在下个回合获得[energy:1]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16192,7 +16180,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Forge": 6,
+      "Forge": 9,
       "Energy": 1
     },
     "upgrade": {
@@ -16616,7 +16604,7 @@
     "is_x_star_cost": null,
     "star_cost": null,
     "type": "Attack",
-    "rarity": "Uncommon",
+    "rarity": "Event",
     "target": "RandomEnemy",
     "color": "event",
     "damage": 7,
@@ -16642,12 +16630,12 @@
     "id": "ROCKET_PUNCH",
     "name": "Rocket Punch",
     "name_zh": "火箭飞拳",
-    "description": "Deal 13 damage.\nDraw 1 card.\nWhen a Status card is created, reduce this card's cost to 0 [energy:1] this turn.",
-    "description_zh": "造成13点伤害。\n抽1张牌。\n当有一张状态被生成时，将此牌的耗能在本回合降为0[energy:1]。",
-    "description_raw": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} {Cards:plural:card|cards}.\nWhen a Status card is created, reduce this card's cost to 0 {energyPrefix:energyIcons(1)} this turn.",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n抽{Cards:diff()}张牌。\n当有一张状态被生成时，将此牌的耗能在本回合降为0{energyPrefix:energyIcons(1)}。",
-    "description_upgraded": "Deal 14 damage.\nDraw 2 cards.\nWhen a Status card is created, reduce this card's cost to 0 [energy:1] this turn.",
-    "description_upgraded_zh": "造成14点伤害。\n抽2张牌。\n当有一张状态被生成时，将此牌的耗能在本回合降为0[energy:1]。",
+    "description": "Deal 13 damage.\nDraw 1 card.\nWhenever you create a Status, reduce this card's cost to 0 [energy:1] until played.",
+    "description_zh": "造成13点伤害。\n抽1张牌。\n每当你生成状态牌时，此牌的耗能将在下一次打出前降为0[energy:1]。",
+    "description_raw": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} {Cards:plural:card|cards}.\nWhenever you create a Status, reduce this card's cost to 0 {energyPrefix:energyIcons(1)} until played.",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n抽{Cards:diff()}张牌。\n每当你生成状态牌时，此牌的耗能将在下一次打出前降为0{energyPrefix:energyIcons(1)}。",
+    "description_upgraded": "Deal 14 damage.\nDraw 2 cards.\nWhenever you create a Status, reduce this card's cost to 0 [energy:1] until played.",
+    "description_upgraded_zh": "造成14点伤害。\n抽2张牌。\n每当你生成状态牌时，此牌的耗能将在下一次打出前降为0[energy:1]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -16918,7 +16906,7 @@
   {
     "id": "SCAVENGE",
     "name": "Scavenge",
-    "name_zh": "再利用",
+    "name_zh": "内存清理",
     "description": "[gold]Exhaust[/gold] a card.\nNext turn, gain [energy:2].",
     "description_zh": "[gold]消耗[/gold]一张牌。\n在下个回合获得[energy:2]。",
     "description_raw": "[gold]Exhaust[/gold] a card.\nNext turn, gain {Energy:energyIcons()}.",
@@ -17077,12 +17065,12 @@
     "id": "SCULPTING_STRIKE",
     "name": "Sculpting Strike",
     "name_zh": "雕琢打击",
-    "description": "Deal 8 damage.\nAdd [gold]Ethereal[/gold] to a card in your [gold]Hand[/gold].",
-    "description_zh": "造成8点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。",
+    "description": "Deal 9 damage.\nAdd [gold]Ethereal[/gold] to a card in your [gold]Hand[/gold].",
+    "description_zh": "造成9点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。",
     "description_raw": "Deal {Damage:diff()} damage.\nAdd [gold]Ethereal[/gold] to a card in your [gold]Hand[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。",
-    "description_upgraded": "Deal 11 damage.\nAdd [gold]Ethereal[/gold] to a card in your [gold]Hand[/gold].",
-    "description_upgraded_zh": "造成11点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。",
+    "description_upgraded": "Deal 12 damage.\nAdd [gold]Ethereal[/gold] to a card in your [gold]Hand[/gold].",
+    "description_upgraded_zh": "造成12点伤害。\n为一张[gold]手牌[/gold]添加[gold]虚无[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -17091,7 +17079,7 @@
     "rarity": "Common",
     "target": "AnyEnemy",
     "color": "necrobinder",
-    "damage": 8,
+    "damage": 9,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -17104,7 +17092,7 @@
     ],
     "spawns_cards": null,
     "vars": {
-      "Damage": 8
+      "Damage": 9
     },
     "upgrade": {
       "damage": "+3"
@@ -17118,11 +17106,11 @@
     "name_zh": "降灵",
     "description": "Transform a card in your [gold]Draw Pile[/gold] into [gold]Soul[/gold].",
     "description_zh": "将你[gold]抽牌堆[/gold]中的一张牌变化为[gold]灵魂[/gold]。",
-    "description_raw": "Transform a card in your [gold]Draw Pile[/gold] into [gold]{IfUpgraded:show:Soul+|Soul}[/gold].",
-    "description_raw_zh": "将你[gold]抽牌堆[/gold]中的一张牌变化为[gold]{IfUpgraded:show:灵魂+|灵魂}[/gold]。",
-    "description_upgraded": null,
-    "description_upgraded_zh": null,
-    "cost": 0,
+    "description_raw": "Transform a card in your [gold]Draw Pile[/gold] into [gold]Soul[/gold].",
+    "description_raw_zh": "将你[gold]抽牌堆[/gold]中的一张牌变化为[gold]灵魂[/gold]。",
+    "description_upgraded": "Transform a card in your [gold]Draw Pile[/gold] into [gold]Soul[/gold].",
+    "description_upgraded_zh": "将你[gold]抽牌堆[/gold]中的一张牌变化为[gold]灵魂[/gold]。",
+    "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
@@ -17147,7 +17135,9 @@
     "vars": {
       "Cards": 1
     },
-    "upgrade": null,
+    "upgrade": {
+      "cost": 0
+    },
     "image_url": "/images/cards/seance.png",
     "beta_image_url": "/images/cards/beta/seance.png"
   },
@@ -17266,12 +17256,12 @@
     "id": "SEEKER_STRIKE",
     "name": "Seeker Strike",
     "name_zh": "探寻打击",
-    "description": "Deal 6 damage.\nChoose 1 of 3 cards in your [gold]Draw Pile[/gold] to add into your [gold]Hand[/gold].",
-    "description_zh": "造成6点伤害。\n从[gold]抽牌堆[/gold]的随机3张牌中选择一张加入你的[gold]手牌[/gold]。",
+    "description": "Deal 9 damage.\nChoose 1 of 3 cards in your [gold]Draw Pile[/gold] to add into your [gold]Hand[/gold].",
+    "description_zh": "造成9点伤害。\n从[gold]抽牌堆[/gold]的随机3张牌中选择一张加入你的[gold]手牌[/gold]。",
     "description_raw": "Deal {Damage:diff()} damage.\nChoose 1 of {Cards:diff()} cards in your [gold]Draw Pile[/gold] to add into your [gold]Hand[/gold].",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n从[gold]抽牌堆[/gold]的随机{Cards:diff()}张牌中选择一张加入你的[gold]手牌[/gold]。",
-    "description_upgraded": "Deal 9 damage.\nChoose 1 of 3 cards in your [gold]Draw Pile[/gold] to add into your [gold]Hand[/gold].",
-    "description_upgraded_zh": "造成9点伤害。\n从[gold]抽牌堆[/gold]的随机3张牌中选择一张加入你的[gold]手牌[/gold]。",
+    "description_upgraded": "Deal 12 damage.\nChoose 1 of 3 cards in your [gold]Draw Pile[/gold] to add into your [gold]Hand[/gold].",
+    "description_upgraded_zh": "造成12点伤害。\n从[gold]抽牌堆[/gold]的随机3张牌中选择一张加入你的[gold]手牌[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -17280,7 +17270,7 @@
     "rarity": "Uncommon",
     "target": "AnyEnemy",
     "color": "colorless",
-    "damage": 6,
+    "damage": 9,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -17293,7 +17283,7 @@
     ],
     "spawns_cards": null,
     "vars": {
-      "Damage": 6,
+      "Damage": 9,
       "Cards": 3
     },
     "upgrade": {
@@ -17392,8 +17382,8 @@
     "description_zh": "你每打出一张牌，就对随机一名敌人造成4点伤害。",
     "description_raw": "Whenever you play a card, deal {SerpentFormPower:diff()} damage to a random enemy.",
     "description_raw_zh": "你每打出一张牌，就对随机一名敌人造成{SerpentFormPower:diff()}点伤害。",
-    "description_upgraded": "Whenever you play a card, deal 5 damage to a random enemy.",
-    "description_upgraded_zh": "你每打出一张牌，就对随机一名敌人造成5点伤害。",
+    "description_upgraded": "Whenever you play a card, deal 6 damage to a random enemy.",
+    "description_upgraded_zh": "你每打出一张牌，就对随机一名敌人造成6点伤害。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -17422,7 +17412,7 @@
       "SerpentForm": 4
     },
     "upgrade": {
-      "serpentformpower": "+1"
+      "serpentformpower": "+2"
     },
     "image_url": "/images/cards/serpent_form.png",
     "beta_image_url": "/images/cards/beta/serpent_form.png"
@@ -17821,12 +17811,12 @@
     "id": "SHIV",
     "name": "Shiv",
     "name_zh": "小刀",
-    "description": "Deal 4 damage[Fan Of Knives Amount].",
-    "description_zh": "[Fan Of Knives Amount]造成4点伤害。",
-    "description_raw": "Deal {Damage:diff()} damage{FanOfKnivesAmount:cond:>0? to ALL enemies|}.",
-    "description_raw_zh": "{FanOfKnivesAmount:cond:>0? 对所有敌人|}造成{Damage:diff()}点伤害。",
-    "description_upgraded": "Deal 6 damage[Fan Of Knives Amount].",
-    "description_upgraded_zh": "[Fan Of Knives Amount]造成6点伤害。",
+    "description": "Deal 4 damage[Target Type].",
+    "description_zh": "[Target Type]造成4点伤害。",
+    "description_raw": "Deal {Damage:diff()} damage{TargetType:choose(AllEnemies): to ALL enemies|}.",
+    "description_raw_zh": "{TargetType:choose(AllEnemies):对所有敌人|}造成{Damage:diff()}点伤害。",
+    "description_upgraded": "Deal 6 damage[Target Type].",
+    "description_upgraded_zh": "[Target Type]造成6点伤害。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -17850,9 +17840,7 @@
     ],
     "spawns_cards": null,
     "vars": {
-      "Damage": 4,
-      "CalculationBase": 0,
-      "CalculationExtra": 1
+      "Damage": 4
     },
     "upgrade": {
       "damage": "+2"
@@ -18072,12 +18060,12 @@
     "id": "SKEWER",
     "name": "Skewer",
     "name_zh": "串刺",
-    "description": "Deal 7 damage X times.",
-    "description_zh": "造成7点伤害X次。",
+    "description": "Deal 8 damage X times.",
+    "description_zh": "造成8点伤害X次。",
     "description_raw": "Deal {Damage:diff()} damage X times.",
     "description_raw_zh": "造成{Damage:diff()}点伤害X次。",
-    "description_upgraded": "Deal 10 damage X times.",
-    "description_upgraded_zh": "造成10点伤害X次。",
+    "description_upgraded": "Deal 11 damage X times.",
+    "description_upgraded_zh": "造成11点伤害X次。",
     "cost": 0,
     "is_x_cost": true,
     "is_x_star_cost": null,
@@ -18086,7 +18074,7 @@
     "rarity": "Uncommon",
     "target": "AnyEnemy",
     "color": "silent",
-    "damage": 7,
+    "damage": 8,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -18097,7 +18085,7 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 7
+      "Damage": 8
     },
     "upgrade": {
       "damage": "+3"
@@ -18297,7 +18285,7 @@
       "Sloth": 3
     },
     "upgrade": null,
-    "image_url": null,
+    "image_url": "/images/cards/sloth.png",
     "beta_image_url": "/images/cards/beta/sloth.png"
   },
   {
@@ -18478,12 +18466,12 @@
     "id": "SOLAR_STRIKE",
     "name": "Solar Strike",
     "name_zh": "太阳打击",
-    "description": "Deal 8 damage.\nGain [star:1].",
-    "description_zh": "造成8点伤害。\n获得[star:1]。",
+    "description": "Deal 9 damage.\nGain [star:1].",
+    "description_zh": "造成9点伤害。\n获得[star:1]。",
     "description_raw": "Deal {Damage:diff()} damage.\nGain {Stars:starIcons()}.",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n获得{Stars:starIcons()}。",
-    "description_upgraded": "Deal 9 damage.\nGain [star:2].",
-    "description_upgraded_zh": "造成9点伤害。\n获得[star:2]。",
+    "description_upgraded": "Deal 10 damage.\nGain [star:2].",
+    "description_upgraded_zh": "造成10点伤害。\n获得[star:2]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -18492,7 +18480,7 @@
     "rarity": "Common",
     "target": "AnyEnemy",
     "color": "regent",
-    "damage": 8,
+    "damage": 9,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
@@ -18505,7 +18493,7 @@
     ],
     "spawns_cards": null,
     "vars": {
-      "Damage": 8,
+      "Damage": 9,
       "Stars": 1
     },
     "upgrade": {
@@ -18757,8 +18745,8 @@
     "description_zh": "每当你在回合进行中抽到一张牌时，对所有敌人造成2点伤害。",
     "description_raw": "Whenever you draw a card during your turn, deal {SpeedsterPower:diff()} damage to ALL enemies.",
     "description_raw_zh": "每当你在回合进行中抽到一张牌时，对所有敌人造成{SpeedsterPower:diff()}点伤害。",
-    "description_upgraded": "Whenever you draw a card during your turn, deal 3 damage to ALL enemies.",
-    "description_upgraded_zh": "每当你在回合进行中抽到一张牌时，对所有敌人造成3点伤害。",
+    "description_upgraded": "Whenever you draw a card during your turn, deal 2 damage to ALL enemies.",
+    "description_upgraded_zh": "每当你在回合进行中抽到一张牌时，对所有敌人造成2点伤害。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -18787,7 +18775,7 @@
       "Speedster": 2
     },
     "upgrade": {
-      "speedsterpower": "+1"
+      "add_innate": true
     },
     "image_url": "/images/cards/speedster.png",
     "beta_image_url": "/images/cards/beta/speedster.png"
@@ -18874,12 +18862,12 @@
     "id": "SPITE",
     "name": "Spite",
     "name_zh": "怨恨",
-    "description": "Deal 6 damage.\nIf you lost HP this turn, draw 1 card.",
-    "description_zh": "造成6点伤害。\n如果你在本回合失去过生命值，则抽1张牌。",
-    "description_raw": "Deal {Damage:diff()} damage.\nIf you lost HP this turn, draw {Cards:diff()} {Cards:plural:card|cards}.",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n如果你在本回合失去过生命值，则抽{Cards:diff()}张牌。",
-    "description_upgraded": "Deal 9 damage.\nIf you lost HP this turn, draw 1 card.",
-    "description_upgraded_zh": "造成9点伤害。\n如果你在本回合失去过生命值，则抽1张牌。",
+    "description": "Deal 5 damage.\nIf you lost HP this turn,\nhits 2 times.",
+    "description_zh": "造成5点伤害。\n如果你在本回合失去过生命值，\n则攻击2次。",
+    "description_raw": "Deal {Damage:diff()} damage.\nIf you lost HP this turn,\nhits {Repeat:diff()} times.",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n如果你在本回合失去过生命值，\n则攻击{Repeat:diff()}次。",
+    "description_upgraded": "Deal 5 damage.\nIf you lost HP this turn,\nhits 3 times.",
+    "description_upgraded_zh": "造成5点伤害。\n如果你在本回合失去过生命值，\n则攻击3次。",
     "cost": 0,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -18888,22 +18876,22 @@
     "rarity": "Uncommon",
     "target": "AnyEnemy",
     "color": "ironclad",
-    "damage": 6,
+    "damage": 5,
     "block": null,
     "hit_count": null,
     "powers_applied": null,
-    "cards_draw": 1,
+    "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
     "keywords": null,
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Damage": 6,
-      "Cards": 1
+      "Damage": 5,
+      "Repeat": 2
     },
     "upgrade": {
-      "damage": "+3"
+      "repeat": "+1"
     },
     "image_url": null,
     "beta_image_url": "/images/cards/beta/spite.png"
@@ -18982,12 +18970,12 @@
     "id": "SPOILS_OF_BATTLE",
     "name": "Spoils of Battle",
     "name_zh": "战利品",
-    "description": "[gold]Forge[/gold] 10.",
-    "description_zh": "[gold]铸造[/gold]10。",
-    "description_raw": "[gold]Forge[/gold] {Forge:diff()}.",
-    "description_raw_zh": "[gold]铸造[/gold]{Forge:diff()}。",
-    "description_upgraded": "[gold]Forge[/gold] 15.",
-    "description_upgraded_zh": "[gold]铸造[/gold]15。",
+    "description": "[gold]Forge[/gold] 5.\nDraw 2 cards.",
+    "description_zh": "[gold]铸造[/gold]5。\n抽2张牌。",
+    "description_raw": "[gold]Forge[/gold] {Forge:diff()}.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
+    "description_raw_zh": "[gold]铸造[/gold]{Forge:diff()}。\n抽{Cards:diff()}张牌。",
+    "description_upgraded": "[gold]Forge[/gold] 8.\nDraw 2 cards.",
+    "description_upgraded_zh": "[gold]铸造[/gold]8。\n抽2张牌。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -19000,17 +18988,18 @@
     "block": null,
     "hit_count": null,
     "powers_applied": null,
-    "cards_draw": null,
+    "cards_draw": 2,
     "energy_gain": null,
     "hp_loss": null,
     "keywords": null,
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Forge": 10
+      "Forge": 5,
+      "Cards": 2
     },
     "upgrade": {
-      "forge": "+5"
+      "forge": "+3"
     },
     "image_url": "/images/cards/spoils_of_battle.png",
     "beta_image_url": "/images/cards/beta/spoils_of_battle.png"
@@ -19184,8 +19173,8 @@
     "name_zh": "堆栈",
     "description": "Gain [gold]Block[/gold] equal to the number of cards in your [gold]Discard Pile[/gold]|}.[In Combat]",
     "description_zh": "获得等量于与你当前[gold]弃牌堆[/gold]中牌数|}的[gold]格挡[/gold]值。[In Combat]",
-    "description_raw": "Gain [gold]Block[/gold] equal to the number of cards in your [gold]Discard Pile[/gold]{IfUpgraded:show: +{CalculationBase}|}.{InCombat:\n(Gain {CalculatedBlock:diff()} [gold]Block[/gold].)|}",
-    "description_raw_zh": "获得等量于与你当前[gold]弃牌堆[/gold]中牌数{IfUpgraded:show:+{CalculationBase}|}的[gold]格挡[/gold]值。{InCombat:\n（获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。）|}",
+    "description_raw": "Gain [gold]Block[/gold] equal to the number of cards in your [gold]Discard Pile[/gold]{IfUpgraded:show: +{CalculationBase}|}.{InCombat:\n(Gain {CalculatedBlock:diff()} [gold]Block[/gold])|}",
+    "description_raw_zh": "获得等量于与你当前[gold]弃牌堆[/gold]中牌数{IfUpgraded:show:+{CalculationBase}|}的[gold]格挡[/gold]值。{InCombat:\n（获得{CalculatedBlock:diff()}点[gold]格挡[/gold]）|}",
     "description_upgraded": "Gain [gold]Block[/gold] equal to the number of cards in your [gold]Discard Pile[/gold] +[Calculation Base|].[In Combat]",
     "description_upgraded_zh": "获得等量于与你当前[gold]弃牌堆[/gold]中牌数+[Calculation Base|]的[gold]格挡[/gold]值。[In Combat]",
     "cost": 1,
@@ -19294,12 +19283,12 @@
     "id": "STOKE",
     "name": "Stoke",
     "name_zh": "添柴",
-    "description": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nDraw a card for each card [gold]Exhausted[/gold].",
-    "description_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n然后抽相同数量张牌。",
-    "description_raw": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nDraw a card for each card [gold]Exhausted[/gold].",
-    "description_raw_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n然后抽相同数量张牌。",
-    "description_upgraded": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nDraw a card for each card [gold]Exhausted[/gold].",
-    "description_upgraded_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n然后抽相同数量张牌。",
+    "description": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nAdd 1 random card into your [gold]Hand[/gold] for each card [gold]Exhausted[/gold].",
+    "description_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n每[gold]消耗[/gold]一张牌，将1张随机牌加入你的[gold]手牌[/gold]。",
+    "description_raw": "[gold]Exhaust[/gold] your [gold]Hand[/gold].\nAdd 1 random {IfUpgraded:show:[gold]Upgraded[/gold] |}card into your [gold]Hand[/gold] for each card [gold]Exhausted[/gold].",
+    "description_raw_zh": "[gold]消耗[/gold]所有[gold]手牌[/gold]。\n每[gold]消耗[/gold]一张牌，将1张随机{IfUpgraded:show:已[gold]升级[/gold]的|}牌加入你的[gold]手牌[/gold]。",
+    "description_upgraded": null,
+    "description_upgraded_zh": null,
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -19315,15 +19304,11 @@
     "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
-    "keywords": [
-      "Exhaust"
-    ],
+    "keywords": null,
     "tags": null,
     "spawns_cards": null,
     "vars": null,
-    "upgrade": {
-      "cost": 0
-    },
+    "upgrade": null,
     "image_url": "/images/cards/stoke.png",
     "beta_image_url": null
   },
@@ -19844,12 +19829,12 @@
     "id": "SUMMON_FORTH",
     "name": "Summon Forth",
     "name_zh": "征召上前",
-    "description": "[gold]Forge[/gold] 8.\nPut [gold]Sovereign Blade[/gold] into your [gold]Hand[/gold] from anywhere.",
-    "description_zh": "[gold]铸造[/gold]8。\n不论何处，将[gold]君王之剑[/gold]放入你的[gold]手牌[/gold]。",
-    "description_raw": "[gold]Forge[/gold] {Forge:diff()}.\nPut [gold]Sovereign Blade[/gold] into your [gold]Hand[/gold] from anywhere.",
-    "description_raw_zh": "[gold]铸造[/gold]{Forge:diff()}。\n不论何处，将[gold]君王之剑[/gold]放入你的[gold]手牌[/gold]。",
-    "description_upgraded": "[gold]Forge[/gold] 11.\nPut [gold]Sovereign Blade[/gold] into your [gold]Hand[/gold] from anywhere.",
-    "description_upgraded_zh": "[gold]铸造[/gold]11。\n不论何处，将[gold]君王之剑[/gold]放入你的[gold]手牌[/gold]。",
+    "description": "Put [gold]Sovereign Blade[/gold] into your [gold]Hand[/gold] from anywhere.\n[gold]Forge[/gold] 8.",
+    "description_zh": "不论何处，将[gold]君王之剑[/gold]放入你的[gold]手牌[/gold]。\n[gold]铸造[/gold]8。",
+    "description_raw": "Put [gold]Sovereign Blade[/gold] into your [gold]Hand[/gold] from anywhere.\n[gold]Forge[/gold] {Forge:diff()}.",
+    "description_raw_zh": "不论何处，将[gold]君王之剑[/gold]放入你的[gold]手牌[/gold]。\n[gold]铸造[/gold]{Forge:diff()}。",
+    "description_upgraded": "Put [gold]Sovereign Blade[/gold] into your [gold]Hand[/gold] from anywhere.\n[gold]Forge[/gold] 11.",
+    "description_upgraded_zh": "不论何处，将[gold]君王之剑[/gold]放入你的[gold]手牌[/gold]。\n[gold]铸造[/gold]11。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -20201,12 +20186,12 @@
     "id": "SWORD_SAGE",
     "name": "Sword Sage",
     "name_zh": "剑圣",
-    "description": "Increase the cost of [gold]Sovereign Blade[/gold] by 1. [gold]Sovereign Blade[/gold] now hits an additional time.",
-    "description_zh": "[gold]君王之剑[/gold]的耗能加1。[gold]君王之剑[/gold]现在会额外命中一次。",
-    "description_raw": "Increase the cost of [gold]Sovereign Blade[/gold] by 1. [gold]Sovereign Blade[/gold] now hits an additional time.",
-    "description_raw_zh": "[gold]君王之剑[/gold]的耗能加1。[gold]君王之剑[/gold]现在会额外命中一次。",
-    "description_upgraded": "Increase the cost of [gold]Sovereign Blade[/gold] by 1. [gold]Sovereign Blade[/gold] now hits an additional time.",
-    "description_upgraded_zh": "[gold]君王之剑[/gold]的耗能加1。[gold]君王之剑[/gold]现在会额外命中一次。",
+    "description": "[gold]Sovereign Blade[/gold] now hits an additional time.",
+    "description_zh": "[gold]君王之剑[/gold]现在会额外命中一次。",
+    "description_raw": "[gold]Sovereign Blade[/gold] now hits an additional time.",
+    "description_raw_zh": "[gold]君王之剑[/gold]现在会额外命中一次。",
+    "description_upgraded": "[gold]Sovereign Blade[/gold] now hits an additional time.",
+    "description_upgraded_zh": "[gold]君王之剑[/gold]现在会额外命中一次。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -20481,7 +20466,7 @@
     "name_zh": "扯碎",
     "description": "Deal 5 damage.\nHits an additional time for each time you lost HP this combat.[In Combat]",
     "description_zh": "造成5点伤害。\n在本场战斗中，你每失去过一次生命值，这张牌就额外造成一次伤害。[In Combat]",
-    "description_raw": "Deal {Damage:diff()} damage.\nHits an additional time for each time you lost HP this combat.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times}.)|}",
+    "description_raw": "Deal {Damage:diff()} damage.\nHits an additional time for each time you lost HP this combat.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n在本场战斗中，你每失去过一次生命值，这张牌就额外造成一次伤害。{InCombat:\n（命中{CalculatedHits:diff()}次）|}",
     "description_upgraded": "Deal 7 damage.\nHits an additional time for each time you lost HP this combat.[In Combat]",
     "description_upgraded_zh": "造成7点伤害。\n在本场战斗中，你每失去过一次生命值，这张牌就额外造成一次伤害。[In Combat]",
@@ -20708,11 +20693,11 @@
     "name": "The Hunt",
     "name_zh": "狩猎",
     "description": "Deal 10 damage.\nIf [gold]Fatal[/gold], gain an additional card reward.",
-    "description_zh": "造成10点伤害。\n[gold]斩杀[/gold]时，额外获得一组卡牌奖励。",
+    "description_zh": "造成10点伤害。\n[gold]斩杀[/gold]时，额外获得一次卡牌奖励。",
     "description_raw": "Deal {Damage:diff()} damage.\nIf [gold]Fatal[/gold], gain an additional card reward.",
-    "description_raw_zh": "造成{Damage:diff()}点伤害。\n[gold]斩杀[/gold]时，额外获得一组卡牌奖励。",
+    "description_raw_zh": "造成{Damage:diff()}点伤害。\n[gold]斩杀[/gold]时，额外获得一次卡牌奖励。",
     "description_upgraded": "Deal 15 damage.\nIf [gold]Fatal[/gold], gain an additional card reward.",
-    "description_upgraded_zh": "造成15点伤害。\n[gold]斩杀[/gold]时，额外获得一组卡牌奖励。",
+    "description_upgraded_zh": "造成15点伤害。\n[gold]斩杀[/gold]时，额外获得一次卡牌奖励。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -21212,11 +21197,11 @@
     "name": "Tracking",
     "name_zh": "跟踪",
     "description": "[gold]Weak[/gold] enemies take double damage from Attacks.",
-    "description_zh": "对[gold]虚弱[/gold]状态的敌人，造成的攻击伤害翻倍。",
+    "description_zh": "对[gold]虚弱[/gold]状态的敌人，你所造成的攻击伤害翻倍。",
     "description_raw": "[gold]Weak[/gold] enemies take double damage from Attacks.",
-    "description_raw_zh": "对[gold]虚弱[/gold]状态的敌人，造成的攻击伤害翻倍。",
+    "description_raw_zh": "对[gold]虚弱[/gold]状态的敌人，你所造成的攻击伤害翻倍。",
     "description_upgraded": "[gold]Weak[/gold] enemies take double damage from Attacks.",
-    "description_upgraded_zh": "对[gold]虚弱[/gold]状态的敌人，造成的攻击伤害翻倍。",
+    "description_upgraded_zh": "对[gold]虚弱[/gold]状态的敌人，你所造成的攻击伤害翻倍。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -21247,11 +21232,11 @@
     "name": "Transfigure",
     "name_zh": "重构",
     "description": "Add [gold]Replay[/gold] to a card in your [gold]Hand[/gold].\nIt costs an extra [energy:1].",
-    "description_zh": "给一张[gold]手牌[/gold]添加[gold]重放[/gold]。\n其费用增加1[energy:1]。",
+    "description_zh": "给一张[gold]手牌[/gold]添加[gold]重放[/gold]。\n其耗能增加1[energy:1]。",
     "description_raw": "Add [gold]Replay[/gold] to a card in your [gold]Hand[/gold].\nIt costs an extra {Energy:energyIcons()}.",
-    "description_raw_zh": "给一张[gold]手牌[/gold]添加[gold]重放[/gold]。\n其费用增加1{Energy:energyIcons()}。",
+    "description_raw_zh": "给一张[gold]手牌[/gold]添加[gold]重放[/gold]。\n其耗能增加1{Energy:energyIcons()}。",
     "description_upgraded": "Add [gold]Replay[/gold] to a card in your [gold]Hand[/gold].\nIt costs an extra [energy:1].",
-    "description_upgraded_zh": "给一张[gold]手牌[/gold]添加[gold]重放[/gold]。\n其费用增加1[energy:1]。",
+    "description_upgraded_zh": "给一张[gold]手牌[/gold]添加[gold]重放[/gold]。\n其耗能增加1[energy:1]。",
     "cost": 1,
     "is_x_cost": true,
     "is_x_star_cost": null,
@@ -21285,11 +21270,11 @@
     "id": "TRASH_TO_TREASURE",
     "name": "Trash to Treasure",
     "name_zh": "化废为宝",
-    "description": "Whenever you create a Status card, [gold]Channel[/gold] 1 random Orb.",
+    "description": "Whenever you create a Status, [gold]Channel[/gold] 1 random Orb.",
     "description_zh": "每当你生成状态牌的时候，随机[gold]生成[/gold]一个充能球。",
-    "description_raw": "Whenever you create a Status card, [gold]Channel[/gold] 1 random Orb.",
+    "description_raw": "Whenever you create a Status, [gold]Channel[/gold] 1 random Orb.",
     "description_raw_zh": "每当你生成状态牌的时候，随机[gold]生成[/gold]一个充能球。",
-    "description_upgraded": "Whenever you create a Status card, [gold]Channel[/gold] 1 random Orb.",
+    "description_upgraded": "Whenever you create a Status, [gold]Channel[/gold] 1 random Orb.",
     "description_upgraded_zh": "每当你生成状态牌的时候，随机[gold]生成[/gold]一个充能球。",
     "cost": 1,
     "is_x_cost": null,
@@ -21320,12 +21305,12 @@
     "id": "TREMBLE",
     "name": "Tremble",
     "name_zh": "战栗",
-    "description": "Apply 2 [gold]Vulnerable[/gold].",
-    "description_zh": "给予2层[gold]易伤[/gold]。",
+    "description": "Apply 3 [gold]Vulnerable[/gold].",
+    "description_zh": "给予3层[gold]易伤[/gold]。",
     "description_raw": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
     "description_raw_zh": "给予{VulnerablePower:diff()}层[gold]易伤[/gold]。",
-    "description_upgraded": "Apply 2 [gold]Vulnerable[/gold].",
-    "description_upgraded_zh": "给予2层[gold]易伤[/gold]。",
+    "description_upgraded": "Apply 3 [gold]Vulnerable[/gold].",
+    "description_upgraded_zh": "给予3层[gold]易伤[/gold]。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -21340,18 +21325,20 @@
     "powers_applied": [
       {
         "power": "Vulnerable",
-        "amount": 2
+        "amount": 3
       }
     ],
     "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
-    "keywords": null,
+    "keywords": [
+      "Exhaust"
+    ],
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "VulnerablePower": 2,
-      "Vulnerable": 2
+      "VulnerablePower": 3,
+      "Vulnerable": 3
     },
     "upgrade": {
       "vulnerable": "+1"
@@ -21742,12 +21729,12 @@
     "id": "UNTOUCHABLE",
     "name": "Untouchable",
     "name_zh": "触不可及",
-    "description": "Gain 9 [gold]Block[/gold].",
-    "description_zh": "获得9点[gold]格挡[/gold]。",
+    "description": "Gain 6 [gold]Block[/gold].",
+    "description_zh": "获得6点[gold]格挡[/gold]。",
     "description_raw": "Gain {Block:diff()} [gold]Block[/gold].",
     "description_raw_zh": "获得{Block:diff()}点[gold]格挡[/gold]。",
-    "description_upgraded": "Gain 12 [gold]Block[/gold].",
-    "description_upgraded_zh": "获得12点[gold]格挡[/gold]。",
+    "description_upgraded": "Gain 8 [gold]Block[/gold].",
+    "description_upgraded_zh": "获得8点[gold]格挡[/gold]。",
     "cost": 2,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -21757,7 +21744,7 @@
     "target": "Self",
     "color": "silent",
     "damage": null,
-    "block": 9,
+    "block": 6,
     "hit_count": null,
     "powers_applied": null,
     "cards_draw": null,
@@ -21769,10 +21756,10 @@
     "tags": null,
     "spawns_cards": null,
     "vars": {
-      "Block": 9
+      "Block": 6
     },
     "upgrade": {
-      "block": "+3"
+      "block": "+2"
     },
     "image_url": "/images/cards/untouchable.png",
     "beta_image_url": null
@@ -22048,8 +22035,8 @@
     "description_zh": "结束你的回合。\n你可以免费打出每回合的前2张牌。",
     "description_raw": "End your turn.\nThe first {VoidFormPower:plural:card|{VoidFormPower:diff()} cards} you play each turn {VoidFormPower:plural:is|are} free to play.",
     "description_raw_zh": "结束你的回合。\n你可以免费打出每回合的前{VoidFormPower:diff()}张牌。",
-    "description_upgraded": "End your turn.\nThe first 3 cards you play each turn are free to play.",
-    "description_upgraded_zh": "结束你的回合。\n你可以免费打出每回合的前3张牌。",
+    "description_upgraded": "End your turn.\nThe first 2 cards you play each turn are free to play.",
+    "description_upgraded_zh": "结束你的回合。\n你可以免费打出每回合的前2张牌。",
     "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -22070,7 +22057,9 @@
     "cards_draw": null,
     "energy_gain": null,
     "hp_loss": null,
-    "keywords": null,
+    "keywords": [
+      "Ethereal"
+    ],
     "tags": null,
     "spawns_cards": null,
     "vars": {
@@ -22078,7 +22067,7 @@
       "VoidForm": 2
     },
     "upgrade": {
-      "voidformpower": "+1"
+      "remove_ethereal": true
     },
     "image_url": "/images/cards/void_form.png",
     "beta_image_url": "/images/cards/beta/void_form.png"
@@ -22130,7 +22119,7 @@
     "description_raw_zh": "[gold]生成[/gold]等量于你在这场战斗中[gold]生成过[/gold]的[gold]闪电[/gold]充能球数量的[gold]闪电[/gold]充能球。{InCombat:\n（[gold]生成[/gold]{CalculatedChannels:diff()}个[gold]闪电[/gold]充能球）|}",
     "description_upgraded": "[gold]Channel Lightning[/gold] equal to the [gold]Lightning[/gold] already [gold]Channeled[/gold] this combat.[In Combat]",
     "description_upgraded_zh": "[gold]生成[/gold]等量于你在这场战斗中[gold]生成过[/gold]的[gold]闪电[/gold]充能球数量的[gold]闪电[/gold]充能球。[In Combat]",
-    "cost": 2,
+    "cost": 3,
     "is_x_cost": null,
     "is_x_star_cost": null,
     "star_cost": null,
@@ -22198,7 +22187,7 @@
       "WasteAway": 1
     },
     "upgrade": null,
-    "image_url": null,
+    "image_url": "/images/cards/waste_away.png",
     "beta_image_url": "/images/cards/beta/waste_away.png"
   },
   {
@@ -22551,12 +22540,12 @@
     "id": "WROUGHT_IN_WAR",
     "name": "Wrought in War",
     "name_zh": "战火铸就",
-    "description": "Deal 7 damage.\n[gold]Forge[/gold] 5.",
-    "description_zh": "造成7点伤害。\n[gold]铸造[/gold]5。",
+    "description": "Deal 7 damage.\n[gold]Forge[/gold] 7.",
+    "description_zh": "造成7点伤害。\n[gold]铸造[/gold]7。",
     "description_raw": "Deal {Damage:diff()} damage.\n[gold]Forge[/gold] {Forge:diff()}.",
     "description_raw_zh": "造成{Damage:diff()}点伤害。\n[gold]铸造[/gold]{Forge:diff()}。",
-    "description_upgraded": "Deal 9 damage.\n[gold]Forge[/gold] 7.",
-    "description_upgraded_zh": "造成9点伤害。\n[gold]铸造[/gold]7。",
+    "description_upgraded": "Deal 9 damage.\n[gold]Forge[/gold] 9.",
+    "description_upgraded_zh": "造成9点伤害。\n[gold]铸造[/gold]9。",
     "cost": 1,
     "is_x_cost": null,
     "is_x_star_cost": null,
@@ -22577,7 +22566,7 @@
     "spawns_cards": null,
     "vars": {
       "Damage": 7,
-      "Forge": 5
+      "Forge": 7
     },
     "upgrade": {
       "damage": "+2",

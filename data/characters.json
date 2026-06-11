@@ -858,6 +858,25 @@
     ]
   },
   {
+    "id": "DEPRECATED_CHARACTER",
+    "name": "Deprecated Character",
+    "name_zh": "已弃用角色",
+    "description": "",
+    "description_zh": null,
+    "starting_hp": 1000,
+    "starting_gold": 99,
+    "max_energy": 100,
+    "orb_slots": null,
+    "starting_deck": [],
+    "starting_relics": [],
+    "unlocks_after": null,
+    "gender": "Neutral",
+    "color": "gold",
+    "dialogue_color": null,
+    "quotes": null,
+    "image_url": "/images/characters/char_select_deprecated_character.png"
+  },
+  {
     "id": "IRONCLAD",
     "name": "The Ironclad",
     "name_zh": "铁甲战士",
@@ -4404,7 +4423,7 @@
           {
             "order": 2,
             "speaker": "ancient",
-            "text": "哎呀亲爱的……你不会一直在都[jitter][b]战斗[/b][/jitter]吧？"
+            "text": "哎呀亲爱的……你不会一直都在[jitter][b]战斗[/b][/jitter]吧？"
           }
         ]
       },

@@ -335,7 +335,7 @@
         "title": "Rip the Leech Off",
         "description": "Lose [red]5[/red] HP. Gain a Colorless card reward.",
         "title_zh": "把它扯下来",
-        "description_zh": "失去[red]5[/red]点生命值。获得一组无色卡牌奖励。"
+        "description_zh": "失去[red]5[/red]点生命值。获得一次无色卡牌奖励。"
       },
       {
         "id": "SHARE_KNOWLEDGE",
@@ -356,7 +356,7 @@
             "title": "Rip the Leech Off",
             "description": "Lose [red]5[/red] HP. Gain a Colorless card reward.",
             "title_zh": "把它扯下来",
-            "description_zh": "失去[red]5[/red]点生命值。获得一组无色卡牌奖励。"
+            "description_zh": "失去[red]5[/red]点生命值。获得一次无色卡牌奖励。"
           },
           {
             "id": "SHARE_KNOWLEDGE",
@@ -1186,9 +1186,9 @@
       {
         "id": "TRUDGE_ON",
         "title": "Trudge On",
-        "description": "Remove a card from your [gold]Deck[/gold]. Lose [red]11[/red] HP.",
+        "description": "Gain [blue]0[/blue] [gold]Gold[/gold]. Lose [red]8[/red] HP.",
         "title_zh": "坚持跋涉",
-        "description_zh": "从你的[gold]牌组[/gold]中移除一张牌。失去[red]11[/red]点生命。"
+        "description_zh": "获得[blue]0[/blue] [gold]金币[/gold]。失去[red]8[/red]点生命。"
       }
     ],
     "pages": [
@@ -1207,9 +1207,9 @@
           {
             "id": "TRUDGE_ON",
             "title": "Trudge On",
-            "description": "Remove a card from your [gold]Deck[/gold]. Lose [red]11[/red] HP.",
+            "description": "Gain [blue]0[/blue] [gold]Gold[/gold]. Lose [red]8[/red] HP.",
             "title_zh": "坚持跋涉",
-            "description_zh": "从你的[gold]牌组[/gold]中移除一张牌。失去[red]11[/red]点生命。"
+            "description_zh": "获得[blue]0[/blue] [gold]金币[/gold]。失去[red]8[/red]点生命。"
           }
         ]
       },
@@ -1229,8 +1229,8 @@
       },
       {
         "id": "TRUDGE_ON",
-        "description": "You hack and slash your way through the jungle but it goes on and on...\n\nYou sustain yourself on [green]strange fruits[/green], [orange]crunchy bugs[/orange], and drink the nectar of [aqua]glowing plants[/aqua] but you start feeling [jitter][red]paranoid...[/red][/jitter]\n\nBut then you find a clearing, a trail, and some drawings of maps on the ground.\nProblem solved.",
-        "description_zh": "你一路劈砍，在丛林中硬生生砍出一条路来，但它似乎永无止境…\n\n你靠着[green]怪异的果实[/green]和[orange]嘎嘣脆的虫子[/orange]勉强维生，喝着[aqua]发光植物[/aqua]的花蜜，你开始觉得你自己有点[jitter][red]疑神疑鬼的…[/red][/jitter]\n\n不过，随后你发现了一片空地、一条小径，还有地上画着的一些地图。\n麻烦解决了。"
+        "description": "You hack and slash your way through the jungle but it goes on and on...\n\nYou sustain yourself on [green]strange fruits[/green], [orange]crunchy bugs[/orange], and drink the nectar of [aqua]glowing plants[/aqua] but you start feeling [jitter][red]paranoid...[/red][/jitter]\n\nBut then you find a clearing, a trail, and some [gold]Gold[/gold] coins scattered on the ground. Amongst the coins are some crudely-drawn maps!\nProblem solved.",
+        "description_zh": "你一路劈砍，在丛林中硬生生砍出一条路来，但它似乎永无止境…\n\n你靠着[green]怪异的果实[/green]和[orange]嘎嘣脆的虫子[/orange]勉强维生，喝着[aqua]发光植物[/aqua]的花蜜，你开始觉得你自己有点[jitter][red]疑神疑鬼的…[/red][/jitter]\n\n不过，随后你发现了一片空地、一条小径，地上还有一些[gold]金币[/gold]。在金币中，还有一些画得相当潦草的地图！\n麻烦解决了。"
       }
     ]
   },
@@ -1457,8 +1457,8 @@
     "name_zh": "无尽传送带",
     "type": "Event",
     "act": "Underdocks",
-    "description": "You lumber into a shack with a bright but crooked sign that reads:\n[aqua]“ENDLESS FEAST - PAY WHAT YOU HUNGER!”[/aqua]\n\nInside, a [orange]willowy multi-armed chef[/orange] is deftly preparing [green]bites of food[/green] and placing them onto a [sine]winding chitinous belt[/sine].\n\nOne of the chef's arms point to a sign:\n[blue]35[/blue] [gold]Gold[/gold] each",
-    "description_zh": "你走进一间挂着歪斜招牌的小木屋，招牌亮得发晃，上面写着：\n[aqua][b]“无尽盛宴—按饿付费！”[/b][/aqua]\n\n屋里，一位[orange]身形修长的多臂大厨[/orange]正熟练地准备着[green]一份份小食[/green]，并将它们摆在一条[sine]蜿蜒的几丁质传送带[/sine]上。\n\n大厨其中的一只手臂指向一块牌子：\n每份[blue]35[/blue][gold]金币[/gold]",
+    "description": "You lumber into a shack with a bright but crooked sign that reads:\n[aqua]“ENDLESS FEAST - PAY WHAT YOU HUNGER!”[/aqua]\n\nInside, a [orange]willowy multi-armed chef[/orange] is deftly preparing [green]bites of food[/green] and placing them onto a [sine]winding chitinous belt[/sine].\n\nOne of the chef's arms point to a sign:\n[blue]40[/blue] [gold]Gold[/gold] each",
+    "description_zh": "你走进一间挂着歪斜招牌的小木屋，招牌亮得发晃，上面写着：\n[aqua][b]“无尽盛宴—按饿付费！”[/b][/aqua]\n\n屋里，一位[orange]身形修长的多臂大厨[/orange]正熟练地准备着[green]一份份小食[/green]，并将它们摆在一条[sine]蜿蜒的几丁质传送带[/sine]上。\n\n大厨其中的一只手臂指向一块牌子：\n每份[blue]40[/blue][gold]金币[/gold]",
     "options": [
       {
         "id": "OBSERVE_CHEF",
@@ -1477,23 +1477,23 @@
           {
             "id": "CAVIAR",
             "title": "Grab Caviar off the Belt",
-            "description": "Pay [red]35[/red] [gold]Gold[/gold]. Gain [green]4[/green] Max HP. Continue feasting!",
+            "description": "Pay [red]40[/red] [gold]Gold[/gold]. Gain [green]4[/green] Max HP. Continue feasting!",
             "title_zh": "从传送带上拿份鱼子酱",
-            "description_zh": "支付[red]35[/red][gold]金币[/gold]。获得[green]4[/green]点最大生命。接着吃！"
+            "description_zh": "支付[red]40[/red][gold]金币[/gold]。获得[green]4[/green]点最大生命。接着吃！"
           },
           {
             "id": "CLAM_ROLL",
             "title": "Grab Clam Roll off the Belt",
-            "description": "Pay [red]35[/red] [gold]Gold[/gold]. Heal [green]10[/green] HP. Continue feasting!",
+            "description": "Pay [red]40[/red] [gold]Gold[/gold]. Heal [green]10[/green] HP. Continue feasting!",
             "title_zh": "从传送带上拿份蚌肉卷",
-            "description_zh": "支付[red]35[/red][gold]金币[/gold]。回复[green]10[/green]点生命值。接着吃！"
+            "description_zh": "支付[red]40[/red][gold]金币[/gold]。回复[green]10[/green]点生命值。接着吃！"
           },
           {
             "id": "FRIED_EEL",
             "title": "Grab Fried Eel off the Belt",
-            "description": "Pay [red]35[/red] [gold]Gold[/gold]. Add a random Colorless Card to your [gold]Deck[/gold]. Continue feasting!",
+            "description": "Pay [red]40[/red] [gold]Gold[/gold]. Add a random Colorless Card to your [gold]Deck[/gold]. Continue feasting!",
             "title_zh": "从传送带上拿份炸鳗鱼",
-            "description_zh": "支付[red]35[/red][gold]金币[/gold]。将一张随机无色牌添加到你的[gold]牌组[/gold]。接着吃！"
+            "description_zh": "支付[red]40[/red][gold]金币[/gold]。将一张随机无色牌添加到你的[gold]牌组[/gold]。接着吃！"
           },
           {
             "id": "GOLDEN_FYSH",
@@ -1505,9 +1505,9 @@
           {
             "id": "JELLY_LIVER",
             "title": "Grab Jelly Liver off the Belt",
-            "description": "Pay [red]35[/red] [gold]Gold[/gold]. [gold]Transform[/gold] a card. Continue feasting!",
+            "description": "Pay [red]40[/red] [gold]Gold[/gold]. [gold]Transform[/gold] a card. Continue feasting!",
             "title_zh": "从传送带上拿份果冻肝",
-            "description_zh": "支付[red]35[/red][gold]金币[/gold]。 [gold]变化[/gold]一张牌。接着吃！"
+            "description_zh": "支付[red]40[/red][gold]金币[/gold]。 [gold]变化[/gold]一张牌。接着吃！"
           },
           {
             "id": "LOCKED",
@@ -1519,23 +1519,23 @@
           {
             "id": "SEAPUNK_SALAD",
             "title": "Grab Seapunk Salad off the Belt",
-            "description": "Pay [red]35[/red] [gold]Gold[/gold]. Add [gold]Feeding Frenzy[/gold] to your [gold]Deck[/gold]. Continue feasting!",
+            "description": "Pay [red]40[/red] [gold]Gold[/gold]. Add [gold]Feeding Frenzy[/gold] to your [gold]Deck[/gold]. Continue feasting!",
             "title_zh": "从传送带上拿份海洋混混沙拉",
-            "description_zh": "支付[red]35[/red][gold]金币[/gold]。将一张[gold]疯狂进食[/gold]添加到你的[gold]牌组[/gold]。 接着吃！"
+            "description_zh": "支付[red]40[/red][gold]金币[/gold]。将一张[gold]疯狂进食[/gold]添加到你的[gold]牌组[/gold]。 接着吃！"
           },
           {
             "id": "SPICY_SNAPPY",
             "title": "Grab Spicy Snappy off the Belt",
-            "description": "Pay [red]35[/red] [gold]Gold[/gold]. [gold]Upgrade[/gold] a random card. Continue feasting!",
+            "description": "Pay [red]40[/red] [gold]Gold[/gold]. [gold]Upgrade[/gold] a random card. Continue feasting!",
             "title_zh": "从传送带上拿份香辣薄脆",
-            "description_zh": "支付[red]35[/red][gold]金币[/gold]。 随机[gold]升级[/gold]一张牌。接着吃！"
+            "description_zh": "支付[red]40[/red][gold]金币[/gold]。 随机[gold]升级[/gold]一张牌。接着吃！"
           },
           {
             "id": "SUSPICIOUS_CONDIMENT",
             "title": "Grab Suspicious Condiment off the Belt",
-            "description": "Pay [red]35[/red] [gold]Gold[/gold]. Procure a random [gold]Potion[/gold]. Continue feasting!",
+            "description": "Pay [red]40[/red] [gold]Gold[/gold]. Procure a random [gold]Potion[/gold]. Continue feasting!",
             "title_zh": "从传送带上拿份可疑调味料",
-            "description_zh": "支付[red]35[/red][gold]金币[/gold]。随机获得一瓶[gold]药水[/gold]。接着吃！"
+            "description_zh": "支付[red]40[/red][gold]金币[/gold]。随机获得一瓶[gold]药水[/gold]。接着吃！"
           }
         ]
       },
@@ -1555,8 +1555,8 @@
       },
       {
         "id": "INITIAL",
-        "description": "You lumber into a shack with a bright but crooked sign that reads:\n[aqua]“ENDLESS FEAST - PAY WHAT YOU HUNGER!”[/aqua]\n\nInside, a [orange]willowy multi-armed chef[/orange] is deftly preparing [green]bites of food[/green] and placing them onto a [sine]winding chitinous belt[/sine].\n\nOne of the chef's arms point to a sign:\n[blue]35[/blue] [gold]Gold[/gold] each",
-        "description_zh": "你走进一间挂着歪斜招牌的小木屋，招牌亮得发晃，上面写着：\n[aqua][b]“无尽盛宴—按饿付费！”[/b][/aqua]\n\n屋里，一位[orange]身形修长的多臂大厨[/orange]正熟练地准备着[green]一份份小食[/green]，并将它们摆在一条[sine]蜿蜒的几丁质传送带[/sine]上。\n\n大厨其中的一只手臂指向一块牌子：\n每份[blue]35[/blue][gold]金币[/gold]",
+        "description": "You lumber into a shack with a bright but crooked sign that reads:\n[aqua]“ENDLESS FEAST - PAY WHAT YOU HUNGER!”[/aqua]\n\nInside, a [orange]willowy multi-armed chef[/orange] is deftly preparing [green]bites of food[/green] and placing them onto a [sine]winding chitinous belt[/sine].\n\nOne of the chef's arms point to a sign:\n[blue]40[/blue] [gold]Gold[/gold] each",
+        "description_zh": "你走进一间挂着歪斜招牌的小木屋，招牌亮得发晃，上面写着：\n[aqua][b]“无尽盛宴—按饿付费！”[/b][/aqua]\n\n屋里，一位[orange]身形修长的多臂大厨[/orange]正熟练地准备着[green]一份份小食[/green]，并将它们摆在一条[sine]蜿蜒的几丁质传送带[/sine]上。\n\n大厨其中的一只手臂指向一块牌子：\n每份[blue]40[/blue][gold]金币[/gold]",
         "options": [
           {
             "id": "OBSERVE_CHEF",
@@ -1739,7 +1739,7 @@
       {
         "id": "FRAGRANT_MUSHROOM",
         "title": "Fragrant Mushroom",
-        "description": "Obtain [gold]Fragrant Mushroom[/gold]. Upon pickup, lose [red]15[/red] HP and [gold]Upgrade[/gold] [blue]3[/blue] random cards.",
+        "description": "Obtain [gold]Fragrant Mushroom[/gold]. Upon pickup, lose [blue]15[/blue] HP and [gold]Upgrade[/gold] [blue]2[/blue] random cards.",
         "title_zh": "芳香蘑菇",
         "description_zh": ""
       }
@@ -1770,7 +1770,7 @@
           {
             "id": "FRAGRANT_MUSHROOM",
             "title": "Fragrant Mushroom",
-            "description": "Obtain [gold]Fragrant Mushroom[/gold]. Upon pickup, lose [red]15[/red] HP and [gold]Upgrade[/gold] [blue]3[/blue] random cards.",
+            "description": "Obtain [gold]Fragrant Mushroom[/gold]. Upon pickup, lose [blue]15[/blue] HP and [gold]Upgrade[/gold] [blue]2[/blue] random cards.",
             "title_zh": "芳香蘑菇",
             "description_zh": ""
           }
@@ -2055,9 +2055,9 @@
       {
         "id": "GROUP",
         "title": "Group",
-        "description": "Lose [red]100[/red] [gold]Gold[/gold]. [gold]Transform[/gold] [blue]2[/blue] cards.",
+        "description": "[Is Multiplayer] [red]ALL[/red] of [Is Multiplayer] [gold]Gold[/gold]. [gold]Transform[/gold] [blue]2[/blue] cards.",
         "title_zh": "大群变形灵",
-        "description_zh": "失去[red]100[/red][gold]金币[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
+        "description_zh": "[Is Multiplayer]失去[red]所有[/red][gold]金币[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
       },
       {
         "id": "LONER",
@@ -2081,9 +2081,9 @@
           {
             "id": "GROUP",
             "title": "Group",
-            "description": "Lose [red]100[/red] [gold]Gold[/gold]. [gold]Transform[/gold] [blue]2[/blue] cards.",
+            "description": "[Is Multiplayer] [red]ALL[/red] of [Is Multiplayer] [gold]Gold[/gold]. [gold]Transform[/gold] [blue]2[/blue] cards.",
             "title_zh": "大群变形灵",
-            "description_zh": "失去[red]100[/red][gold]金币[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
+            "description_zh": "[Is Multiplayer]失去[red]所有[/red][gold]金币[/gold]。[gold]变化[/gold][blue]2[/blue]张牌。"
           },
           {
             "id": "LONER",
@@ -2479,23 +2479,28 @@
     "relics": [
       "ARCANE_SCROLL",
       "BOOMING_CONCH",
-      "POMANDER",
       "GOLDEN_PEARL",
       "LEAD_PAPERWEIGHT",
-      "NEW_LEAF",
-      "NEOWS_TORMENT",
-      "PRECISE_SCISSORS",
       "LOST_COFFER",
-      "NUTRITIOUS_OYSTER",
-      "STONE_HUMIDIFIER",
+      "NEOWS_TORMENT",
+      "NEW_LEAF",
+      "PRECISE_SCISSORS",
+      "PHIAL_HOLSTER",
+      "WINGED_BOOTS",
       "MASSIVE_SCROLL",
       "LAVA_ROCK",
+      "NEOWS_TALISMAN",
+      "NUTRITIOUS_OYSTER",
+      "POMANDER",
       "SMALL_CAPSULE",
-      "SILVER_CRUCIBLE",
+      "STONE_HUMIDIFIER",
       "CURSED_PEARL",
+      "HEFTY_TABLET",
       "LARGE_CAPSULE",
       "LEAFY_POULTICE",
       "PRECARIOUS_SHEARS",
+      "SILVER_CRUCIBLE",
+      "NEOWS_BONES",
       "SCROLL_BOXES"
     ]
   },
@@ -4176,7 +4181,7 @@
     "type": "Shared",
     "act": null,
     "description": "While crossing a rickety wooden bridge, there is a sudden [blue][jitter]torrent of rain[/jitter][/blue]. [purple][sine]Massive gusts of wind[/sine][/purple] buffet you, threatening to end your journey.",
-    "description_zh": "当你穿过一座摇摇欲坠的木桥时，忽然间[blue][jitter]暴雨倾盆[/jitter][/blue]。[purple][sine]阵阵狂风[/sine][/purple]不断向你袭来，似乎要将你的旅程终结与此。",
+    "description_zh": "当你穿过一座摇摇欲坠的木桥时，忽然间[blue][jitter]暴雨倾盆[/jitter][/blue]。[purple][sine]阵阵狂风[/sine][/purple]不断向你袭来，似乎要将你的旅程终结于此。",
     "options": [
       {
         "id": "HOLD_ON_0",
@@ -4309,7 +4314,7 @@
       {
         "id": "INITIAL",
         "description": "While crossing a rickety wooden bridge, there is a sudden [blue][jitter]torrent of rain[/jitter][/blue]. [purple][sine]Massive gusts of wind[/sine][/purple] buffet you, threatening to end your journey.",
-        "description_zh": "当你穿过一座摇摇欲坠的木桥时，忽然间[blue][jitter]暴雨倾盆[/jitter][/blue]。[purple][sine]阵阵狂风[/sine][/purple]不断向你袭来，似乎要将你的旅程终结与此。",
+        "description_zh": "当你穿过一座摇摇欲坠的木桥时，忽然间[blue][jitter]暴雨倾盆[/jitter][/blue]。[purple][sine]阵阵狂风[/sine][/purple]不断向你袭来，似乎要将你的旅程终结于此。",
         "options": [
           {
             "id": "HOLD_ON_0",
@@ -4353,9 +4358,9 @@
       {
         "id": "OBSERVE",
         "title": "Observe",
-        "description": "[gold]Enchant[/gold] a [gold]Strike[/gold] or [gold]Defend[/gold] with [purple]Spiral[/purple].",
+        "description": "[gold]Enchant[/gold] a Basic [gold]Strike[/gold] or [gold]Defend[/gold] with [purple]Spiral[/purple].",
         "title_zh": "观察",
-        "description_zh": "为一张“[gold]打击[/gold]”或“[gold]防御[/gold]”[gold]附魔[/gold]：[purple]涡旋[/purple]。"
+        "description_zh": "为一张基础“[gold]打击[/gold]”或“[gold]防御[/gold]”[gold]附魔[/gold]：[purple]涡旋[/purple]。"
       },
       {
         "id": "REACH_IN",
@@ -4386,9 +4391,9 @@
           {
             "id": "OBSERVE",
             "title": "Observe",
-            "description": "[gold]Enchant[/gold] a [gold]Strike[/gold] or [gold]Defend[/gold] with [purple]Spiral[/purple].",
+            "description": "[gold]Enchant[/gold] a Basic [gold]Strike[/gold] or [gold]Defend[/gold] with [purple]Spiral[/purple].",
             "title_zh": "观察",
-            "description_zh": "为一张“[gold]打击[/gold]”或“[gold]防御[/gold]”[gold]附魔[/gold]：[purple]涡旋[/purple]。"
+            "description_zh": "为一张基础“[gold]打击[/gold]”或“[gold]防御[/gold]”[gold]附魔[/gold]：[purple]涡旋[/purple]。"
           },
           {
             "id": "REACH_IN",
@@ -4430,9 +4435,9 @@
       {
         "id": "REJECTION",
         "title": "Rejection",
-        "description": "Lose [red]9[/red] HP. Remove a card from your [gold]Deck[/gold].",
+        "description": "Lose [red]10[/red] HP. [gold]Upgrade[/gold] a card.",
         "title_zh": "拒绝",
-        "description_zh": "失去[red]9[/red]点生命。从你的[gold]牌组[/gold]中移除一张牌。"
+        "description_zh": "失去[red]10[/red]点生命。[gold]升级[/gold]一张牌。"
       }
     ],
     "pages": [
@@ -4451,9 +4456,9 @@
           {
             "id": "REJECTION",
             "title": "Rejection",
-            "description": "Lose [red]9[/red] HP. Remove a card from your [gold]Deck[/gold].",
+            "description": "Lose [red]10[/red] HP. [gold]Upgrade[/gold] a card.",
             "title_zh": "拒绝",
-            "description_zh": "失去[red]9[/red]点生命。从你的[gold]牌组[/gold]中移除一张牌。"
+            "description_zh": "失去[red]10[/red]点生命。[gold]升级[/gold]一张牌。"
           }
         ]
       },
@@ -5717,7 +5722,7 @@
         {
           "order": "2-2",
           "speaker": "ancient",
-          "text": "哎呀亲爱的……你不会一直在都[jitter][b]战斗[/b][/jitter]吧？"
+          "text": "哎呀亲爱的……你不会一直都在[jitter][b]战斗[/b][/jitter]吧？"
         }
       ],
       "First Visit": [
@@ -6038,9 +6043,9 @@
           {
             "id": "CHAOS",
             "title": "Chaos",
-            "description": "Add a random card into your [gold]Hand[/gold]. It costs [blue]0[/blue] [energy:1] this turn.",
+            "description": "Add a random card into your [gold]Hand[/gold]. It's free to play this turn.",
             "title_zh": "混沌",
-            "description_zh": "将一张随机牌放入你的[gold]手牌[/gold]。这张牌在本回合这张牌在本回合耗能变为[blue]0[/blue][energy:1]。"
+            "description_zh": "将一张随机牌放入你的[gold]手牌[/gold]。这张牌在本回合可以免费打出。"
           },
           {
             "id": "CHOKING",
@@ -6297,7 +6302,7 @@
             "title": "DECIDE: Guilty",
             "description": "Add [red]Doubt[/red] to your [gold]Deck[/gold]. Gain [blue]2[/blue] card rewards.",
             "title_zh": "判决：有罪",
-            "description_zh": "将一张[red]疑虑[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]组卡牌奖励。"
+            "description_zh": "将一张[red]疑虑[/red]加入你的[gold]牌组[/gold]。获得[blue]2[/blue]次卡牌奖励。"
           },
           {
             "id": "INNOCENT",
@@ -6894,30 +6899,30 @@
       {
         "id": "PRICKLY_SPONGE",
         "title": "Prickly Sponge",
-        "description": "Pay [red]155[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] [blue]2[/blue] cards with [purple]Steady[/purple].",
+        "description": "Pay [red]99[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] [blue]2[/blue] cards with [purple]Steady[/purple].",
         "title_zh": "扎手海绵",
-        "description_zh": "支付[red]155[/red][gold]金币[/gold]。给[blue]2[/blue]张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
+        "description_zh": "支付[red]99[/red][gold]金币[/gold]。给[blue]2[/blue]张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
       },
       {
         "id": "PRICKLY_SPONGE_LOCKED",
         "title": "Locked",
-        "description": "Requires [blue]155[/blue] [gold]Gold[/gold].",
+        "description": "Requires [blue]99[/blue] [gold]Gold[/gold].",
         "title_zh": "锁定",
-        "description_zh": "需要[blue]155[/blue][gold]金币[/gold]。"
+        "description_zh": "需要[blue]99[/blue][gold]金币[/gold]。"
       },
       {
         "id": "TENTACLE_QUILL",
         "title": "Tentacle Quill",
-        "description": "Pay [red]65[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] a card with [purple]Steady[/purple].",
+        "description": "Pay [red]55[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] a card with [purple]Steady[/purple].",
         "title_zh": "触手羽毛笔",
-        "description_zh": "支付[red]65[/red][gold]金币[/gold]。给一张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
+        "description_zh": "支付[red]55[/red][gold]金币[/gold]。给一张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
       },
       {
         "id": "TENTACLE_QUILL_LOCKED",
         "title": "Locked",
-        "description": "Requires [blue]65[/blue] [gold]Gold[/gold].",
+        "description": "Requires [blue]55[/blue] [gold]Gold[/gold].",
         "title_zh": "锁定",
-        "description_zh": "需要[blue]65[/blue][gold]金币[/gold]。"
+        "description_zh": "需要[blue]55[/blue][gold]金币[/gold]。"
       }
     ],
     "pages": [
@@ -6941,30 +6946,30 @@
           {
             "id": "PRICKLY_SPONGE",
             "title": "Prickly Sponge",
-            "description": "Pay [red]155[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] [blue]2[/blue] cards with [purple]Steady[/purple].",
+            "description": "Pay [red]99[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] [blue]2[/blue] cards with [purple]Steady[/purple].",
             "title_zh": "扎手海绵",
-            "description_zh": "支付[red]155[/red][gold]金币[/gold]。给[blue]2[/blue]张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
+            "description_zh": "支付[red]99[/red][gold]金币[/gold]。给[blue]2[/blue]张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
           },
           {
             "id": "PRICKLY_SPONGE_LOCKED",
             "title": "Locked",
-            "description": "Requires [blue]155[/blue] [gold]Gold[/gold].",
+            "description": "Requires [blue]99[/blue] [gold]Gold[/gold].",
             "title_zh": "锁定",
-            "description_zh": "需要[blue]155[/blue][gold]金币[/gold]。"
+            "description_zh": "需要[blue]99[/blue][gold]金币[/gold]。"
           },
           {
             "id": "TENTACLE_QUILL",
             "title": "Tentacle Quill",
-            "description": "Pay [red]65[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] a card with [purple]Steady[/purple].",
+            "description": "Pay [red]55[/red] [gold]Gold[/gold]. [gold]Enchant[/gold] a card with [purple]Steady[/purple].",
             "title_zh": "触手羽毛笔",
-            "description_zh": "支付[red]65[/red][gold]金币[/gold]。给一张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
+            "description_zh": "支付[red]55[/red][gold]金币[/gold]。给一张牌[gold]附魔[/gold]：[purple]稳定[/purple]。"
           },
           {
             "id": "TENTACLE_QUILL_LOCKED",
             "title": "Locked",
-            "description": "Requires [blue]65[/blue] [gold]Gold[/gold].",
+            "description": "Requires [blue]55[/blue] [gold]Gold[/gold].",
             "title_zh": "锁定",
-            "description_zh": "需要[blue]65[/blue][gold]金币[/gold]。"
+            "description_zh": "需要[blue]55[/blue][gold]金币[/gold]。"
           }
         ]
       },
@@ -7188,9 +7193,9 @@
       {
         "id": "GOLD",
         "title": "Exchange Gold",
-        "description": "Lose [red]50[/red] [gold]Gold[/gold]. Procure [blue]2[/blue] random [gold]Potions[/gold].",
+        "description": "Lose [red]35[/red] [gold]Gold[/gold]. Procure [blue]2[/blue] random [gold]Potions[/gold].",
         "title_zh": "交换金币",
-        "description_zh": "失去[red]50[/red][gold]金币[/gold]。获得[blue]2[/blue]瓶随机[gold]药水[/gold]。"
+        "description_zh": "失去[red]35[/red][gold]金币[/gold]。获得[blue]2[/blue]瓶随机[gold]药水[/gold]。"
       },
       {
         "id": "HUG",
@@ -7219,9 +7224,9 @@
           {
             "id": "GOLD",
             "title": "Exchange Gold",
-            "description": "Lose [red]50[/red] [gold]Gold[/gold]. Procure [blue]2[/blue] random [gold]Potions[/gold].",
+            "description": "Lose [red]35[/red] [gold]Gold[/gold]. Procure [blue]2[/blue] random [gold]Potions[/gold].",
             "title_zh": "交换金币",
-            "description_zh": "失去[red]50[/red][gold]金币[/gold]。获得[blue]2[/blue]瓶随机[gold]药水[/gold]。"
+            "description_zh": "失去[red]35[/red][gold]金币[/gold]。获得[blue]2[/blue]瓶随机[gold]药水[/gold]。"
           },
           {
             "id": "HUG",

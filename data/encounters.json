@@ -335,10 +335,6 @@
     "tags": null,
     "monsters": [
       {
-        "id": "DOOR",
-        "name": "Door"
-      },
-      {
         "id": "DOORMAKER",
         "name": "Doormaker"
       }
@@ -1098,6 +1094,29 @@
     "loss_text_zh": "一些[gold]{encounter}[/gold]将{character}撕成了碎片。"
   },
   {
+    "id": "SEAPUNK_NORMAL",
+    "name": "Underdocks Wildlife",
+    "name_zh": "暗港野生动物",
+    "room_type": "Monster",
+    "is_weak": false,
+    "act": "Underdocks",
+    "tags": [
+      "Seapunk"
+    ],
+    "monsters": [
+      {
+        "id": "CALCIFIED_CULTIST",
+        "name": "Calcified Cultist"
+      },
+      {
+        "id": "SEAPUNK",
+        "name": "Seapunk"
+      }
+    ],
+    "loss_text": "{character} was defeated by some [gold]{encounter}[/gold].",
+    "loss_text_zh": "{character}被一些[gold]{encounter}[/gold]打败了。"
+  },
+  {
     "id": "SEAPUNK_WEAK",
     "name": "Seapunk",
     "name_zh": "海洋混混",
@@ -1550,27 +1569,6 @@
     "loss_text_zh": "一只[gold]{encounter}[/gold]抢走了{character}的生命。"
   },
   {
-    "id": "TOADPOLES_NORMAL",
-    "name": "Underdocks Wildlife",
-    "name_zh": "暗港野生动物",
-    "room_type": "Monster",
-    "is_weak": false,
-    "act": "Underdocks",
-    "tags": null,
-    "monsters": [
-      {
-        "id": "CALCIFIED_CULTIST",
-        "name": "Calcified Cultist"
-      },
-      {
-        "id": "TOADPOLE",
-        "name": "Toadpole"
-      }
-    ],
-    "loss_text": "{character} was defeated by some [gold]{encounter}[/gold].",
-    "loss_text_zh": "{character}被一些[gold]{encounter}[/gold]打败。"
-  },
-  {
     "id": "TOADPOLES_WEAK",
     "name": "Toadpoles",
     "name_zh": "蟾蜍蝌蚪",
@@ -1593,19 +1591,15 @@
     "name_zh": "地道组合",
     "room_type": "Monster",
     "is_weak": false,
-    "act": "Act 2 - Hive",
+    "act": null,
     "tags": [
       "Burrower",
-      "Workers"
+      "Chomper"
     ],
     "monsters": [
       {
-        "id": "BOWLBUG_EGG",
-        "name": "Bowlbug Egg"
-      },
-      {
-        "id": "BOWLBUG_SILK",
-        "name": "Bowlbug Silk"
+        "id": "CHOMPER",
+        "name": "Chomper"
       },
       {
         "id": "TUNNELER",

@@ -50,10 +50,10 @@
   {
     "id": "LEVEL_06",
     "level": 6,
-    "name": "Gloom",
-    "name_zh": "阴郁",
-    "description": "Less Rest Sites.",
-    "description_zh": "休息处变少。"
+    "name": "Inflation",
+    "name_zh": "通货膨胀",
+    "description": "Removing cards from your deck at the Merchant is more expensive.",
+    "description_zh": "商人的卡牌移除服务价格提升。"
   },
   {
     "id": "LEVEL_07",

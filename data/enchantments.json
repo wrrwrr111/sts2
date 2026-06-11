@@ -42,20 +42,6 @@
     "image_url": null
   },
   {
-    "id": "FAVORED",
-    "name": "Favored",
-    "name_zh": "钟爱",
-    "description": "This card's attack damage is doubled.",
-    "description_zh": "这张牌的攻击伤害翻倍。",
-    "description_raw": null,
-    "description_raw_zh": "这张牌的攻击伤害翻倍。",
-    "extra_card_text": null,
-    "extra_card_text_zh": null,
-    "card_type": "Attack",
-    "is_stackable": false,
-    "image_url": null
-  },
-  {
     "id": "GLAM",
     "name": "Glam",
     "name_zh": "华彩",
@@ -98,13 +84,27 @@
     "image_url": null
   },
   {
+    "id": "INKY",
+    "name": "Inky",
+    "name_zh": "墨影",
+    "description": "This card deals [blue]2[/blue] additional damage and applies [blue]1[/blue] [gold]Weak[/gold].",
+    "description_zh": "这张牌额外造成[blue]2[/blue]点伤害，并造成[blue]1[/blue]层[gold]虚弱[/gold]。",
+    "description_raw": "This card deals [blue]{Damage}[/blue] additional damage and applies [blue]{WeakPower}[/blue] [gold]Weak[/gold].",
+    "description_raw_zh": "这张牌额外造成[blue]{Damage}[/blue]点伤害，并造成[blue]{WeakPower}[/blue]层[gold]虚弱[/gold]。",
+    "extra_card_text": "Apply [blue]1[/blue] [gold]Weak[/gold][Target Type].",
+    "extra_card_text_zh": "[Target Type]造成[blue]1[/blue]层[gold]虚弱[/gold]。",
+    "card_type": null,
+    "is_stackable": false,
+    "image_url": null
+  },
+  {
     "id": "INSTINCT",
     "name": "Instinct",
     "name_zh": "本能",
-    "description": "Decrease the cost of this card by [blue]1[/blue].",
-    "description_zh": "这张牌的费用减少[blue]1[/blue]。",
+    "description": "This card's attack damage is doubled.",
+    "description_zh": "这张牌的攻击伤害翻倍。",
     "description_raw": null,
-    "description_raw_zh": "这张牌的费用减少[blue]1[/blue]。",
+    "description_raw_zh": "这张牌的攻击伤害翻倍。",
     "extra_card_text": null,
     "extra_card_text_zh": null,
     "card_type": "Attack",

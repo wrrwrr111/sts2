@@ -10,6 +10,16 @@
     "extra_card_text_zh": "魂缚"
   },
   {
+    "id": "DEVOURED",
+    "name": "Devoured",
+    "description": "Add [gold]Exhaust[/gold] to this card.",
+    "extra_card_text": null,
+    "is_stackable": false,
+    "name_zh": "吞噬",
+    "description_zh": "为这张牌添加[gold]消耗[/gold]。",
+    "extra_card_text_zh": null
+  },
+  {
     "id": "ENTANGLED",
     "name": "Entangled",
     "description": "Costs an additional [energy:1].",
@@ -88,5 +98,15 @@
     "name_zh": "烟雾",
     "description_zh": "你在本回合无法再打出更多[gold]技能[/gold]牌。回合结束时消除。",
     "extra_card_text_zh": null
+  },
+  {
+    "id": "WEIGHTED",
+    "name": "Weighted",
+    "description": "Lose [energy:1] when this card is played.",
+    "extra_card_text": "Lose [energy:1].",
+    "is_stackable": false,
+    "name_zh": "沉重",
+    "description_zh": "打出这张牌时失去[energy:1]。",
+    "extra_card_text_zh": "失去[energy:1]。"
   }
 ]

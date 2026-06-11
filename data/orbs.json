@@ -48,6 +48,16 @@
     "evoke": 8
   },
   {
+    "id": "MOCK_COMBAT_CLEANUP_ORB",
+    "name": "Mock Combat Cleanup",
+    "description": "",
+    "description_raw": null,
+    "name_zh": null,
+    "description_zh": null,
+    "description_raw_zh": null,
+    "image_url": null
+  },
+  {
     "id": "PLASMA_ORB",
     "name": "Plasma",
     "description": "[gold]Passive:[/gold] At the start of turn,\ngain [energy:1].\n[gold]Evoke:[/gold] Gain [energy:2].\nPlasma is unaffected by [gold]Focus[/gold].",
