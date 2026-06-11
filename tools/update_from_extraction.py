@@ -13,7 +13,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE_INFO = ROOT / "extraction" / "raw" / "release_info.json"
+RELEASE_INFO = ROOT / "extraction" / "release_info.json"
+LEGACY_RELEASE_INFO = ROOT / "extraction" / "raw" / "release_info.json"
 STATE_FILE = ROOT / "tools" / ".cache" / "update_state.json"
 VERSION_PATTERN = re.compile(r"v?\d+\.\d+\.\d+(?:[-._][A-Za-z0-9]+)?")
 
@@ -56,6 +57,14 @@ def read_version_from_file(path: Path) -> str:
         return parse_version_text(path.read_text(encoding="utf-8"))
     except OSError:
         return ""
+
+
+def read_version_from_release_info() -> tuple[str, Path | None]:
+    for path in (RELEASE_INFO, LEGACY_RELEASE_INFO):
+        version = read_version_from_file(path)
+        if version:
+            return version, path
+    return "", None
 
 
 def read_version_from_ref(ref: str) -> str:
@@ -180,8 +189,10 @@ def main() -> None:
     )
 
     current_version = normalize_version(args.game_version.strip()) if args.game_version.strip() else ""
+    current_version_source = "input" if current_version else ""
     if not current_version:
-        current_version = read_version_from_file(RELEASE_INFO)
+        current_version, current_version_path = read_version_from_release_info()
+        current_version_source = str(current_version_path.relative_to(ROOT)) if current_version_path else ""
 
     old_ref = args.old_ref or "HEAD"
     report_dir = Path(args.out_dir).expanduser().resolve()
@@ -200,6 +211,7 @@ def main() -> None:
 
     print("== STS2 Update Check ==")
     print(f"Current extraction version: {current_version or 'unknown'}")
+    print(f"Current version source:     {current_version_source or 'unknown'}")
     print(f"Last processed version:     {last_processed_version or 'unknown'}")
     print(f"Latest report version:      {latest_report_version or 'unknown'}")
     print(f"{old_ref} inferred version:      {old_ref_version or 'unknown'}")

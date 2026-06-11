@@ -34,7 +34,7 @@ Usage:
 
 Options:
   --game-version    The game's version string from Steam (e.g. "0.98.2").
-                    If omitted, tries to auto-detect from extraction/raw/release_info.json.
+                    If omitted, tries to auto-detect from extraction/release_info.json.
   --build-id        Steam build ID (e.g. "22238966") — changes with each depot update
   --codex-version   Codex revision number for parser/feature updates on the same game
                     version. Omit for game updates, set to 1/2/3/... for codex updates.
@@ -60,7 +60,11 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 REPORTS_DIR = Path(__file__).resolve().parent.parent / "reports" / "diff"
-RELEASE_INFO_PATH = Path(__file__).resolve().parent.parent / "extraction" / "raw" / "release_info.json"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+RELEASE_INFO_PATHS = [
+    ROOT_DIR / "extraction" / "release_info.json",
+    ROOT_DIR / "extraction" / "raw" / "release_info.json",
+]
 
 # Slay the Spire 2 Steam App ID (fixed)
 STEAM_APP_ID = 2868840
@@ -484,22 +488,30 @@ def parse_version_from_release_info_text(text: str) -> str:
 
 
 def detect_game_version_from_local_release_info() -> str:
-    if not RELEASE_INFO_PATH.exists():
-        return ""
-    try:
-        return parse_version_from_release_info_text(RELEASE_INFO_PATH.read_text(encoding="utf-8"))
-    except OSError:
-        return ""
+    for path in RELEASE_INFO_PATHS:
+        if not path.exists():
+            continue
+        try:
+            version = parse_version_from_release_info_text(path.read_text(encoding="utf-8"))
+        except OSError:
+            continue
+        if version:
+            return version
+    return ""
 
 
 def detect_game_version_from_git_ref(ref: str) -> str:
-    result = subprocess.run(
-        ["git", "show", f"{ref}:extraction/raw/release_info.json"],
-        capture_output=True, text=True, cwd=DATA_DIR.parent
-    )
-    if result.returncode != 0:
-        return ""
-    return parse_version_from_release_info_text(result.stdout)
+    for release_info_path in ("extraction/release_info.json", "extraction/raw/release_info.json"):
+        result = subprocess.run(
+            ["git", "show", f"{ref}:{release_info_path}"],
+            capture_output=True, text=True, cwd=DATA_DIR.parent
+        )
+        if result.returncode != 0:
+            continue
+        version = parse_version_from_release_info_text(result.stdout)
+        if version:
+            return version
+    return ""
 
 
 def detect_game_version_from_label(label: str) -> str:
