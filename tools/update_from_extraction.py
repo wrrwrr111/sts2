@@ -208,10 +208,12 @@ def main() -> None:
         old_ref_version = old_ref_version or last_processed_version or latest_report_version
 
     baseline_version = last_processed_version or latest_report_version or old_ref_version
+    from_version = old_ref_version or baseline_version
 
     print("== STS2 Update Check ==")
     print(f"Current extraction version: {current_version or 'unknown'}")
     print(f"Current version source:     {current_version_source or 'unknown'}")
+    print(f"From version:               {from_version or 'unknown'}")
     print(f"Last processed version:     {last_processed_version or 'unknown'}")
     print(f"Latest report version:      {latest_report_version or 'unknown'}")
     print(f"{old_ref} inferred version:      {old_ref_version or 'unknown'}")
@@ -258,6 +260,8 @@ def main() -> None:
         ]
         if current_version:
             diff_cmd.extend(["--game-version", current_version])
+        if from_version:
+            diff_cmd.extend(["--from-version", from_version])
         if args.report_name:
             diff_cmd.extend(["--report-name", args.report_name])
         print(f"\nAuto old ref: {old_ref}")

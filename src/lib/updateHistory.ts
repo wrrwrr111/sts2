@@ -24,8 +24,13 @@ type DiffCategory = {
 
 type DiffReport = {
   created_at?: string | null;
+  release_date?: string | null;
   from_ref?: string | null;
   to_ref?: string | null;
+  from_version?: string | null;
+  to_version?: string | null;
+  from_label?: string | null;
+  to_label?: string | null;
   game_version?: string | null;
   categories?: DiffCategory[] | null;
 };
@@ -39,8 +44,13 @@ export type UpdateHistoryChange = {
 export type UpdateHistoryEntry = {
   key: string;
   createdAt: string | null;
+  releaseDate: string | null;
   fromRef: string | null;
   toRef: string | null;
+  fromVersion: string | null;
+  toVersion: string | null;
+  fromLabel: string | null;
+  toLabel: string | null;
   gameVersion: string | null;
   changes: UpdateHistoryChange[];
 };
@@ -65,13 +75,16 @@ const reports = Object.entries(reportModules)
     report,
   }))
   .sort((a, b) => {
-    const at = Date.parse(a.report.created_at ?? "");
-    const bt = Date.parse(b.report.created_at ?? "");
+    const at = Date.parse(a.report.release_date ?? a.report.created_at ?? "");
+    const bt = Date.parse(b.report.release_date ?? b.report.created_at ?? "");
     if (Number.isFinite(at) && Number.isFinite(bt) && at !== bt) {
       return bt - at;
     }
     return b.path.localeCompare(a.path);
   });
+
+const isInternalCurrentComparison = (report: DiffReport) =>
+  report.from_ref === "HEAD" && report.to_ref === "current";
 
 export const getEntityUpdateHistory = (
   categoryId: string,
@@ -80,7 +93,7 @@ export const getEntityUpdateHistory = (
   const normalizedCategoryId = normalizeId(categoryId);
   const normalizedEntityId = normalizeId(entityId);
 
-  return reports.flatMap(({ path, report }) => {
+  return reports.flatMap(({ path, report }, reportIndex) => {
     const category = (report.categories ?? []).find(
       (item) => normalizeId(item.id) === normalizedCategoryId,
     );
@@ -91,12 +104,24 @@ export const getEntityUpdateHistory = (
     );
     if (!entity || !entity.changes || entity.changes.length === 0) return [];
 
+    const nextOlderReport = reports[reportIndex + 1]?.report;
+    const inferredFromVersion = isInternalCurrentComparison(report)
+      ? (nextOlderReport?.to_version ?? nextOlderReport?.game_version ?? null)
+      : null;
+    const toVersion = report.to_version ?? report.game_version ?? null;
+    const fromVersion = report.from_version ?? inferredFromVersion;
+
     return [
       {
         key: `${path}:${entity.id}`,
         createdAt: report.created_at ?? null,
+        releaseDate: report.release_date ?? null,
         fromRef: report.from_ref ?? null,
         toRef: report.to_ref ?? null,
+        fromVersion,
+        toVersion,
+        fromLabel: report.from_label ?? fromVersion,
+        toLabel: report.to_label ?? toVersion,
         gameVersion: report.game_version ?? null,
         changes: entity.changes.map((change) => ({
           field: change.field,
@@ -141,4 +166,3 @@ export const getUpdateHistoryFieldLabel = (field: string, lang: Lang): string =>
     .map((part) => part.slice(0, 1).toUpperCase() + part.slice(1))
     .join(" ");
 };
-

@@ -29,30 +29,53 @@ const t = {
   newValue: isEn ? "After" : "更新后",
   reportLabel: isEn ? "Update" : "更新",
   versionPrefix: isEn ? "Version" : "版本",
+  previousCommit: isEn ? "previous commit" : "上次提交",
+  currentExtraction: isEn ? "current extraction" : "当前提取数据",
 };
 
 const formatDateLabel = (value: string | null) => {
   if (!value) return null;
-  const parsed = new Date(value);
+  const dateParts = /^(\d{4})-(\d{2})-(\d{2})/.exec(value);
+  const parsed = dateParts
+    ? new Date(Date.UTC(Number(dateParts[1]), Number(dateParts[2]) - 1, Number(dateParts[3])))
+    : new Date(value);
   if (Number.isNaN(parsed.getTime())) return value;
   return new Intl.DateTimeFormat(isEn ? "en-US" : "zh-CN", {
     year: "numeric",
     month: "short",
     day: "numeric",
+    timeZone: dateParts ? "UTC" : undefined,
   }).format(parsed);
 };
 
-const getEntryLabel = (createdAt: string | null, gameVersion: string | null) => {
+const getEntryLabel = (
+  createdAt: string | null,
+  fromVersion: string | null,
+  toVersion: string | null,
+) => {
   const parts = [];
-  if (gameVersion) parts.push(`${t.versionPrefix} ${gameVersion}`);
+  if (fromVersion && toVersion && fromVersion !== toVersion) {
+    parts.push(`${t.versionPrefix} ${fromVersion} → ${toVersion}`);
+  } else if (toVersion) {
+    parts.push(`${t.versionPrefix} ${toVersion}`);
+  }
   const dateLabel = formatDateLabel(createdAt);
   if (dateLabel) parts.push(dateLabel);
   return parts.join(" · ");
 };
 
-const getRefLabel = (fromRef: string | null, toRef: string | null) => {
-  if (!fromRef && !toRef) return null;
-  return `${fromRef ?? "?"} → ${toRef ?? "?"}`;
+const getRefLabel = (
+  fromRef: string | null,
+  toRef: string | null,
+  fromLabel: string | null,
+  toLabel: string | null,
+  hasVersionRange: boolean,
+) => {
+  if (hasVersionRange && fromRef === "HEAD" && toRef === "current") return null;
+  const displayFrom = fromLabel || (fromRef === "HEAD" ? t.previousCommit : fromRef);
+  const displayTo = toLabel || (toRef === "current" ? t.currentExtraction : toRef);
+  if (!displayFrom && !displayTo) return null;
+  return `${displayFrom ?? "?"} → ${displayTo ?? "?"}`;
 };
 
 const getDisplayValue = (value: string) => {
@@ -73,14 +96,26 @@ const getDisplayValue = (value: string) => {
             <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
               {t.reportLabel} {entryIndex + 1}
             </div>
-            {getEntryLabel(entry.createdAt, entry.gameVersion) && (
+            {getEntryLabel(entry.releaseDate ?? entry.createdAt, entry.fromVersion, entry.toVersion) && (
               <div class="text-[12px] text-[#c4c7d6]">
-                {getEntryLabel(entry.createdAt, entry.gameVersion)}
+                {getEntryLabel(entry.releaseDate ?? entry.createdAt, entry.fromVersion, entry.toVersion)}
               </div>
             )}
-            {getRefLabel(entry.fromRef, entry.toRef) && (
+            {getRefLabel(
+              entry.fromRef,
+              entry.toRef,
+              entry.fromLabel,
+              entry.toLabel,
+              Boolean(entry.fromVersion || entry.toVersion),
+            ) && (
               <div class="text-[11px] text-[#8f96ad]">
-                {getRefLabel(entry.fromRef, entry.toRef)}
+                {getRefLabel(
+                  entry.fromRef,
+                  entry.toRef,
+                  entry.fromLabel,
+                  entry.toLabel,
+                  Boolean(entry.fromVersion || entry.toVersion),
+                )}
               </div>
             )}
           </div>

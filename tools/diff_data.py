@@ -35,6 +35,7 @@ Usage:
 Options:
   --game-version    The game's version string from Steam (e.g. "0.98.2").
                     If omitted, tries to auto-detect from extraction/release_info.json.
+  --from-version    Previous game version for report labels (e.g. "0.99.1").
   --build-id        Steam build ID (e.g. "22238966") — changes with each depot update
   --codex-version   Codex revision number for parser/feature updates on the same game
                     version. Omit for game updates, set to 1/2/3/... for codex updates.
@@ -362,7 +363,7 @@ def print_markdown(results: dict, old_label: str, new_label: str):
     print(f"---\n**Summary:** +{total_added} added, -{total_removed} removed, ~{total_changed} changed")
 
 
-def build_json_output(results: dict, game_version: str, build_id: str, codex_version: str, date: str, title: str, old_label: str, new_label: str) -> dict:
+def build_json_output(results: dict, game_version: str, from_version: str, build_id: str, codex_version: str, date: str, title: str, old_label: str, new_label: str, old_display_label: str, new_display_label: str) -> dict:
     """Build a JSON-serializable changelog object."""
     categories = []
     total_added = total_removed = total_changed = 0
@@ -427,6 +428,8 @@ def build_json_output(results: dict, game_version: str, build_id: str, codex_ver
     return {
         "app_id": STEAM_APP_ID,
         "game_version": game_version,
+        "from_version": from_version or None,
+        "to_version": game_version or None,
         "build_id": build_id,
         "codex_version": int(codex_version) if codex_version else None,
         "tag": tag,
@@ -434,6 +437,8 @@ def build_json_output(results: dict, game_version: str, build_id: str, codex_ver
         "title": title,
         "from_ref": old_label,
         "to_ref": new_label,
+        "from_label": old_display_label,
+        "to_label": new_display_label,
         "summary": {
             "added": total_added,
             "removed": total_removed,
@@ -474,17 +479,32 @@ def normalize_game_version(value: str) -> str:
     return value
 
 
-def parse_version_from_release_info_text(text: str) -> str:
+def parse_release_info_text(text: str) -> dict[str, str]:
     try:
         payload = json.loads(text)
     except json.JSONDecodeError:
-        return ""
+        return {}
     if not isinstance(payload, dict):
-        return ""
+        return {}
+
+    result = {}
     version = payload.get("version")
-    if not isinstance(version, str):
-        return ""
-    return normalize_game_version(version)
+    if isinstance(version, str):
+        result["version"] = normalize_game_version(version)
+
+    release_date = payload.get("date")
+    if isinstance(release_date, str):
+        result["date"] = release_date
+
+    return result
+
+
+def parse_version_from_release_info_text(text: str) -> str:
+    return parse_release_info_text(text).get("version", "")
+
+
+def parse_date_from_release_info_text(text: str) -> str:
+    return parse_release_info_text(text).get("date", "")
 
 
 def detect_game_version_from_local_release_info() -> str:
@@ -497,6 +517,19 @@ def detect_game_version_from_local_release_info() -> str:
             continue
         if version:
             return version
+    return ""
+
+
+def detect_release_date_from_local_release_info() -> str:
+    for path in RELEASE_INFO_PATHS:
+        if not path.exists():
+            continue
+        try:
+            release_date = parse_date_from_release_info_text(path.read_text(encoding="utf-8"))
+        except OSError:
+            continue
+        if release_date:
+            return release_date
     return ""
 
 
@@ -514,11 +547,41 @@ def detect_game_version_from_git_ref(ref: str) -> str:
     return ""
 
 
+def detect_release_date_from_git_ref(ref: str) -> str:
+    for release_info_path in ("extraction/release_info.json", "extraction/raw/release_info.json"):
+        result = subprocess.run(
+            ["git", "show", f"{ref}:{release_info_path}"],
+            capture_output=True, text=True, cwd=DATA_DIR.parent
+        )
+        if result.returncode != 0:
+            continue
+        release_date = parse_date_from_release_info_text(result.stdout)
+        if release_date:
+            return release_date
+    return ""
+
+
 def detect_game_version_from_label(label: str) -> str:
     match = re.search(r"v?\d+\.\d+\.\d+(?:[-._][A-Za-z0-9]+)?", label)
     if not match:
         return ""
     return normalize_game_version(match.group(0))
+
+
+def resolve_from_version(input_version: str, old_label: str, old_is_ref: bool) -> tuple[str, str]:
+    if input_version:
+        return normalize_game_version(input_version), "input"
+
+    if old_is_ref:
+        ref_version = detect_game_version_from_git_ref(old_label)
+        if ref_version:
+            return ref_version, "git_release_info"
+
+    label_version = detect_game_version_from_label(old_label)
+    if label_version:
+        return label_version, "label"
+
+    return "", "unknown"
 
 
 def resolve_game_version(input_version: str, new_label: str, new_ref: str | None, new_is_current: bool) -> tuple[str, str]:
@@ -544,6 +607,33 @@ def resolve_game_version(input_version: str, new_label: str, new_ref: str | None
         return label_version, "label"
 
     return "", "unknown"
+
+
+def resolve_release_date(input_date: str, new_ref: str | None, new_is_current: bool) -> tuple[str, str]:
+    if input_date:
+        return input_date, "input"
+
+    if new_ref:
+        ref_date = detect_release_date_from_git_ref(new_ref)
+        if ref_date:
+            return ref_date, "git_release_info"
+
+    if new_is_current:
+        local_date = detect_release_date_from_local_release_info()
+        if local_date:
+            return local_date, "local_release_info"
+
+    return "", "unknown"
+
+
+def build_display_labels(old_label: str, new_label: str, from_version: str, game_version: str) -> tuple[str, str]:
+    old_display = from_version or old_label
+    new_display = game_version or new_label
+    if old_label == "HEAD" and not from_version:
+        old_display = "previous commit"
+    if new_label == "current" and not game_version:
+        new_display = "current extraction"
+    return old_display, new_display
 
 
 def summarize(results: dict) -> dict[str, int]:
@@ -608,6 +698,7 @@ def main():
     argv = sys.argv[1:]
     fmt, argv = parse_named_arg(argv, "--format", "text")
     game_version_input, argv = parse_named_arg(argv, "--game-version", "")
+    from_version_input, argv = parse_named_arg(argv, "--from-version", "")
     build_id, argv = parse_named_arg(argv, "--build-id", "")
     codex_version, argv = parse_named_arg(argv, "--codex-version", "")
     date, argv = parse_named_arg(argv, "--date", "")
@@ -624,6 +715,7 @@ def main():
     tmp_dir = None
     new_ref_for_version = None
     new_is_current = False
+    old_is_ref = False
 
     if len(args) == 1:
         old_ref = args[0]
@@ -633,6 +725,7 @@ def main():
         tmp_dir = Path(tempfile.mkdtemp())
         old_dir = extract_git_data(old_ref, tmp_dir)
         old_label = old_ref
+        old_is_ref = True
     elif len(args) == 2:
         old_path = Path(args[0])
         new_path = Path(args[1])
@@ -648,6 +741,7 @@ def main():
             old_label = args[0]
             new_label = args[1]
             new_ref_for_version = args[1]
+            old_is_ref = True
     else:
         print("Usage: tools/diff_data.py <old_ref> [new_ref] [--format text|md|json] [--game-version X] [--build-id Y] [--codex-version N] [--date Z] [--title T]", file=sys.stderr)
         sys.exit(1)
@@ -670,17 +764,37 @@ def main():
         )
         if game_version and (fmt == "json" or record):
             print(f"Using game version: {game_version} (source: {game_version_source})")
+        from_version, from_version_source = resolve_from_version(
+            input_version=from_version_input,
+            old_label=old_label,
+            old_is_ref=old_is_ref,
+        )
+        if from_version and (fmt == "json" or record):
+            print(f"Using from version: {from_version} (source: {from_version_source})")
+        old_display_label, new_display_label = build_display_labels(
+            old_label=old_label,
+            new_label=new_label,
+            from_version=from_version,
+            game_version=game_version,
+        )
+        release_date, release_date_source = resolve_release_date(
+            input_date=date,
+            new_ref=new_ref_for_version,
+            new_is_current=new_is_current,
+        )
+        if release_date and (fmt == "json" or record):
+            print(f"Using release date: {release_date} (source: {release_date_source})")
 
         if fmt == "md":
-            print_markdown(results, old_label, new_label)
+            print_markdown(results, old_display_label, new_display_label)
         elif fmt == "json":
             if not game_version:
                 game_version = normalize_game_version(new_label) or "unknown"
             if not date:
-                date = d.today().isoformat()
+                date = release_date or d.today().isoformat()
             if not title:
                 title = f"Update {game_version}" + (f" (Codex {codex_version})" if codex_version else "")
-            changelog = build_json_output(results, game_version, build_id, codex_version, date, title, old_label, new_label)
+            changelog = build_json_output(results, game_version, from_version, build_id, codex_version, date, title, old_label, new_label, old_display_label, new_display_label)
             # Save to changelogs directory — keyed by tag
             tag = changelog["tag"]
             out_path = DATA_DIR / "changelogs" / f"{tag}.json"
@@ -691,29 +805,39 @@ def main():
             # Also print to stdout
             print(json.dumps(changelog["summary"], indent=2))
         else:
-            print_text(results, old_label, new_label)
+            print_text(results, old_display_label, new_display_label)
 
         if record:
             now = datetime.now().strftime("%Y-%m-%d")
             if not report_name:
                 if game_version:
                     tag = f"{game_version}-codex{codex_version}" if codex_version else game_version
-                    report_name = f"{tag}_{sanitize_label(old_label)}_to_{sanitize_label(new_label)}"
+                    if from_version and from_version != game_version:
+                        report_name = f"{from_version}_to_{tag}"
+                    else:
+                        report_name = f"{tag}_{sanitize_label(old_display_label)}_to_{sanitize_label(new_display_label)}"
                 else:
-                    report_name = f"{now}_{sanitize_label(old_label)}_to_{sanitize_label(new_label)}"
+                    report_name = f"{now}_{sanitize_label(old_display_label)}_to_{sanitize_label(new_display_label)}"
             out_base = Path(out_dir).expanduser().resolve()
             out_base.mkdir(parents=True, exist_ok=True)
 
             md_path = out_base / f"{report_name}.md"
             json_path = out_base / f"{report_name}.json"
 
-            md_path.write_text(markdown_text(results, old_label, new_label), encoding="utf-8")
+            md_path.write_text(markdown_text(results, old_display_label, new_display_label), encoding="utf-8")
             record_payload = {
                 "created_at": datetime.now().isoformat(timespec="seconds"),
+                "release_date": release_date or None,
+                "release_date_source": release_date_source,
                 "from_ref": old_label,
                 "to_ref": new_label,
+                "from_version": from_version or None,
+                "to_version": game_version or None,
+                "from_label": old_display_label,
+                "to_label": new_display_label,
                 "game_version": game_version or None,
                 "game_version_source": game_version_source,
+                "from_version_source": from_version_source,
                 "summary": summarize(results),
                 "categories": serialize_results(results),
             }

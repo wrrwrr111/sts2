@@ -1,9 +1,16 @@
 {
   "created_at": "2026-06-11T17:07:01",
+  "release_date": "2026-05-29T13:36:05-07:00",
+  "release_date_source": "release_info",
   "from_ref": "HEAD",
   "to_ref": "current",
+  "from_version": "0.99.1",
+  "to_version": "0.103.3",
+  "from_label": "0.99.1",
+  "to_label": "0.103.3",
   "game_version": "0.103.3",
   "game_version_source": "input",
+  "from_version_source": "previous_report",
   "summary": {
     "added": 18,
     "removed": 7,
