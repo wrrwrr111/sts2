@@ -1,0 +1,89 @@
+---
+import CardView from "../CardView.astro";
+import type { Card } from "../../lib/cardModels";
+import type { Lang } from "../../lib/i18n";
+import { withLang } from "../../lib/i18n";
+
+type DeckEntry = {
+  card: Card;
+  label: string;
+};
+
+type Props = {
+  basePath: string;
+  lang: Lang;
+  title: string;
+  countLabel: string;
+  noneLabel: string;
+  showUpgradeLabel: string;
+  showBaseLabel: string;
+  hasUpgrades: boolean;
+  entries: DeckEntry[];
+};
+
+const {
+  basePath,
+  lang,
+  title,
+  countLabel,
+  noneLabel,
+  showUpgradeLabel,
+  showBaseLabel,
+  hasUpgrades,
+  entries,
+} = Astro.props as Props;
+---
+
+<div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{title}</h2>
+    <div class="flex flex-wrap items-center gap-3">
+      {entries.length > 0 && (
+        <div class="text-[11px] text-[#9ea2b3]">{countLabel}</div>
+      )}
+      {hasUpgrades && (
+        <button
+          type="button"
+          id="deck-toggle-upgrade"
+          data-label-upgrade={showUpgradeLabel}
+          data-label-base={showBaseLabel}
+          class="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-[#f2e5cd] hover:border-white/30 hover:bg-white/15"
+        >
+          {showUpgradeLabel}
+        </button>
+      )}
+    </div>
+  </div>
+  {entries.length > 0 ? (
+    <div
+      class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
+      data-deck-cards
+    >
+      {entries.map(({ card, label }) => (
+        <div
+          class="flex justify-center"
+          data-card-entry
+          data-has-upgrade={card.upgrade ? "1" : "0"}
+        >
+          <a
+            href={withLang(`${basePath}/card/${card.id}`, lang)}
+            aria-label={label}
+          >
+            <div class="origin-top-left scale-[0.85]">
+              <div data-card-variant="base">
+                <CardView card={card} variant="base" lang={lang} />
+              </div>
+              {card.upgrade && (
+                <div data-card-variant="upgrade" class="hidden">
+                  <CardView card={card} variant="upgrade" lang={lang} />
+                </div>
+              )}
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="mt-3 text-[11px] text-[#9ea2b3]">{noneLabel}</div>
+  )}
+</div>

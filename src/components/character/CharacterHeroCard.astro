@@ -1,0 +1,33 @@
+---
+type Props = {
+  basePath: string;
+  imageUrl: string;
+  name: string;
+  colorLabel: string;
+  unlockText?: string | null;
+};
+
+const { basePath, imageUrl, name, colorLabel, unlockText } =
+  Astro.props as Props;
+---
+
+<div class="rounded-[18px] border border-white/10 bg-white/5 p-4 h-fit">
+  <div class="rounded-[14px] border border-white/10 bg-black/30 p-3">
+    <img
+      class="h-[220px] w-full object-contain"
+      src={`${basePath}${imageUrl}`}
+      alt={name}
+      loading="lazy"
+    />
+  </div>
+  <div class="mt-4 grid gap-2">
+    <div class="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[#f2e5cd]">
+      {colorLabel}
+    </div>
+    {unlockText && (
+      <div class="text-center text-[11px] text-[#9ea2b3]">
+        {unlockText}
+      </div>
+    )}
+  </div>
+</div>

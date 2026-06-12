@@ -1,0 +1,64 @@
+---
+type RelicEntry = {
+  id: string;
+  name: string;
+  href: string;
+  imageUrl: string | null;
+  descriptionHtml: string | null;
+};
+
+type Props = {
+  basePath: string;
+  title: string;
+  noneLabel: string;
+  noDescriptionLabel: string;
+  entries: RelicEntry[];
+};
+
+const { basePath, title, noneLabel, noDescriptionLabel, entries } =
+  Astro.props as Props;
+---
+
+<div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+  <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{title}</h2>
+  {entries.length > 0 ? (
+    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+      {entries.map((relic) => (
+        <a
+          class="group flex gap-3 rounded-[14px] border border-white/10 bg-white/5 p-3 transition hover:border-white/25 hover:bg-white/10"
+          href={relic.href}
+        >
+          <div class="h-[56px] w-[56px] rounded-[10px] border border-white/10 bg-black/30 p-2">
+            {relic.imageUrl ? (
+              <img
+                class="h-full w-full object-contain"
+                src={`${basePath}${relic.imageUrl}`}
+                alt={relic.name}
+                loading="lazy"
+              />
+            ) : (
+              <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
+                —
+              </div>
+            )}
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-[13px] font-semibold text-[#fdf0d8]">
+              {relic.name}
+            </div>
+            {relic.descriptionHtml ? (
+              <div
+                class="mt-1 text-[11px] leading-[1.35] text-[#f2e5cd]"
+                set:html={relic.descriptionHtml}
+              />
+            ) : (
+              <div class="mt-1 text-[11px] text-[#9ea2b3]">{noDescriptionLabel}</div>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div class="mt-3 text-[11px] text-[#9ea2b3]">{noneLabel}</div>
+  )}
+</div>

@@ -1,0 +1,93 @@
+---
+type OrbValues = {
+  passive: number | null;
+  evoke: number | null;
+  note: string | null;
+};
+
+type OrbEntry = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+  values: OrbValues;
+  descriptionHtml: string;
+};
+
+type Props = {
+  basePath: string;
+  title: string;
+  passiveLabel: string;
+  evokeLabel: string;
+  entries: OrbEntry[];
+};
+
+const { basePath, title, passiveLabel, evokeLabel, entries } =
+  Astro.props as Props;
+---
+
+{entries.length > 0 && (
+  <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+    <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{title}</h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+      {entries.map((orb) => {
+        const showValues =
+          orb.values.passive !== null ||
+          orb.values.evoke !== null ||
+          Boolean(orb.values.note);
+        return (
+          <div class="rounded-[14px] border border-white/10 bg-white/5 p-3">
+            <div class="flex items-center gap-3">
+              <div class="h-[44px] w-[44px] rounded-[10px] border border-white/10 bg-black/30 p-1.5">
+                {orb.imageUrl ? (
+                  <img
+                    class="h-full w-full object-contain"
+                    src={`${basePath}${orb.imageUrl}`}
+                    alt={orb.name}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="flex h-full w-full items-center justify-center text-[10px] text-white/40">
+                    —
+                  </div>
+                )}
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-[13px] font-semibold text-[#fdf0d8]">
+                  {orb.name}
+                </div>
+                {showValues && (
+                  <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                    {passiveLabel} {orb.values.passive ?? "?"}
+                    <span class="mx-1">/</span>
+                    {evokeLabel} {orb.values.evoke ?? "?"}
+                    {orb.values.note && (
+                      <span class="ml-2 text-[#b7bccb]">
+                        {orb.values.note}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+            {showValues && (
+              <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3] sm:hidden">
+                {passiveLabel} {orb.values.passive ?? "?"}
+                <span class="mx-1">/</span>
+                {evokeLabel} {orb.values.evoke ?? "?"}
+                {orb.values.note && (
+                  <span class="ml-2 text-[#b7bccb]">
+                    {orb.values.note}
+                  </span>
+                )}
+              </div>
+            )}
+            <div
+              class="mt-2 text-[11px] leading-[1.35] text-[#f2e5cd]"
+              set:html={orb.descriptionHtml}
+            />
+          </div>
+        );
+      })}
+    </div>
+  </div>
+)}

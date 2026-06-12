@@ -1,0 +1,25 @@
+---
+type CharacterStat = {
+  label: string;
+  value: number | string;
+};
+
+type Props = {
+  stats: CharacterStat[];
+};
+
+const { stats } = Astro.props as Props;
+---
+
+<div class="grid gap-3 sm:grid-cols-2">
+  {stats.map((stat) => (
+    <div class="rounded-[16px] border border-white/10 bg-white/5 p-4">
+      <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+        {stat.label}
+      </div>
+      <div class="mt-1 text-[18px] font-semibold text-[#fdf0d8]">
+        {stat.value}
+      </div>
+    </div>
+  ))}
+</div>
