@@ -5,6 +5,12 @@ import type { Card, Keyword } from "../lib/cardModels";
 import { TYPE_ZH } from "../lib/cardModels";
 import type { Lang } from "../lib/i18n";
 import { pickText } from "../lib/i18n";
+import {
+  closeRichTextTag,
+  escapeHtml,
+  escapeHtmlAttribute,
+  openRichTextTag,
+} from "../lib/richText";
 
 type Props = {
   card: Card;
@@ -68,89 +74,16 @@ const keywordLabel = (kw: string) => {
   return isEn ? hit.name ?? hit.name_zh ?? kw : hit.name_zh ?? hit.name ?? kw;
 };
 
-const escapeHtml = (value: string) =>
-  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-const escapeAttr = (value: string) =>
-  value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-
-const openTag = (tag: string) => {
-  const t = tag.toLowerCase();
-  if (t === "b") return '<strong class="inline-block">';
-  if (t === "i") return '<em class="inline-block">';
-  if (t === "u") return '<span class="inline-block underline">';
-  if (t === "gold") return '<span class="inline-block text-[#ffd38c]">';
-  if (t === "red") return '<span class="inline-block text-[#ff7b7b]">';
-  if (t === "blue") return '<span class="inline-block text-[#7fb8ff]">';
-  if (t === "green") return '<span class="inline-block text-[#86e3a0]">';
-  if (t === "purple") return '<span class="inline-block text-[#b89bff]">';
-  if (t === "orange") return '<span class="inline-block text-[#ffb46a]">';
-  if (t === "aqua") return '<span class="inline-block text-[#7fe3ff]">';
-  if (t === "pink") return '<span class="inline-block text-[#ff9bd0]">';
-  if (t === "rainbow") {
-    return '<span class="inline-block text-transparent [background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bffb6,#6bc7ff,#b56bff)] [-webkit-background-clip:text]">';
-  }
-  if (t === "amount")
-    return '<span class="inline-block text-[#ffe6b0] font-semibold">';
-  if (t === "passive" || t === "evoke")
-    return '<span class="inline-block text-[#bfe5ff] uppercase tracking-[0.08em] text-[0.85em]">';
-  if (t === "sine") return '<span class="inline-block animate-bounce">';
-  if (t === "jitter") return '<span class="inline-block animate-pulse">';
-  return '<span class="inline-block">';
-};
-
-const closeTag = (tag: string) => {
-  const t = tag.toLowerCase();
-  if (t === "b") return "</strong>";
-  if (t === "i") return "</em>";
-  if (t === "u") return "</span>";
-  return "</span>";
-};
-
 const openTagWithTitle = (tag: string, innerText: string) => {
-  const t = tag.toLowerCase();
   const key = innerText.trim().toLowerCase();
   const tipHtml = keywordTipHtmlMap.get(key) ?? "";
   if (!tipHtml) {
-    return openTag(tag);
+    return openRichTextTag(tag);
   }
-  const tipAttr = ` data-tip-html="${escapeAttr(tipHtml)}" class="inline-block relative cursor-help"`;
-  if (t === "b") return `<strong${tipAttr}>`;
-  if (t === "i") return `<em${tipAttr}>`;
-  if (t === "u")
-    return `<span class="inline-block underline relative cursor-help" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "gold")
-    return `<span class="inline-block relative cursor-help text-[#ffd38c]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "red")
-    return `<span class="inline-block relative cursor-help text-[#ff7b7b]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "blue")
-    return `<span class="inline-block relative cursor-help text-[#7fb8ff]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "green")
-    return `<span class="inline-block relative cursor-help text-[#86e3a0]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "purple")
-    return `<span class="inline-block relative cursor-help text-[#b89bff]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "orange")
-    return `<span class="inline-block relative cursor-help text-[#ffb46a]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "aqua")
-    return `<span class="inline-block relative cursor-help text-[#7fe3ff]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "pink")
-    return `<span class="inline-block relative cursor-help text-[#ff9bd0]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "rainbow") {
-    return `<span class="inline-block relative cursor-help text-transparent [background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bffb6,#6bc7ff,#b56bff)] [-webkit-background-clip:text]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  }
-  if (t === "amount")
-    return `<span class="inline-block relative cursor-help text-[#ffe6b0] font-semibold" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "passive" || t === "evoke")
-    return `<span class="inline-block relative cursor-help text-[#bfe5ff] uppercase tracking-[0.08em] text-[0.85em]" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "sine")
-    return `<span class="inline-block relative cursor-help animate-bounce" data-tip-html="${escapeAttr(tipHtml)}">`;
-  if (t === "jitter")
-    return `<span class="inline-block relative cursor-help animate-pulse" data-tip-html="${escapeAttr(tipHtml)}">`;
-  return `<span class="inline-block relative cursor-help" data-tip-html="${escapeAttr(tipHtml)}">`;
+  return openRichTextTag(tag, undefined, {
+    extraClasses: ["relative", "cursor-help"],
+    attributes: { "data-tip-html": tipHtml },
+  });
 };
 
 const energyIconForColor = (color: string | null) => {
@@ -287,11 +220,11 @@ const formatDescription = (
     .replace(/\[([a-zA-Z0-9_]+)\]([\s\S]*?)\[\/\1\]/g, (_, tag, inner) => {
       const plain = inner.replace(/\[\/?[a-zA-Z0-9_]+\]/g, "");
       return withTooltips
-        ? `${openTagWithTitle(tag, plain)}${inner}${closeTag(tag)}`
-        : `${openTag(tag)}${inner}${closeTag(tag)}`;
+        ? `${openTagWithTitle(tag, plain)}${inner}${closeRichTextTag(tag)}`
+        : `${openRichTextTag(tag)}${inner}${closeRichTextTag(tag)}`;
     })
-    .replace(/\[([a-zA-Z0-9_]+)\]/g, (_, tag) => openTag(tag))
-    .replace(/\[\/([a-zA-Z0-9_]+)\]/g, (_, tag) => closeTag(tag))
+    .replace(/\[([a-zA-Z0-9_]+)\]/g, (_, tag) => openRichTextTag(tag))
+    .replace(/\[\/([a-zA-Z0-9_]+)\]/g, (_, tag) => closeRichTextTag(tag))
     .replace(/\n/g, "<br />");
   if (!options.highlightValues || options.highlightValues.size === 0)
     return html;
@@ -684,7 +617,7 @@ const searchText = [
               {leadingKeywordLines.map((kw) => (
                 <div
                   class={kw.tip ? "cursor-help" : ""}
-                  data-tip-html={kw.tip ? escapeAttr(kw.tip) : undefined}
+                  data-tip-html={kw.tip ? escapeHtmlAttribute(kw.tip) : undefined}
                 >
                   {kw.label}
                 </div>
@@ -708,7 +641,7 @@ const searchText = [
               {trailingKeywordLines.map((kw) => (
                 <div
                   class={kw.tip ? "cursor-help" : ""}
-                  data-tip-html={kw.tip ? escapeAttr(kw.tip) : undefined}
+                  data-tip-html={kw.tip ? escapeHtmlAttribute(kw.tip) : undefined}
                 >
                   {kw.label}
                 </div>
