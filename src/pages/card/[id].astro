@@ -157,28 +157,28 @@ const t = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={displayName} />
   </Fragment>
-  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
-      <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
+  <main class="page-shell" data-base-path={base}>
+    <div class="page-stack">
+      <div class="page-heading-row">
         <div>
           <a
-            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            class="page-back-link"
             href={withLang(`${base}/`, lang)}
           >
             {t.back}
           </a>
           <div class="mt-2 flex flex-wrap items-center gap-3">
-            <h1 class="text-[26px] font-semibold text-[#fdf0d8]">
+            <h1 class="page-title mt-0">
               {displayName}
             </h1>
             <VotePanel entityType="card" entityId={card.id} lang={lang} />
           </div>
-          {subtitle && <p class="mt-1 text-[#c4c7d6]">{subtitle}</p>}
+          {subtitle && <p class="page-subtitle">{subtitle}</p>}
         </div>
         <TopNav current="cards" basePath={base} lang={lang} />
       </div>
       {hasUpgrade ? (
-        <div class="flex flex-wrap items-start gap-6">
+        <div class="flex flex-wrap items-start justify-center gap-6 sm:justify-start">
           <div class="flex flex-col items-center gap-2">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
               {t.base}
@@ -193,7 +193,7 @@ const t = {
           </div>
         </div>
       ) : (
-        <div class="flex items-start">
+        <div class="flex items-start justify-center sm:justify-start">
           <CardView card={card} lang={lang} />
         </div>
       )}
@@ -255,8 +255,8 @@ const t = {
       )}
 
       {keywordDetails.length > 0 && (
-        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-          <h2 class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+        <section class="surface-panel">
+          <h2 class="section-eyebrow">
             {t.keywordTips}
           </h2>
           <div class="mt-2 grid gap-2 sm:grid-cols-2">

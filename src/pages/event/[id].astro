@@ -135,7 +135,6 @@ const getRelicImage = (relic: RelicEntity) =>
 const getPotionImage = (potion: PotionEntity) =>
   normalizeImageUrl(potion.image_url ?? null) ??
   `/images/potions/${potion.id.toLowerCase()}.png`;
-const getEventImage = (item: EventItem) => normalizeImageUrl(item.image_url ?? null);
 const getRelicDesc = (relic: RelicEntity) =>
   pickText(lang, relic.description_zh, relic.description);
 const getPotionDesc = (potion: PotionEntity) =>
@@ -283,12 +282,58 @@ const relatedPotions = relatedPotionIds
 
 const hasRelatedEntities =
   relatedCards.length > 0 || relatedRelics.length > 0 || relatedPotions.length > 0;
+const eventPages = event.pages ?? [];
+const eventPageById = new Map(eventPages.map((page) => [page.id, page]));
+const branchPages = eventPages
+  .filter((page) => (page.options?.length ?? 0) > 0)
+  .sort((a, b) => {
+    const getPriority = (page: EventPage) =>
+      page.id === "INITIAL" ? 0 : page.id === "ALL" ? 2 : 1;
+    return getPriority(a) - getPriority(b);
+  })
+  .map((page, index, pages) => ({
+    ...page,
+    stageNumber:
+      page.id === "INITIAL" || page.id === "ALL"
+        ? null
+        : pages
+            .slice(0, index + 1)
+            .filter((candidate) => candidate.id !== "INITIAL" && candidate.id !== "ALL")
+            .length,
+  }));
+const referencedTerminalPageIds = new Set(
+  branchPages.flatMap((page) =>
+    (page.options ?? [])
+      .map((option) => eventPageById.get(option.id))
+      .filter(
+        (target): target is EventPage =>
+          Boolean(target) && (target.options?.length ?? 0) === 0,
+      )
+      .map((target) => target.id),
+  ),
+);
+const standaloneResultPages = eventPages.filter(
+  (page) =>
+    (page.options?.length ?? 0) === 0 &&
+    !referencedTerminalPageIds.has(page.id),
+);
 
 const t = {
   back: isEn ? "Back to Events" : "返回事件",
   unknown: isEn ? "Unknown" : "未知",
-  options: isEn ? "Options" : "选项",
-  pages: isEn ? "Pages" : "事件页面",
+  flow: isEn ? "Event Flow" : "事件流程",
+  initialScene: isEn ? "Initial Scene" : "初始场景",
+  sharedOptions: isEn ? "Shared Options" : "通用选项",
+  sharedOptionsHint: isEn
+    ? "These choices may appear during multiple stages."
+    : "这些选项可能在多个阶段重复出现。",
+  stage: isEn ? "Stage" : "阶段",
+  scene: isEn ? "Scene" : "场景",
+  choice: isEn ? "Choice" : "选择",
+  immediateEffect: isEn ? "Immediate Effect" : "即时效果",
+  result: isEn ? "Result" : "结果",
+  nextStage: isEn ? "Continues to another stage" : "进入下一阶段",
+  otherResults: isEn ? "Other Results" : "其他结果",
   related: isEn ? "Related Content" : "相关内容",
   cards: isEn ? "Cards" : "卡牌",
   relics: isEn ? "Relics" : "遗物",
@@ -312,57 +357,32 @@ const t = {
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
-      <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
+  <main class="page-shell" data-base-path={base}>
+    <div class="page-stack">
+      <div class="page-heading-row">
         <div>
           <a
-            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            class="page-back-link"
             href={withLang(`${base}/events`, lang)}
           >
             {t.back}
           </a>
-          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
+          <h1 class="page-title">
             {displayName}
           </h1>
-          <p class="mt-1 text-[#c4c7d6]">
+          <p class="page-subtitle">
             {(event.act ?? t.unknown)} · {(event.type ?? t.unknown)}
           </p>
         </div>
         <TopNav current="events" basePath={base} lang={lang} />
       </div>
-      <div class="w-full max-w-[820px] flex flex-col gap-4">
-        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <div class="text-[20px] font-semibold text-[#fdf0d8]">{displayName}</div>
-            <div class="mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
-              {(event.act ?? t.unknown).toUpperCase()} · {(event.type ?? "").toUpperCase()}
-            </div>
-          </div>
-          {getEventImage(event) && (
-            <div class="h-[92px] w-[92px] shrink-0 overflow-hidden rounded-[14px] border border-white/15 bg-black/30 p-2">
-              <img
-                class="h-full w-full object-contain"
-                src={`${base}${getEventImage(event)}`}
-                alt={displayName}
-                loading="lazy"
-              />
-            </div>
-          )}
-        </div>
-        <div
-          class="mt-4 text-[13px] leading-[1.5] text-[#f2e5cd]"
-          set:html={formatEventText(pickText(lang, event.description_zh, event.description))}
-        />
-        </section>
-
+      <div class="detail-stack max-w-[820px]">
         {ancientProfiles.length > 0 && (
-          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+          <section class="surface-panel">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
               {t.ancientVariants}
             </div>
-            <div class="mt-3 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+            <div class="section-eyebrow mt-3">
               {t.profile}
             </div>
             <div class="mt-2 flex flex-wrap gap-2">
@@ -409,73 +429,141 @@ const t = {
           </section>
         )}
 
-        {event.options && event.options.length > 0 && (
-          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.options}</div>
-            <div class="mt-2 grid gap-2">
-              {event.options.map((opt) => (
-                <div class="rounded-[10px] border border-white/10 bg-white/5 px-3 py-2">
-                  <div class="text-[12px] font-semibold text-[#fdf0d8]">
-                    {pickText(lang, opt.title_zh, opt.title, opt.id)}
-                  </div>
-                  {(pickText(lang, opt.description_zh, opt.description)) && (
-                    <div
-                      class="mt-1 text-[12px] text-[#f2e5cd]"
-                      set:html={formatEventText(pickText(lang, opt.description_zh, opt.description))}
-                    />
+        {branchPages.length > 0 && (
+          <details class="surface-panel group" open>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+              <span class="section-eyebrow">{t.flow}</span>
+              <span class="text-[14px] text-[#9ea2b3] transition-transform group-open:rotate-180">⌄</span>
+            </summary>
+            <div class="mt-4 grid gap-4">
+              {branchPages.map((page) => (
+                <details class="group/stage overflow-hidden rounded-[14px] border border-white/15 bg-black/20" open>
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-2 border-b border-white/10 bg-white/5 px-4 py-2.5 [&::-webkit-details-marker]:hidden">
+                    <span class="flex min-w-0 items-center gap-2">
+                      <span class="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f2e5cd]">
+                        {page.id === "INITIAL"
+                          ? t.initialScene
+                          : page.id === "ALL"
+                            ? t.sharedOptions
+                            : `${t.stage} ${page.stageNumber}`}
+                      </span>
+                      {page.id !== "INITIAL" && page.id !== "ALL" && (
+                        <span class="truncate text-[10px] uppercase tracking-[0.18em] text-[#8f95a8]">
+                          {page.id}
+                        </span>
+                      )}
+                    </span>
+                    <span class="shrink-0 text-[13px] text-[#9ea2b3] transition-transform group-open/stage:rotate-180">⌄</span>
+                  </summary>
+                  <div class="p-4">
+                  {page.id === "ALL" && (
+                    <p class="text-[11px] leading-[1.5] text-[#9ea2b3]">
+                      {t.sharedOptionsHint}
+                    </p>
                   )}
-                </div>
+                  {(pickText(lang, page.description_zh, page.description)) && (
+                    <div class="border-l-2 border-white/15 pl-3">
+                      <div class="text-[10px] uppercase tracking-[0.2em] text-[#9ea2b3]">{t.scene}</div>
+                      <div
+                        class="mt-1.5 text-[12px] leading-[1.55] text-[#f2e5cd]"
+                        set:html={formatEventText(pickText(lang, page.description_zh, page.description))}
+                      />
+                    </div>
+                  )}
+                    <div class:list={["grid gap-3", page.id === "ALL" ? "mt-3" : "mt-4"]}>
+                      {(page.options ?? []).map((opt, optionIndex) => {
+                        const targetPage = eventPageById.get(opt.id);
+                        return (
+                          <div class="relative pl-5">
+                            <div class="absolute bottom-0 left-[7px] top-3 w-px bg-white/15"></div>
+                            <div class="absolute left-0 top-2 flex h-[15px] w-[15px] items-center justify-center rounded-full border border-[#8fd0ff]/40 bg-[#172332] text-[9px] font-semibold text-[#b9e2ff]">
+                              {optionIndex + 1}
+                            </div>
+                            <div class="rounded-[12px] border border-[#8fd0ff]/20 bg-[#8fd0ff]/5 p-3">
+                              <div class="text-[10px] uppercase tracking-[0.2em] text-[#8fc7eb]">{t.choice}</div>
+                              <div class="mt-1 text-[13px] font-semibold text-[#fdf0d8]">
+                                {pickText(lang, opt.title_zh, opt.title, opt.id)}
+                              </div>
+                              {(pickText(lang, opt.description_zh, opt.description)) && (
+                                <div class="mt-2 rounded-[9px] bg-black/20 px-3 py-2">
+                                  <div class="text-[9px] uppercase tracking-[0.18em] text-[#9ea2b3]">
+                                    {t.immediateEffect}
+                                  </div>
+                                  <div
+                                    class="mt-1 text-[12px] leading-[1.5] text-[#d9dcec]"
+                                    set:html={formatEventText(pickText(lang, opt.description_zh, opt.description))}
+                                  />
+                                </div>
+                              )}
+                              {targetPage && (
+                                <div class="mt-2 border-t border-white/10 pt-2.5">
+                                  <div class="flex flex-wrap items-center gap-2">
+                                    <span class="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#9be8b6]">
+                                      → {t.result}
+                                    </span>
+                                    <span class="text-[9px] uppercase tracking-[0.16em] text-[#7f8598]">
+                                      {targetPage.id}
+                                    </span>
+                                  </div>
+                                  {(pickText(lang, targetPage.description_zh, targetPage.description)) && (
+                                    <div
+                                      class="mt-1.5 text-[12px] leading-[1.55] text-[#cfe8d7]"
+                                      set:html={formatEventText(pickText(lang, targetPage.description_zh, targetPage.description))}
+                                    />
+                                  )}
+                                  {(targetPage.options?.length ?? 0) > 0 && (
+                                    <div class="mt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#d8b879]">
+                                      {t.nextStage}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </details>
               ))}
             </div>
-          </section>
+          </details>
         )}
 
-        {event.pages && event.pages.length > 0 && (
-          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.pages}</div>
-            <div class="mt-3 grid gap-3">
-              {event.pages.map((page) => (
-                <div class="rounded-[12px] border border-white/10 bg-black/20 p-4">
-                  <div class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
-                    {page.id}
+        {standaloneResultPages.length > 0 && (
+          <section class="surface-panel">
+            <div class="section-eyebrow">{t.otherResults}</div>
+            <div class="mt-3 grid gap-2 sm:grid-cols-2">
+              {standaloneResultPages.map((page) => (
+                <article class="rounded-[12px] border border-white/10 bg-black/20 p-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#9be8b6]">
+                      {t.result}
+                    </span>
+                    <span class="truncate text-[9px] uppercase tracking-[0.16em] text-[#7f8598]">
+                      {page.id}
+                    </span>
                   </div>
                   {(pickText(lang, page.description_zh, page.description)) && (
                     <div
-                      class="mt-2 text-[12px] leading-[1.45] text-[#f2e5cd]"
+                      class="mt-2 text-[12px] leading-[1.5] text-[#d9dcec]"
                       set:html={formatEventText(pickText(lang, page.description_zh, page.description))}
                     />
                   )}
-                  {page.options && page.options.length > 0 && (
-                    <div class="mt-3 grid gap-2">
-                      {page.options.map((opt) => (
-                        <div class="rounded-[10px] border border-white/10 bg-white/5 px-3 py-2">
-                          <div class="text-[12px] font-semibold text-[#fdf0d8]">
-                            {pickText(lang, opt.title_zh, opt.title, opt.id)}
-                          </div>
-                          {(pickText(lang, opt.description_zh, opt.description)) && (
-                            <div
-                              class="mt-1 text-[12px] text-[#f2e5cd]"
-                              set:html={formatEventText(pickText(lang, opt.description_zh, opt.description))}
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                </article>
               ))}
             </div>
           </section>
         )}
 
         {hasRelatedEntities && (
-          <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+          <section class="surface-panel">
             <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">{t.related}</div>
             <div class="mt-3 grid gap-3">
               {relatedCards.length > 0 && (
                 <div>
                   <div class="text-[11px] uppercase tracking-[0.2em] text-[#aeb3c5]">{t.cards}</div>
-                  <section class="mt-2 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-[15px]">
+                  <section class="card-gallery-grid mt-2">
                     {relatedCards.map((card) => (
                       <a class="block" href={withLang(`${base}/card/${card.id}`, lang)}>
                         <CardView card={card} lang={lang} />

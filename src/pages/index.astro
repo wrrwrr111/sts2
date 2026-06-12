@@ -98,25 +98,25 @@ const rarityOptions = [
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
+  <main class="page-shell" data-base-path={base}>
+    <div class="page-stack">
       <header>
-        <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
-          <div>
-            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+        <div class="page-heading-row">
+          <div class="page-heading-copy">
+            <div class="page-eyebrow">
               {t.navLabel}
             </div>
-            <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
+            <h1 class="page-title">
               {t.title}
             </h1>
-            <p class="mt-1 text-[#c4c7d6]">{t.count}</p>
+            <p class="page-subtitle">{t.count}</p>
           </div>
           <TopNav current="cards" basePath={base} lang={lang} />
         </div>
       </header>
 
       <section
-        class="flex flex-col gap-2 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-3 py-3 sm:gap-3 sm:px-[18px] sm:py-[14px]"
+        class="filter-panel"
         aria-label="Card filters"
       >
         <div class="mb-1 flex items-center justify-between sm:hidden">
@@ -263,7 +263,7 @@ const rarityOptions = [
       </section>
 
       <section
-        class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-[15px]"
+        class="collection-panel card-gallery-grid"
         aria-label="Card gallery"
       >
         {
@@ -281,6 +281,8 @@ const rarityOptions = [
 </Layout>
 
 <script>
+  import { setupListFilterState } from "../lib/listFilterState";
+
   const byId = (id: string): HTMLElement | null =>
     document.getElementById(id);
   const filterToggleEl = byId("card-filter-toggle") as HTMLButtonElement | null;
@@ -506,4 +508,6 @@ const rarityOptions = [
       e.target instanceof Element ? e.target.closest("[data-tip-html]") : null;
     if (target && target === activeTip) hideTip();
   });
+
+  setupListFilterState({ searchEl, resetEl });
 </script>

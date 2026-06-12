@@ -34,9 +34,9 @@ const {
 } = Astro.props as Props;
 ---
 
-<div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+<div class="surface-panel">
   <div class="flex flex-wrap items-center justify-between gap-2">
-    <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{title}</h2>
+    <h2 class="section-heading">{title}</h2>
     <div class="flex flex-wrap items-center gap-3">
       {entries.length > 0 && (
         <div class="text-[11px] text-[#9ea2b3]">{countLabel}</div>

@@ -101,16 +101,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const lang = getLangFromUrl(Astro.url);
 const isEn = lang === "en";
 
-const characters = charactersData as Character[];
+const isVisibleCharacter = (character: Character) =>
+  character.id !== "DEPRECATED_CHARACTER";
+const characters = (charactersData as Character[]).filter(isVisibleCharacter);
 const cards = cardsData as Card[];
 const relics = relicsData as Relic[];
 const orbs = orbsData as Orb[];
 const events = eventsData as EventItem[];
 
 export const getStaticPaths = () =>
-  (charactersData as Character[]).map((character) => ({
-    params: { id: character.id },
-  }));
+  (charactersData as Character[])
+    .filter((character) => character.id !== "DEPRECATED_CHARACTER")
+    .map((character) => ({
+      params: { id: character.id },
+    }));
 
 const { id } = Astro.params;
 const character = characters.find(
@@ -393,20 +397,20 @@ const orbEntries = displayOrbs.map((orb) => ({
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={getName(character)} />
   </Fragment>
-  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
-      <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
+  <main class="page-shell" data-base-path={base}>
+    <div class="page-stack">
+      <div class="page-heading-row">
         <div>
           <a
-            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            class="page-back-link"
             href={withLang(`${base}/characters`, lang)}
           >
             {t.back}
           </a>
-          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
+          <h1 class="page-title">
             {getName(character)}
           </h1>
-          <p class="mt-1 text-[#c4c7d6]">
+          <p class="page-subtitle">
             {(character.name ?? character.id).toUpperCase()}
           </p>
         </div>
@@ -423,8 +427,8 @@ const orbEntries = displayOrbs.map((orb) => ({
         />
 
         <div class="flex flex-col gap-4">
-          <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-            <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.intro}</h2>
+          <div class="surface-panel">
+            <h2 class="section-heading">{t.intro}</h2>
             <p class="mt-2 whitespace-pre-line text-[12px] leading-[1.5] text-[#f2e5cd]">
               {pickText(lang, character.description_zh, character.description) || t.noDescription}
             </p>
@@ -460,11 +464,11 @@ const orbEntries = displayOrbs.map((orb) => ({
             entries={orbEntries}
           />
 
-          <div class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-            <h2 class="text-[14px] font-semibold text-[#fdf0d8]">{t.ancients}</h2>
+          <div class="surface-panel">
+            <h2 class="section-heading">{t.ancients}</h2>
             {quoteEntries.length > 0 && (
               <div class="mt-3">
-                <h3 class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                <h3 class="section-eyebrow">
                   {t.ancientQuotes}
                 </h3>
                 <div class="mt-2 grid gap-2 sm:grid-cols-2">
@@ -485,7 +489,7 @@ const orbEntries = displayOrbs.map((orb) => ({
 
             {ancientDialogues.length > 0 && (
               <div class="mt-4">
-                <h3 class="text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+                <h3 class="section-eyebrow">
                   {t.ancientDialogues}
                 </h3>
                 <div class="mt-2 grid gap-2">

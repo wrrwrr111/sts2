@@ -82,23 +82,23 @@ const t = {
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
+  <main class="page-shell" data-base-path={base}>
+    <div class="page-stack">
       <header>
-        <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
-          <div>
-            <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+        <div class="page-heading-row">
+          <div class="page-heading-copy">
+            <div class="page-eyebrow">
               {t.navLabel}
             </div>
-            <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">{t.title}</h1>
-            <p class="mt-1 text-[#c4c7d6]">{t.count}</p>
+            <h1 class="page-title">{t.title}</h1>
+            <p class="page-subtitle">{t.count}</p>
           </div>
           <TopNav current="monsters" basePath={base} lang={lang} />
         </div>
       </header>
 
       <section
-        class="flex flex-col gap-2 rounded-2xl border border-white/10 bg-[rgba(16,18,26,0.7)] px-3 py-3 sm:gap-3 sm:px-[18px] sm:py-[14px]"
+        class="filter-panel"
         aria-label="Monster filters"
       >
         <div class="mb-1 flex items-center justify-between sm:hidden">
@@ -161,7 +161,7 @@ const t = {
         </div>
       </section>
 
-      <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section class="collection-panel entity-grid">
         {monsters.map((monster) => (
           <a
             href={withLang(`${base}/monster/${monster.id}`, lang)}
@@ -232,6 +232,8 @@ const t = {
 </Layout>
 
 <script>
+  import { setupListFilterState } from "../../lib/listFilterState";
+
   const byId = (id: string): HTMLElement | null => document.getElementById(id);
   const filterToggleEl = byId("monster-filter-toggle") as HTMLButtonElement | null;
   const filterBodyEl = byId("monster-filter-body") as HTMLElement | null;
@@ -383,4 +385,6 @@ const t = {
   spriteTargets.forEach((el) => {
     initSprite(el);
   });
+
+  setupListFilterState({ searchEl, resetEl });
 </script>

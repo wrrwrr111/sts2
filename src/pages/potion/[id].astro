@@ -93,29 +93,29 @@ const t = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={displayName} />
   </Fragment>
-  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
-      <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
+  <main class="page-shell" data-base-path={base}>
+    <div class="page-stack">
+      <div class="page-heading-row">
         <div>
           <a
-            class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3] hover:text-[#f7f1df]"
+            class="page-back-link"
             href={withLang(`${base}/potions`, lang)}
           >
             {t.back}
           </a>
-          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">
+          <h1 class="page-title">
             {displayName}
           </h1>
-          <p class="mt-1 text-[#c4c7d6]">
+          <p class="page-subtitle">
             {rarityLabel}
           </p>
         </div>
         <TopNav current="potions" basePath={base} lang={lang} />
       </div>
-      <div class="w-full max-w-[720px] flex flex-col gap-4">
-        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
-        <div class="flex items-center gap-4">
-          <div class="h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3">
+      <div class="detail-stack max-w-[720px]">
+        <section class="surface-panel">
+        <div class="detail-hero text-center sm:text-left">
+          <div class="detail-hero-media h-[90px] w-[90px] rounded-[14px] border border-white/10 bg-black/30 p-3">
             <img
               class="h-full w-full object-contain"
               src={`${base}${potionImagePath}`}
@@ -127,13 +127,13 @@ const t = {
             <div class="text-[20px] font-semibold text-[#fdf0d8]">
               {displayName}
             </div>
-            <div class="mt-2 text-[11px] uppercase tracking-[0.2em] text-[#9ea2b3]">
+            <div class="section-eyebrow mt-2">
               {rarityLabel.toUpperCase()}
             </div>
           </div>
         </div>
         </section>
-        <section class="rounded-[18px] border border-white/10 bg-white/5 p-4">
+        <section class="surface-panel">
         <div
           class="text-[13px] leading-[1.4] text-[#f2e5cd]"
           set:html={formatRelicText(pickText(lang, potion.description_zh, potion.description), base)}

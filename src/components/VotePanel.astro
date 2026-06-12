@@ -19,7 +19,6 @@ const apiBase = (import.meta.env.PUBLIC_VOTE_API_BASE ?? "/api").replace(/\/$/, 
 const labels = {
   likeAction: isEn ? "Like" : "点赞",
   dislikeAction: isEn ? "Dislike" : "点踩",
-  submitFail: isEn ? "Request failed. Try again." : "请求失败，请稍后重试",
   rateLimited: isEn
     ? "Too fast. Try again in {seconds}s."
     : "操作太快，请 {seconds} 秒后再试",
@@ -36,6 +35,7 @@ const labels = {
   data-entity-type={entityType}
   data-entity-id={entityId}
   data-labels={JSON.stringify(labels)}
+  hidden
 >
   <button
     type="button"
@@ -130,6 +130,11 @@ const labels = {
     let throttleTimer = null;
     let lastSubmitAt = 0;
 
+    const hidePanel = () => {
+      panel.hidden = true;
+      queuedAction = null;
+    };
+
     const setStatus = (text) => {
       statusEl.textContent = text || "";
     };
@@ -159,8 +164,9 @@ const labels = {
         likeCount = next.likeCount;
         dislikeCount = next.dislikeCount;
         setStatus("");
+        panel.hidden = false;
       } catch {
-        setStatus(labels.submitFail || "");
+        hidePanel();
       } finally {
         isBusy = false;
         render();
@@ -196,7 +202,7 @@ const labels = {
         }
 
         if (!response.ok) {
-          setStatus(labels.submitFail || "");
+          hidePanel();
           return;
         }
 
@@ -205,7 +211,7 @@ const labels = {
         dislikeCount = next.dislikeCount;
         setStatus("");
       } catch {
-        setStatus(labels.submitFail || "");
+        hidePanel();
       } finally {
         isBusy = false;
         render();

@@ -11,10 +11,10 @@ const { basePath, imageUrl, name, colorLabel, unlockText } =
   Astro.props as Props;
 ---
 
-<div class="rounded-[18px] border border-white/10 bg-white/5 p-4 h-fit">
+<div class="surface-panel h-fit">
   <div class="rounded-[14px] border border-white/10 bg-black/30 p-3">
     <img
-      class="h-[220px] w-full object-contain"
+      class="h-[180px] w-full object-contain sm:h-[220px]"
       src={`${basePath}${imageUrl}`}
       alt={name}
       loading="lazy"

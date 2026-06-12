@@ -25,7 +25,9 @@ type Character = {
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const lang = getLangFromUrl(Astro.url);
 const isEn = lang === "en";
-const characters = charactersData as Character[];
+const characters = (charactersData as Character[]).filter(
+  (character) => character.id !== "DEPRECATED_CHARACTER",
+);
 
 const getName = (character: Character) =>
   pickText(lang, character.name_zh, character.name, character.id);
@@ -77,20 +79,20 @@ const t = {
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
   </Fragment>
-  <main class="px-3 pb-8 pt-10 sm:px-[6vw] sm:pb-10 sm:pt-12" data-base-path={base}>
-    <div class="mx-auto flex max-w-[1100px] flex-col gap-4 sm:gap-6">
-      <div class="flex flex-wrap items-end justify-between gap-3 sm:gap-6">
-        <div>
-          <div class="text-[12px] uppercase tracking-[0.3em] text-[#9ea2b3]">
+  <main class="page-shell" data-base-path={base}>
+    <div class="page-stack">
+      <div class="page-heading-row">
+        <div class="page-heading-copy">
+          <div class="page-eyebrow">
             {t.navLabel}
           </div>
-          <h1 class="mt-2 text-[26px] font-semibold text-[#fdf0d8]">{t.title}</h1>
-          <p class="mt-1 text-[#c4c7d6]">{t.count}</p>
+          <h1 class="page-title">{t.title}</h1>
+          <p class="page-subtitle">{t.count}</p>
         </div>
         <TopNav current="characters" basePath={base} lang={lang} />
       </div>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="collection-panel entity-grid">
         {characters.map((character) => (
           <a
             href={withLang(`${base}/character/${character.id}`, lang)}
