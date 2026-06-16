@@ -99,7 +99,7 @@ wrangler tail --config workers/votes/wrangler.toml
 
 - `your-domain.com/api/*`
 
-这样前端默认 `PUBLIC_VOTE_API_BASE=/api` 就能直接工作。
+如果 Worker 部署在独立域名，前端默认会请求 `https://api-sts2.urarawin.com/votes`。
 
 ## 本地开发代理
 
@@ -108,19 +108,19 @@ wrangler tail --config workers/votes/wrangler.toml
 在根目录 `.env` 或 `.env.local` 配置：
 
 ```bash
-VOTE_API_PROXY_TARGET=https://sts2.urarawin.com
+VOTE_API_PROXY_TARGET=https://api-sts2.urarawin.com
 ```
 
 然后启动开发环境后，请求 `http://localhost:4321/api/votes` 会自动转发到上述目标。
 
 ## 前端环境变量
 
-默认不配也可用（走 `/api`）。
+默认不配也可用（走 `https://api-sts2.urarawin.com`）。
 
-如果你把 Worker 部署在独立域名，比如 `https://vote.example.com`，再加：
+如果你要临时覆盖 Worker 域名，比如 `https://vote.example.com`，再加：
 
 ```bash
-PUBLIC_VOTE_API_BASE=https://vote.example.com/api
+PUBLIC_VOTE_API_BASE=https://vote.example.com
 ```
 
 并在 Worker 的 `CORS_ORIGIN` 里允许你站点域名。

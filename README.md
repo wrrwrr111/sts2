@@ -110,13 +110,13 @@ python3 tools/update_from_extraction.py --force
 - 部署说明：[docs/votes-worker.md](docs/votes-worker.md)
 - 前端按钮组件：`src/components/VotePanel.astro`（在详情页标题同一行展示）
 
-前端默认请求 `/api/votes`；如果你把 Worker 挂到同域 `/api/*`，无需额外配置。
+前端默认请求 `https://api-sts2.urarawin.com/votes`；如需临时覆盖，可配置 `PUBLIC_VOTE_API_BASE`。
 
 补充说明：
 
 - 前端点击节流：连续点击会合并请求（防抖 240ms + 最小发送间隔 800ms），减少重复请求。
 - 服务端限流：同一人对同一对象同一动作在 `THROTTLE_SECONDS` 窗口内会返回 429（默认 8 秒）。
-- 本地开发代理：可在 `.env` 配置 `VOTE_API_PROXY_TARGET=https://your-domain`，让 `http://localhost:4321/api/*` 转发到目标地址。
+- 本地开发代理：可在 `.env` 配置 `VOTE_API_PROXY_TARGET=https://api-sts2.urarawin.com`，让 `http://localhost:4321/api/*` 转发到目标地址。
 
 ## 升级展望
 

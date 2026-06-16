@@ -14,7 +14,8 @@ const {
 } = Astro.props as Props;
 
 const isEn = lang === "en";
-const apiBase = (import.meta.env.PUBLIC_VOTE_API_BASE ?? "/api").replace(/\/$/, "");
+const defaultApiBase = "https://api-sts2.urarawin.com";
+const apiBase = (import.meta.env.PUBLIC_VOTE_API_BASE ?? defaultApiBase).replace(/\/$/, "");
 
 const labels = {
   likeAction: isEn ? "Like" : "点赞",
@@ -94,7 +95,7 @@ const labels = {
     };
   };
 
-  const normalizeBase = (base) => String(base || "/api").replace(/\/$/, "");
+  const normalizeBase = (base) => String(base || "https://api-sts2.urarawin.com").replace(/\/$/, "");
 
   const buildGetUrl = (base, entityType, entityId) => {
     const q = new URLSearchParams({ entityType, entityId });
@@ -108,7 +109,7 @@ const labels = {
   const panels = document.querySelectorAll("[data-vote-panel]");
 
   for (const panel of panels) {
-    const apiBase = panel.getAttribute("data-api-base") || "/api";
+    const apiBase = panel.getAttribute("data-api-base") || "https://api-sts2.urarawin.com";
     const entityType = panel.getAttribute("data-entity-type") || "";
     const entityId = panel.getAttribute("data-entity-id") || "";
     const labels = parseLabels(panel.getAttribute("data-labels"));
