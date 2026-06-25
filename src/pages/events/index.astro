@@ -5,6 +5,7 @@ import cardsData from "../../../data/cards.json";
 import relicsData from "../../../data/relics.json";
 import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
+import DetailModal from "../../components/DetailModal.astro";
 import TopNav from "../../components/TopNav.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 import { createMentionResolver } from "../../lib/entityMention";
@@ -214,6 +215,7 @@ const t = {
           <a
             href={withLang(`${base}/event/${event.id}`, lang)}
             class="event-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+            data-detail-link
             data-event="1"
             data-act-raw={event.act ?? ""}
             data-type-raw={event.type ?? ""}
@@ -247,6 +249,7 @@ const t = {
       </section>
     </div>
   </main>
+  <DetailModal lang={lang} detailTypes={["card", "character", "potion", "relic", "event", "monster"]} />
 </Layout>
 
 <script>

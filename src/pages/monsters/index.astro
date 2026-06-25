@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import DetailModal from "../../components/DetailModal.astro";
 import TopNav from "../../components/TopNav.astro";
 import monstersData from "../../../data/monsters.json";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
@@ -166,6 +167,7 @@ const t = {
           <a
             href={withLang(`${base}/monster/${monster.id}`, lang)}
             class="monster-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+            data-detail-link
             data-monster="1"
             data-type-raw={monster.type ?? ""}
             data-search={[
@@ -229,6 +231,7 @@ const t = {
       </section>
     </div>
   </main>
+  <DetailModal lang={lang} detailTypes={["card", "character", "potion", "relic", "event", "monster"]} />
 </Layout>
 
 <script>

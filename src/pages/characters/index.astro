@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import charactersData from "../../../data/characters.json";
+import DetailModal from "../../components/DetailModal.astro";
 import TopNav from "../../components/TopNav.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
@@ -97,6 +98,7 @@ const t = {
           <a
             href={withLang(`${base}/character/${character.id}`, lang)}
             class="group relative overflow-hidden rounded-[16px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+            data-detail-link
           >
             <div class="flex items-center gap-3">
               <div class="h-[68px] w-[68px] rounded-[12px] border border-white/10 bg-black/30 p-2">
@@ -127,4 +129,5 @@ const t = {
       </div>
     </div>
   </main>
+  <DetailModal lang={lang} detailTypes={["card", "character", "potion", "relic", "event", "monster"]} />
 </Layout>

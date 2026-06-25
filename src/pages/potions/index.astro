@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import potionsData from "../../../data/potions.json";
 import { formatRelicText } from "../../lib/relicText";
+import DetailModal from "../../components/DetailModal.astro";
 import TopNav from "../../components/TopNav.astro";
 import { getLangFromUrl, pickText, withLang } from "../../lib/i18n";
 
@@ -165,6 +166,7 @@ const t = {
           <a
             href={withLang(`${base}/potion/${potion.id}`, lang)}
             class="potion-tile group relative overflow-hidden rounded-[14px] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/10"
+            data-detail-link
             data-potion="1"
             data-rarity-raw={potion.rarity ?? ""}
             data-search={[
@@ -202,6 +204,7 @@ const t = {
       </div>
     </div>
   </main>
+  <DetailModal lang={lang} detailTypes={["card", "character", "potion", "relic", "event", "monster"]} />
 </Layout>
 
 <script>

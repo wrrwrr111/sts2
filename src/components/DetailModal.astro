@@ -1,0 +1,284 @@
+---
+type Props = {
+  lang?: "zh" | "en";
+  detailTypes?: string[];
+};
+
+const { lang = "zh", detailTypes = [] } = Astro.props as Props;
+const isEn = lang === "en";
+const types = detailTypes.join(",");
+
+const t = {
+  close: isEn ? "Close" : "关闭",
+  loading: isEn ? "Loading detail..." : "正在加载详情...",
+  failed: isEn
+    ? "Unable to load detail. Opening the page..."
+    : "无法加载详情，正在打开详情页...",
+};
+---
+
+<dialog
+  id="entity-detail-modal"
+  class="m-0 h-dvh max-h-none w-dvw max-w-none overflow-hidden bg-transparent p-0 text-inherit"
+  data-detail-types={types}
+  data-loading-label={t.loading}
+  data-error-label={t.failed}
+>
+  <section
+    class="fixed inset-0 flex items-center justify-center p-2 sm:p-4"
+    data-detail-modal-backdrop
+  >
+    <div class="flex max-h-[94dvh] w-full max-w-[1100px] flex-col overflow-hidden rounded-[18px] border border-white/15 bg-[#11131d]/95 shadow-[0_24px_80px_rgba(0,0,0,0.58)] backdrop-blur-md">
+      <div class="flex shrink-0 items-center justify-end border-b border-white/10 bg-black/20 px-3 py-2">
+        <button
+          type="button"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-white/15 bg-white/10 text-[16px] leading-none text-[#f7f1df] transition hover:bg-white/20"
+          aria-label={t.close}
+          data-detail-modal-close
+        >
+          X
+        </button>
+      </div>
+      <div
+        class="min-h-0 flex-1 overflow-y-auto"
+        data-detail-modal-body
+      ></div>
+    </div>
+  </section>
+</dialog>
+
+<style is:global>
+  #entity-detail-modal::backdrop {
+    background: rgba(4, 6, 12, 0.72);
+  }
+
+  body.entity-detail-modal-open {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  const modal = document.getElementById("entity-detail-modal") as
+    | HTMLDialogElement
+    | null;
+  const modalBody = modal?.querySelector<HTMLElement>(
+    "[data-detail-modal-body]",
+  );
+
+  const escapeRegex = (value: string) =>
+    value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  const setupDetailModal = () => {
+    if (!modal || !modalBody) return;
+
+    const detailTypes = (modal.dataset.detailTypes ?? "")
+      .split(",")
+      .map((type) => type.trim())
+      .filter(Boolean);
+    if (detailTypes.length === 0) return;
+
+    const basePath =
+      document
+        .querySelector("[data-base-path]")
+        ?.getAttribute("data-base-path")
+        ?.replace(/\/$/, "") ?? "";
+    const detailPattern = new RegExp(
+      `^/(?:en/)?(?:${detailTypes.map(escapeRegex).join("|")})/[^/]+$`,
+    );
+
+    let modalDepth = 0;
+    let activeUrl: string | null = null;
+    let requestId = 0;
+    const parser = new DOMParser();
+    const cache = new Map<string, string>();
+    const listUrl = new URL(window.location.href);
+    const loadingLabel = modal.dataset.loadingLabel ?? "正在加载详情...";
+    const errorLabel =
+      modal.dataset.errorLabel ?? "无法加载详情，正在打开详情页...";
+
+    const isPlainLeftClick = (event: MouseEvent) =>
+      event.button === 0 &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey &&
+      !event.altKey;
+
+    const pathWithoutBase = (url: URL) => {
+      const path = url.pathname.replace(/\/$/, "");
+      if (basePath && path.startsWith(basePath)) {
+        return path.slice(basePath.length) || "/";
+      }
+      return path || "/";
+    };
+
+    const isDetailUrl = (url: URL) => detailPattern.test(pathWithoutBase(url));
+
+    const setModalOpenClass = (open: boolean) => {
+      document.body.classList.toggle("entity-detail-modal-open", open);
+    };
+
+    const showMessage = (message: string) => {
+      modalBody.innerHTML = "";
+      const el = document.createElement("div");
+      el.className =
+        "flex min-h-[260px] items-center justify-center text-center text-[14px] text-[#c4c7d6]";
+      el.textContent = message;
+      modalBody.appendChild(el);
+    };
+
+    const ensureOpen = () => {
+      if (!modal.open) modal.showModal();
+      setModalOpenClass(true);
+    };
+
+    const closeModal = () => {
+      activeUrl = null;
+      requestId += 1;
+      if (modal.open) modal.close();
+      setModalOpenClass(false);
+      modalBody.innerHTML = "";
+    };
+
+    const loadDetailHtml = async (url: string) => {
+      const cached = cache.get(url);
+      if (cached) return cached;
+
+      const response = await fetch(url, {
+        headers: { Accept: "text/html" },
+      });
+      if (!response.ok) throw new Error("detail request failed");
+      const html = await response.text();
+      cache.set(url, html);
+      return html;
+    };
+
+    const renderDetail = (html: string) => {
+      const doc = parser.parseFromString(html, "text/html");
+      const shell = doc.querySelector("main.page-shell");
+      if (!shell) throw new Error("detail content missing");
+
+      const content = shell.cloneNode(true) as HTMLElement;
+      content.querySelectorAll("script").forEach((script) => script.remove());
+      content.querySelector(".page-heading-row nav")?.remove();
+
+      const backLink = content.querySelector<HTMLAnchorElement>(".page-back-link");
+      if (backLink) {
+        backLink.href = listUrl.toString();
+        backLink.setAttribute("data-detail-modal-close", "1");
+      }
+
+      modalBody.replaceChildren(content);
+      modalBody.scrollTop = 0;
+    };
+
+    const openDetail = async (href: string, pushHistory: boolean) => {
+      const url = new URL(href, window.location.href);
+      if (!isDetailUrl(url)) {
+        window.location.href = url.toString();
+        return;
+      }
+
+      const nextUrl = url.toString();
+      const currentRequestId = requestId + 1;
+      requestId = currentRequestId;
+      activeUrl = nextUrl;
+      ensureOpen();
+      showMessage(loadingLabel);
+
+      if (pushHistory && window.location.href !== nextUrl) {
+        modalDepth = Math.max(0, modalDepth) + 1;
+        history.pushState(
+          { ...(history.state ?? {}), entityModalDepth: modalDepth },
+          "",
+          nextUrl,
+        );
+      }
+
+      try {
+        const html = await loadDetailHtml(nextUrl);
+        if (requestId !== currentRequestId || activeUrl !== nextUrl) return;
+        renderDetail(html);
+      } catch {
+        showMessage(errorLabel);
+        window.location.href = nextUrl;
+      }
+    };
+
+    const closeFromUserAction = () => {
+      if (modalDepth > 0) {
+        history.go(-modalDepth);
+        return;
+      }
+      closeModal();
+    };
+
+    document.querySelectorAll<HTMLAnchorElement>("[data-detail-link]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (!isPlainLeftClick(event)) return;
+        event.preventDefault();
+        void openDetail(link.href, true);
+      });
+    });
+
+    modalBody.addEventListener("click", (event) => {
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (!link || !isPlainLeftClick(event as MouseEvent)) return;
+
+      if (link.hasAttribute("data-detail-modal-close")) {
+        event.preventDefault();
+        closeFromUserAction();
+        return;
+      }
+
+      const url = new URL(link.href, window.location.href);
+      if (!isDetailUrl(url)) return;
+
+      event.preventDefault();
+      void openDetail(url.toString(), true);
+    });
+
+    modal.addEventListener("click", (event) => {
+      const target = event.target;
+      if (
+        target === modal ||
+        (target instanceof HTMLElement &&
+          target.hasAttribute("data-detail-modal-backdrop"))
+      ) {
+        closeFromUserAction();
+      }
+    });
+
+    modal.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeFromUserAction();
+    });
+
+    modal
+      .querySelectorAll<HTMLElement>("[data-detail-modal-close]")
+      .forEach((button) => {
+        button.addEventListener("click", closeFromUserAction);
+      });
+
+    window.addEventListener("popstate", (event) => {
+      const url = new URL(window.location.href);
+      const nextDepth =
+        typeof event.state?.entityModalDepth === "number"
+          ? event.state.entityModalDepth
+          : 0;
+
+      if (nextDepth > 0 && isDetailUrl(url)) {
+        modalDepth = nextDepth;
+        void openDetail(url.toString(), false);
+        return;
+      }
+
+      modalDepth = 0;
+      closeModal();
+    });
+  };
+
+  setupDetailModal();
+</script>

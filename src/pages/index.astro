@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CardView from "../components/CardView.astro";
+import DetailModal from "../components/DetailModal.astro";
 import TopNav from "../components/TopNav.astro";
 import cardsData from "../../data/cards.json";
 import charactersData from "../../data/characters.json";
@@ -269,7 +270,11 @@ const rarityOptions = [
         {
           cards.map((card) => {
             return (
-              <a class="block card-tile" href={withLang(`${base}/card/${card.id}`, lang)}>
+              <a
+                class="block card-tile"
+                href={withLang(`${base}/card/${card.id}`, lang)}
+                data-detail-link
+              >
                 <CardView card={card} lang={lang} />
               </a>
             );
@@ -278,6 +283,7 @@ const rarityOptions = [
       </section>
     </div>
   </main>
+  <DetailModal lang={lang} detailTypes={["card", "character", "potion", "relic", "event", "monster"]} />
 </Layout>
 
 <script>
