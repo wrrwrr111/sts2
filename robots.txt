@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sts2.urarawin.com/sitemap.txt
